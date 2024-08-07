@@ -1,0 +1,105 @@
+[gd_scene load_steps=8 format=3 uid="uid://c1y8dfahi1fuc"]
+
+[ext_resource type="Script" path="res://scripts/fishing/distractions/distraction_fish.gd" id="1_3h2c7"]
+[ext_resource type="ArrayMesh" uid="uid://bx427aoewo2r0" path="res://resources/raude_mesh.tres" id="2_e4a42"]
+[ext_resource type="Material" uid="uid://dplpxikf4jsfd" path="res://resources/water_splash.tres" id="3_p5mhv"]
+
+[sub_resource type="Animation" id="Animation_x8m85"]
+resource_name = "jump"
+length = 3.0
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.497125, 0, 0, 0.867679, 0.5, 1, -0.666103, 0, 0, 0.74586, 1, 1, 0.921511, 0, 0, -0.388352, 1.6, 1, 0.972021, 0, 0, 0.234896, 3, 1, 0.889049, 0, 0, 0.457812)
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 1, 1.6, 3)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeshInstance3D:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(-0.371478, -0.25, 0, 0.25, 0, 0.268555, -0.5, -0.000662565, 0.4, -0.00308332, 0.0704398, -0.0345477, 0.012583, 0.0760492, -0.0681519, -0.241334, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1, 1.6, 3)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MeshInstance3D:position:z")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(-0.00581367, -0.25, 0, 0.4, 0.000161665, 0.341976, -0.2, 0.000269622, 0.4, 0.0154377, 0.233949, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1.6, 3)
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GPUParticles3D:emitting")
+tracks/4/interp = 0
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.4, 0.5, 1.7, 1.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false]
+}
+tracks/5/type = "position_3d"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("GPUParticles3D")
+tracks/5/interp = 0
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0.4, 1, 0, 0, 0.0625922, 1.7, 1, 0, 0, 0.316957)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rf76k"]
+_data = {
+"jump": SubResource("Animation_x8m85")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ncgt"]
+shading_mode = 2
+vertex_color_use_as_albedo = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_fu2pp"]
+material = SubResource("StandardMaterial3D_0ncgt")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="DistractionFish" type="Node3D"]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
+script = ExtResource("1_3h2c7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.580817, -0.814035, 0, 0.814035, -0.580817, 0, -0.241334, 0.233949)
+mesh = ExtResource("2_e4a42")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_rf76k")
+}
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.316957)
+emitting = false
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = ExtResource("3_p5mhv")
+draw_pass_1 = SubResource("BoxMesh_fu2pp")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]

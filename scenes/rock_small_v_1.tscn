@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bch51o1gs3sqe"]
+
+[ext_resource type="PackedScene" uid="uid://cafexsdximroi" path="res://models/nature/rocks/small/Rock_small_v1.glb" id="1_exfy5"]
+
+[node name="Rock_small_v1" instance=ExtResource("1_exfy5")]
+
+[node name="Rock_004" parent="." index="0"]
+transform = Transform3D(0.111889, -0.0635435, -0.344706, 0.0254034, 0.279877, -0.0782624, 0.309411, 8.55327e-09, 0.131078, -0.118714, 0.231399, 0.0439228)

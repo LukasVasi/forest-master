@@ -1,0 +1,105 @@
+[gd_scene load_steps=8 format=3 uid="uid://bbla6hg7d0ct1"]
+
+[ext_resource type="Script" path="res://scripts/fishing/distractions/distraction_fish.gd" id="1_84ged"]
+[ext_resource type="ArrayMesh" uid="uid://capp52vwmdenr" path="res://resources/lynas_mesh.tres" id="2_c5rn2"]
+[ext_resource type="Material" uid="uid://dplpxikf4jsfd" path="res://resources/water_splash.tres" id="3_ffuql"]
+
+[sub_resource type="Animation" id="Animation_x8m85"]
+resource_name = "jump"
+length = 3.0
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.167037, -0.138941, -0.0237833, 0.975822, 0.0001, 1, -0.707107, 0, 0, 0.707107, 0.0002, 1, -0.340694, -0.154325, -0.0567988, 0.925681, 1.1, 1, -0.0967577, -0.389975, 0.510812, 0.760019, 1.7, 1, 0.208697, -0.525525, 0.497072, 0.658171, 3, 1, 0.137068, -0.548583, 0.405276, 0.718346)
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0.0805489, -0.25, 0, 0.25, 0, -0.193051, -0.4, -3.32594e-05, 0.25, 0),
+"times": PackedFloat32Array(0, 3)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeshInstance3D:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(-0.143988, -0.25, 0, 0.25, 0, 0.150706, -0.6, -0.00118141, 0.3, 0.000590697, 0.0361093, -0.1, 0.0183118, 0.0347524, -0.00782841, -0.263293, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1.1, 1.7, 3)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MeshInstance3D:position:z")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(-0.152005, -0.25, 0, 0.6, -0.000320405, 0.232223, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 3)
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GPUParticles3D:emitting")
+tracks/4/interp = 0
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.3, 0.4, 1.8, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false]
+}
+tracks/5/type = "position_3d"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("GPUParticles3D")
+tracks/5/interp = 0
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0.3, 1, 0.0233014, 0, -0.0798904, 1.8, 1, -0.138144, 0, 0.0932054)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rf76k"]
+_data = {
+"jump": SubResource("Animation_x8m85")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ncgt"]
+shading_mode = 2
+vertex_color_use_as_albedo = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_fu2pp"]
+material = SubResource("StandardMaterial3D_0ncgt")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="DistractionLynas" type="Node3D"]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
+script = ExtResource("1_84ged")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.0696166, -0.732642, -0.677044, 0.43187, 0.633927, -0.64158, 0.899245, -0.24773, 0.360539, -0.193051, -0.263293, 0.232223)
+mesh = ExtResource("2_c5rn2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_rf76k")
+}
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.138144, 0, 0.0932054)
+emitting = false
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = ExtResource("3_ffuql")
+draw_pass_1 = SubResource("BoxMesh_fu2pp")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]

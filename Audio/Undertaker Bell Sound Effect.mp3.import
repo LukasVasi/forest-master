@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://f6ypqqs2v4h7"
+path="res://.godot/imported/Undertaker Bell Sound Effect.mp3-c9776ae28e3c46415c70ec5cdfd275e7.mp3str"
+
+[deps]
+
+source_file="res://Audio/Undertaker Bell Sound Effect.mp3"
+dest_files=["res://.godot/imported/Undertaker Bell Sound Effect.mp3-c9776ae28e3c46415c70ec5cdfd275e7.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

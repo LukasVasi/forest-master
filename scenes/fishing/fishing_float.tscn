@@ -1,0 +1,69 @@
+[gd_scene load_steps=11 format=3 uid="uid://dil16xqh8spna"]
+
+[ext_resource type="Script" path="res://scripts/fishing/fishing_float.gd" id="1_5cgpm"]
+[ext_resource type="ArrayMesh" uid="uid://b17jcaxfad25m" path="res://models/fishing/fishing_float_mesh.tres" id="2_e3h5b"]
+[ext_resource type="ArrayMesh" uid="uid://b846id8yywj5c" path="res://resources/star_mesh.tres" id="3_q7fu4"]
+[ext_resource type="Material" uid="uid://cbrnqu12cdpor" path="res://resources/water_particles.tres" id="4_unhn5"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gobmt"]
+margin = 0.02
+radius = 0.1
+
+[sub_resource type="Gradient" id="Gradient_yt024"]
+colors = PackedColorArray(0.863403, 0.650399, 0, 1, 0.861761, 0.410186, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_w17s7"]
+gradient = SubResource("Gradient_yt024")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0m2d4"]
+lifetime_randomness = 0.2
+direction = Vector3(0, 1, 0)
+spread = 30.0
+initial_velocity_min = 6.0
+initial_velocity_max = 8.0
+scale_min = 0.6
+scale_max = 0.8
+color_initial_ramp = SubResource("GradientTexture1D_w17s7")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kucj1"]
+shading_mode = 2
+vertex_color_use_as_albedo = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_1wvy6"]
+material = SubResource("StandardMaterial3D_kucj1")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="FishingFloat" type="RigidBody3D" groups=["FishingFloat"]]
+collision_layer = 2
+collision_mask = 519
+mass = 0.05
+max_contacts_reported = 3
+contact_monitor = true
+script = ExtResource("1_5cgpm")
+
+[node name="FloatMesh" type="MeshInstance3D" parent="." groups=["FishingFloat"]]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = ExtResource("2_e3h5b")
+skeleton = NodePath("../..")
+
+[node name="FloatCollisionShape" type="CollisionShape3D" parent="." groups=["FishingFloat"]]
+shape = SubResource("SphereShape3D_gobmt")
+
+[node name="SuccessParticles" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 6
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_0m2d4")
+draw_pass_1 = ExtResource("3_q7fu4")
+
+[node name="SplashParticles" type="GPUParticles3D" parent="."]
+emitting = false
+lifetime = 0.8
+one_shot = true
+explosiveness = 1.0
+process_material = ExtResource("4_unhn5")
+draw_pass_1 = SubResource("BoxMesh_1wvy6")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

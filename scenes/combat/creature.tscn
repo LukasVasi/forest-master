@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://bsmyjjetapi4p"]
+
+[ext_resource type="Script" path="res://scripts/combat/creature.gd" id="1_xxa1m"]
+
+[sub_resource type="Curve3D" id="Curve3D_2omr6"]
+
+[sub_resource type="Gradient" id="Gradient_d1bre"]
+offsets = PackedFloat32Array(0.156627, 0.626506)
+colors = PackedColorArray(0.147672, 0.147672, 0.147672, 1, 0.609331, 0.60933, 0.60933, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_irvfp"]
+gradient = SubResource("Gradient_d1bre")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yea6j"]
+lifetime_randomness = 0.2
+emission_shape_offset = Vector3(0, -0.2, 0)
+emission_shape = 1
+emission_sphere_radius = 0.8
+direction = Vector3(0, 1, 0)
+spread = 20.0
+initial_velocity_min = 12.0
+initial_velocity_max = 14.0
+damping_min = 2.0
+damping_max = 3.0
+scale_max = 1.2
+color_ramp = SubResource("GradientTexture1D_irvfp")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wwyui"]
+shading_mode = 2
+vertex_color_use_as_albedo = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_q4b2b"]
+material = SubResource("StandardMaterial3D_wwyui")
+size = Vector3(0.6, 0.6, 0.6)
+
+[node name="Creature" type="Node3D"]
+script = ExtResource("1_xxa1m")
+
+[node name="MovementPath" type="Path3D" parent="."]
+curve = SubResource("Curve3D_2omr6")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="MovementPath"]
+
+[node name="CreatureContainer" type="Node3D" parent="MovementPath/PathFollow3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="MovementPath/PathFollow3D/CreatureContainer"]
+emitting = false
+amount = 10
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.8
+process_material = SubResource("ParticleProcessMaterial_yea6j")
+draw_pass_1 = SubResource("BoxMesh_q4b2b")

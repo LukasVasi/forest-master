@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://0rctt4pnv5n2"]
+
+[node name="Tutorial" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.192157, 0.192157, 0.192157, 0.847059)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 28
+text = "Left controller:
+Trigger - use
+Grip - pick up and hold objects
+Hold A to enable the function pointer - you can use it to interact with menus and pick up items from a distance
+B - Jump
+Joystick - move around
+Menu button - pause the game
+
+Right controller:
+Trigger - use
+Grip - pick up and hold objects
+Hold A to enable the function pointer - you can use it to interact with menus and pick up items from a distance
+Joystick - turn"

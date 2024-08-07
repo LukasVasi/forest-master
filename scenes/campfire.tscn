@@ -1,0 +1,71 @@
+[gd_scene load_steps=9 format=3 uid="uid://b6r1wb2hstt7r"]
+
+[ext_resource type="PackedScene" uid="uid://ch0j14i0nb4dx" path="res://models/campfire/campfire.glb" id="1_jjwqh"]
+[ext_resource type="Script" path="res://scripts/campfireColision.gd" id="2_8n4jg"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_2mhjf"]
+points = PackedVector3Array(-2.31182, 0.0297946, -2.75587, 2.73947, 0.560095, -0.498406, 2.77241, 0.149882, -0.502994, -0.899132, 0.805065, 4.00492, -0.713198, 3.20081, -0.626763, -1.46524, -1.03556, 2.73057, -0.188266, -0.130326, -4.44188, -3.16416, 0.238486, 0.607529, 2.21506, 0.380238, 3.01435, 2.07383, -0.752489, -0.241154, 1.50772, 1.51211, -3.07276, -1.18219, -0.893811, -3.07276, -0.191198, 3.21098, 0.0408536, 0.374315, -0.752059, 3.58014, 1.68813, -0.24783, -3.31505, -1.63288, 0.830127, -3.51953, -2.03135, 0.946387, 3.01346, 0.374315, 1.37078, 3.86303, 2.35689, 1.37078, -0.241154, -3.16416, 0.0971638, -0.948833, 0.0845838, -0.00661198, 4.28587, 1.9427, -0.372115, 2.96078, -1.68463, -0.269542, 3.43622, -0.474252, 0.380238, -4.48812, -0.757307, 3.06923, 0.323748, -2.06865, -0.520647, -3.05522, 1.54486, -0.64005, -2.89786, -2.2856, 0.699491, -2.85562, -1.74829, -1.03556, 1.881, 2.31948, 0.697208, -2.34143, 1.08225, -0.893811, 0.323748, 2.23473, -0.38913, -2.25338)
+
+[sub_resource type="Curve" id="Curve_y7syp"]
+_data = [Vector2(0.00724638, 0), 0.0, 0.0, 0, 0, Vector2(0.26087, 0.868132), 0.0, 0.0, 0, 0, Vector2(1, 0.10989), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ukbj6"]
+curve = SubResource("Curve_y7syp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pnupm"]
+emission_shape = 1
+emission_sphere_radius = 0.2
+angle_max = 364.3
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 1.0
+linear_accel_max = 4.0
+scale_min = 0.0
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_ukbj6")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r8ewe"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.705882, 0.235294, 0.121569, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 6
+particles_anim_v_frames = 5
+particles_anim_loop = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_al4w5"]
+material = SubResource("StandardMaterial3D_r8ewe")
+
+[node name="Campfire" instance=ExtResource("1_jjwqh")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+script = ExtResource("2_8n4jg")
+
+[node name="StaticBody3D" type="RigidBody3D" parent="Campfire" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.137448, 0)
+max_contacts_reported = 2
+contact_monitor = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Campfire/StaticBody3D" index="0"]
+transform = Transform3D(-0.965925, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, 0, 0.881583, 0)
+shape = SubResource("ConvexPolygonShape3D_2mhjf")
+
+[node name="Fire" type="Node3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.94901, 0)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Fire" index="0"]
+transform = Transform3D(1.01, 0, 0, 0, 1.01, -0.000282015, 0, 0.000282015, 1.01, 0, -1.95175, -0.18314)
+amount = 200
+fixed_fps = 35
+draw_order = 3
+trail_lifetime = 0.8
+process_material = SubResource("ParticleProcessMaterial_pnupm")
+draw_pass_1 = SubResource("QuadMesh_al4w5")
+
+[connection signal="body_entered" from="Campfire/StaticBody3D" to="." method="_on_Campfire_body_entered"]

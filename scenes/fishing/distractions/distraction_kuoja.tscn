@@ -1,0 +1,97 @@
+[gd_scene load_steps=8 format=3 uid="uid://wus354uwp5a2"]
+
+[ext_resource type="Script" path="res://scripts/fishing/distractions/distraction_fish.gd" id="1_4ehwo"]
+[ext_resource type="ArrayMesh" uid="uid://d23v36qdkcsrw" path="res://resources/kuoja_mesh.tres" id="2_i317u"]
+[ext_resource type="Material" uid="uid://dplpxikf4jsfd" path="res://resources/water_splash.tres" id="3_sh3lq"]
+
+[sub_resource type="Animation" id="Animation_x8m85"]
+resource_name = "jump"
+length = 3.0
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.707, 0, 0, 0.707, 1.5, 1, 0.707107, 0, 0, 0.707107, 2.4, 1, -1, 0, 0, 0)
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(),
+"points": PackedFloat32Array(),
+"times": PackedFloat32Array()
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeshInstance3D:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 3, 0),
+"points": PackedFloat32Array(-0.2, -0.25, 0, 0.5, 0.00253858, 0.5, -0.7, 0.00119781, 0.7, -0.00119781, -0.2, -0.7, 0.00381142, 0.25, 0),
+"times": PackedFloat32Array(0, 1.5, 3)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MeshInstance3D:position:z")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(),
+"points": PackedFloat32Array(),
+"times": PackedFloat32Array()
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GPUParticles3D:emitting")
+tracks/4/interp = 0
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.3, 0.4, 2.5, 2.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rf76k"]
+_data = {
+"jump": SubResource("Animation_x8m85")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ncgt"]
+shading_mode = 2
+vertex_color_use_as_albedo = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_fu2pp"]
+material = SubResource("StandardMaterial3D_0ncgt")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="DistractionFish" type="Node3D"]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
+script = ExtResource("1_4ehwo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.2, 0)
+mesh = ExtResource("2_i317u")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_rf76k")
+}
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = ExtResource("3_sh3lq")
+draw_pass_1 = SubResource("BoxMesh_fu2pp")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]

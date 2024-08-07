@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://b2wwpdu2ao0np"]
+
+[ext_resource type="ArrayMesh" path="res://resources/bush2.mesh" id="1_efbqk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cxali"]
+albedo_color = Color(0.623529, 0.588235, 0.266667, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r10e6"]
+albedo_color = Color(0.431373, 0.352941, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wla8e"]
+albedo_color = Color(0.627451, 0.572549, 0.156863, 1)
+
+[node name="Bushes" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.90683, -0.410484, 0.97826, -0.092574, 1.71474, 0.845339, -1.26708, -0.743019, 1.41043, 13.4775, 1.1436, 32.8454)
+mesh = ExtResource("1_efbqk")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.27105, -2.23713, 0.295756, 1.46165, 3.36843, 0.545498, -0.443081, -0.354654, 3.31542, 45.3034, 2.53432, 17.817)
+mesh = ExtResource("1_efbqk")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.23362, 0.173641, 1.0264, 0.58381, 1.75521, 0.860735, -0.605369, 1.33886, -1.26152, 44.3615, 3.03681, 12.7079)
+mesh = ExtResource("1_efbqk")
+surface_material_override/0 = SubResource("StandardMaterial3D_cxali")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.2444, 0.115793, -2.41588, 0.907034, 1.74956, -0.255051, 2.34843, -0.614376, -1.18164, 31.2514, 1.55333, 34.6655)
+mesh = ExtResource("1_efbqk")
+surface_material_override/0 = SubResource("StandardMaterial3D_r10e6")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.92549, 0.102254, -1.96083, 0.0382718, 1.85407, 0.169636, 2.04387, 0.0616142, -1.85045, 34.132, 1.77192, 35.432)
+mesh = ExtResource("1_efbqk")
+surface_material_override/0 = SubResource("StandardMaterial3D_wla8e")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.76054, -0.225368, -0.372256, -0.421521, 1.78959, 0.602002, 0.296835, 0.445417, -2.60707, 43.6891, 1.90825, -1.55737)
+mesh = ExtResource("1_efbqk")
+surface_material_override/0 = SubResource("StandardMaterial3D_wla8e")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.24518, 0.474517, -1.06238, -0.674714, -1.67907, -0.19576, -0.984331, 0.0685946, 2.5574, 43.5918, 1.08598, 3.26657)
+mesh = ExtResource("1_efbqk")

@@ -1,0 +1,701 @@
+[gd_scene load_steps=2 format=3 uid="uid://cffevp0j4m6q7"]
+
+[ext_resource type="ArrayMesh" uid="uid://b6yqjvidi8vai" path="res://resources/fir_3_LOD0.mesh" id="1_jpw6s"]
+
+[node name="Trees" type="Node3D"]
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="instances" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@31664" type="MeshInstance3D" parent="Node3D/instances"]
+transform = Transform3D(0.75687, 0.0235473, 1.40425, -0.0695993, 1.59385, 0.0107865, -1.40272, -0.0663773, 0.757159, 72.0436, 0.805326, 41.4704)
+mesh = ExtResource("1_jpw6s")
+
+[node name="instances2" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@32286" type="MeshInstance3D" parent="Node3D/instances2"]
+transform = Transform3D(-0.255268, -0.0278393, -1.65095, -0.0304007, 1.67036, -0.023466, 1.65091, 0.0264544, -0.255707, 65.962, 3.13765, 43.3636)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@32287" type="MeshInstance3D" parent="Node3D/instances2"]
+transform = Transform3D(-0.906862, 0.0291868, 1.26401, -0.0455919, 1.55377, -0.0685873, -1.26352, -0.0770128, -0.904736, 64.1021, 4.6401, 46.8411)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@32288" type="MeshInstance3D" parent="Node3D/instances2"]
+transform = Transform3D(-0.941772, 0.164949, -1.18747, 0.101662, 1.51559, 0.1299, 1.19455, 0.00105973, -0.947242, 67.1619, 4.40237, 50.0868)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@32289" type="MeshInstance3D" parent="Node3D/instances2"]
+transform = Transform3D(1.04902, -0.0111197, 1.15743, 0.114939, 1.55533, -0.0892314, -1.15176, 0.145085, 1.04528, 67.5107, 3.94122, 54.5243)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@32290" type="MeshInstance3D" parent="Node3D/instances2"]
+transform = Transform3D(1.24125, -0.00848664, -0.952181, -0.0102482, 1.56416, -0.0273006, 0.952164, 0.0278985, 1.24098, 66.0598, 2.06817, 61.87)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@32291" type="MeshInstance3D" parent="Node3D/instances2"]
+transform = Transform3D(1.71727, 0.026625, -0.595346, -0.0551985, 1.81522, -0.0780393, 0.593379, 0.0918047, 1.7157, 64.7453, 4.10782, 56.6727)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="instances3" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@32923" type="MeshInstance3D" parent="Node3D/instances3"]
+transform = Transform3D(-1.11934, 0.177819, 1.27064, 0.115165, 1.69335, -0.135523, -1.27785, -0.00314964, -1.12524, 45.3232, 3.14884, 14.1306)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@32924" type="MeshInstance3D" parent="Node3D/instances3"]
+transform = Transform3D(0.201124, 0.0712776, -1.92484, 0.131532, 1.93028, 0.0852226, 1.92167, -0.139582, 0.195623, 42.8707, 1.23922, 22.4914)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="instances4" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@33546" type="MeshInstance3D" parent="Node3D/instances4"]
+transform = Transform3D(0.740289, 0.111948, -1.50636, -0.129967, 1.67604, 0.0606868, 1.50492, 0.0896769, 0.746242, 31.7905, 3.08828, 36.4373)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="instances5" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@34173" type="MeshInstance3D" parent="Node3D/instances5"]
+transform = Transform3D(-0.92447, 0.116537, -1.59935, -0.0143027, 1.84542, 0.142734, 1.60353, 0.0836463, -0.920789, 53.7829, 2.57586, 19.4358)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@34174" type="MeshInstance3D" parent="Node3D/instances5"]
+transform = Transform3D(-1.69759, 0.0847481, 0.536474, 0.0615039, 1.77919, -0.0864444, -0.539633, -0.063821, -1.6975, 54.8201, 2.994, 16.5415)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@34175" type="MeshInstance3D" parent="Node3D/instances5"]
+transform = Transform3D(-1.78796, -0.0589547, -0.222271, -0.053766, 1.80132, -0.0452804, 0.223583, -0.0382811, -1.78836, 59.9845, 2.13419, 23.0286)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@34176" type="MeshInstance3D" parent="Node3D/instances5"]
+transform = Transform3D(0.789702, -0.0355236, 1.51015, 0.0518307, 1.70369, 0.0129727, -1.50967, 0.0399097, 0.790394, 60.2724, 1.8722, 18.3466)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@34177" type="MeshInstance3D" parent="Node3D/instances5"]
+transform = Transform3D(-0.677203, -0.00192357, -1.59939, -0.118648, 1.73212, 0.0481539, 1.59498, 0.128033, -0.675492, 56.6946, 3.36846, 11.7542)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@34178" type="MeshInstance3D" parent="Node3D/instances5"]
+transform = Transform3D(-1.6666, 0.134264, 0.9911, 0.0818469, 1.93793, -0.124899, -0.996799, -0.06536, -1.66733, 52.9194, 1.45045, 26.227)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="instances6" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@34805" type="MeshInstance3D" parent="Node3D/instances6"]
+transform = Transform3D(1.69909, 0.122582, 0.52988, -0.120457, 1.77976, -0.0254756, -0.530367, -0.0115148, 1.70332, 61.5219, 2.70905, 41.7185)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@34806" type="MeshInstance3D" parent="Node3D/instances6"]
+transform = Transform3D(0.979265, 0.0416879, 1.71039, 0.0188946, 1.97036, -0.0588422, -1.71079, 0.0456237, 0.978384, 59.5819, 2.52707, 33.653)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@34807" type="MeshInstance3D" parent="Node3D/instances6"]
+transform = Transform3D(1.40478, 0.0294664, -0.637612, -0.0829556, 1.53671, -0.11175, 0.632879, 0.13602, 1.40064, 53.1068, 0.502345, 33.5218)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@34808" type="MeshInstance3D" parent="Node3D/instances6"]
+transform = Transform3D(1.74857, 0.110165, -0.0737502, -0.104638, 1.74585, 0.126973, 0.0814017, -0.122209, 1.74743, 49.4993, 1.20612, 27.1507)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@34809" type="MeshInstance3D" parent="Node3D/instances6"]
+transform = Transform3D(-0.999344, 0.164765, 1.37891, 0.114959, 1.70282, -0.120154, -1.38396, 0.0224692, -1.00568, 62.5598, 2.34236, 36.2108)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@34810" type="MeshInstance3D" parent="Node3D/instances6"]
+transform = Transform3D(-1.66559, 0.0395966, 1.04076, -0.00877606, 1.96239, -0.088706, -1.04147, -0.0798616, -1.66369, 62.1674, 1.98747, 30.58)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@34811" type="MeshInstance3D" parent="Node3D/instances6"]
+transform = Transform3D(1.93797, 0.115029, -0.327307, -0.137706, 1.95987, -0.126575, 0.318432, 0.147487, 1.93725, 61.6371, 2.73693, 28.1051)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@34812" type="MeshInstance3D" parent="Node3D/instances6"]
+transform = Transform3D(1.15461, 0.0201929, 1.23543, -0.125848, 1.68401, 0.0900907, -1.22917, -0.153448, 1.15127, 58.657, 1.71806, 27.6681)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="instances7" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@35794" type="MeshInstance3D" parent="Node3D/instances7"]
+transform = Transform3D(-0.46957, -0.00355611, 1.53271, -0.0887457, 1.6004, -0.0234755, -1.53014, -0.0917293, -0.468996, 29.1933, 3.01305, -22.0109)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@35795" type="MeshInstance3D" parent="Node3D/instances7"]
+transform = Transform3D(0.706442, -0.0525409, 1.76127, -0.145163, 1.88936, 0.114587, -1.75606, -0.177319, 0.699064, 25.9563, 3.08587, -22.6655)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="instances8" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@36417" type="MeshInstance3D" parent="Node3D/instances8"]
+transform = Transform3D(-0.61212, -0.0397822, 1.60405, 0.0585289, 1.71511, 0.064872, -1.60347, 0.0777906, -0.609971, 26.8885, 0.964149, 46.9283)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="instances9" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@37039" type="MeshInstance3D" parent="Node3D/instances9"]
+transform = Transform3D(-1.9327, 0.0142091, 0.469731, -0.00618532, 1.98716, -0.0855601, -0.469905, -0.0845984, -1.93086, 44.3983, 2.17266, 50.4779)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@37040" type="MeshInstance3D" parent="Node3D/instances9"]
+transform = Transform3D(-0.362032, 0.122249, -1.74399, -0.0932911, 1.7771, 0.143936, 1.74578, 0.120316, -0.35397, 40.8939, 1.84681, 44.4483)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@37041" type="MeshInstance3D" parent="Node3D/instances9"]
+transform = Transform3D(-0.41715, -0.141846, 1.57929, -0.060044, 1.63327, 0.130834, -1.58451, -0.0245482, -0.420734, 38.5035, 3.16813, 46.7968)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@37042" type="MeshInstance3D" parent="Node3D/instances9"]
+transform = Transform3D(-0.487072, 0.0207912, 1.5784, -0.0836142, 1.64917, -0.0475256, -1.57632, -0.0939028, -0.485193, 34.0141, 2.78038, 44.9508)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@37043" type="MeshInstance3D" parent="Node3D/instances9"]
+transform = Transform3D(0.191659, -0.11246, -1.68056, 0.0414314, 1.69121, -0.108448, 1.68381, -0.0288127, 0.193958, 42.2761, 2.89074, 49.752)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@37044" type="MeshInstance3D" parent="Node3D/instances9"]
+transform = Transform3D(1.33813, -0.156577, -0.962911, 0.0926739, 1.64753, -0.139116, 0.971146, 0.0585262, 1.34005, 33.084, 2.27185, 51.6399)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@37045" type="MeshInstance3D" parent="Node3D/instances9"]
+transform = Transform3D(-0.278111, -0.00279382, 1.56214, 0.0630742, 1.58538, 0.0140647, -1.56086, 0.0645629, -0.277769, 39.5134, 3.43453, 58.1814)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="instances10" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@37667" type="MeshInstance3D" parent="Node3D/instances10"]
+transform = Transform3D(0.88111, -0.121762, -1.78427, 0.114626, 1.98882, -0.079116, 1.78474, -0.0676204, 0.885958, 47.8976, 2.87334, 54.6377)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@37668" type="MeshInstance3D" parent="Node3D/instances10"]
+transform = Transform3D(-0.373298, -0.00140277, -1.93727, 0.155645, 1.96651, -0.0314157, 1.931, -0.158778, -0.371976, 55.6102, 2.95123, 52.9049)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@37669" type="MeshInstance3D" parent="Node3D/instances10"]
+transform = Transform3D(1.67336, -0.120946, 1.08072, 0.12614, 1.99149, 0.0275608, -1.08012, 0.0451992, 1.6775, 59.8275, 5.45536, 56.7031)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="instances11" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@38291" type="MeshInstance3D" parent="Node3D/instances11"]
+transform = Transform3D(1.58988, 0.0143412, 0.211268, -0.0185236, 1.60352, 0.0305483, -0.210943, -0.0327208, 1.58965, 60.7456, 4.86637, 59.6048)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@38292" type="MeshInstance3D" parent="Node3D/instances11"]
+transform = Transform3D(-1.51597, 0.0123894, 0.516161, -0.0315687, 1.5958, -0.131021, -0.515344, -0.1342, -1.51035, 54.0781, 4.9178, 59.2585)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="instances12" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@38914" type="MeshInstance3D" parent="Node3D/instances12"]
+transform = Transform3D(1.51251, 0.00787583, -0.187835, -0.00938235, 1.52407, -0.0116461, 0.187766, 0.0127134, 1.51248, 46.5345, 2.09736, -12.6577)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@38915" type="MeshInstance3D" parent="Node3D/instances12"]
+transform = Transform3D(0.968137, -0.131222, -1.33748, 0.100386, 1.65085, -0.089302, 1.34014, -0.028864, 0.9729, 40.5005, 1.81204, -15.0485)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@38916" type="MeshInstance3D" parent="Node3D/instances12"]
+transform = Transform3D(0.923017, 0.0262778, -1.58052, -0.0698246, 1.82913, -0.0103661, 1.5792, 0.0655165, 0.923333, 39.0457, 2.34959, -18.7812)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@38917" type="MeshInstance3D" parent="Node3D/instances12"]
+transform = Transform3D(0.764399, -0.0361025, -1.64765, 0.0383461, 1.81615, -0.0220046, 1.6476, -0.0255193, 0.764934, 32.5784, 2.80734, -18.2136)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@38918" type="MeshInstance3D" parent="Node3D/instances12"]
+transform = Transform3D(-1.41036, -0.0784966, 1.11072, -0.1234, 1.79244, -0.0300149, -1.10663, -0.0998342, -1.41222, 43.6169, 1.48415, -8.48607)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@38919" type="MeshInstance3D" parent="Node3D/instances12"]
+transform = Transform3D(1.81387, 0.0130434, 0.279893, 0.00767592, 1.83039, -0.135044, -0.280091, 0.134631, 1.80888, 44.351, 2.54893, -16.861)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@38920" type="MeshInstance3D" parent="Node3D/instances12"]
+transform = Transform3D(0.453529, -0.132047, 1.61673, 0.144306, 1.67536, 0.0963549, -1.61569, 0.11257, 0.462429, 33.7707, 0.748217, -13.7717)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@38921" type="MeshInstance3D" parent="Node3D/instances12"]
+transform = Transform3D(-1.26052, -0.188065, -1.13327, -0.141761, 1.69505, -0.123613, 1.13999, 0.0028363, -1.26846, 38.5358, 0.441774, -13.0898)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="instances13" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@39543" type="MeshInstance3D" parent="Node3D/instances13"]
+transform = Transform3D(-1.33037, 0.0395984, -1.13894, 0.118631, 1.746, -0.0778653, 1.13344, -0.136265, -1.32868, 46.7868, 3.33636, -4.41574)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@39544" type="MeshInstance3D" parent="Node3D/instances13"]
+transform = Transform3D(1.27711, -0.00142895, 1.39471, -0.161488, 1.87822, 0.149795, -1.38533, -0.220261, 1.26829, 42.5256, 1.13779, 9.12084)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="instances14" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@40166" type="MeshInstance3D" parent="Node3D/instances14"]
+transform = Transform3D(-1.08512, -0.0311722, 1.35298, 0.032907, 1.73306, 0.0663215, -1.35294, 0.0671543, -1.08354, 51.9786, 4.27099, -7.30379)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@40167" type="MeshInstance3D" parent="Node3D/instances14"]
+transform = Transform3D(1.79347, 0.0299539, -0.451122, -0.0363461, 1.84909, -0.0217196, 0.450652, 0.0299257, 1.79359, 57.2572, 2.28464, -12.5862)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@40168" type="MeshInstance3D" parent="Node3D/instances14"]
+transform = Transform3D(0.794071, -0.0130105, 1.79341, -0.0655671, 1.95981, 0.043249, -1.79225, -0.0774613, 0.792999, 54.5022, 3.06874, -15.1781)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@40169" type="MeshInstance3D" parent="Node3D/instances14"]
+transform = Transform3D(-0.617628, -0.0275416, -1.5151, 0.0677012, 1.63397, -0.057301, 1.51383, -0.0843109, -0.615581, 48.5294, 3.01411, -17.3092)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="instances15" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@40791" type="MeshInstance3D" parent="Node3D/instances15"]
+transform = Transform3D(0.875326, 0.0790806, -1.5693, -0.132639, 1.79368, 0.0164044, 1.56568, 0.107742, 0.878738, 51.7199, 3.96825, 5.86678)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@40792" type="MeshInstance3D" parent="Node3D/instances15"]
+transform = Transform3D(-1.45133, -0.046703, -0.407049, -0.0794722, 1.50186, 0.111041, 0.401938, 0.128315, -1.44783, 55.7924, 3.69536, 1.24827)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@40793" type="MeshInstance3D" parent="Node3D/instances15"]
+transform = Transform3D(-0.810936, -0.0736946, 1.3771, 0.0826407, 1.59207, 0.133864, -1.37659, 0.13899, -0.803199, 48.4629, 2.70554, 0.262803)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@40794" type="MeshInstance3D" parent="Node3D/instances15"]
+transform = Transform3D(0.995239, -0.0959051, 1.33455, 0.127815, 1.66247, 0.0241527, -1.33187, 0.0878759, 0.999558, 48.2107, 3.36873, 5.08899)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@40795" type="MeshInstance3D" parent="Node3D/instances15"]
+transform = Transform3D(-1.10002, 0.109634, -1.02484, 0.112457, 1.5027, 0.0400473, 1.02454, -0.0472309, -1.10474, 56.1233, 2.19162, -3.4017)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@40796" type="MeshInstance3D" parent="Node3D/instances15"]
+transform = Transform3D(1.78931, 0.0753177, 0.717051, -0.119485, 1.923, 0.0961705, -0.711026, -0.133614, 1.78831, 57.306, -1.36214, 7.03346)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="instances16" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@41418" type="MeshInstance3D" parent="Node3D/instances16"]
+transform = Transform3D(1.75582, -0.0653795, -0.881863, 0.0182017, 1.9628, -0.109278, 0.884096, 0.0894343, 1.75364, -5.95332, 1.7669, 17.5761)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@41419" type="MeshInstance3D" parent="Node3D/instances16"]
+transform = Transform3D(-1.29198, 0.03043, 0.899019, -0.0389499, 1.57001, -0.109117, -0.89869, -0.111793, -1.28772, -13.3841, 2.40593, 15.9324)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@41420" type="MeshInstance3D" parent="Node3D/instances16"]
+transform = Transform3D(1.33743, -0.13514, 1.35351, 0.0603252, 1.9022, 0.130314, -1.3589, -0.0485607, 1.33791, -14.0304, 1.49989, 12.1081)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@41421" type="MeshInstance3D" parent="Node3D/instances16"]
+transform = Transform3D(-0.0855541, 0.0597994, 1.53843, -0.113235, 1.53639, -0.0660171, -1.53542, -0.116638, -0.0808531, -10.3123, 1.59484, 14.0512)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@41422" type="MeshInstance3D" parent="Node3D/instances16"]
+transform = Transform3D(-1.56653, -0.0114277, 0.373882, 0.00206104, 1.60953, 0.0578307, -0.374051, 0.0567278, -1.5655, -4.2392, -1.6069, 26.6346)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="instances17" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@42044" type="MeshInstance3D" parent="Node3D/instances17"]
+transform = Transform3D(0.057604, 0.0808264, 1.8367, 0.0182259, 1.83748, -0.0814326, -1.83838, 0.0207496, 0.0567438, 0.572523, 1.71277, 20.4892)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@42045" type="MeshInstance3D" parent="Node3D/instances17"]
+transform = Transform3D(0.743553, 0.110815, 1.80068, -0.115318, 1.94656, -0.0721741, -1.8004, -0.0789144, 0.748293, -0.825731, 1.45285, 16.6528)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@42046" type="MeshInstance3D" parent="Node3D/instances17"]
+transform = Transform3D(0.144831, -0.0910314, 1.67962, 0.0552647, 1.68518, 0.0865674, -1.68118, 0.0475541, 0.147543, 1.47275, 1.80256, 12.6569)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@42047" type="MeshInstance3D" parent="Node3D/instances17"]
+transform = Transform3D(-0.0182331, -0.000747486, 1.54466, -0.0405236, 1.54424, 0.000268942, -1.54413, -0.0405176, -0.0182465, 4.86936, 0.989749, 17.2493)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@42048" type="MeshInstance3D" parent="Node3D/instances17"]
+transform = Transform3D(1.03075, -0.0627104, -1.64905, -0.104362, 1.93792, -0.138928, 1.64694, 0.162049, 1.02326, 5.3139, -0.0381955, 23.35)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="instances18" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@42670" type="MeshInstance3D" parent="Node3D/instances18"]
+transform = Transform3D(-1.72843, -0.0599384, -0.975275, -0.0673022, 1.98436, -0.00267858, 0.974794, 0.0307269, -1.72947, 2.46638, 1.57247, 32.3742)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@42671" type="MeshInstance3D" parent="Node3D/instances18"]
+transform = Transform3D(-1.69823, 0.0192735, -0.643215, -0.000271402, 1.81523, 0.0551086, 0.643504, 0.0516291, -1.69745, 0.894556, 1.34728, 29.604)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@42672" type="MeshInstance3D" parent="Node3D/instances18"]
+transform = Transform3D(-0.580717, 0.0610414, 1.49037, -0.014628, 1.59903, -0.0711912, -1.49155, -0.0394477, -0.57956, 11.3674, 1.5187, 35.4455)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@42673" type="MeshInstance3D" parent="Node3D/instances18"]
+transform = Transform3D(-0.799818, 0.145834, 1.33838, 0.0873222, 1.55909, -0.1177, -1.34347, 0.0145164, -0.80444, 9.08627, 0.182839, 27.6322)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@42674" type="MeshInstance3D" parent="Node3D/instances18"]
+transform = Transform3D(-0.0974524, -0.118946, -1.57874, -0.0780853, 1.58017, -0.114233, 1.58129, 0.0706994, -0.102936, 6.65347, 1.08881, 35.2884)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="instances19" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@43296" type="MeshInstance3D" parent="Node3D/instances19"]
+transform = Transform3D(0.447297, 0.0183326, 1.61893, -0.130654, 1.67451, 0.0171366, -1.61375, -0.130491, 0.447344, 15.6196, 0.871329, 40.9579)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@43297" type="MeshInstance3D" parent="Node3D/instances19"]
+transform = Transform3D(0.205523, 0.157754, 1.97193, 0.0550917, 1.98132, -0.164247, -1.97746, 0.0715948, 0.200372, 20.629, 1.43129, 38.697)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@43298" type="MeshInstance3D" parent="Node3D/instances19"]
+transform = Transform3D(1.37246, -0.00127299, 1.09243, 0.0920741, 1.74804, -0.113639, -1.08855, 0.146252, 1.36774, 22.6097, 2.26617, 41.3537)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@43299" type="MeshInstance3D" parent="Node3D/instances19"]
+transform = Transform3D(0.849933, -0.0405694, 1.23613, -0.0564121, 1.49704, 0.0879201, -1.23551, -0.0962621, 0.846346, 26.9603, 2.55898, 41.717)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@43300" type="MeshInstance3D" parent="Node3D/instances19"]
+transform = Transform3D(1.60969, 0.15999, -0.555967, -0.127809, 1.70152, 0.119598, 0.564235, -0.0710082, 1.6132, 15.5874, 1.12967, 35.2346)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="instances20" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@43922" type="MeshInstance3D" parent="Node3D/instances20"]
+transform = Transform3D(0.251015, -0.128412, -1.65492, 0.0475248, 1.67361, -0.122653, 1.65922, -0.0285102, 0.253878, 11.3597, 1.55628, -17.0108)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@43923" type="MeshInstance3D" parent="Node3D/instances20"]
+transform = Transform3D(-1.75323, 0.0970663, 0.23668, 0.0989956, 1.76901, 0.00782011, -0.235879, 0.0209622, -1.7559, 11.4673, 0.988307, -8.16893)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@43924" type="MeshInstance3D" parent="Node3D/instances20"]
+transform = Transform3D(1.09548, -0.110219, -1.65687, 0.0238047, 1.98578, -0.11636, 1.66036, 0.0442503, 1.09484, 4.45066, 2.04967, -11.0422)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@43925" type="MeshInstance3D" parent="Node3D/instances20"]
+transform = Transform3D(-1.3613, -0.0345172, 0.704103, -0.0527795, 1.53185, -0.0269468, -0.70297, -0.0481702, -1.36147, 10.5363, 1.83604, -14.404)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@43926" type="MeshInstance3D" parent="Node3D/instances20"]
+transform = Transform3D(1.47172, -0.0763367, 0.478385, 0.0777796, 1.54742, 0.00764149, -0.478152, 0.0167565, 1.47367, 0.177717, 1.91307, -11.2795)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@43927" type="MeshInstance3D" parent="Node3D/instances20"]
+transform = Transform3D(-0.894957, -0.0039938, -1.61984, -0.0819682, 1.84837, 0.04073, 1.61777, 0.0914427, -0.894039, 0.297007, 1.45243, -11.4528)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@43928" type="MeshInstance3D" parent="Node3D/instances20"]
+transform = Transform3D(0.44772, -0.117538, -1.9011, -0.0698812, 1.95059, -0.137055, 1.90345, 0.0992585, 0.442136, 3.82888, 0.477009, -6.89726)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="instances21" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@44550" type="MeshInstance3D" parent="Node3D/instances21"]
+transform = Transform3D(1.75635, -0.080826, 0.407333, 0.079878, 1.80296, 0.0133362, -0.40752, 0.00504993, 1.75816, 9.33755, -0.592681, 5.00512)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@44551" type="MeshInstance3D" parent="Node3D/instances21"]
+transform = Transform3D(-1.91201, 0.150139, -0.258218, 0.141816, 1.92868, 0.0713263, 0.262881, 0.0515487, -1.91657, 6.52152, 1.17881, 8.8701)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@44552" type="MeshInstance3D" parent="Node3D/instances21"]
+transform = Transform3D(1.52664, 0.0281872, -0.303224, -0.0367961, 1.55575, -0.0406371, 0.3023, 0.0470193, 1.52636, 2.86005, 0.368203, 8.35384)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@44553" type="MeshInstance3D" parent="Node3D/instances21"]
+transform = Transform3D(1.263, 0.0152099, 1.49058, 0.0415364, 1.95256, -0.0551185, -1.49008, 0.06732, 1.26189, 10.7678, -0.0059846, -4.88496)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@44554" type="MeshInstance3D" parent="Node3D/instances21"]
+transform = Transform3D(1.19173, 0.0145218, -1.31781, -0.087147, 1.77368, -0.0592639, 1.315, 0.104384, 1.19034, 5.52466, 0.407507, 1.31663)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@44555" type="MeshInstance3D" parent="Node3D/instances21"]
+transform = Transform3D(-1.64464, 0.0439734, 0.700009, 0.0757838, 1.78513, 0.0659114, -0.697283, 0.0902986, -1.64391, 3.2749, -0.276617, 5.20941)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="instances22" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@45177" type="MeshInstance3D" parent="Node3D/instances22"]
+transform = Transform3D(1.56333, 0.113416, 0.424356, -0.121315, 1.61927, 0.01415, -0.422166, -0.045325, 1.56738, 23.196, 3.97231, -16.682)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@45178" type="MeshInstance3D" parent="Node3D/instances22"]
+transform = Transform3D(-0.469926, 0.148199, 1.7995, 0.123369, 1.85773, -0.120778, -1.80137, 0.0885686, -0.47771, 16.6704, 3.1149, -18.3505)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@45179" type="MeshInstance3D" parent="Node3D/instances22"]
+transform = Transform3D(1.66896, -0.0128497, 0.524129, -0.022115, 1.74557, 0.113214, -0.52382, -0.114636, 1.66517, 17.626, 1.07177, -13.1319)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@45180" type="MeshInstance3D" parent="Node3D/instances22"]
+transform = Transform3D(-1.70155, -0.0855627, -0.937155, -0.00608647, 1.93735, -0.16583, 0.941033, -0.142181, -1.69561, 27.7764, 2.82996, -17.6907)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@45181" type="MeshInstance3D" parent="Node3D/instances22"]
+transform = Transform3D(-0.440489, -0.122045, -1.85317, -0.0811093, 1.90403, -0.106115, 1.85541, 0.0542601, -0.444595, 28.3282, 0.135609, -12.2365)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@45182" type="MeshInstance3D" parent="Node3D/instances22"]
+transform = Transform3D(-1.40753, 0.00801755, -0.805806, -0.0324668, 1.61993, 0.0728289, 0.805192, 0.0793338, -1.40567, 23.0508, 0.847479, -11.9835)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="instances23" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@45804" type="MeshInstance3D" parent="Node3D/instances23"]
+transform = Transform3D(-0.585788, 0, -1.79432, 0, 1.7578, 0, 2.47934, 0, -0.423939, 6.0547, 0.348556, -15.5896)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@45805" type="MeshInstance3D" parent="Node3D/instances23"]
+transform = Transform3D(-2.79879, 0, 0.666886, 0, 2.11097, 0, -1.03303, 0, -1.80679, 12.9771, -0.361153, -21.0879)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@45806" type="MeshInstance3D" parent="Node3D/instances23"]
+transform = Transform3D(-0.0505217, 0, -1.93601, 0, 1.5216, 0, 1.61371, 0, -0.0606122, 20.6777, 2.06291, -22.0571)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@45807" type="MeshInstance3D" parent="Node3D/instances23"]
+transform = Transform3D(1.58814, 0, -1.10211, 0, 1.50302, 0, 1.50196, 0, 1.16535, 12.5836, 0.933211, 38.9624)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@45808" type="MeshInstance3D" parent="Node3D/instances23"]
+transform = Transform3D(-2.07663, 0, -0.0731948, 0, 1.79074, 0, 0.0746826, 0, -2.03526, 19.8266, -0.262915, 41.5459)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@45809" type="MeshInstance3D" parent="Node3D/instances23"]
+transform = Transform3D(-0.0390502, 0, -2.12019, 0, 2.01588, 0, 1.84902, 0, -0.0447771, 7.63305, -0.803933, 39.0252)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@45810" type="MeshInstance3D" parent="Node3D/instances23"]
+transform = Transform3D(-2.0219, 0, 0.445099, 0, 1.96756, 0, -0.476561, 0, -1.88842, -0.0361814, -0.383191, 26.5335)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@45811" type="MeshInstance3D" parent="Node3D/instances23"]
+transform = Transform3D(-1.39901, 0, 1.52864, 0, 1.69182, 0, -2.27093, 0, -0.941721, 1.20733, -1.00465, 36.3234)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@45812" type="MeshInstance3D" parent="Node3D/instances23"]
+transform = Transform3D(1.59652, 0, -1.71664, 0, 1.77623, 0, 2.44971, 0, 1.11876, 2.07267, 0.528296, 29.1916)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@45813" type="MeshInstance3D" parent="Node3D/instances23"]
+transform = Transform3D(1.67203, 0, 0.413554, 0, 1.7572, 0, -0.36085, 0, 1.91624, 3.5743, 0.419911, 34.1158)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@45814" type="MeshInstance3D" parent="Node3D/instances23"]
+transform = Transform3D(-1.78403, 0, -0.0724252, 0, 1.88716, 0, 0.084722, 0, -1.52509, 3.49998, -0.058489, 35.222)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@45815" type="MeshInstance3D" parent="Node3D/instances23"]
+transform = Transform3D(-2.65508, 0, 0.814315, 0, 1.98076, 0, -1.08666, 0, -1.98964, 4.33499, -0.316533, 36.2894)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@45816" type="MeshInstance3D" parent="Node3D/instances23"]
+transform = Transform3D(-1.32426, 0, 1.45914, 0, 1.80895, 0, -2.64481, 0, -0.73059, 2.95837, 0.551669, -11.9348)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@45817" type="MeshInstance3D" parent="Node3D/instances23"]
+transform = Transform3D(0.446777, 0, -1.62068, 0, 1.64477, 0, 2.0386, 0, 0.355187, -0.131983, 0.973248, -11.6128)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@45818" type="MeshInstance3D" parent="Node3D/instances23"]
+transform = Transform3D(0.214484, 0, 1.50108, 0, 1.66902, 0, -1.93213, 0, 0.166633, -7.74578, 1.93142, -10.9095)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@45819" type="MeshInstance3D" parent="Node3D/instances23"]
+transform = Transform3D(1.49349, 0, -1.63962, 0, 2.13448, 0, 2.18117, 0, 1.12268, -12.3109, 2.45088, -6.21723)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@45820" type="MeshInstance3D" parent="Node3D/instances23"]
+transform = Transform3D(-1.94916, 0, -1.23108, 0, 1.56753, 0, 1.92277, 0, -1.24798, -11.4862, 0.460702, 15.7231)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@45821" type="MeshInstance3D" parent="Node3D/instances23"]
+transform = Transform3D(-0.852336, 0, 1.47093, 0, 1.64852, 0, -2.24793, 0, -0.557723, -2.89258, 1.27427, 19.7317)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@45822" type="MeshInstance3D" parent="Node3D/instances23"]
+transform = Transform3D(-1.88368, 0, -1.63366, 0, 2.02172, 0, 2.13722, 0, -1.43986, -7.9894, 0.592342, 18.1525)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@45823" type="MeshInstance3D" parent="Node3D/instances23"]
+transform = Transform3D(1.04336, 0, -1.51786, 0, 2.07231, 0, 2.63015, 0, 0.602122, -14.066, 2.95747, -0.36274)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="instances24" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@46749" type="MeshInstance3D" parent="Node3D/instances24"]
+transform = Transform3D(-1.3796, -0.110157, -1.40626, 0.0144409, 1.96584, -0.168158, 1.4105, -0.127871, -1.37374, -11.0941, 3.38942, -8.29164)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@46750" type="MeshInstance3D" parent="Node3D/instances24"]
+transform = Transform3D(-0.920616, -0.00999281, -1.49859, -0.121635, 1.75346, 0.0630311, 1.49367, 0.136632, -0.91851, -7.89091, 3.24776, -11.4953)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@46751" type="MeshInstance3D" parent="Node3D/instances24"]
+transform = Transform3D(0.500775, -0.129784, 1.52956, 0.0684915, 1.60918, 0.114116, -1.53353, 0.0294892, 0.504576, -3.0719, 1.79131, -10.9207)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@46752" type="MeshInstance3D" parent="Node3D/instances24"]
+transform = Transform3D(-1.36449, 0.00929283, -0.806113, 0.0872246, 1.57714, -0.129462, 0.801434, -0.155828, -1.35837, -6.6052, 1.25146, -6.54412)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="instances25" type="Node3D" parent="Node3D"]
+
+[node name="@MeshInstance3D@47374" type="MeshInstance3D" parent="Node3D/instances25"]
+transform = Transform3D(-1.8089, -0.0259689, -0.281201, -0.0195877, 1.8302, -0.0430157, 0.281718, -0.0394924, -1.80858, -17.1714, 2.82236, 9.66681)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@47375" type="MeshInstance3D" parent="Node3D/instances25"]
+transform = Transform3D(1.4678, -0.0099819, 0.779298, 0.00133324, 1.66177, 0.0187742, -0.779361, -0.0159565, 1.46771, -16.4338, 4.15837, 1.65396)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@47376" type="MeshInstance3D" parent="Node3D/instances25"]
+transform = Transform3D(0.410826, 0.153819, -1.71424, -0.143081, 1.75935, 0.123576, 1.71517, 0.109923, 0.420912, -13.4395, 4.78743, -3.96341)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@47377" type="MeshInstance3D" parent="Node3D/instances25"]
+transform = Transform3D(1.37545, -0.0515672, -1.08529, -0.0138082, 1.74988, -0.100644, 1.08643, 0.0875259, 1.37273, -14.6182, 1.67381, 5.57394)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@47378" type="MeshInstance3D" parent="Node3D/instances25"]
+transform = Transform3D(-0.220309, 0.0614014, -1.93911, 0.0620883, 1.9508, 0.0547173, 1.93909, -0.0554871, -0.222063, -9.87417, 0.725259, -0.707677)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@47379" type="MeshInstance3D" parent="Node3D/instances25"]
+transform = Transform3D(1.54228, -0.11183, -0.144856, 0.118076, 1.54734, 0.0625915, 0.139812, -0.0731684, 1.54506, -7.46906, -0.325767, 3.2971)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
+
+[node name="@MeshInstance3D@47380" type="MeshInstance3D" parent="Node3D/instances25"]
+transform = Transform3D(-0.510364, -0.013019, 1.48912, -0.0648142, 1.57284, -0.00846268, -1.48776, -0.0640547, -0.510459, -1.31896, 0.104818, 7.04092)
+mesh = ExtResource("1_jpw6s")
+skeleton = NodePath("../../instances2")
