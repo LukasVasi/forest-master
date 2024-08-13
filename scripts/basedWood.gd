@@ -4,12 +4,6 @@ var wood_instances := []
 var wood_counter := 0
 var amount = 4
 
-func _ready():
-	pass
-
-func _process(delta):
-	pass
-
 func _on_pile_area_exited(area):
 	if area.is_in_group("wood"):
 		if wood_instances.size() > amount:

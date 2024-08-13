@@ -35,8 +35,8 @@ disable_receive_shadows = true
 [node name="Arrow" groups=["Arrow"] instance=ExtResource("1_2muy8")]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 collision_layer = 6
-max_contacts_reported = 1
 contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("2_wvahv")
 release_mode = 0
 

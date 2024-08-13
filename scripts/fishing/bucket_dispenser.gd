@@ -27,7 +27,7 @@ func _process(_delta):
 
 
 ## Test if this object can dispense a pickup
-func can_pick_up(by: Node3D) -> bool:
+func can_pick_up(_by: Node3D) -> bool:
 	return _fish_queue.size() > 0
 
 

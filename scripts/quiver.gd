@@ -7,7 +7,7 @@ var amount = 4
 func _ready():
 	pass
 
-func _process(delta):
+func _process(_delta):
 	pass
 
 func _on_quiver_area_exited(area):

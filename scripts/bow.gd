@@ -1,3 +1,4 @@
+@tool
 class_name Bow
 extends XRToolsPickable
 
@@ -15,7 +16,7 @@ func _ready():
 	super()
 	set_process(false)
 	
-func _process(delta):
+func _process(_delta):
 	if pull_pick.is_picked_up():
 		var curr_pull_pivot_position = pull_pivot.transform.origin
 		var pull_position = pull_pick.global_transform.origin * global_transform
@@ -30,6 +31,7 @@ func _process(delta):
 		bow_skeleton.set_bone_pose_position(1,Vector3(0,-1*pose_transform.origin.y,0))
 		#adjust our pull pick location by the movement we just added to pull pivot
 		pull_pick.transform.origin = curr_pull_pivot_position - pull_position
+
 
 func _on_Bow_picked_up(_pickable):
 	#Enable our PullPick

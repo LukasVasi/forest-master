@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://dil16xqh8spna"]
 
 [ext_resource type="Script" path="res://scripts/fishing/fishing_float.gd" id="1_5cgpm"]
-[ext_resource type="ArrayMesh" uid="uid://b17jcaxfad25m" path="res://models/fishing/fishing_float_mesh.tres" id="2_e3h5b"]
-[ext_resource type="ArrayMesh" uid="uid://b846id8yywj5c" path="res://resources/star_mesh.tres" id="3_q7fu4"]
+[ext_resource type="ArrayMesh" uid="uid://b5ptwvx7ticus" path="res://resources/fishing_float_mesh.tres" id="2_e3h5b"]
+[ext_resource type="ArrayMesh" uid="uid://vo2gkmory8yb" path="res://resources/star_mesh.tres" id="3_q7fu4"]
 [ext_resource type="Material" uid="uid://cbrnqu12cdpor" path="res://resources/water_particles.tres" id="4_unhn5"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gobmt"]
@@ -37,8 +37,8 @@ size = Vector3(0.1, 0.1, 0.1)
 collision_layer = 2
 collision_mask = 519
 mass = 0.05
-max_contacts_reported = 3
 contact_monitor = true
+max_contacts_reported = 3
 script = ExtResource("1_5cgpm")
 
 [node name="FloatMesh" type="MeshInstance3D" parent="." groups=["FishingFloat"]]

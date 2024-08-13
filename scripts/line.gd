@@ -55,7 +55,7 @@ func _initialize_line():
 	if material:
 		mesh.surface_set_material(0, material)
 
-func _process(delta):
+func _process(_delta):
 	update_line()
 
 func update_line():

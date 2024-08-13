@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://coi25buc88g6d"]
 
-[ext_resource type="ArrayMesh" uid="uid://dhwr6qbpcc67e" path="res://models/fishing/mock_fish_v2.tres" id="2_vhr4r"]
+[ext_resource type="ArrayMesh" uid="uid://wi03gtuipdw0" path="res://resources/mock_fish.tres" id="2_b5fcu"]
 [ext_resource type="Script" path="res://scripts/fishing/fish_mock.gd" id="2_wy85y"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6gsnr"]
@@ -13,5 +13,5 @@ script = ExtResource("2_wy85y")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
 transform = Transform3D(0.375399, 0, 5.19047, 0, 9.48188, 0, -12.4942, 0, 0.155954, 0.327415, 0, 0.00604666)
-mesh = ExtResource("2_vhr4r")
+mesh = ExtResource("2_b5fcu")
 surface_material_override/0 = SubResource("StandardMaterial3D_6gsnr")

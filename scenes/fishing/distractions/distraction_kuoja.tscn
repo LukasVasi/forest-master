@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://wus354uwp5a2"]
 
 [ext_resource type="Script" path="res://scripts/fishing/distractions/distraction_fish.gd" id="1_4ehwo"]
-[ext_resource type="ArrayMesh" uid="uid://d23v36qdkcsrw" path="res://resources/kuoja_mesh.tres" id="2_i317u"]
+[ext_resource type="ArrayMesh" uid="uid://du05rvkd1nkch" path="res://resources/kuoja_mesh.tres" id="2_i317u"]
 [ext_resource type="Material" uid="uid://dplpxikf4jsfd" path="res://resources/water_splash.tres" id="3_sh3lq"]
 
 [sub_resource type="Animation" id="Animation_x8m85"]

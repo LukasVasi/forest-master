@@ -10,9 +10,9 @@ config_version=5
 
 [application]
 
-config/name="Forestmejster"
+config/name="Forest master"
 run/main_scene="res://scenes/staging.tscn"
-config/features=PackedStringArray("4.2", "Mobile")
+config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -56,7 +56,7 @@ import/blender/enabled=false
 [physics]
 
 common/physics_ticks_per_second=90
-3d/physics_engine="JoltPhysics3D"
+3d/physics_engine="GodotPhysics3D"
 
 [rendering]
 

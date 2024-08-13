@@ -13,11 +13,11 @@ func _ready():
 	handle.dropped.connect(_on_dropped)
 
 
-func _on_picked_up(by: Node3D):
+func _on_picked_up(_by: Node3D):
 	collision_layer = 0b0000_0000_0000_0001_0000_0000_0000_0000 #held object
 	collision_mask = 0 # collisions disabled
 
 
-func _on_dropped(by: Node3D):
+func _on_dropped(_by: Node3D):
 	collision_layer = original_collision_layer
 	collision_mask = original_collision_mask

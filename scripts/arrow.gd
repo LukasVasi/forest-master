@@ -1,8 +1,11 @@
+@tool
+class_name Arrow
 extends XRToolsPickable
 
 #const STAKE = preload("res://scenes/steak.tscn") 
 const force_factor = 0.1
 @onready var combat_node = get_node("../../")
+
 
 #cia krc funkcija skirta kad graziai skristu strele, bet neisejo tai velesniem bandymam nes sjp visai graziai ir db skrenda
 #func _physics_process(delta):
