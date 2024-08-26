@@ -21,6 +21,10 @@ XRToolsUserSettings="*res://addons/godot-xr-tools/user_settings/user_settings.gd
 XrSimulator="*res://addons/xr-simulator/XRSimulator.tscn"
 PauseManager="*res://scripts/pause_manager.gd"
 
+[debug]
+
+gdscript/warnings/untyped_declaration=1
+
 [display]
 
 window/vsync/vsync_mode=0

@@ -18,7 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://baqn44ngm0jv1" path="res://scenes/bow.tscn" id="22_6ivd3"]
 [ext_resource type="PackedScene" uid="uid://y3a42o7ap8gf" path="res://models/fishing/holding_stick.glb" id="25_70mbh"]
 [ext_resource type="ArrayMesh" uid="uid://b6yqjvidi8vai" path="res://resources/fir_3_LOD0.mesh" id="30_4omla"]
-[ext_resource type="PackedScene" uid="uid://bp5tb8du3d72d" path="res://scenes/campfire_v2.tscn" id="30_8ne4e"]
+[ext_resource type="PackedScene" uid="uid://bp5tb8du3d72d" path="res://scenes/cooking/campfire.tscn" id="30_8ne4e"]
 [ext_resource type="PackedScene" uid="uid://cirviy7nnojqm" path="res://models/nature/bushes/bush_small.glb" id="32_1c0df"]
 [ext_resource type="ArrayMesh" uid="uid://bffw5ionewh8" path="res://resources/lily_pad.mesh" id="32_p55uf"]
 [ext_resource type="ArrayMesh" uid="uid://ba21yn7gcpbro" path="res://resources/reed.mesh" id="33_cbqye"]
@@ -467,13 +467,8 @@ skeleton = NodePath("")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/terrain_playable/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_ine7r")
 
-[node name="Campfire2" parent="." instance=ExtResource("30_8ne4e")]
-transform = Transform3D(0.0251129, 0, -0.202685, 0, 0.204235, 0, 0.202685, 0, 0.0251129, -0.916748, 0.539091, -1.17057)
-stopTime = 50
-
-[node name="Campfire" parent="Campfire2" index="0"]
-transform = Transform3D(1.53212, 0, -2.98023e-08, 0, 1.17656, 0, 2.98023e-08, 0, 1.01046, 0, 1.59083, 0)
-lod_bias = 128.0
+[node name="Campfire" parent="." instance=ExtResource("30_8ne4e")]
+transform = Transform3D(0.122961, 0, -0.992411, 0, 1, 0, 0.992411, 0, 0.122961, -0.916748, 0.849828, -1.17057)
 
 [node name="Trees" type="Node" parent="."]
 
@@ -1793,7 +1788,7 @@ transform = Transform3D(0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, -5.68596, 0.487846, 
 [node name="Bushes" parent="Clutter" instance=ExtResource("48_1ny86")]
 
 [node name="Log" parent="Clutter" instance=ExtResource("45_5njgx")]
-transform = Transform3D(0.00955997, -0.645596, -0.354206, 0.599924, 0.0101126, 0.00582402, -0.000222552, -0.472338, 0.484257, -2.78092, 0.983794, 7.1089)
+transform = Transform3D(0.00955997, -0.484197, -0.354206, 0.599924, 0.00758442, 0.00582402, -0.000222549, -0.354254, 0.484256, -3.22135, 0.990693, 6.78666)
 
 [node name="Skillet" parent="." instance=ExtResource("45_6wdpy")]
 transform = Transform3D(-0.214906, 0, -0.976635, 0, 1, 0, 0.976635, 0, -0.214906, -1.20625, 1.39732, -6.01796)
@@ -1819,8 +1814,4 @@ shadow_opacity = 0.8
 shadow_blur = 0.6
 directional_shadow_mode = 0
 
-[connection signal="area_entered" from="Campfire2/CookingArea" to="Skillet/Skillet" method="_on_cooking_area_area_entered"]
-[connection signal="area_exited" from="Campfire2/CookingArea" to="Skillet/Skillet" method="_on_cooking_area_area_exited"]
-
-[editable path="Campfire2"]
 [editable path="Skillet"]

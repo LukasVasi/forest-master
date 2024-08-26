@@ -1,0 +1,69 @@
+[gd_scene load_steps=11 format=3 uid="uid://c1fnaq8oijhrw"]
+
+[ext_resource type="Script" path="res://scripts/fire.gd" id="1_06p7d"]
+
+[sub_resource type="Gradient" id="Gradient_feqqt"]
+offsets = PackedFloat32Array(0, 0.0799256, 0.267658, 0.460967, 0.552045, 0.693309, 1)
+colors = PackedColorArray(1, 0.721615, 0.366148, 1, 1, 0.644122, 0.0923185, 1, 0.850085, 0.462645, 0, 1, 0.833427, 0.33748, 3.85046e-07, 1, 0.738227, 0.501908, 0.291934, 1, 0.415145, 0.281814, 0.159276, 1, 0.688683, 0.582414, 0.503945, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_i4yod"]
+gradient = SubResource("Gradient_feqqt")
+
+[sub_resource type="Curve" id="Curve_eoasy"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.597173, 0.00226688), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_cknpd"]
+curve = SubResource("Curve_eoasy")
+
+[sub_resource type="Curve" id="Curve_y7syp"]
+_data = [Vector2(0, 0.103303), 0.0, 0.0, 0, 0, Vector2(0.204947, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.271697), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_0dl2l"]
+curve = SubResource("Curve_y7syp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2hi8s"]
+emission_shape = 3
+emission_box_extents = Vector3(0.2, 0.2, 0.2)
+angle_min = 1.07288e-05
+angle_max = 45.0
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0, 0)
+scale_max = 1.4
+scale_curve = SubResource("CurveTexture_0dl2l")
+color_ramp = SubResource("GradientTexture1D_i4yod")
+emission_curve = SubResource("CurveTexture_cknpd")
+collision_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qkmjo"]
+shading_mode = 0
+vertex_color_use_as_albedo = true
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 6
+particles_anim_v_frames = 5
+particles_anim_loop = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_al4w5"]
+material = SubResource("StandardMaterial3D_qkmjo")
+size = Vector2(0.4, 0.4)
+
+[node name="Fire" type="Node3D"]
+script = ExtResource("1_06p7d")
+
+[node name="FireParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, -0.000279223, 0, 0.000279223, 1, 0, 0, 0)
+amount = 40
+lifetime = 0.7
+trail_lifetime = 0.8
+process_material = SubResource("ParticleProcessMaterial_2hi8s")
+draw_pass_1 = SubResource("QuadMesh_al4w5")
+
+[node name="FireLight" type="OmniLight3D" parent="."]
+light_color = Color(0.988235, 0.501961, 0.172549, 1)
+light_energy = 2.5
+omni_range = 15.0
