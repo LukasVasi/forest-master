@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=4 uid="uid://dqmlp2hfmrh7m"]
+[gd_scene load_steps=77 format=4 uid="uid://dqmlp2hfmrh7m"]
 
 [ext_resource type="Script" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_0wkb3"]
 [ext_resource type="PackedScene" uid="uid://bsotifvyxaf5u" path="res://scenes/player.tscn" id="1_e77tj"]
@@ -14,8 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://h2oii34vo11w" path="res://scenes/wood.tscn" id="16_20otq"]
 [ext_resource type="PackedScene" uid="uid://bcoan783pbvdq" path="res://scenes/fishing/fishing_rod.tscn" id="18_ap21l"]
 [ext_resource type="PackedScene" uid="uid://d1df0epcleg23" path="res://scenes/fishing/dock.tscn" id="18_r5c2f"]
-[ext_resource type="PackedScene" uid="uid://ba037obqitk4x" path="res://scenes/steak.tscn" id="20_j76k0"]
-[ext_resource type="PackedScene" uid="uid://baqn44ngm0jv1" path="res://scenes/bow.tscn" id="22_6ivd3"]
+[ext_resource type="PackedScene" uid="uid://vlv7oa62414j" path="res://scenes/combat/steak.tscn" id="20_j76k0"]
+[ext_resource type="PackedScene" uid="uid://baqn44ngm0jv1" path="res://scenes/combat/bow.tscn" id="22_6ivd3"]
 [ext_resource type="PackedScene" uid="uid://y3a42o7ap8gf" path="res://models/fishing/holding_stick.glb" id="25_70mbh"]
 [ext_resource type="ArrayMesh" uid="uid://b6yqjvidi8vai" path="res://resources/fir_3_LOD0.mesh" id="30_4omla"]
 [ext_resource type="PackedScene" uid="uid://bp5tb8du3d72d" path="res://scenes/cooking/campfire.tscn" id="30_8ne4e"]
@@ -34,17 +34,18 @@
 [ext_resource type="AudioStream" uid="uid://dmgmim828cyrk" path="res://Audio/testFire.mp3" id="41_36ag6"]
 [ext_resource type="PackedScene" uid="uid://bch51o1gs3sqe" path="res://scenes/rock_small_v_1.tscn" id="41_j1t3h"]
 [ext_resource type="PackedScene" uid="uid://bic326xn55aws" path="res://models/nature/rocks/small/Rock_small_v2.glb" id="42_aju2i"]
-[ext_resource type="PackedScene" uid="uid://gcllbgl1kvjo" path="res://scenes/puntukass.tscn" id="42_e20bc"]
+[ext_resource type="PackedScene" uid="uid://gcllbgl1kvjo" path="res://scenes/combat/puntukas.tscn" id="42_e20bc"]
 [ext_resource type="AudioStream" uid="uid://m308xudgckly" path="res://Audio/Forestmejster_backing_track.mp3" id="42_krcic"]
 [ext_resource type="PackedScene" uid="uid://bc04w1qogmn4t" path="res://scenes/dragonfly.tscn" id="42_lcci2"]
 [ext_resource type="PackedScene" uid="uid://bsmyjjetapi4p" path="res://scenes/combat/creature.tscn" id="43_2bcqx"]
 [ext_resource type="AudioStream" uid="uid://p4wp17ln30qd" path="res://Audio/birdsTest.mp3" id="43_67go0"]
 [ext_resource type="PackedScene" uid="uid://ck41s7q3i5tt0" path="res://models/nature/rocks/small/Rock_small_v3.glb" id="44_es8te"]
-[ext_resource type="PackedScene" uid="uid://bkj6ty5kdth1w" path="res://scenes/quiver.tscn" id="44_nghe1"]
+[ext_resource type="PackedScene" uid="uid://bkj6ty5kdth1w" path="res://scenes/combat/quiver.tscn" id="44_nghe1"]
 [ext_resource type="PackedScene" uid="uid://wt3xvamdtofe" path="res://scenes/log.tscn" id="45_5njgx"]
 [ext_resource type="PackedScene" uid="uid://c6wf68pe71k2a" path="res://scenes/cooking/skillet.tscn" id="45_6wdpy"]
 [ext_resource type="PackedScene" uid="uid://h4roksm87ytx" path="res://scenes/cooking/lid.tscn" id="46_vwkmn"]
 [ext_resource type="PackedScene" uid="uid://gvyk1si63evv" path="res://scenes/flowers.tscn" id="47_kirqo"]
+[ext_resource type="PackedScene" uid="uid://ct2g57qsopix7" path="res://scenes/fishing/fishes/kuoja.tscn" id="47_vcxi4"]
 [ext_resource type="PackedScene" uid="uid://b2wwpdu2ao0np" path="res://scenes/bushes2.tscn" id="48_1ny86"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_tmkjx"]
@@ -1644,7 +1645,7 @@ autoplay = true
 
 [node name="Combat" type="Node" parent="."]
 
-[node name="Puntukass" parent="Combat" instance=ExtResource("42_e20bc")]
+[node name="Puntukas" parent="Combat" instance=ExtResource("42_e20bc")]
 transform = Transform3D(-0.964617, 0, -0.263654, 0, 1, 0, 0.263654, 0, -0.964617, -3.62221, 0.811652, 16.0418)
 
 [node name="Quiver" parent="Combat" instance=ExtResource("44_nghe1")]
@@ -1813,5 +1814,8 @@ shadow_enabled = true
 shadow_opacity = 0.8
 shadow_blur = 0.6
 directional_shadow_mode = 0
+
+[node name="Kuoja" parent="." instance=ExtResource("47_vcxi4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.48201, 1.56132, -5.28134)
 
 [editable path="Skillet"]

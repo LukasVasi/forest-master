@@ -1,0 +1,59 @@
+[gd_scene load_steps=14 format=3 uid="uid://cyankqflrjy48"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_8hawy"]
+[ext_resource type="Script" path="res://scripts/combat/club.gd" id="2_6euf8"]
+[ext_resource type="ArrayMesh" uid="uid://28b04fb3ywk" path="res://resources/kuoka.tres" id="3_3ttnm"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="4_yq2t5"]
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="5_fha6u"]
+[ext_resource type="Animation" uid="uid://dqa0h82y3qn1t" path="res://addons/godot-xr-tools/hands/animations/left/Grip 1.res" id="6_3mdfg"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="7_1tnod"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="8_7w6r4"]
+[ext_resource type="Animation" uid="uid://daqddcrbpam0c" path="res://addons/godot-xr-tools/hands/animations/right/Grip 1.res" id="9_nahdr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ldl43"]
+size = Vector3(0.535, 2.25, 0.59)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q10c0"]
+shading_mode = 0
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="Resource" id="Resource_ectql"]
+script = ExtResource("7_1tnod")
+closed_pose = ExtResource("6_3mdfg")
+
+[sub_resource type="Resource" id="Resource_dv3g4"]
+script = ExtResource("7_1tnod")
+closed_pose = ExtResource("9_nahdr")
+
+[node name="Club" instance=ExtResource("1_8hawy")]
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("2_6euf8")
+
+[node name="CollisionShape3D" parent="." index="0"]
+transform = Transform3D(0.69, 0, 0, 0, 0.69, 0, 0, 0, 0.69, 0, 0.431881, 0.0406867)
+shape = SubResource("BoxShape3D_ldl43")
+
+[node name="ClubMeshInstance" type="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(0.01, 0, 0, 0, 0.013, 0, 0, 0, 0.01, 0, 0, 0)
+mesh = ExtResource("3_3ttnm")
+skeleton = NodePath("")
+
+[node name="XRToolsHighlightVisible" type="Node3D" parent="." index="2"]
+transform = Transform3D(1.16, 0, 0, 0, 1.16, 0, 0, 0, 1.16, 0, 0, 0)
+script = ExtResource("4_yq2t5")
+
+[node name="HighlightMesh" type="MeshInstance3D" parent="XRToolsHighlightVisible" index="0"]
+transform = Transform3D(-0.005, 0, 0, 0, -0.01, 0, 0, 0, -0.005, 0, 0.455, 0)
+mesh = ExtResource("3_3ttnm")
+surface_material_override/0 = SubResource("StandardMaterial3D_q10c0")
+
+[node name="GrabPointHandLeft" parent="." index="3" instance=ExtResource("5_fha6u")]
+transform = Transform3D(1, 0, 0, 0, 0.999999, -0.00118673, 0, 0.00118673, 0.999999, -0.033, -0.140578, -0.110018)
+hand_pose = SubResource("Resource_ectql")
+
+[node name="GrabPointHandRight" parent="." index="4" instance=ExtResource("8_7w6r4")]
+transform = Transform3D(1, 0, 0, 0, 0.999995, -0.00331604, 0, 0.00331604, 0.999995, 0.037, -0.237, -0.09)
+hand_pose = SubResource("Resource_dv3g4")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

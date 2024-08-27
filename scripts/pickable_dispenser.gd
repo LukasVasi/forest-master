@@ -6,14 +6,12 @@ extends Area3D
 ## it spawns an isntance of one of the dispensed scenes and 
 ## makes it get picked up by the [XRToolsFunctionPickup] that tried to pick this up.
 
-# Signal emitted when this object is picked up (held by a player or snap-zone)
-signal picked_up(pickable)
 
 # Signal emitted when the highlight state changes
-signal highlight_updated(pickable, enable)
+signal highlight_updated(pickable: Variant, enable: Variant)
 
 
-## If true, the pickable supports being picked up
+## If true, the dispenser supports being picked up
 @export var enabled : bool = true
 
 ## The pickable object scenes that are used for instantiation
@@ -27,18 +25,13 @@ var _highlight_requests : Dictionary = {}
 var _highlighted : bool = false
 
 
-# Remember some state so we can return to it when the user drops the object
-@onready var original_collision_mask : int = collision_mask
-@onready var original_collision_layer : int = collision_layer
-
-
 # Add support for is_xr_class on XRTools classes
 func is_xr_class(name : String) -> bool:
 	return name == "PickableDispenser"
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	
@@ -47,7 +40,7 @@ func _ready():
 		return
 	
 	for dispensed_scene in dispensed_scenes:
-		var instance = dispensed_scene.instantiate()
+		var instance: XRToolsPickable = dispensed_scene.instantiate()
 		if not instance.has_method("pick_up"):
 			push_error("Pickable dispenser needs dispensed scenes to have the pick_up method")
 			enabled = false
@@ -55,7 +48,7 @@ func _ready():
 
 
 ## Test if this object can dispense a pickup
-func can_pick_up(by: Node3D) -> bool:
+func can_pick_up(_by: Node3D) -> bool:
 	return enabled
 
 
@@ -84,7 +77,7 @@ func request_highlight(from : Node, on : bool = true) -> void:
 
 	# Report any changes
 	if _highlighted != old_highlighted:
-		emit_signal("highlight_updated", self, _highlighted)
+		highlight_updated.emit(self, _highlighted)
 
 
 # Called when this object is picked up
@@ -92,7 +85,7 @@ func pick_up(by: Node3D) -> XRToolsPickable:
 	if not enabled:
 		return null
 	
-	var dispensed_object = _get_dispensable_instance()
+	var dispensed_object: XRToolsPickable = _get_dispensable_instance()
 	if dispensed_object:
 		add_child(dispensed_object)
 		dispensed_object.global_position = global_position
@@ -103,5 +96,5 @@ func pick_up(by: Node3D) -> XRToolsPickable:
 
 
 ## Instantiate a random scene by default
-func _get_dispensable_instance():
+func _get_dispensable_instance() -> XRToolsPickable:
 	return dispensed_scenes.pick_random().instantiate()

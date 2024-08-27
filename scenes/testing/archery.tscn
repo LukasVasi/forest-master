@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://didc5iiuhck5g"]
+
+[ext_resource type="PackedScene" uid="uid://bsotifvyxaf5u" path="res://scenes/player.tscn" id="1_uuqtn"]
+[ext_resource type="PackedScene" uid="uid://baqn44ngm0jv1" path="res://scenes/combat/bow.tscn" id="2_ha87q"]
+[ext_resource type="PackedScene" uid="uid://bkj6ty5kdth1w" path="res://scenes/combat/quiver.tscn" id="3_v1abr"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ppojc"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_agbvt"]
+sky_material = SubResource("ProceduralSkyMaterial_ppojc")
+
+[sub_resource type="Environment" id="Environment_2ryil"]
+background_mode = 2
+sky = SubResource("Sky_agbvt")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Archery" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2ryil")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="XROrigin3D" parent="." instance=ExtResource("1_uuqtn")]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+collision_mask = 524295
+size = Vector3(100, 1, 100)
+
+[node name="Bow" parent="." instance=ExtResource("2_ha87q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.733198, 0.46698, -4.14061)
+
+[node name="Quiver" parent="." instance=ExtResource("3_v1abr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.38752, 0, -3.57834)

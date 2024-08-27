@@ -43,8 +43,7 @@ extends Node
 
 var _dead_kipsas_count : int = 0
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	if bezdukas_count == 0 and kipsas_count == 0:
 		set_process(false)
 		return
@@ -57,7 +56,7 @@ func _ready():
 	_respawn_creatures()
 
 
-func _respawn_creatures():
+func _respawn_creatures() -> void:
 	# Remove existing children
 	for child in get_children():
 		child.queue_free()
@@ -86,7 +85,7 @@ func _respawn_creatures():
 		add_child(kipsas)
 
 
-func on_death():
+func on_death() -> void:
 	_dead_kipsas_count += 1
 	if _dead_kipsas_count >= kipsas_count:
 		_dead_kipsas_count = 0
@@ -97,6 +96,6 @@ func _get_random_object_scale() -> Vector3:
 	if object_scale_randomness.length() == 0:
 		return object_scale
 	else:
-		var min_scale = object_scale - object_scale * object_scale_randomness
-		var max_scale = object_scale + object_scale * object_scale_randomness
+		var min_scale: Vector3 = object_scale - object_scale * object_scale_randomness
+		var max_scale: Vector3 = object_scale + object_scale * object_scale_randomness
 		return Vector3(randf_range(min_scale.x, max_scale.x), randf_range(min_scale.y, max_scale.y), randf_range(min_scale.z, max_scale.z))

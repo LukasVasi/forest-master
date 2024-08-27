@@ -33,9 +33,9 @@ signal died
 # Variables contained in this scene
 @onready var creature_container : Node3D = get_node("MovementPath/PathFollow3D/CreatureContainer")
 
-@onready var particles = get_node("MovementPath/PathFollow3D/CreatureContainer/GPUParticles3D")
+@onready var particles: GPUParticles3D = get_node("MovementPath/PathFollow3D/CreatureContainer/GPUParticles3D")
 
-@onready var path_follow = get_node("MovementPath/PathFollow3D")
+@onready var path_follow: PathFollow3D = get_node("MovementPath/PathFollow3D")
 
 # Vriables contained in the creature scene
 @onready var animation_player: AnimationPlayer
@@ -65,9 +65,9 @@ func _ready() -> void:
 	creature = creature_scene.instantiate()
 	creature.scale = creature_scale
 	creature_container.add_child(creature)
-	particles.emitting = true
+	creature.visible = false
 	
-	var creature_hitbox = creature.get_node("StaticBody3D")
+	var creature_hitbox: StaticBody3D = creature.get_node("StaticBody3D")
 	if not creature_hitbox or creature_hitbox == null or not creature_hitbox is CreatureHitbox:
 		#push_warning("A hitbox for the creature should be provided")
 		pass
@@ -78,10 +78,10 @@ func _ready() -> void:
 	object = object_scene.instantiate()
 	object.scale = object_scale
 	creature_container.add_child(object)
-	object.visible = false
+	object.visible = true
 	
 	# Connect to the toggle movement signal
-	var puntukas = get_node("/root/Staging/Scene/Main/Combat/Puntukass")
+	var puntukas: Puntukas = get_node("/root/Staging/Scene/Main/Combat/Puntukas")
 	puntukas.toggle_creature_movement.connect(_on_toggle_movement)
 	
 	# Set the movement path
@@ -92,18 +92,6 @@ func _ready() -> void:
 	
 	animation_player = creature.get_node("AnimationPlayer")
 	animation_player.speed_scale = animation_playback_speed
-	
-	## Ensure the walking animation is set to loop
-	#var walking_animation = animation_player.get_animation("Walking")
-	#if walking_animation:
-		#walking_animation.loop = true
-	#else:
-		#push_warning("A creature should have a walking animation")
-	
-	# Start the walking animation
-	animation_player.play("Walking")
-	
-	is_moving = true
 
 
 func _physics_process(delta: float) -> void:
@@ -114,7 +102,7 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 
 ## Called when the movement state is toggled
-func _on_toggle_movement():
+func _on_toggle_movement() -> void:
 	if is_dead:
 		return
 	
@@ -142,13 +130,13 @@ func _on_toggle_movement():
 		animation_player.play("Walking")
 
 
-func _set_animation_playback_speed(new_value : float):
+func _set_animation_playback_speed(new_value : float) -> void:
 	animation_playback_speed = new_value
 	if animation_player:
 		animation_player.speed_scale = new_value
 
 
-func _on_hit():
+func _on_hit() -> void:
 	# Just despawn everythig when hit
 	particles.emitting = true
 	is_dead = true
