@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=4 uid="uid://bp5tb8du3d72d"]
 
-[ext_resource type="Script" path="res://scripts/campfire.gd" id="1_fboka"]
+[ext_resource type="Script" path="res://scripts/cooking/campfire.gd" id="1_fboka"]
 [ext_resource type="PackedScene" uid="uid://c1fnaq8oijhrw" path="res://scenes/cooking/fire.tscn" id="2_mefqy"]
 
 [sub_resource type="Curve" id="Curve_lc2eo"]
@@ -131,8 +131,8 @@ points = PackedVector3Array(0.0067175, -0.0608167, -0.4973, 0.327199, 0.0529202,
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ktsd4"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_jkdfo"]
-radius = 2.83072
+[sub_resource type="BoxShape3D" id="BoxShape3D_i3kyc"]
+size = Vector3(0.8, 1.2, 0.8)
 
 [node name="Campfire" type="StaticBody3D"]
 script = ExtResource("1_fboka")
@@ -149,6 +149,7 @@ transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_7g31s")
 
 [node name="Fire" parent="." instance=ExtResource("2_mefqy")]
+fire_ratio = 0.0
 
 [node name="FuelArea" type="Area3D" parent="."]
 collision_mask = 4
@@ -158,13 +159,16 @@ monitorable = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 shape = SubResource("SphereShape3D_ktsd4")
 
-[node name="CookingArea" type="Area3D" parent="."]
-transform = Transform3D(1, 0, -5.96046e-08, 0, 0.999999, 0, 5.96046e-08, 0, 1, -0.743371, 6.22919, -0.0921035)
+[node name="HeatArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, -5.96046e-08, 0, 0.999999, 0, 5.96046e-08, 0, 1, 0, 0.6, 0)
 collision_layer = 7
 collision_mask = 196615
+monitorable = false
 
-[node name="CookingAreaCollisionShape" type="CollisionShape3D" parent="CookingArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.17098, 0)
-shape = SubResource("SphereShape3D_jkdfo")
+[node name="HeatAreaCollisionShape" type="CollisionShape3D" parent="HeatArea"]
+transform = Transform3D(1, 0, 3.55271e-15, 0, 1, 0, -3.55271e-15, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_i3kyc")
 
 [connection signal="body_entered" from="FuelArea" to="." method="_on_fuel_area_entered"]
+[connection signal="body_entered" from="HeatArea" to="." method="_on_heat_area_entered"]
+[connection signal="body_exited" from="HeatArea" to="." method="_on_heat_area_exited"]

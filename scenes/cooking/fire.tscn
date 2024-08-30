@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://c1fnaq8oijhrw"]
 
-[ext_resource type="Script" path="res://scripts/fire.gd" id="1_06p7d"]
+[ext_resource type="Script" path="res://scripts/cooking/fire.gd" id="1_06p7d"]
 
 [sub_resource type="Gradient" id="Gradient_feqqt"]
 offsets = PackedFloat32Array(0, 0.0799256, 0.267658, 0.460967, 0.552045, 0.693309, 1)

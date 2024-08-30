@@ -2,9 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_boc6t"]
 [ext_resource type="ArrayMesh" uid="uid://doomqa3c7iyq7" path="res://resources/skillet.mesh" id="2_4alw5"]
-[ext_resource type="ArrayMesh" path="res://resources/skillet2.mesh" id="2_4rx5x"]
+[ext_resource type="ArrayMesh" uid="uid://bktbigbqg7xsi" path="res://resources/skillet2.mesh" id="2_4rx5x"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="3_da5sr"]
-[ext_resource type="Script" path="res://scripts/skillet.gd" id="3_k40dq"]
+[ext_resource type="Script" path="res://scripts/cooking/skillet.gd" id="3_k40dq"]
 [ext_resource type="Animation" uid="uid://bediglpx0rj7i" path="res://addons/godot-xr-tools/hands/animations/left/Grip 5.res" id="4_4hokl"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="5_u2se4"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="6_e8r4k"]
@@ -151,24 +151,24 @@ points = PackedVector3Array(-0.254132, 0.048873, -0.566933, 0.0977231, 0.224816,
 [sub_resource type="BoxShape3D" id="BoxShape3D_nfwds"]
 size = Vector3(0.141541, 0.0854492, 0.469238)
 
-[node name="Skillet" groups=["skillet"] instance=ExtResource("1_boc6t")]
+[node name="Skillet" groups=["Skillet"] instance=ExtResource("1_boc6t")]
 collision_layer = 7
 
 [node name="CollisionShape3D" parent="." index="0"]
 transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0.0053456, 0.0206645, 0.0254846)
 shape = SubResource("CylinderShape3D_elqjg")
 
-[node name="Skillet" type="MeshInstance3D" parent="." index="1" groups=["skillet"]]
+[node name="Skillet" type="MeshInstance3D" parent="." index="1"]
 transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0.00428949, 0.0179965, 0.00512492)
 mesh = ExtResource("2_4rx5x")
 skeleton = NodePath("")
 script = ExtResource("3_k40dq")
 
-[node name="Area3D" type="Area3D" parent="Skillet" index="0"]
+[node name="CookingArea" type="Area3D" parent="Skillet" index="0"]
 collision_layer = 7
 collision_mask = 7
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skillet/Area3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skillet/CookingArea" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.123987, 0)
 shape = SubResource("CylinderShape3D_hxf3w")
 
@@ -212,6 +212,14 @@ draw_pass_1 = SubResource("QuadMesh_4ml4n")
 transform = Transform3D(1.41498, 0, 0, 0, 1.41498, 0, 0, 0, 1.41498, -0.00606956, 1.11948, -0.00725168)
 stream = ExtResource("13_hxdty")
 volume_db = -24.381
+
+[node name="CookingTimer" type="Timer" parent="Skillet" index="5"]
+wait_time = 10.0
+one_shot = true
+
+[node name="OutsideTimer" type="Timer" parent="Skillet" index="6"]
+wait_time = 5.0
+one_shot = true
 
 [node name="GrabPointHandLeft" parent="." index="2" instance=ExtResource("3_da5sr")]
 transform = Transform3D(-0.997024, 0, -0.0770848, 0, 1, 0, 0.0770848, 0, -0.997024, 0.0548151, 0.155291, -0.68428)
@@ -286,3 +294,8 @@ shape = SubResource("BoxShape3D_nfwds")
 
 [node name="LidSnapZone" parent="." index="18" instance=ExtResource("12_vp2eu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.10974e-05, -0.0483693, 0.0165982)
+
+[connection signal="body_entered" from="Skillet/CookingArea" to="Skillet" method="_on_cooking_area_body_entered"]
+[connection signal="body_exited" from="Skillet/CookingArea" to="Skillet" method="_on_cooking_area_body_exited"]
+[connection signal="timeout" from="Skillet/CookingTimer" to="Skillet" method="_on_cooking_timer_timeout"]
+[connection signal="timeout" from="Skillet/OutsideTimer" to="Skillet" method="_on_outside_timer_timeout"]

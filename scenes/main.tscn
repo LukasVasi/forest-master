@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://0rctt4pnv5n2" path="res://scenes/tutorial.tscn" id="10_rt4mo"]
 [ext_resource type="PackedScene" uid="uid://482xli6khdjt" path="res://scenes/fishing/bucket.tscn" id="10_ym32v"]
 [ext_resource type="PackedScene" uid="uid://coi25buc88g6d" path="res://scenes/fishing/fish_mock.tscn" id="14_h3ydf"]
-[ext_resource type="PackedScene" uid="uid://h2oii34vo11w" path="res://scenes/wood.tscn" id="16_20otq"]
+[ext_resource type="PackedScene" uid="uid://h2oii34vo11w" path="res://scenes/cooking/wood.tscn" id="16_20otq"]
 [ext_resource type="PackedScene" uid="uid://bcoan783pbvdq" path="res://scenes/fishing/fishing_rod.tscn" id="18_ap21l"]
 [ext_resource type="PackedScene" uid="uid://d1df0epcleg23" path="res://scenes/fishing/dock.tscn" id="18_r5c2f"]
 [ext_resource type="PackedScene" uid="uid://vlv7oa62414j" path="res://scenes/combat/steak.tscn" id="20_j76k0"]
