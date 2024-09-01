@@ -90,19 +90,6 @@ const NEAR_GROUND_DISTANCE := 1.0
 ## Option for specifying when ground control is allowed
 @export var ground_control : GroundControl = GroundControl.ON_GROUND
 
-@export_group("Water physics")
-
-## The acceleration that determines how fast the player reaches the max emergence speed in water.
-@export var water_emergence_acceleration : float = 5.0
-
-## The max speed that the player will be raised from the water.
-@export var water_max_emergence_velocity : float = 2.0
-
-## The maximum velocity that bobbing in water will reach.
-@export var water_bobbing_amplitude : float = 0.2
-
-## The frequency of the bobbing in water.
-@export var _water_bobbing_frequency := 0.8
 
 ## Player 3D Velocity - modified by [XRToolsMovementProvider] nodes
 #var velocity : Vector3 = Vector3.ZERO
@@ -175,18 +162,6 @@ var _collision_node : CollisionShape3D
 
 # Player head shape cast
 var _head_shape_cast : ShapeCast3D
-
-# In water mode
-var _in_water : bool = false
-
-# Bobbing in water mode
-var _bobbing : bool = false
-
-# The current time of the bobbing oscillation
-var _water_bobbing_time : float  = 0.0
-
-# The global height (y coordinate) of the water surface
-var _water_global_height : float = 0.0
 
 
 ## XROrigin3D node
@@ -292,7 +267,7 @@ func _physics_process(delta: float):
 
 	# Determine environmental gravity
 	var gravity_state := PhysicsServer3D.body_get_direct_state(get_rid())
-	gravity = gravity_state.total_gravity # can't disable gravity here as it will be used to determine up direction
+	gravity = gravity_state.total_gravity
 
 	# Update the kinematic body to be under the camera
 	_update_body_under_camera(delta)
@@ -311,7 +286,7 @@ func _physics_process(delta: float):
 		# Use gravity direction
 		up_gravity = -gravity.normalized()
 
-	# Update the ground information. No ground is found if in water
+	# Update the ground information
 	_update_ground_information(delta)
 
 	# Get the player body location before movement occurs
@@ -325,9 +300,6 @@ func _physics_process(delta: float):
 	# - Perform exclusive updating of the player (bypassing other movement providers)
 	# - Request a jump
 	# - Modify gravity direction
-	# The whole exclusive thing seems weird because to set exlusivity it checks
-	# the return of the providers' physics_movement() which is void both 
-	# in its abstract definition in [XRToolsMovementProvider] and all providers we use
 	ground_control_velocity = Vector2.ZERO
 	var exclusive := false
 	for p in _movement_providers:
@@ -336,25 +308,11 @@ func _physics_process(delta: float):
 				exclusive = true
 
 	# If no controller has performed an exclusive-update then apply gravity and
-	# perform any ground-control or handle bobbing in water
+	# perform any ground-control
 	if !exclusive:
 		if on_ground and ground_physics.stop_on_slope and ground_angle < ground_physics.move_max_slope:
 			# Apply gravity towards slope to prevent sliding
 			velocity += -ground_vector * gravity.length() * delta
-		elif _in_water:
-			# If the player is bobbing on the surface
-			if _bobbing:
-				# Apply velocity to keep them bobbing
-				_water_bobbing_time += delta
-				velocity.y = _get_bob_velocity(_water_bobbing_time)
-			else:
-				# If the player has emerged to the surface
-				if velocity.y > 0 and global_position.y > _water_global_height - _collision_node.shape.height / 2:
-					# Start bobbing
-					_bobbing = true
-				else:
-					# If the player is falling in water, push them upwards but not too much
-					velocity.y = min(velocity.y + water_emergence_acceleration * delta, water_max_emergence_velocity)
 		else:
 			# Apply gravity
 			velocity += gravity * delta
@@ -660,8 +618,8 @@ func _update_ground_information(delta: float):
 	var ground_collision := move_and_collide(
 			up_gravity * -NEAR_GROUND_DISTANCE, true)
 
-	# Handle no collision (or too far away to care about, or in water)
-	if !ground_collision or _in_water:
+	# Handle no collision (or too far away to care about)
+	if !ground_collision:
 		near_ground = false
 		on_ground = false
 		ground_vector = up_gravity
@@ -710,47 +668,54 @@ func _apply_velocity_and_control(delta: float):
 	var horizontal_velocity := local_velocity.slide(up_gravity)
 	var vertical_velocity := local_velocity - horizontal_velocity
 
-	# If the player is on the ground or in water then give them control
-	if _can_apply_ground_control() or _in_water:
+	# If the player is on the ground then give them control
+	if _can_apply_ground_control() and ground_control_velocity.length() >= 0.1:
 		# If ground control is being supplied then update the horizontal velocity
 		var control_velocity := Vector3.ZERO
-		if abs(ground_control_velocity.x) > 0.1 or abs(ground_control_velocity.y) > 0.1:
-			var camera_transform := camera_node.global_transform
-			var dir_forward := camera_transform.basis.z.slide(up_gravity).normalized()
-			var dir_right := camera_transform.basis.x.slide(up_gravity).normalized()
-			control_velocity = (
-					dir_forward * -ground_control_velocity.y +
-					dir_right * ground_control_velocity.x
-			) * XRServer.world_scale
+		var camera_transform := camera_node.global_transform
+		var dir_forward := camera_transform.basis.z.slide(up_gravity).normalized()
+		var dir_right := camera_transform.basis.x.slide(up_gravity).normalized()
+		control_velocity = (
+				dir_forward * -ground_control_velocity.y +
+				dir_right * ground_control_velocity.x
+		) * XRServer.world_scale
 
-			# Apply control velocity to horizontal velocity based on traction
-			var current_traction := XRToolsGroundPhysicsSettings.get_move_traction(
-					ground_physics, default_physics)
-			var traction_factor: float = clamp(current_traction * delta, 0.0, 1.0)
-			horizontal_velocity = horizontal_velocity.lerp(control_velocity, traction_factor)
+		# Apply control velocity to horizontal velocity based on traction
+		var current_traction := XRToolsGroundPhysicsSettings.get_move_traction(
+				ground_physics, default_physics)
+		var traction_factor: float = clamp(current_traction * delta, 0.0, 1.0)
+		horizontal_velocity = horizontal_velocity.lerp(control_velocity, traction_factor)
 
-			# Prevent the player from moving up steep slopes
-			var current_max_slope := XRToolsGroundPhysicsSettings.get_move_max_slope(
-					ground_physics, default_physics)
-			if ground_angle > current_max_slope:
-				# Get a vector in the down-hill direction
-				var down_direction := ground_vector.slide(up_gravity).normalized()
-				var vdot: float = down_direction.dot(horizontal_velocity)
-				if vdot < 0:
-					horizontal_velocity -= down_direction * vdot
-		else:
-			# User is not trying to move, so apply the ground drag
-			var current_drag := XRToolsGroundPhysicsSettings.get_move_drag(
-					ground_physics, default_physics)
-			var drag_factor: float = clamp(current_drag * delta, 0, 1)
-			horizontal_velocity = horizontal_velocity.lerp(control_velocity, drag_factor)
-	
-	
+	# Prevent the player from moving up steep slopes
+	if on_ground:
+		var current_max_slope := XRToolsGroundPhysicsSettings.get_move_max_slope(
+				ground_physics, default_physics)
+		if ground_angle > current_max_slope:
+			# Get a vector in the down-hill direction
+			var down_direction := ground_vector.slide(up_gravity).normalized()
+			var vdot: float = down_direction.dot(horizontal_velocity)
+			if vdot < 0:
+				horizontal_velocity -= down_direction * vdot
+
 	# Combine the velocities back to a 3-space velocity
 	local_velocity = horizontal_velocity + vertical_velocity
 
 	# Move the player body with the desired velocity
 	velocity = move_body(local_velocity + ground_velocity)
+
+	# Apply ground-friction after the move
+	if _can_apply_ground_control() and ground_control_velocity.length() < 0.1:
+		# User is not trying to move, so apply the ground drag
+		var current_drag := XRToolsGroundPhysicsSettings.get_move_drag(
+				ground_physics, default_physics)
+		var drag_factor: float = clamp(current_drag * delta, 0, 1)
+
+		# Apply drag to horizontal velocity relative to ground
+		local_velocity = velocity - ground_velocity
+		horizontal_velocity = local_velocity.slide(up_gravity)
+		vertical_velocity = local_velocity - horizontal_velocity
+		horizontal_velocity = horizontal_velocity.lerp(Vector3.ZERO, drag_factor)
+		velocity = horizontal_velocity + vertical_velocity + ground_velocity
 
 	# Perform bounce test if a collision occurred
 	if get_slide_collision_count():
@@ -863,25 +828,3 @@ static func find_instance(node: Node) -> XRToolsPlayerBody:
 		XRHelpers.get_xr_origin(node),
 		"*",
 		"XRToolsPlayerBody") as XRToolsPlayerBody
-
-
-func on_water_entered(water_height: float):
-	_water_global_height = water_height # set the water height for floating logic
-	_in_water = true
-	#gravity_scale = 0  # This will make the player ignore gravity
-
-
-func on_water_exited():
-	_in_water = false
-	_bobbing = false
-	_water_bobbing_time = 0.0
-	#gravity_scale = 1  # Reset gravity scaling
-	#linear_velocity.y = 0  # Reset vertical velocity
-	#bobbing_time = 0  # Reset bobbing time
-
-func _get_bob_velocity(time: float) -> float:
-	var omega = TAU * _water_bobbing_frequency
-	# Calculate the velocity as the derivative of the sine function
-	var velocity = water_bobbing_amplitude * omega * cos(omega * time)
-
-	return velocity

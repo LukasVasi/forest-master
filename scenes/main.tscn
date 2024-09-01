@@ -374,6 +374,8 @@ enabled = false
 collision_layer = 5242880
 scene = ExtResource("4_s7kne")
 viewport_size = Vector2(800, 600)
+scene_properties_keys = PackedStringArray("pause_menu.gd", "distance")
+distance = 1.4
 
 [node name="Tutorial" type="Node" parent="."]
 
@@ -383,6 +385,7 @@ screen_size = Vector2(4, 2)
 enabled = false
 scene = ExtResource("10_rt4mo")
 viewport_size = Vector2(1152, 648)
+scene_properties_keys = PackedStringArray()
 
 [node name="Rock_table" parent="Tutorial" instance=ExtResource("39_waqj3")]
 transform = Transform3D(-1.21918, 0, -0.443855, 0, 1, 0, 0.490106, 0, -1.10413, -2.435, 0.492, -5.525)

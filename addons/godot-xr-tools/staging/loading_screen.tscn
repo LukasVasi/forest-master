@@ -1,7 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://bqumugyvkct4r"]
+[gd_scene load_steps=13 format=3 uid="uid://bqumugyvkct4r"]
 
 [ext_resource type="Script" path="res://addons/godot-xr-tools/staging/loading_screen.gd" id="2"]
-[ext_resource type="Texture2D" uid="uid://63bjetqkj0lj" path="res://textures/background.png" id="2_rqbk8"]
 [ext_resource type="Shader" uid="uid://4i0pwdtfmtsv" path="res://addons/godot-xr-tools/staging/loading_screen/loading_screen_shader.tres" id="3"]
 [ext_resource type="Texture2D" uid="uid://clbtsf0ahb3fm" path="res://addons/godot-xr-tools/assets/misc/progress_bar.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://ocyj01x5mtt7" path="res://addons/godot-xr-tools/assets/misc/Hold trigger to continue.png" id="5"]
@@ -15,17 +14,16 @@ point_count = 2
 [sub_resource type="PlaneMesh" id="2"]
 size = Vector2(80, 60)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v5ymu"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1o2lp"]
 transparency = 1
 shading_mode = 0
-albedo_texture = ExtResource("2_rqbk8")
 
 [sub_resource type="ShaderMaterial" id="18"]
 render_priority = 0
 shader = ExtResource("3")
 shader_parameter/bar_color = Color(1, 1, 1, 1)
 shader_parameter/cutout = Vector3(4.85, 0.33, 0)
-shader_parameter/progress = 0.0
+shader_parameter/progress = 0.5
 shader_parameter/bar_texture = ExtResource("4")
 
 [sub_resource type="PlaneMesh" id="3"]
@@ -45,9 +43,9 @@ script = ExtResource("2")
 follow_speed = SubResource("21")
 
 [node name="SplashScreen" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.66415, 0, 0, 0, -7.27424e-08, -1.66415, 0, 1.66415, -7.27424e-08, 0, 4.22951, -37.2183)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 15, -50)
 mesh = SubResource("2")
-surface_material_override/0 = SubResource("StandardMaterial3D_v5ymu")
+surface_material_override/0 = SubResource("StandardMaterial3D_1o2lp")
 
 [node name="ProgressBar" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -10)

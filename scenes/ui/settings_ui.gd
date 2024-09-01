@@ -14,7 +14,7 @@ signal player_height_changed(new_height)
 func _update():
 	# Input
 	snap_turning_button.button_pressed = XRToolsUserSettings.snap_turning
-	movement_direct_button.button_pressed = XRToolsUserSettings.movement_direct
+	#movement_direct_button.button_pressed = XRToolsUserSettings.movement_direct
 	y_deadzone_slider.value = XRToolsUserSettings.y_axis_dead_zone
 	x_deadzone_slider.value = XRToolsUserSettings.x_axis_dead_zone
 
@@ -50,7 +50,8 @@ func _on_SnapTurningCB_pressed():
 
 # Input settings changed
 func _on_MovementDirectCB_pressed():
-	XRToolsUserSettings.movement_direct = movement_direct_button.button_pressed
+	pass
+	#XRToolsUserSettings.movement_direct = movement_direct_button.button_pressed
 
 
 func _on_y_axis_dead_zone_slider_value_changed(value):

@@ -69,12 +69,14 @@ func init_controllers() -> void:
 		function_teleport_left = xr_controller_left.get_node("FunctionTeleport")
 		
 		# Enable one based on user settings
-		if XRToolsUserSettings.movement_direct:
-			movement_direct_left.enabled = true
-			function_teleport_left.enabled = false
-		else:
-			movement_direct_left.enabled = false
-			function_teleport_left.enabled = true
+		movement_direct_left.enabled = true
+		function_teleport_left.enabled = false
+		#if XRToolsUserSettings.movement_direct:
+			#movement_direct_left.enabled = true
+			#function_teleport_left.enabled = false
+		#else:
+			#movement_direct_left.enabled = false
+			#function_teleport_left.enabled = true
 		
 		function_pickup_left = xr_controller_left.get_node("FunctionPickupLeft")
 		function_pointer_left = xr_controller_left.get_node("FunctionPointerLeft")
