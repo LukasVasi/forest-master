@@ -39,6 +39,10 @@ func _ready() -> void:
 		return
 	
 	for dispensed_scene in dispensed_scenes:
+		if not dispensed_scene:
+			push_error("Dispensed scene in null")
+			enabled = false
+			return
 		var instance: XRToolsPickable = dispensed_scene.instantiate()
 		if not instance.has_method("pick_up"):
 			push_error("Pickable dispenser needs dispensed scenes to have the pick_up method")

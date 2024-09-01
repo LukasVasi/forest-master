@@ -1,6 +1,6 @@
-[gd_scene load_steps=8 format=4 uid="uid://cyxvc0461fbjf"]
+[gd_scene load_steps=7 format=4 uid="uid://cyxvc0461fbjf"]
 
-[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/pickable.gd" id="1_rxk8t"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/pickable.gd" id="1_pphn5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kg30h"]
 resource_name = "Wood"
@@ -71,15 +71,13 @@ shadow_mesh = SubResource("ArrayMesh_46kpn")
 [sub_resource type="BoxShape3D" id="BoxShape3D_sp3b5"]
 size = Vector3(0.119873, 0.0661621, 0.247589)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_4k0hm"]
-
-[node name="wood" type="RigidBody3D" groups=["fire_wood"]]
+[node name="FireWood" type="RigidBody3D" groups=["fire_wood"]]
 collision_layer = 4
 collision_mask = 196615
 freeze_mode = 1
-script = ExtResource("1_rxk8t")
+script = ExtResource("1_pphn5")
 
-[node name="Firewood_002" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(2.42705, -1.76336, 0, 1.76336, 2.42705, 0, 0, 0, 3, 0, 0, 0)
 mesh = SubResource("ArrayMesh_j35eu")
 skeleton = NodePath("")
@@ -87,9 +85,3 @@ skeleton = NodePath("")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.00678968, -0.00739878, 0.0124807)
 shape = SubResource("BoxShape3D_sp3b5")
-
-[node name="Area3D" type="Area3D" parent="." groups=["wood"]]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.00678968, -0.00739878, 0.0124807)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-shape = SubResource("SphereShape3D_4k0hm")

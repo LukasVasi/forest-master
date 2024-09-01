@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ph85krivvsm0"]
+
+[ext_resource type="Script" path="res://scripts/utils/pickable_dispenser.gd" id="1_wjehj"]
+
+[node name="PickableDispenser" type="Area3D"]
+collision_layer = 4
+collision_mask = 196608
+monitoring = false
+script = ExtResource("1_wjehj")

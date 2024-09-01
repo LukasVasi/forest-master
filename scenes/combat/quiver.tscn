@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=4 uid="uid://bkj6ty5kdth1w"]
 
 [ext_resource type="PackedScene" uid="uid://ch54hnpbw88c8" path="res://scenes/combat/arrow.tscn" id="1_03pyv"]
-[ext_resource type="Script" path="res://scripts/utils/pickable_dispenser.gd" id="1_gy10d"]
+[ext_resource type="PackedScene" uid="uid://ph85krivvsm0" path="res://scenes/utils/pickable_dispenser.tscn" id="2_x5fqr"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="3_ciuo5"]
 [ext_resource type="ArrayMesh" uid="uid://dk34hw7u8cupp" path="res://models/combat/Arrow.obj" id="3_xah7i"]
 [ext_resource type="Material" uid="uid://nuogvh1u6wye" path="res://resources/highlight_material.tres" id="4_srnta"]
@@ -75,13 +75,6 @@ shadow_mesh = SubResource("ArrayMesh_ry4v1")
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_2oevt"]
 points = PackedVector3Array(-0.128826, 2.13893, -0.948205, 0.0770129, -2.04968, 1.1803, 0.0770129, 1.5896, 1.04286, 0.557733, -2.25573, -0.536313, -0.540933, -2.25573, -0.536313, -0.472213, 1.72683, 0.493526, 0.489013, 1.72683, 0.493526, -0.540933, -2.25573, 0.836805, 0.557733, -2.25573, 0.768192, 0.489013, 2.00128, -0.536313, 0.0770129, -2.25573, -1.01703, -0.472213, 2.00128, -0.4677, 0.0770129, 2.13893, -1.01703, -0.0602129, 1.5896, 1.04286, -0.128826, -2.25573, 1.1803, -0.0602129, -2.25573, -1.01703, -0.472213, 2.00128, -0.193033, 0.489013, 2.00128, -0.261646, 0.214346, -2.25573, 1.11147, 0.557733, -2.11765, 0.768192, -0.0602129, 2.13893, -1.01703, 0.214346, 2.07011, -0.879592, 0.35168, 1.658, 0.69958, -0.540933, -2.18691, 0.836805, -0.540933, -2.11765, -0.536313, -0.33488, 2.07011, -0.673539, 0.557733, -2.11765, -0.536313, 0.4204, 2.07011, -0.604926, -0.540933, -2.11765, 0.768192, 0.283067, -2.11765, 1.04286, -0.33488, 1.72683, 0.630967, -0.128826, -2.18691, 1.1803)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_60ngt"]
-size = Vector3(0.2, 0.2, 0.4)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_xd06e"]
-material = ExtResource("4_srnta")
-size = Vector2(0.12, 0.25)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ys1e2"]
 albedo_color = Color(0.188235, 0.113725, 0.0470588, 1)
 
@@ -94,6 +87,13 @@ albedo_color = Color(0.364706, 0.364706, 0.352941, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0msr4"]
 albedo_color = Color(0.556863, 0.556863, 0.556863, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_60ngt"]
+size = Vector3(0.2, 0.2, 0.4)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xd06e"]
+material = ExtResource("4_srnta")
+size = Vector2(0.12, 0.25)
+
 [node name="Quiver" type="StaticBody3D"]
 
 [node name="Quiver" type="MeshInstance3D" parent="."]
@@ -104,24 +104,6 @@ skeleton = NodePath("")
 [node name="QuiverCollisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.22, 0, 0, 0, 0.22, 0, 0, 0, 0.22, -0.000622965, 0.490587, -0.00345251)
 shape = SubResource("ConvexPolygonShape3D_2oevt")
-
-[node name="ArrowDispenser" type="Area3D" parent="."]
-collision_layer = 4
-collision_mask = 196612
-script = ExtResource("1_gy10d")
-dispensed_scenes = Array[PackedScene]([ExtResource("1_03pyv")])
-
-[node name="ArrowDispenserCollisionShape" type="CollisionShape3D" parent="ArrowDispenser"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
-shape = SubResource("BoxShape3D_60ngt")
-
-[node name="XRToolsHighlightVisible" type="Node3D" parent="ArrowDispenser"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-script = ExtResource("3_ciuo5")
-
-[node name="HighlightMesh" type="MeshInstance3D" parent="ArrowDispenser/XRToolsHighlightVisible"]
-transform = Transform3D(1, 0, 0, 0, 0.951057, -0.309017, 0, 0.309017, 0.951057, 0, -0.033443, -0.013815)
-mesh = SubResource("PlaneMesh_xd06e")
 
 [node name="Visuals" type="Node3D" parent="."]
 
@@ -156,3 +138,18 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ys1e2")
 surface_material_override/1 = SubResource("StandardMaterial3D_r152g")
 surface_material_override/2 = SubResource("StandardMaterial3D_if5bf")
 surface_material_override/3 = SubResource("StandardMaterial3D_0msr4")
+
+[node name="ArrowDispenser" parent="." instance=ExtResource("2_x5fqr")]
+dispensed_scenes = Array[PackedScene]([ExtResource("1_03pyv")])
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ArrowDispenser"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
+shape = SubResource("BoxShape3D_60ngt")
+
+[node name="XRToolsHighlightVisible" type="Node3D" parent="ArrowDispenser"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+script = ExtResource("3_ciuo5")
+
+[node name="HighlightMesh" type="MeshInstance3D" parent="ArrowDispenser/XRToolsHighlightVisible"]
+transform = Transform3D(1, 0, 0, 0, 0.951057, -0.309017, 0, 0.309017, 0.951057, 0, -0.033443, -0.013815)
+mesh = SubResource("PlaneMesh_xd06e")
