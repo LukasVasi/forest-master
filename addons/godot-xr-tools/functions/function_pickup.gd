@@ -7,7 +7,7 @@ extends Node3D
 ## XR Tools Function Pickup Script
 ##
 ## This script implements picking up of objects. Most pickable
-## objects are instances of the [XRToolsPickable] class.
+## objects are instances of the p[XRToolsPickable] class.
 ##
 ## Additionally this script can work in conjunction with the
 ## [XRToolsMovementProvider] class support climbing. Most climbable objects are

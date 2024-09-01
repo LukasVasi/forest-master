@@ -1,12 +1,12 @@
 [gd_scene load_steps=17 format=3 uid="uid://bsotifvyxaf5u"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_524a5"]
-[ext_resource type="PackedScene" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="1_i0vxa"]
+[ext_resource type="PackedScene" uid="uid://btknduttnmoxf" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="1_i0vxa"]
 [ext_resource type="PackedScene" uid="uid://ce2ifntxsuc88" path="res://models/right_custom.tscn" id="3_nch7m"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_xk607"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="5_5oj1i"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="5_y5i8i"]
-[ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="6_gddok"]
+[ext_resource type="Script" path="res://scripts/utils/function_pickup.gd" id="6_ags4n"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="6_ls5gy"]
 [ext_resource type="Material" path="res://addons/godot-xr-tools/materials/pointer.tres" id="7_cl1xv"]
 [ext_resource type="PackedScene" uid="uid://b2km8ykvhp6e0" path="res://models/left_custom.tscn" id="8_txy6g"]
@@ -52,7 +52,8 @@ tracker = &"right_hand"
 process_mode = 1
 step_turn_angle = 45.0
 
-[node name="FunctionPickupRight" parent="RightHandController" instance=ExtResource("6_gddok")]
+[node name="FunctionPickupRight" type="Node3D" parent="RightHandController"]
+script = ExtResource("6_ags4n")
 grab_distance = 0.2
 grab_collision_mask = 328708
 ranged_enable = false
@@ -80,7 +81,8 @@ strafe = true
 
 [node name="FunctionTeleport" parent="LeftHandController" instance=ExtResource("10_juane")]
 
-[node name="FunctionPickupLeft" parent="LeftHandController" instance=ExtResource("6_gddok")]
+[node name="FunctionPickupLeft" type="Node3D" parent="LeftHandController"]
+script = ExtResource("6_ags4n")
 grab_distance = 0.2
 grab_collision_mask = 328708
 ranged_enable = false
@@ -106,6 +108,7 @@ scene = ExtResource("12_xpbn2")
 viewport_size = Vector2(1152, 648)
 throttle_fps = 3.0
 input_keyboard = false
+scene_properties_keys = PackedStringArray("fps_counter.gd")
 
 [node name="PlayerBody" parent="." instance=ExtResource("6_ls5gy")]
 process_mode = 1

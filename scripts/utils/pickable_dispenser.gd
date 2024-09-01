@@ -17,7 +17,6 @@ signal highlight_updated(pickable: Variant, enable: Variant)
 ## The pickable object scenes that are used for instantiation
 @export var dispensed_scenes: Array[PackedScene] = []
 
-
 # Dictionary of nodes requesting highlight
 var _highlight_requests : Dictionary = {}
 
@@ -44,7 +43,10 @@ func _ready() -> void:
 		if not instance.has_method("pick_up"):
 			push_error("Pickable dispenser needs dispensed scenes to have the pick_up method")
 			enabled = false
+			instance.queue_free()
 			return
+		else:
+			instance.queue_free()
 
 
 ## Test if this object can dispense a pickup
@@ -52,15 +54,10 @@ func can_pick_up(_by: Node3D) -> bool:
 	return enabled
 
 
-# Test if this object is picked up
-func is_picked_up() -> bool:
-	return false
-
-
 ## This method requests highlighting of the [XRToolsPickable].
 ## If [param from] is null then all highlighting requests are cleared,
 ## otherwise the highlight request is associated with the specified node.
-func request_highlight(from : Node, on : bool = true) -> void:
+func request_highlight(from: XRToolsFunctionPickup, on: bool = true) -> void:
 	# Save if we are highlighted
 	var old_highlighted := _highlighted
 
@@ -80,16 +77,12 @@ func request_highlight(from : Node, on : bool = true) -> void:
 		highlight_updated.emit(self, _highlighted)
 
 
-# Called when this object is picked up
-func pick_up(by: Node3D) -> XRToolsPickable:
-	if not enabled:
-		return null
-	
+# Called when FunctionPickup requests a pciakble
+func pick_up() -> XRToolsPickable:
 	var dispensed_object: XRToolsPickable = _get_dispensable_instance()
 	if dispensed_object:
 		add_child(dispensed_object)
 		dispensed_object.global_position = global_position
-		dispensed_object.pick_up(by)
 		return dispensed_object
 	else:
 		return null

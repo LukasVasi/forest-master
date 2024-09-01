@@ -20,4 +20,6 @@ func pick_up(by: Node3D) -> void:
 		set_gravity_scale(1)
 
 func is_cooked() -> bool:
-	return get_node("Mesh").cooking_level > 0
+	var righSide: Cookable = get_node("MeshRight")
+	var leftSide: Cookable = get_node("MeshRight")
+	return righSide.cooking_level > 0 || leftSide.cooking_level > 0
