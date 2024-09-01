@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://csdvq8wulxb4g"]
 
-[ext_resource type="Script" path="res://scripts/line.gd" id="1_03nxd"]
+[ext_resource type="Script" path="res://scripts/utils/line.gd" id="1_03nxd"]
 
 [node name="Line" type="MeshInstance3D"]
 script = ExtResource("1_03nxd")

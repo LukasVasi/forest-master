@@ -1,16 +1,16 @@
-[gd_scene load_steps=77 format=4 uid="uid://dqmlp2hfmrh7m"]
+[gd_scene load_steps=80 format=4 uid="uid://dqmlp2hfmrh7m"]
 
 [ext_resource type="Script" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_0wkb3"]
 [ext_resource type="PackedScene" uid="uid://bsotifvyxaf5u" path="res://scenes/player.tscn" id="1_e77tj"]
 [ext_resource type="Environment" uid="uid://edotw462mqao" path="res://resources/environment.tres" id="3_uue1d"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="3_x6jvw"]
-[ext_resource type="PackedScene" uid="uid://b5gug5ecibfou" path="res://scenes/pause_menu.tscn" id="4_s7kne"]
+[ext_resource type="PackedScene" uid="uid://b5gug5ecibfou" path="res://scenes/ui/pause_menu.tscn" id="4_s7kne"]
 [ext_resource type="Shader" path="res://shaders/Low_poly_water.gdshader" id="6_65b7g"]
 [ext_resource type="PackedScene" uid="uid://ca0ohfqspp2pg" path="res://scenes/fishing/fishing_water.tscn" id="8_mty1l"]
-[ext_resource type="PackedScene" uid="uid://qat0jalvcswc" path="res://scenes/tent.tscn" id="8_tg55q"]
+[ext_resource type="PackedScene" uid="uid://qat0jalvcswc" path="res://scenes/environment/tent.tscn" id="8_tg55q"]
 [ext_resource type="PackedScene" uid="uid://0rctt4pnv5n2" path="res://scenes/tutorial.tscn" id="10_rt4mo"]
 [ext_resource type="PackedScene" uid="uid://482xli6khdjt" path="res://scenes/fishing/bucket.tscn" id="10_ym32v"]
-[ext_resource type="PackedScene" uid="uid://coi25buc88g6d" path="res://scenes/fishing/fish_mock.tscn" id="14_h3ydf"]
+[ext_resource type="PackedScene" uid="uid://coi25buc88g6d" path="res://scenes/creatures/mock_fish.tscn" id="14_h3ydf"]
 [ext_resource type="PackedScene" uid="uid://h2oii34vo11w" path="res://scenes/cooking/wood.tscn" id="16_20otq"]
 [ext_resource type="PackedScene" uid="uid://bcoan783pbvdq" path="res://scenes/fishing/fishing_rod.tscn" id="18_ap21l"]
 [ext_resource type="PackedScene" uid="uid://d1df0epcleg23" path="res://scenes/fishing/dock.tscn" id="18_r5c2f"]
@@ -32,21 +32,42 @@
 [ext_resource type="PackedScene" uid="uid://dl0cfseyaqjnb" path="res://models/nature/rocks/Rock_table.glb" id="39_waqj3"]
 [ext_resource type="PackedScene" uid="uid://cesfxm8jarcjs" path="res://scenes/combat/kipsas.tscn" id="40_wa0sj"]
 [ext_resource type="AudioStream" uid="uid://dmgmim828cyrk" path="res://Audio/testFire.mp3" id="41_36ag6"]
-[ext_resource type="PackedScene" uid="uid://bch51o1gs3sqe" path="res://scenes/rock_small_v_1.tscn" id="41_j1t3h"]
+[ext_resource type="PackedScene" uid="uid://bch51o1gs3sqe" path="res://scenes/environment/rock_small_v_1.tscn" id="41_j1t3h"]
 [ext_resource type="PackedScene" uid="uid://bic326xn55aws" path="res://models/nature/rocks/small/Rock_small_v2.glb" id="42_aju2i"]
 [ext_resource type="PackedScene" uid="uid://gcllbgl1kvjo" path="res://scenes/combat/puntukas.tscn" id="42_e20bc"]
 [ext_resource type="AudioStream" uid="uid://m308xudgckly" path="res://Audio/Forestmejster_backing_track.mp3" id="42_krcic"]
-[ext_resource type="PackedScene" uid="uid://bc04w1qogmn4t" path="res://scenes/dragonfly.tscn" id="42_lcci2"]
+[ext_resource type="PackedScene" uid="uid://bc04w1qogmn4t" path="res://scenes/creatures/dragonfly.tscn" id="42_lcci2"]
 [ext_resource type="PackedScene" uid="uid://bsmyjjetapi4p" path="res://scenes/combat/creature.tscn" id="43_2bcqx"]
 [ext_resource type="AudioStream" uid="uid://p4wp17ln30qd" path="res://Audio/birdsTest.mp3" id="43_67go0"]
 [ext_resource type="PackedScene" uid="uid://ck41s7q3i5tt0" path="res://models/nature/rocks/small/Rock_small_v3.glb" id="44_es8te"]
 [ext_resource type="PackedScene" uid="uid://bkj6ty5kdth1w" path="res://scenes/combat/quiver.tscn" id="44_nghe1"]
-[ext_resource type="PackedScene" uid="uid://wt3xvamdtofe" path="res://scenes/log.tscn" id="45_5njgx"]
+[ext_resource type="PackedScene" uid="uid://wt3xvamdtofe" path="res://scenes/environment/log.tscn" id="45_5njgx"]
 [ext_resource type="PackedScene" uid="uid://c6wf68pe71k2a" path="res://scenes/cooking/skillet.tscn" id="45_6wdpy"]
 [ext_resource type="PackedScene" uid="uid://h4roksm87ytx" path="res://scenes/cooking/lid.tscn" id="46_vwkmn"]
-[ext_resource type="PackedScene" uid="uid://gvyk1si63evv" path="res://scenes/flowers.tscn" id="47_kirqo"]
+[ext_resource type="PackedScene" uid="uid://gvyk1si63evv" path="res://scenes/environment/flowers.tscn" id="47_kirqo"]
 [ext_resource type="PackedScene" uid="uid://ct2g57qsopix7" path="res://scenes/fishing/fishes/kuoja.tscn" id="47_vcxi4"]
-[ext_resource type="PackedScene" uid="uid://b2wwpdu2ao0np" path="res://scenes/bushes2.tscn" id="48_1ny86"]
+[ext_resource type="PackedScene" uid="uid://b2wwpdu2ao0np" path="res://scenes/environment/bushes2.tscn" id="48_1ny86"]
+
+[sub_resource type="Curve3D" id="Curve3D_i6pi6"]
+_data = {
+"points": PackedVector3Array(-4.15204, 2.02718, 2.83398, 4.15204, -2.02718, -2.83398, 25.8576, -2.49044, -5.95798, 0.69775, 0.66229, -2.66754, -0.69775, -0.66229, 2.66754, 32.494, -2.00741, 4.98622, 2.03585, -0.481025, -0.993316, -2.03585, 0.481025, 0.993316, 25.5118, -3.66761, 16.3678, 0.484137, -0.551244, 1.49405, -0.484137, 0.551244, -1.49405, 17.6268, -1.36687, 15.3838, 0.328243, -0.200993, 2.50552, -0.328243, 0.200993, -2.50552, 18.9826, -1.19435, 8.02486, -3.66584, 1.32155, 3.06056, 3.66584, -1.32155, -3.06056, 25.8576, -2.49044, -5.95798),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0)
+}
+point_count = 6
+
+[sub_resource type="Curve3D" id="Curve3D_yp1q7"]
+_data = {
+"points": PackedVector3Array(-4.15204, 2.02718, 2.83398, 4.15204, -2.02718, -2.83398, 26.4616, -4.07611, -2.72299, 0.69775, 0.66229, -2.66754, -0.69775, -0.66229, 2.66754, 31.6123, -5.11569, 7.76882, 2.03585, -0.481025, -0.993316, -2.03585, 0.481025, 0.993316, 30.9126, -6.18221, 18.5705, 0.484137, -0.551244, 1.49405, -0.484137, 0.551244, -1.49405, 21.4083, -4.19061, 16.4323, 0.328243, -0.200993, 2.50552, -0.328243, 0.200993, -2.50552, 23.1969, -6.74085, 11.8535, -3.66584, 1.32155, 3.06056, 3.66584, -1.32155, -3.06056, 27.5397, -4.40676, 5.88951, -4.15204, 2.02718, 2.83398, 4.15204, -2.02718, -2.83398, 26.4616, -4.07611, -2.72299),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 7
+
+[sub_resource type="Curve3D" id="Curve3D_myd8c"]
+_data = {
+"points": PackedVector3Array(-4.15204, 2.02718, 2.83398, 4.15204, -2.02718, -2.83398, 28.4408, -2.76928, -1.07069, 0.49189, -0.508668, -3.16812, -0.49189, 0.508668, 3.16812, 34.2556, -5.11569, 7.76882, 3.20822, -0.078001, -2.41962, -3.20822, 0.078001, 2.41962, 30.9126, -0.92105, 18.5705, 2.00695, -0.135149, 1.06135, -2.00695, 0.135149, -1.06135, 24.0295, -4.19061, 20.9735, -2.05352, 0.123022, 3.28673, 2.05352, -0.123022, -3.28673, 19.9919, -4.87073, 13.6571, -3.66584, 1.32155, 3.06056, 3.66584, -1.32155, -3.06056, 27.5397, -4.40676, 10.471, -4.15204, 2.02718, 2.83398, 4.15204, -2.02718, -2.83398, 28.4408, -2.76928, -1.07069),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 7
 
 [sub_resource type="QuadMesh" id="QuadMesh_tmkjx"]
 size = Vector2(66, 55)
@@ -371,33 +392,6 @@ transform = Transform3D(-1.21918, 0, -0.443855, 0, 1, 0, 0.490106, 0, -1.10413, 
 [node name="holding_stick" parent="Fishing" instance=ExtResource("25_70mbh")]
 transform = Transform3D(-0.634024, 0, 1.35942, 0, 1.5, 0, -1.35942, 0, -0.634024, 18.7515, 0.178752, 8.37013)
 
-[node name="Fish_mock2" parent="Fishing" instance=ExtResource("14_h3ydf")]
-transform = Transform3D(-0.882127, 0, 0.471012, 0, 1, 0, -0.471012, 0, -0.882127, 32.4772, -0.929412, 25.2337)
-
-[node name="Fish_mock3" parent="Fishing" instance=ExtResource("14_h3ydf")]
-transform = Transform3D(0.864494, 0, 0.502643, 0, 1, 0, -0.502643, 0, 0.864494, 23.0904, -1.50363, 6.47072)
-
-[node name="Fish_mock5" parent="Fishing" instance=ExtResource("14_h3ydf")]
-transform = Transform3D(0.984805, 0, -0.173665, 0, 1, 0, 0.173665, 0, 0.984805, 25.9428, -1.95384, 18.6086)
-
-[node name="Fish_mock6" parent="Fishing" instance=ExtResource("14_h3ydf")]
-transform = Transform3D(-0.84051, 0, -0.541796, 0, 1, 0, 0.541796, 0, -0.84051, 31.6339, -1.55759, 11.8281)
-
-[node name="Fish_mock10" parent="Fishing" instance=ExtResource("14_h3ydf")]
-transform = Transform3D(-0.84051, 0, -0.541796, 0, 1, 0, 0.541796, 0, -0.84051, 20.1896, -1.11641, 14.3969)
-
-[node name="Fish_mock7" parent="Fishing" instance=ExtResource("14_h3ydf")]
-transform = Transform3D(-0.97613, 0, 0.217189, 0, 1, 0, -0.217189, 0, -0.97613, 33.3174, -1.40738, 7.87277)
-
-[node name="Fish_mock8" parent="Fishing" instance=ExtResource("14_h3ydf")]
-transform = Transform3D(0.870982, 0, 0.491314, 0, 1, 0, -0.491314, 0, 0.870982, 27.746, -1.17235, 4.67736)
-
-[node name="Fish_mock9" parent="Fishing" instance=ExtResource("14_h3ydf")]
-transform = Transform3D(0.576432, 0, 0.817145, 0, 1, 0, -0.817145, 0, 0.576432, 25.7752, -1.49086, 11.4459)
-
-[node name="Fish_mock" parent="Fishing" instance=ExtResource("14_h3ydf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.7224, -1.02162, 15.7706)
-
 [node name="Bucket" parent="Fishing" instance=ExtResource("10_ym32v")]
 transform = Transform3D(0.906684, 0, 0.421811, 0, 1, 0, -0.421811, 0, 0.906684, 19.7135, 0.540002, 6.17818)
 
@@ -418,6 +412,38 @@ transform = Transform3D(0.125091, 0, -0.992145, 0, 1, 0, 0.992145, 0, 0.125091, 
 
 [node name="Dock" parent="Fishing" instance=ExtResource("18_r5c2f")]
 transform = Transform3D(-0.137841, 0, 0.0812398, 0, 0.16, 0, -0.0812398, 0, -0.137841, 16.472, -0.846111, 3.36842)
+
+[node name="MockFishes" type="Node" parent="Fishing"]
+
+[node name="MockFishPath1" type="Path3D" parent="Fishing/MockFishes"]
+curve = SubResource("Curve3D_i6pi6")
+
+[node name="MockFish1" parent="Fishing/MockFishes/MockFishPath1" instance=ExtResource("14_h3ydf")]
+transform = Transform3D(-0.961927, -0.00266091, 0.273209, 0, 0.99988, 0.00973934, -0.273221, 0.00936825, -0.961885, 17.8061, -1.12253, 13.4726)
+progress = 39.4198
+rotation_mode = 2
+use_model_front = true
+movement_speed = 2.2
+
+[node name="MockFishPath2" type="Path3D" parent="Fishing/MockFishes"]
+curve = SubResource("Curve3D_yp1q7")
+
+[node name="MockFish2" parent="Fishing/MockFishes/MockFishPath2" instance=ExtResource("14_h3ydf")]
+transform = Transform3D(-0.853823, 0.303693, 0.422706, 0, 0.812047, -0.583478, -0.520498, -0.498177, -0.693405, 22.7892, -6.07094, 13.7934)
+progress = 39.4198
+rotation_mode = 2
+use_model_front = true
+movement_speed = 2.8
+
+[node name="MockFishPath3" type="Path3D" parent="Fishing/MockFishes"]
+curve = SubResource("Curve3D_myd8c")
+
+[node name="MockFish3" parent="Fishing/MockFishes/MockFishPath3" instance=ExtResource("14_h3ydf")]
+transform = Transform3D(-0.828467, -0.0607014, -0.556671, 0, 0.994017, -0.108403, 0.55997, -0.0898068, -0.823585, 20.203, -4.48547, 17.7609)
+progress = 39.4198
+rotation_mode = 2
+use_model_front = true
+movement_speed = 2.4
 
 [node name="FishingRod" parent="." instance=ExtResource("18_ap21l")]
 transform = Transform3D(-0.915531, -0.0327862, -0.400908, 0.208503, 0.813645, -0.542686, 0.343991, -0.580438, -0.738082, 18.4199, 0.748272, 7.76648)

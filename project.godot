@@ -19,7 +19,7 @@ config/icon="res://icon.svg"
 
 XRToolsUserSettings="*res://addons/godot-xr-tools/user_settings/user_settings.gd"
 XrSimulator="*res://addons/xr-simulator/XRSimulator.tscn"
-PauseManager="*res://scripts/pause_manager.gd"
+PauseManager="*res://scripts/utils/pause_manager.gd"
 
 [debug]
 
