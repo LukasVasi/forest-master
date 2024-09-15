@@ -1,8 +1,33 @@
 [gd_scene load_steps=9 format=3 uid="uid://wus354uwp5a2"]
 
 [ext_resource type="Script" path="res://scripts/fishing/distractions/distraction_fish.gd" id="1_4ehwo"]
-[ext_resource type="ArrayMesh" uid="uid://du05rvkd1nkch" path="res://resources/kuoja_mesh.tres" id="2_i317u"]
+[ext_resource type="ArrayMesh" uid="uid://bkyrlc4d33862" path="res://models/fishing/fishes/fishes_Kuoja.res" id="2_pjj3y"]
 [ext_resource type="Material" uid="uid://dplpxikf4jsfd" path="res://resources/water_splash.tres" id="3_sh3lq"]
+
+[sub_resource type="Animation" id="Animation_mmwaf"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:position:z")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
 
 [sub_resource type="Animation" id="Animation_x8m85"]
 resource_name = "jump"
@@ -60,31 +85,6 @@ tracks/4/keys = {
 "values": [true, false, true, false]
 }
 
-[sub_resource type="Animation" id="Animation_mmwaf"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MeshInstance3D:position:z")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rf76k"]
 _data = {
 "RESET": SubResource("Animation_mmwaf"),
@@ -104,8 +104,8 @@ transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
 script = ExtResource("1_4ehwo")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.2, 0)
-mesh = ExtResource("2_i317u")
+transform = Transform3D(0.6, 0, 0, 0, -0.6, -5.24537e-08, 0, 5.24537e-08, -0.6, 0, -0.2, 0)
+mesh = ExtResource("2_pjj3y")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

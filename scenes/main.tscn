@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=4 uid="uid://dqmlp2hfmrh7m"]
+[gd_scene load_steps=79 format=4 uid="uid://dqmlp2hfmrh7m"]
 
 [ext_resource type="Script" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_0wkb3"]
 [ext_resource type="PackedScene" uid="uid://bsotifvyxaf5u" path="res://scenes/player.tscn" id="1_e77tj"]
@@ -45,7 +45,6 @@
 [ext_resource type="PackedScene" uid="uid://c6wf68pe71k2a" path="res://scenes/cooking/skillet.tscn" id="45_6wdpy"]
 [ext_resource type="PackedScene" uid="uid://h4roksm87ytx" path="res://scenes/cooking/lid.tscn" id="46_vwkmn"]
 [ext_resource type="PackedScene" uid="uid://gvyk1si63evv" path="res://scenes/environment/flowers.tscn" id="47_kirqo"]
-[ext_resource type="PackedScene" uid="uid://ct2g57qsopix7" path="res://scenes/fishing/fishes/kuoja.tscn" id="47_vcxi4"]
 [ext_resource type="PackedScene" uid="uid://b2wwpdu2ao0np" path="res://scenes/environment/bushes2.tscn" id="48_1ny86"]
 
 [sub_resource type="Curve3D" id="Curve3D_i6pi6"]
@@ -422,7 +421,7 @@ transform = Transform3D(-0.137841, 0, 0.0812398, 0, 0.16, 0, -0.0812398, 0, -0.1
 curve = SubResource("Curve3D_i6pi6")
 
 [node name="MockFish1" parent="Fishing/MockFishes/MockFishPath1" instance=ExtResource("14_h3ydf")]
-transform = Transform3D(-0.961927, -0.00266091, 0.273209, 0, 0.999879, 0.00973934, -0.273221, 0.00936825, -0.961885, 17.8061, -1.12253, 13.4726)
+transform = Transform3D(-0.961927, -0.00266091, 0.273209, 0, 0.999878, 0.00973934, -0.273221, 0.00936824, -0.961885, 17.8061, -1.12253, 13.4726)
 progress = 39.4198
 rotation_mode = 2
 use_model_front = true
@@ -499,6 +498,7 @@ shape = SubResource("ConcavePolygonShape3D_ine7r")
 
 [node name="Campfire" parent="." instance=ExtResource("30_8ne4e")]
 transform = Transform3D(0.122961, 0, -0.992411, 0, 1, 0, 0.992411, 0, 0.122961, -0.916748, 0.849828, -1.17057)
+fire_duration = 24.0
 
 [node name="Trees" type="Node" parent="."]
 
@@ -1843,8 +1843,5 @@ shadow_enabled = true
 shadow_opacity = 0.8
 shadow_blur = 0.6
 directional_shadow_mode = 0
-
-[node name="Kuoja" parent="." instance=ExtResource("47_vcxi4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.48201, 1.56132, -5.28134)
 
 [editable path="Skillet"]

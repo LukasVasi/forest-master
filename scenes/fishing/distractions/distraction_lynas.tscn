@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bbla6hg7d0ct1"]
 
 [ext_resource type="Script" path="res://scripts/fishing/distractions/distraction_fish.gd" id="1_84ged"]
-[ext_resource type="ArrayMesh" uid="uid://0nfkh0xh8u60" path="res://resources/lynas_mesh.tres" id="2_c5rn2"]
+[ext_resource type="ArrayMesh" uid="uid://bh63822k1yqy8" path="res://models/fishing/fishes/fishes_Lynas.res" id="2_48n24"]
 [ext_resource type="Material" uid="uid://dplpxikf4jsfd" path="res://resources/water_splash.tres" id="3_ffuql"]
 
 [sub_resource type="Animation" id="Animation_x8m85"]
@@ -85,8 +85,8 @@ transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
 script = ExtResource("1_84ged")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.0696166, -0.732642, -0.677044, 0.43187, 0.633927, -0.64158, 0.899245, -0.24773, 0.360539, -0.193051, -0.263293, 0.232223)
-mesh = ExtResource("2_c5rn2")
+transform = Transform3D(0.0348083, -0.366321, -0.338522, 0.215935, 0.316964, -0.32079, 0.449623, -0.123865, 0.180269, -0.193051, -0.263293, 0.232223)
+mesh = ExtResource("2_48n24")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

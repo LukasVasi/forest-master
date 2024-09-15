@@ -1,7 +1,7 @@
 class_name Skillet
 extends MeshInstance3D
 
-# TODO: think about multiple cookables
+@export var cooking_speed: float = 0.1
 
 @onready var _sound: AudioStreamPlayer3D = get_node("AudioStreamPlayer3D")
 @onready var cooking_timer: Timer = get_node("CookingTimer")
@@ -10,7 +10,7 @@ extends MeshInstance3D
 @onready var _smoke_particles: GPUParticles3D = get_node("Smoke")
 @onready var _fire_particles: GPUParticles3D = get_node("Fire")
 
-var _cookable_in_skillet: Cookable
+var _cookables_in_skillet: Array[CookableObject]
 
 var in_heat_area: bool:
 	get:
@@ -22,72 +22,50 @@ var in_heat_area: bool:
 
 
 func _update_cooking() -> void:
-	if in_heat_area and _cookable_in_skillet:
+	if in_heat_area and _cookables_in_skillet.size() > 0:
 		#print("Skillet: in heat, enabling cooking")
-		_cookable_in_skillet.start_cooking()
 		_steam_particles.emitting = true
 		cooking_timer.start()
-	elif _cookable_in_skillet:
+	elif _cookables_in_skillet.size() > 0:
 		#print("Skillet: not in heat, disabling cooking")
-		_cookable_in_skillet.stop_cooking()
 		_steam_particles.emitting = false
 		cooking_timer.stop()
 		outside_timer.start()
+	else: # no more cookables present
+		_steam_particles.emitting = false
+		_smoke_particles.emitting = false
+		cooking_timer.stop()
+		outside_timer.stop()
 
-
-func _add_cookable(cookable: Cookable) -> void:
-	_cookable_in_skillet = cookable
-	_cookable_in_skillet.cooking_completed.connect(_on_cooking_completed)
-	#print("Skillet: added cookable ", _cookable_in_skillet)
-	_update_cooking()
-
-
-func _remove_cookable() -> void:
-	_cookable_in_skillet.stop_cooking()
-	_cookable_in_skillet.cooking_completed.disconnect(_on_cooking_completed)
-	#print("Skillet: removed cookable ", _cookable_in_skillet)
-	_cookable_in_skillet = null
-	_steam_particles.emitting = false
-	_smoke_particles.emitting = false
-	cooking_timer.stop()
+func _process(delta: float) -> void:
+	if in_heat_area:
+		var cookable_count: int = _cookables_in_skillet.size()
+		if cookable_count > 0:
+			for i in range(cookable_count):
+				_cookables_in_skillet[i].add_cooking_level(cooking_speed * delta)
 
 
 func _on_cooking_area_body_entered(body: Node3D) -> void:
 	# Check if the entering body is in the "Cookable" group
 	# and there isn't anything else cooking
 	#print("Skillet: body ", body, " entered cooking area")
-	if body.is_in_group("Cookable") and not _cookable_in_skillet:
-		body = body as RigidBody3D
+	if body.is_in_group("Cookable"):
+		body = body as CookableObject
 		
 		# Reset velocity
 		body.linear_velocity = Vector3.ZERO
 		body.angular_velocity = Vector3.ZERO
 		
-		if body.rotation.z < 0:
-			_add_cookable(body.get_node("MeshLeft"))
-			#var left_side: Cookable = body.get_node("MeshLeft")
-			#left_side.cooking_completed.connect(_on_cooking_completed)
-			#left_side.start_cooking()
-		else:
-			_add_cookable(body.get_node("MeshRight"))
-			#var right_side: Cookable = body.get_node("MeshRight")
-			#right_side.cooking_completed.connect(_on_cooking_completed)
-			#right_side.start_cooking()
+		_cookables_in_skillet.append(body)
+		_update_cooking()
 
 
 func _on_cooking_area_body_exited(body: Node3D) -> void:
 	#print("Skillet: body ", body, " exited cooking area")
-	if body.is_in_group("Cookable"):
-		var left_side: Cookable = body.get_node("MeshLeft")
-		var right_side: Cookable = body.get_node("MeshRight")
-		if _cookable_in_skillet == left_side || _cookable_in_skillet == right_side:
-			_remove_cookable()
+	if _cookables_in_skillet.has(body):
+		_cookables_in_skillet.erase(body)
+		_update_cooking()
 
-
-func _on_cooking_completed() -> void:
-	#print("Skillet: cooking complete, emitting smoke")
-	_steam_particles.emitting = false
-	_smoke_particles.emitting = true
 
 func _on_cooking_timer_timeout() -> void:
 	#print("Skillet: cooking timer timedout, emitting fire")

@@ -1,22 +1,29 @@
 shader_type spatial;
 
-uniform sampler2D base_texture: source_color;
-uniform vec4 base_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
-uniform vec3 raw_color : source_color = vec3(0.8, 0.7, 0.6);
-uniform vec3 cooked_color : source_color = vec3(0.75, 0.6, 0.5);
-uniform vec3 overcooked_color : source_color = vec3(0.175,0.115,0.05);
+// Cooking level control
 uniform float cooking_level = 0.0;
+uniform float max_cooking_level = 2.0;
+
+// Color control
+uniform sampler2D base_albedo_texture: source_color;
+uniform vec4 base_albedo : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+uniform vec3 cooked_color : source_color = vec3(0.4, 0.28, 0.15); // the color when fully cooked
+
+
+// Roughness control
+uniform sampler2D base_roughness_texture: source_color; // note this is actually the roughness-metallic texture, roughness is in the g channel
+uniform float base_roughness = 0.5;
+uniform float cooked_roughness = 0.8; // the roughness when fully cooked 
 
 void fragment() {
-    vec3 cooking_effect_color;
-    if (cooking_level < 1.0) {
-        cooking_effect_color = mix(raw_color, cooked_color, cooking_level);
-    } else {
-        cooking_effect_color = mix(cooked_color, overcooked_color, cooking_level - 1.0);
-    }
+	// Ensure cooking level control
+	float curr_cooking_level = clamp(cooking_level, 0.0, max_cooking_level);
+	
+    // Apply cooked color
+    vec4 initial_color = texture(base_albedo_texture, UV) * base_albedo;
+    ALBEDO = mix(initial_color.rgb, cooked_color, curr_cooking_level / max_cooking_level);
 
-    vec4 tex_color = texture(base_texture, UV) * base_color;
-    vec3 combined_color = mix(tex_color.rgb, cooking_effect_color, clamp(cooking_level / 2.0, 0.0, 1.0));
-
-    ALBEDO = mix(tex_color.rgb, combined_color, clamp(cooking_level, 0.0, 1.0));
+    // Apply cooked roughness
+    float initial_roughness = texture(base_roughness_texture, UV).g * base_roughness;
+    ROUGHNESS = mix(initial_roughness, cooked_roughness, curr_cooking_level / max_cooking_level);
 }

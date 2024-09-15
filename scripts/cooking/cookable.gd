@@ -1,59 +1,52 @@
-class_name Cookable
-extends MeshInstance3D
+@tool
+class_name CookableObject
+extends XRToolsPickable
 
-## Signal emitted when the cookable is fully cooked. Used in Skillet logic.
-signal cooking_completed
 
-@export var cooking_level: float = 0.0
 @export var max_cooking_level: float = 2.0
-@export var cooking_rate: float = 0.2
+@export var cooking_levels: Array[float] = [0.0, 0.0]
 
-var _shader_mat: ShaderMaterial
+@onready var _cookable_mesh: MeshInstance3D = get_node("MeshInstance3D")
+
+var is_raw: bool = true
+var _cooking_shader: Shader = preload("res://shaders/CookingShader.gdshader")
+
 
 func _ready() -> void:
-	preload_shader()
-	set_process(false)
+	super._ready()
+	_prepare_cooking_shader()
 
 
-func preload_shader() -> void:
-	var shader: Shader = preload("res://shaders/CookingShader.gdshader")
-	_shader_mat = ShaderMaterial.new()
-	_shader_mat.shader = shader
-
-
-func start_cooking() -> void:
-	print("Cooking started in cookable script")
-	apply_shader_materials()
-	set_process(true)
-
-
-func apply_shader_materials() -> void:
-	if !is_instance_valid(get_surface_override_material(0)):
-		for i in range(get_surface_override_material_count()):
-			var existing_mat: Material = get_active_material(i)
-			var mat: ShaderMaterial = _shader_mat.duplicate()
+func _prepare_cooking_shader() -> void:
+	var shader_mat: ShaderMaterial = ShaderMaterial.new()
+	shader_mat.shader = _cooking_shader
+	
+	# Determine the number of surfaces the cookable mesh has
+	# each surface represents a side of the cookable object based on z rotation
+	var cookable_surface_count: int = _cookable_mesh.mesh.get_surface_count()
+	for i in range(cookable_surface_count):
+			var cookable_mat: ShaderMaterial = shader_mat.duplicate()
+			var existing_mat: StandardMaterial3D = _cookable_mesh.mesh.surface_get_material(i)
 			if existing_mat:
-				mat.set_shader_parameter("base_texture", existing_mat.albedo_texture)
-				mat.set_shader_parameter("base_color", existing_mat.albedo_color)
-			set_surface_override_material(i, mat)
+				cookable_mat.set_shader_parameter("max_cooking_level", max_cooking_level)
+				cookable_mat.set_shader_parameter("base_albedo_texture", existing_mat.albedo_texture)
+				cookable_mat.set_shader_parameter("base_albedo", existing_mat.albedo_color)
+				cookable_mat.set_shader_parameter("base_roughness_texture", existing_mat.roughness_texture)
+				cookable_mat.set_shader_parameter("base_roughness", existing_mat.roughness)
+			_cookable_mesh.set_surface_override_material(i, cookable_mat)
 
 
-func _process(delta: float) -> void:
-	if cooking_level < max_cooking_level:
-		cooking_level += cooking_rate * delta
-		update_cooking_level()
-	else:
-		print("Cooking completed. Level: ", cooking_level)
-		cooking_completed.emit()
+# TODO: support for more than two sides?
+func add_cooking_level(value: float) -> void:
+	if is_raw: is_raw = false
+	
+	if rotation.z > 0: # right side
+		cooking_levels[0] = min(cooking_levels[0] + value, max_cooking_level)
+		set_shader_cooking_level(0)
+	else: # left side
+		cooking_levels[1] = min(cooking_levels[1] + value, max_cooking_level)
+		set_shader_cooking_level(1)
 
 
-func update_cooking_level() -> void:
-	for i in range(get_surface_override_material_count()):
-		var mat: ShaderMaterial = get_surface_override_material(i)
-		if mat:
-			mat.set_shader_parameter("cooking_level", cooking_level)
-
-
-func stop_cooking() -> void:
-	print("Cooking stopped at level: ", cooking_level)
-	set_process(false)
+func set_shader_cooking_level(index: int) -> void:
+	_cookable_mesh.get_surface_override_material(index).set_shader_parameter("cooking_level", cooking_levels[index])
