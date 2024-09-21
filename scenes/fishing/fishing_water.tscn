@@ -9,7 +9,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_vewt5"]
 size = Vector3(40, 8, 40)
 
-[node name="FishingWater" type="Area3D"]
+[node name="FishingWater" type="Area3D" groups=["water"]]
 collision_layer = 512
 collision_mask = 524290
 monitorable = false

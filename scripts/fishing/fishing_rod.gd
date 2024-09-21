@@ -29,7 +29,7 @@ func _ready():
 	if Engine.is_editor_hint():
 		return
 		
-	player_body = get_node("../../XROrigin3D/PlayerBody")
+	player_body = get_tree().get_first_node_in_group("player").get_node("PlayerBody")
 
 func _process(_delta):
 	if (

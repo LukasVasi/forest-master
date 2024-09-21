@@ -42,6 +42,11 @@ enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
 
 import/blender/enabled=false
 
+[global_group]
+
+player="The player XROrigin in the main scene"
+water=""
+
 [layer_names]
 
 3d_physics/layer_1="Static World"

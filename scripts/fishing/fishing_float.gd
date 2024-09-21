@@ -77,7 +77,7 @@ var _distance: float = 0.0
 @onready var fishing_rod: FishingRod = get_node("../FishingRod")
 
 ## The fishing water.
-@onready var water: FishingWater = get_node('../../Water/FishingWater')
+@onready var water: FishingWater = get_tree().get_first_node_in_group("water")
 
 @onready var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 

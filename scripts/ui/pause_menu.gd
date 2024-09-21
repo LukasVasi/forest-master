@@ -10,7 +10,7 @@ extends Control
 @onready var pause_menu_ui : MarginContainer = get_node("Background/PauseMenuUI")
 
 ## The player's camera. Only retrieves and works with the camera in main.
-@onready var player_camera: XRCamera3D = get_node("/root/Staging/Scene/Main/XROrigin3D/XRCamera3D")
+@onready var player_camera: XRCamera3D = get_tree().get_first_node_in_group("player").get_node("XRCamera3D")
 
 ## Distance from camera to the menu when displayed.
 @export var distance: float = 1.0

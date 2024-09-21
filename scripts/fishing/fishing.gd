@@ -61,7 +61,7 @@ var fishing_in_progress: bool = false
 @onready var fishing_float: FishingFloat = get_node("../../FishingRod/FishingFloat")
 
 ## The player (needed to target the fish).
-@onready var player: XROrigin3D = get_node("../../XROrigin3D")
+@onready var player: XROrigin3D = get_tree().get_first_node_in_group("player")
 
 @onready var water_mesh: MeshInstance3D = get_node("../")
 

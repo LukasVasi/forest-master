@@ -164,7 +164,9 @@ func _on_pause_state_changed(paused : bool):
 	else:
 		movement_jump_left.enabled = true
 		# Enable one based on user settings
-		if XRToolsUserSettings.movement_direct:
-			movement_direct_left.enabled = true
-		else:
-			function_teleport_left.enabled = true
+		# TODO: reimplement
+		#if XRToolsUserSettings.movement_direct:
+			#movement_direct_left.enabled = true
+		#else:
+			#function_teleport_left.enabled = true
+		movement_direct_left.enabled = true

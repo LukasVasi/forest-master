@@ -28,7 +28,7 @@ jump_velocity = 3.0
 bounciness = 0.0
 bounce_threshold = 1.0
 
-[node name="XROrigin3D" type="XROrigin3D"]
+[node name="XROrigin3D" type="XROrigin3D" groups=["player"]]
 process_mode = 3
 current = true
 script = ExtResource("1_524a5")
