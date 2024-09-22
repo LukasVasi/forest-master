@@ -81,7 +81,7 @@ func _ready() -> void:
 	object.visible = true
 	
 	# Connect to the toggle movement signal
-	var puntukas: Puntukas = get_node("/root/Staging/Scene/Main/Combat/Puntukas")
+	var puntukas: Puntukas = get_tree().get_first_node_in_group("puntukas")
 	puntukas.toggle_creature_movement.connect(_on_toggle_movement)
 	
 	# Set the movement path

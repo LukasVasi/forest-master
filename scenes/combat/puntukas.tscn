@@ -45,7 +45,7 @@ particles_anim_loop = true
 material = SubResource("StandardMaterial3D_4s5ly")
 size = Vector2(0.25, 0.21)
 
-[node name="Puntukas" instance=ExtResource("1_r0t4b")]
+[node name="Puntukas" groups=["puntukas"] instance=ExtResource("1_r0t4b")]
 script = ExtResource("2_2ri5k")
 
 [node name="Puntukas" parent="." index="0"]

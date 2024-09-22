@@ -6,7 +6,7 @@ signal toggle_creature_movement
 ## The maximum distance to player at which the mini game is active
 @export var _max_distance_to_player: float = 15
 
-@onready var _player: Player = get_node("/root/Staging/Scene/Main/XROrigin3D")
+@onready var _player: Player = get_tree().get_first_node_in_group("player")
 @onready var eye1: GPUParticles3D = $Fire/GPUParticles3D
 @onready var eye2: GPUParticles3D = $Fire2/GPUParticles3D
 @onready var sound_player: AudioStreamPlayer3D = $AudioStreamPlayer3D

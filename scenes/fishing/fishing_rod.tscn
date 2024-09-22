@@ -130,11 +130,11 @@ closed_pose = ExtResource("5_lecea")
 script = ExtResource("6_0ucvv")
 closed_pose = ExtResource("8_3q68x")
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_evpxw"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_7hkve"]
 material = ExtResource("13_ahgwm")
 top_radius = 0.001
 bottom_radius = 0.001
-height = 0.096655
+height = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c4quo"]
 resource_name = "M_FishingRod_Wood"
@@ -306,7 +306,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0537452, -0.932214)
 [node name="Line" parent="FishingRod" node_paths=PackedStringArray("start_point", "end_point") instance=ExtResource("12_1hf0y")]
 transform = Transform3D(1, 0, 0, 0, 0.995849, -0.0908993, 0, 0.0908993, 0.995849, 0, -0.101873, -0.936607)
 top_level = true
-mesh = SubResource("CylinderMesh_evpxw")
+mesh = SubResource("CylinderMesh_7hkve")
 skeleton = NodePath("../..")
 radius = 0.001
 material = ExtResource("13_ahgwm")
