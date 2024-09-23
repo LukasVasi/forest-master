@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://csddg4xbjp0b6"]
+
+[ext_resource type="Script" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_0dk5u"]
+[ext_resource type="PackedScene" uid="uid://b0t75hmsf5txv" path="res://scenes/new_player.tscn" id="1_yqa2s"]
+[ext_resource type="PackedScene" uid="uid://bdmtj8pyblxl5" path="res://scenes/utils/pickable_cube.tscn" id="3_7kk0d"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_s1oei"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_ivimk"]
+sky_material = SubResource("ProceduralSkyMaterial_s1oei")
+
+[sub_resource type="Environment" id="Environment_lpfuf"]
+background_mode = 2
+sky = SubResource("Sky_ivimk")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="NewHands" type="Node3D"]
+script = ExtResource("1_0dk5u")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_lpfuf")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="XROrigin3D" parent="." instance=ExtResource("1_yqa2s")]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(21, 1, 17)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -5.52539)
+use_collision = true
+size = Vector3(12, 2, 2)
+
+[node name="PickableCube" parent="." instance=ExtResource("3_7kk0d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.948268, 1.22904, -4.73465)
+mass = 0.5
+
+[node name="PickableCube2" parent="." instance=ExtResource("3_7kk0d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.380689, 1.22904, -4.73465)
+mass = 2.0
+
+[node name="PickableCube3" parent="." instance=ExtResource("3_7kk0d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.419437, 1.22904, -4.73465)
+mass = 500.0
+
+[node name="PickableCube4" parent="." instance=ExtResource("3_7kk0d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.00876, 1.22904, -4.73465)
+mass = 2000.0

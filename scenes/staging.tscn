@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://addons/godot-xr-tools/staging/staging.gd" id="1_a2wxa"]
 [ext_resource type="Shader" path="res://addons/godot-xr-tools/staging/fade.gdshader" id="2_54esd"]
 [ext_resource type="Environment" uid="uid://ckiwtcdsam7ed" path="res://addons/godot-xr-tools/staging/staging_env.tres" id="3_qsis7"]
-[ext_resource type="PackedScene" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="4_f0vd6"]
+[ext_resource type="PackedScene" uid="uid://btknduttnmoxf" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="4_f0vd6"]
 [ext_resource type="PackedScene" uid="uid://bqumugyvkct4r" path="res://addons/godot-xr-tools/staging/loading_screen.tscn" id="5_ytbc2"]
 [ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="6_arenq"]
 [ext_resource type="Texture2D" uid="uid://deqv67ba72qxl" path="res://textures/loading_screen.png" id="6_k0kml"]
@@ -20,7 +20,7 @@ shader_parameter/alpha = 0.0
 [node name="Staging" type="Node3D"]
 process_mode = 3
 script = ExtResource("1_a2wxa")
-main_scene = "res://scenes/main.tscn"
+main_scene = "res://scenes/testing/new_hands.tscn"
 
 [node name="Fade" type="MeshInstance3D" parent="."]
 mesh = SubResource("4")
