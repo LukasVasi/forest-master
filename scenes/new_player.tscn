@@ -525,7 +525,7 @@ tracker = &"left_hand"
 
 [node name="LeftPhysicsHand" type="RigidBody3D" parent="LeftHandController"]
 collision_layer = 131072
-collision_mask = 131078
+collision_mask = 131079
 mass = 0.2
 gravity_scale = 0.0
 continuous_cd = true
@@ -533,6 +533,7 @@ linear_damp = 50.0
 angular_damp = 50.0
 script = ExtResource("10_tkuhv")
 hand_rotation_torque = 6.8
+max_distance_to_controller = 1.0
 hand_blend_tree = ExtResource("16_rnma4")
 default_pose = ExtResource("17_eb8v7")
 margin = 0.04

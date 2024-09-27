@@ -15,6 +15,9 @@ extends RigidBody3D
 ## The torque that rotates the hand according to the target
 @export var hand_rotation_torque : float = 200.0
 
+## The max distance that the hand can depart from the controller before being teleported
+@export var max_distance_to_controller : float = 2.0
+
 ## Blend tree to use
 @export var hand_blend_tree : AnimationNodeBlendTree: set = set_hand_blend_tree
 
@@ -176,19 +179,24 @@ func _physics_process(_delta: float) -> void:
 		$AnimationTree.set("parameters/Grip/blend_amount", grip)
 		$AnimationTree.set("parameters/Trigger/blend_amount", trigger)
 	
-	# Move to target
-	var movement_delta: Vector3 = _target.global_position - global_position
-	apply_central_force(movement_delta * hand_movement_force)
-	
-	# Rotate to target
-	var quat_target: Quaternion = _target.global_basis.get_rotation_quaternion()
-	var quat_hand: Quaternion = global_basis.get_rotation_quaternion()
-	var quat_delta: Quaternion = quat_target * (quat_hand.inverse())
-	var rotation_delta: Vector3 = Vector3(quat_delta.x, quat_delta.y, quat_delta.z) * quat_delta.w
-	apply_torque(rotation_delta * hand_rotation_torque)
+	# Check distance to hand
+	if _target.global_position.distance_to(global_position) > max_distance_to_controller:
+		# Hand's too far away, maybe gotten stuck or holding an object that's too heavy
+		_teleport_to_target()
+	else:
+		# Move to target
+		var movement_delta: Vector3 = _target.global_position - global_position
+		apply_central_force(movement_delta * hand_movement_force)
+		
+		# Rotate to target
+		var quat_target: Quaternion = _target.global_basis.get_rotation_quaternion()
+		var quat_hand: Quaternion = global_basis.get_rotation_quaternion()
+		var quat_delta: Quaternion = quat_target * (quat_hand.inverse())
+		var rotation_delta: Vector3 = Vector3(quat_delta.x, quat_delta.y, quat_delta.z) * quat_delta.w
+		apply_torque(rotation_delta * hand_rotation_torque)
 	
 	# Force the transform update at this moment
-	#force_update_transform()
+	force_update_transform()
 
 
 # This method verifies the hand has a valid configuration.
