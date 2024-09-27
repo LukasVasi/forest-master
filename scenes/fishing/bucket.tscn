@@ -208,6 +208,7 @@ collision_mask = 131079
 mass = 0.3
 freeze_mode = 1
 script = ExtResource("1_rnq13")
+second_hand_grab = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Handle"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.565132, 0)
