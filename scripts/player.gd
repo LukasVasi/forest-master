@@ -78,7 +78,7 @@ func init_controllers() -> void:
 			#movement_direct_left.enabled = false
 			#function_teleport_left.enabled = true
 		
-		function_pickup_left = xr_controller_left.get_node("FunctionPickupLeft")
+		function_pickup_left = xr_controller_left.get_node("LeftPhysicsHand/FunctionPickupLeft")
 		function_pointer_left = xr_controller_left.get_node("FunctionPointerLeft")
 		if not function_pointer_left:
 			push_error("The left function pointer was not found")

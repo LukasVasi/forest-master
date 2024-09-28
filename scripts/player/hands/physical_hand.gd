@@ -63,6 +63,11 @@ var _target_overrides := []
 # Current target (controller or override)
 var _target : Node3D
 
+var _func_pickup : FunctionPickup
+
+var _initial_mass : float
+
+var _initial_gravity_scale : float
 
 ## Pose-override class
 class PoseOverride:
@@ -135,9 +140,17 @@ func _ready() -> void:
 	if not Engine.is_editor_hint():
 		top_level = true
 		process_physics_priority = -70
-
+	
+	_initial_mass = mass
+	_initial_gravity_scale = gravity_scale
+	
 	# Find our controller
 	_controller = XRTools.find_xr_ancestor(self, "*", "XRController3D")
+	
+	# Find our pickup
+	_func_pickup = XRTools.find_xr_child(self, "*", "XRToolsFunctionPickup")
+	_func_pickup.has_picked_up.connect(_on_has_picked_up)
+	_func_pickup.has_dropped.connect(_on_has_dropped)
 
 	# Find the relevant hand nodes
 	_hand_mesh = _find_child(self, "MeshInstance3D")
@@ -182,6 +195,7 @@ func _physics_process(_delta: float) -> void:
 	# Check distance to hand
 	if _target.global_position.distance_to(global_position) > max_distance_to_controller:
 		# Hand's too far away, maybe gotten stuck or holding an object that's too heavy
+		_func_pickup.drop_object()
 		_teleport_to_target()
 	else:
 		# Move to target
@@ -197,6 +211,17 @@ func _physics_process(_delta: float) -> void:
 	
 	# Force the transform update at this moment
 	force_update_transform()
+
+
+func _on_has_picked_up(object: Node3D) -> void:
+	var object_rigid: RigidBody3D = object as RigidBody3D
+	mass += object_rigid.mass
+	gravity_scale = object_rigid.gravity_scale
+
+
+func _on_has_dropped() -> void:
+	mass = _initial_mass
+	gravity_scale = _initial_gravity_scale
 
 
 # This method verifies the hand has a valid configuration.

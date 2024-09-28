@@ -50,6 +50,7 @@ mass = 2.0
 [node name="PickableCube3" parent="." instance=ExtResource("3_7kk0d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.419437, 1.22904, -4.73465)
 mass = 500.0
+second_hand_grab = 2
 
 [node name="PickableCube4" parent="." instance=ExtResource("3_7kk0d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.00876, 1.22904, -4.73465)
