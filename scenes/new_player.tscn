@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=4 uid="uid://b0t75hmsf5txv"]
+[gd_scene load_steps=29 format=4 uid="uid://b0t75hmsf5txv"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_dpnha"]
 [ext_resource type="PackedScene" uid="uid://btknduttnmoxf" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="2_wb3xa"]
@@ -14,8 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="12_editf"]
 [ext_resource type="PackedScene" uid="uid://dphcujw0jaqld" path="res://scenes/utils/fps_counter.tscn" id="13_45c4y"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="14_1b86k"]
-[ext_resource type="Script" path="res://addons/godot-xr-tools/overrides/ground_physics_settings.gd" id="15_u1kk4"]
 [ext_resource type="Material" uid="uid://c06atj3xdirmn" path="res://resources/transparent_material.tres" id="16_1kxgu"]
+[ext_resource type="Script" path="res://scripts/player/player_body.gd" id="16_inuc8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rr84h"]
 resource_name = "Material.002"
@@ -355,18 +355,6 @@ bind/25/name = &"Palm_L"
 bind/25/bone = -1
 bind/25/pose = Transform3D(1, -3.12371e-06, 3.13855e-06, 3.12364e-06, 1, 1.98203e-05, -3.13861e-06, -1.9828e-05, 1, -0.0307808, 0.0419728, 0.0399498)
 
-[sub_resource type="Resource" id="Resource_l5fo3"]
-script = ExtResource("15_u1kk4")
-flags = 0
-move_drag = 5.0
-move_traction = 30.0
-stop_on_slope = true
-move_max_slope = 45.0
-jump_max_slope = 45.0
-jump_velocity = 3.0
-bounciness = 0.0
-bounce_threshold = 1.0
-
 [node name="XROrigin3D" type="XROrigin3D" groups=["player"]]
 process_mode = 3
 current = true
@@ -473,4 +461,8 @@ scene_properties_keys = PackedStringArray("fps_counter.gd")
 [node name="PlayerBody" parent="." instance=ExtResource("14_1b86k")]
 process_mode = 1
 collision_mask = 1019
-physics = SubResource("Resource_l5fo3")
+script = ExtResource("16_inuc8")
+water_emergence_acceleration = null
+water_max_emergence_velocity = null
+water_bobbing_amplitude = null
+_water_bobbing_frequency = null
