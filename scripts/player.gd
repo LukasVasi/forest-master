@@ -19,7 +19,7 @@ var function_pointer_left: XRToolsFunctionPointer
 var function_pointer_collision_left: CollisionShape3D
 
 
-func _ready():
+func _ready() -> void:
 	init_xr_interface()
 	init_controllers()
 	
@@ -49,9 +49,10 @@ func init_controllers() -> void:
 	else:
 		xr_controller_right.button_pressed.connect(_on_right_controller_button_pressed)
 		xr_controller_right.button_released.connect(_on_right_controller_button_released)
-		movement_turn_right = xr_controller_right.get_node("MovementTurn")
-		function_pickup_right = xr_controller_right.get_node("FunctionPickupRight")
-		function_pointer_right = xr_controller_right.get_node("FunctionPointerRight")
+		movement_turn_right = XRTools.find_xr_child(xr_controller_right, "*", "XRToolsMovementTurn", true)
+		function_pickup_right = XRTools.find_xr_child(xr_controller_right, "*", "XRToolsFunctionPickup", true)
+		function_pointer_right = XRTools.find_xr_child(xr_controller_right, "*", "XRToolsFunctionPointer", true)
+		
 		if not function_pointer_right:
 			push_error("The right function pointer was not found")
 		else:
@@ -64,9 +65,10 @@ func init_controllers() -> void:
 	else:
 		xr_controller_left.button_pressed.connect(_on_left_controller_button_pressed)
 		xr_controller_left.button_released.connect(_on_left_controller_button_released)
-		movement_jump_left = xr_controller_left.get_node("MovementJump")
-		movement_direct_left = xr_controller_left.get_node("MovementDirect")
-		function_teleport_left = xr_controller_left.get_node("FunctionTeleport")
+		
+		movement_jump_left = XRTools.find_xr_child(xr_controller_left, "*", "XRToolsMovementJump", true)
+		movement_direct_left = XRTools.find_xr_child(xr_controller_left, "*", "XRToolsMovementDirect", true)
+		function_teleport_left = XRTools.find_xr_child(xr_controller_left, "*", "XRToolsFunctionTeleport", true)
 		
 		# Enable one based on user settings
 		movement_direct_left.enabled = true
@@ -78,33 +80,34 @@ func init_controllers() -> void:
 			#movement_direct_left.enabled = false
 			#function_teleport_left.enabled = true
 		
-		function_pickup_left = xr_controller_left.get_node("LeftPhysicsHand/FunctionPickupLeft")
-		function_pointer_left = xr_controller_left.get_node("FunctionPointerLeft")
+		function_pickup_left = XRTools.find_xr_child(xr_controller_left, "*", "XRToolsFunctionPickup", true)
+		function_pointer_left = XRTools.find_xr_child(xr_controller_left, "*", "XRToolsFunctionPointer", true)
+		
 		if not function_pointer_left:
 			push_error("The left function pointer was not found")
 		else:
 			disable_left_pointer()
 
 
-func enable_right_pointer():
+func enable_right_pointer() -> void:
 	function_pointer_right.set_enabled(true)
 	function_pointer_right.set_show_laser(XRToolsFunctionPointer.LaserShow.SHOW)
 	function_pickup_right.ranged_enable = true
 
 
-func disable_right_pointer():
+func disable_right_pointer() -> void:
 	function_pointer_right.set_enabled(false)
 	function_pointer_right.set_show_laser(XRToolsFunctionPointer.LaserShow.HIDE)
 	function_pickup_right.ranged_enable = false
 	
 	
-func enable_left_pointer():
+func enable_left_pointer() -> void:
 	function_pointer_left.set_enabled(true)
 	function_pointer_left.set_show_laser(XRToolsFunctionPointer.LaserShow.SHOW)
 	function_pickup_left.ranged_enable = true
 
 
-func disable_left_pointer():
+func disable_left_pointer() -> void:
 	function_pointer_left.set_enabled(false)
 	function_pointer_left.set_show_laser(XRToolsFunctionPointer.LaserShow.HIDE)
 	function_pickup_left.ranged_enable = false
@@ -148,14 +151,14 @@ func _on_left_controller_button_released(p_button: String) -> void:
 
 ## Methods for using the controller haptic feedback
 
-func trigger_left_haptic(frequency: float, amplitude: float, duration_sec: float, delay_sec: float):
+func trigger_left_haptic(frequency: float, amplitude: float, duration_sec: float, delay_sec: float) -> void:
 	xr_controller_left.trigger_haptic_pulse("haptic", frequency, amplitude, duration_sec, delay_sec)
 	
-func trigger_right_haptic(frequency: float, amplitude: float, duration_sec: float, delay_sec: float):
+func trigger_right_haptic(frequency: float, amplitude: float, duration_sec: float, delay_sec: float) -> void:
 	xr_controller_right.trigger_haptic_pulse("haptic", frequency, amplitude, duration_sec, delay_sec)
 
 ## Method that handles the pause state change singal from PauseManager
-func _on_pause_state_changed(paused : bool):
+func _on_pause_state_changed(paused : bool) -> void:
 	if paused:
 		# Disable all movement
 		movement_jump_left.enabled = false
