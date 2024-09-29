@@ -256,6 +256,9 @@ surface_material_override/3 = ExtResource("16_1kxgu")
 
 [node name="LeftPhysicsHand" parent="LeftHandController" instance=ExtResource("14_28n0q")]
 freeze = false
+distance_to_rumble = null
+max_rumble_magnitude = null
+rumble_trackers = null
 
 [node name="FunctionPickupLeft" type="Node3D" parent="LeftHandController/LeftPhysicsHand"]
 script = ExtResource("5_pn4k0")

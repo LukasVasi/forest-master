@@ -7,16 +7,31 @@ extends RigidBody3D
 ##
 ## Actual real hand that uses force to try and follow the controller. Can interact with the world.
 
-## --------------------------- XR Tools Hand stuff
+## ----------------- Custom stuff
 
 ## The force that pushes the hand towards the target.
 @export var hand_movement_force : float = 400.0
 
-## The torque that rotates the hand according to the target
+## The torque that rotates the hand according to the target.
 @export var hand_rotation_torque : float = 200.0
 
-## The max distance that the hand can depart from the controller before being teleported
+## The max distance that the hand can depart from the controller before being teleported.
 @export var max_distance_to_controller : float = 2.0
+
+@export_category("Rumble feedback")
+
+## The distance from the controller at which a haptic feedback is provided. 
+@export var distance_to_rumble : float = 0.3
+
+## The maximum rumble magnitude that will be used at max distance.
+@export_range(0.0, 1.0) var max_rumble_magnitude : float = 0.2
+
+## The rumble event for when the hand gets too far
+@export var rumble_event : XRToolsRumbleEvent
+
+@export var rumble_trackers : Array[StringName]
+
+## --------------------------- XR Tools Hand stuff
 
 ## Blend tree to use
 @export var hand_blend_tree : AnimationNodeBlendTree: set = set_hand_blend_tree
@@ -68,6 +83,8 @@ var _func_pickup : FunctionPickup
 var _initial_mass : float
 
 var _initial_gravity_scale : float
+
+var _rumbling : bool = false
 
 ## Pose-override class
 class PoseOverride:
@@ -192,8 +209,21 @@ func _physics_process(_delta: float) -> void:
 		$AnimationTree.set("parameters/Grip/blend_amount", grip)
 		$AnimationTree.set("parameters/Trigger/blend_amount", trigger)
 	
+	var distance_to_target: float = _target.global_position.distance_to(global_position)
+	
+	if distance_to_target > distance_to_rumble:
+		if not _rumbling:
+			_rumbling = true
+			XRToolsRumbleManager.add(self, rumble_event, rumble_trackers)
+		
+		var rumble_magnitude: float = max_rumble_magnitude * (distance_to_target - distance_to_rumble)  / (max_distance_to_controller - distance_to_rumble) 
+		rumble_event.magnitude = rumble_magnitude
+	elif distance_to_target < distance_to_rumble and _rumbling:
+		_rumbling = false
+		XRToolsRumbleManager.clear(self, rumble_trackers)
+	
 	# Check distance to hand
-	if _target.global_position.distance_to(global_position) > max_distance_to_controller:
+	if distance_to_target > max_distance_to_controller:
 		# Hand's too far away, maybe gotten stuck or holding an object that's too heavy
 		_func_pickup.drop_object()
 		_teleport_to_target()

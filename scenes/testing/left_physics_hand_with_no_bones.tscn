@@ -1,7 +1,8 @@
-[gd_scene load_steps=53 format=4 uid="uid://xn1v31t0bdhx"]
+[gd_scene load_steps=55 format=4 uid="uid://xn1v31t0bdhx"]
 
 [ext_resource type="Script" path="res://scripts/player/hands/physical_hand.gd" id="1_ejbdh"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://dl8yf7ipqotd1" path="res://addons/godot-xr-tools/hands/animations/left/hand_blend_tree.tres" id="2_6gfxp"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="2_pcggb"]
 [ext_resource type="Resource" uid="uid://dertgu7k8alls" path="res://addons/godot-xr-tools/hands/poses/pose_default_left.tres" id="3_nlpgx"]
 [ext_resource type="Animation" uid="uid://dgfeikrugfewi" path="res://addons/godot-xr-tools/hands/animations/left/Cup.res" id="4_skdvu"]
 [ext_resource type="Animation" uid="uid://dlxa6f6hwurka" path="res://addons/godot-xr-tools/hands/animations/left/Default pose.res" id="5_txr8x"]
@@ -38,6 +39,13 @@
 [ext_resource type="Animation" uid="uid://4g211my0hoiw" path="res://addons/godot-xr-tools/hands/animations/left/Straight.res" id="36_ur6xt"]
 [ext_resource type="Animation" uid="uid://d06l7hygl4qt3" path="res://addons/godot-xr-tools/hands/animations/left/Surfer.res" id="37_o7wl0"]
 [ext_resource type="Animation" uid="uid://bxei4oebd4hu3" path="res://addons/godot-xr-tools/hands/animations/left/Thumb.res" id="38_svxjo"]
+
+[sub_resource type="Resource" id="Resource_wgl78"]
+script = ExtResource("2_pcggb")
+magnitude = 0.5
+active_during_pause = true
+indefinite = true
+duration_ms = 300
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_42vjk"]
 size = Vector3(0.0799316, 0.147693, 0.199084)
@@ -293,6 +301,8 @@ angular_damp = 50.0
 script = ExtResource("1_ejbdh")
 hand_rotation_torque = 6.8
 max_distance_to_controller = 1.0
+rumble_event = SubResource("Resource_wgl78")
+rumble_trackers = Array[StringName]([&"left_hand"])
 hand_blend_tree = ExtResource("2_6gfxp")
 default_pose = ExtResource("3_nlpgx")
 margin = 0.04
