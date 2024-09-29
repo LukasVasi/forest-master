@@ -395,6 +395,7 @@ surface_material_override/2 = ExtResource("16_1kxgu")
 surface_material_override/3 = ExtResource("16_1kxgu")
 
 [node name="RightPhysicsHand" parent="RightHandController" instance=ExtResource("7_ujwnk")]
+freeze = false
 
 [node name="FunctionPickupRight" type="Node3D" parent="RightHandController/RightPhysicsHand"]
 script = ExtResource("5_pn4k0")

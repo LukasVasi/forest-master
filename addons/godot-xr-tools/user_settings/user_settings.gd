@@ -17,6 +17,9 @@ enum WebXRPrimary {
 ## User setting for snap-turn
 @export var snap_turning : bool = true
 
+## User setting for movement type
+@export var movement_direct : bool = true
+
 ## User setting for y axis dead zone
 @export var y_axis_dead_zone : float = 0.1
 
@@ -58,6 +61,7 @@ func reset_to_defaults() -> void:
 	# Reset to defaults.
 	# Where applicable we obtain our project settings
 	snap_turning = XRTools.get_default_snap_turning()
+	movement_direct = true
 	y_axis_dead_zone = XRTools.get_y_axis_dead_zone()
 	x_axis_dead_zone = XRTools.get_x_axis_dead_zone()
 	player_height = XRTools.get_player_standard_height()
@@ -95,6 +99,7 @@ func save() -> void:
 	var settings := {
 		"input" : {
 			"default_snap_turning" : snap_turning,
+			"movement_direct" : movement_direct,
 			"y_axis_dead_zone" : y_axis_dead_zone,
 			"x_axis_dead_zone" : x_axis_dead_zone,
 			"haptics_scale": haptics_scale
@@ -165,6 +170,8 @@ func _load() -> void:
 		var input : Dictionary = settings["input"]
 		if input.has("default_snap_turning"):
 			snap_turning = input["default_snap_turning"]
+		if input.has("movement_direct"):
+			movement_direct = input["movement_direct"]
 		if input.has("y_axis_dead_zone"):
 			y_axis_dead_zone = input["y_axis_dead_zone"]
 		if input.has("x_axis_dead_zone"):
