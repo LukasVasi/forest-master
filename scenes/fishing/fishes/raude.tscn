@@ -1,9 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://b562tmnadvtpm"]
+[gd_scene load_steps=18 format=3 uid="uid://b562tmnadvtpm"]
 
 [ext_resource type="Script" path="res://scripts/fishing/fish.gd" id="2_8ijpg"]
 [ext_resource type="ArrayMesh" uid="uid://bod2dkjjdge40" path="res://models/fishing/fishes/fishes_Raude.res" id="2_ug7c0"]
+[ext_resource type="Shader" path="res://shaders/CookingShader.gdshader" id="3_g0u7c"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="4_58u5g"]
+[ext_resource type="Texture2D" uid="uid://do4rovcdgomwf" path="res://models/fishing/fishes/fishes_FishesAlbedoTextureAtlas.jpg" id="4_mgkyp"]
 [ext_resource type="ArrayMesh" uid="uid://6pg6ho7d3cai" path="res://models/fishing/fishes/fishes_RaudeHighlight.res" id="4_w245c"]
+[ext_resource type="Texture2D" uid="uid://bxo57mduw7bnn" path="res://models/fishing/fishes/fishes_FishesTextureAtlas.jpg" id="5_7dhf6"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="5_opqo2"]
 [ext_resource type="Animation" uid="uid://dd67rufxwj2u" path="res://addons/godot-xr-tools/hands/animations/left/Grip 3.res" id="6_oejoc"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="7_co3sj"]
@@ -12,6 +15,30 @@
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_n3fmu"]
 points = PackedVector3Array(-0.00470903, -0.0675743, -0.0296728, 0.00470161, -0.0675743, -0.0296728, -0.00488701, -0.0624298, -0.0155977, -0.028002, -0.016938, 0.0171563, -0.03148, -0.0134422, 0.00457667, 0, -0.0405388, -0.181684, 0.0314726, -0.0134422, 0.00457667, 0.0279946, -0.016938, 0.0171563, 0.00487959, -0.0624298, -0.0155977, 0, -0.03199, 0.0533118, 0, -0.0152741, 0.09108, -0.00789041, -0.0141597, 0.090171, -0.00841693, -0.0298528, 0.0528133, -0.0189622, -0.0122209, 0.0627832, -0.0238714, -0.0181593, 0.0298532, -0.0303009, -0.0115645, 0.0160127, -0.0363967, 0.00414389, 0.00143909, -0.0378799, 0.010586, -0.00706463, -0.0330003, -0.00719852, 0.00780222, 0, 0.0511622, -0.184235, 0.0378799, 0.010586, -0.00706463, 0.0363893, 0.00414389, 0.00143909, 0.0329929, -0.00719852, 0.00780222, 0.0302935, -0.0115645, 0.0160127, 0.0189548, -0.0122209, 0.0627832, 0.023864, -0.0181593, 0.0298532, 0.00840951, -0.0298528, 0.0528133, 0.00788299, -0.0141597, 0.090171, 0.00761602, -0.00773282, 0.102369, 0, -0.00816026, 0.103601, -0.00762344, -0.00773282, 0.102369, -0.0158698, -0.00648103, 0.0848635, -0.0171231, 0.00266311, 0.0849808, -0.0174345, 0.00563993, 0.0851861, -0.0173159, 0.00922736, 0.0865642, -0.0165817, 0.00959373, 0.0897312, -0.0159069, 0.0125858, 0.0908454, -0.0159514, 0.0151962, 0.0887928, -0.0181242, 0.0253174, 0.0653636, -0.0196667, 0.0303245, 0.0465088, -0.0214984, 0.0373468, 0.0192383, -0.0237305, 0.0382932, -0.0139556, 0, 0.0883799, -0.0664147, 0.0237231, 0.0382932, -0.0139556, 0.021491, 0.0373468, 0.0192383, 0.0196593, 0.0303245, 0.0465088, 0.0181168, 0.0253174, 0.0653636, 0.015944, 0.0151962, 0.0887928, 0.0158995, 0.0125858, 0.0908454, 0.0165743, 0.00959373, 0.0897312, 0.0173085, 0.00922736, 0.0865642, 0.0174271, 0.00563993, 0.0851861, 0.0171156, 0.00266311, 0.0849808, 0.0158624, -0.00648103, 0.0848635, 0.0127477, -0.00229823, 0.0977364, 0.00734163, 6.88434e-06, 0.110521, 0, 6.88434e-06, 0.112046, -0.00734905, 6.88434e-06, 0.110521, -0.0127552, -0.00229823, 0.0977364, -0.0159143, 0.00641847, 0.0918131, -0.0108122, 0.0039149, 0.105654, -0.0144979, 0.0126469, 0.0941296, -0.0119023, 0.0158679, 0.0984695, -0.0146017, 0.0180967, 0.0898191, -0.0127033, 0.0206919, 0.0892913, -0.00858007, 0.042476, 0.0538103, -0.00912884, 0.0534978, 0.0213788, 0, 0.0442468, 0.0543088, 0.00857266, 0.042476, 0.0538103, 0.00912143, 0.0534978, 0.0213788, 0.0126958, 0.0206919, 0.0892913, 0.0145943, 0.0180967, 0.0898191, 0.0118949, 0.0158679, 0.0984695, 0.0144905, 0.0126469, 0.0941296, 0.0108048, 0.0039149, 0.105654, 0.0159069, 0.00641847, 0.0918131, 0.0106491, 0.000846498, 0.104862, 0.00759377, 0.00586891, 0.112163, 0, 0.00727335, 0.11533, -0.00760119, 0.00586891, 0.112163, -0.0106565, 0.000846498, 0.104862, -0.0057769, 0.0189363, 0.102751, -0.00968503, 0.0131201, 0.10407, -0.00713399, 0.0268898, 0.0862124, 0, 0.0279431, 0.0867695, 0.00576949, 0.0189363, 0.102751, 0.00712658, 0.0268898, 0.0862124, 0.00967761, 0.0131201, 0.10407, 0.00556926, 0.0146161, 0.107413, 0, 0.0146009, 0.10926, -0.00557668, 0.0146161, 0.107413, 0, 0.0192874, 0.103337)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u4e4e"]
+render_priority = 0
+shader = ExtResource("3_g0u7c")
+shader_parameter/cooking_level = 0.0
+shader_parameter/max_cooking_level = 4.0
+shader_parameter/base_albedo = Color(1, 1, 1, 1)
+shader_parameter/cooked_color = Color(0.4, 0.28, 0.15, 1)
+shader_parameter/base_roughness = 1.0
+shader_parameter/cooked_roughness = 0.8
+shader_parameter/base_albedo_texture = ExtResource("4_mgkyp")
+shader_parameter/base_roughness_texture = ExtResource("5_7dhf6")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yebmv"]
+render_priority = 0
+shader = ExtResource("3_g0u7c")
+shader_parameter/cooking_level = 0.0
+shader_parameter/max_cooking_level = 4.0
+shader_parameter/base_albedo = Color(1, 1, 1, 1)
+shader_parameter/cooked_color = Color(0.4, 0.28, 0.15, 1)
+shader_parameter/base_roughness = 1.0
+shader_parameter/cooked_roughness = 0.8
+shader_parameter/base_albedo_texture = ExtResource("4_mgkyp")
+shader_parameter/base_roughness_texture = ExtResource("5_7dhf6")
 
 [sub_resource type="Resource" id="Resource_7m3db"]
 script = ExtResource("7_co3sj")
@@ -25,6 +52,7 @@ closed_pose = ExtResource("9_ou1ng")
 top_level = true
 collision_layer = 4
 collision_mask = 196615
+mass = 0.6
 freeze_mode = 1
 script = ExtResource("2_8ijpg")
 max_cooking_level = 4.0
@@ -35,6 +63,8 @@ shape = SubResource("ConvexPolygonShape3D_n3fmu")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_ug7c0")
+surface_material_override/0 = SubResource("ShaderMaterial_u4e4e")
+surface_material_override/1 = SubResource("ShaderMaterial_yebmv")
 
 [node name="XRToolsHighlightVisible" type="Node3D" parent="."]
 script = ExtResource("4_58u5g")

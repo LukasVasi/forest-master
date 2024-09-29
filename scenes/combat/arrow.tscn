@@ -1,6 +1,5 @@
-[gd_scene load_steps=15 format=3 uid="uid://ch54hnpbw88c8"]
+[gd_scene load_steps=14 format=3 uid="uid://ch54hnpbw88c8"]
 
-[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_2muy8"]
 [ext_resource type="ArrayMesh" uid="uid://dk34hw7u8cupp" path="res://models/combat/Arrow.obj" id="2_cbrjt"]
 [ext_resource type="Script" path="res://scripts/combat/arrow.gd" id="2_wvahv"]
 [ext_resource type="PackedScene" uid="uid://dh8grd7s3n8kg" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_snap.tscn" id="3_c8ewr"]
@@ -34,52 +33,54 @@ disable_receive_shadows = true
 radius = 0.2
 height = 0.9
 
-[node name="Arrow" groups=["Arrow"] instance=ExtResource("1_2muy8")]
-collision_layer = 6
+[node name="Arrow" type="RigidBody3D" groups=["Arrow"]]
+collision_layer = 4
+collision_mask = 196615
+mass = 0.2
+freeze_mode = 1
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("2_wvahv")
 release_mode = 0
 
-[node name="CollisionShape3D" parent="." index="0"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.35, 0, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("CylinderShape3D_bo8yq")
 
-[node name="ArrowMesh" type="MeshInstance3D" parent="." index="1"]
-transform = Transform3D(-1.04907e-08, 2.09815e-08, -0.24, 0, -0.24, -2.09815e-08, -0.24, -9.17129e-16, 1.04907e-08, 0.65, 0, 0)
+[node name="ArrowMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.04907e-08, 2.09815e-08, -0.24, 0, -0.24, -2.09815e-08, -0.24, -9.17129e-16, 1.04907e-08, 0.3, 0, 0)
 mesh = ExtResource("2_cbrjt")
 surface_material_override/0 = SubResource("StandardMaterial3D_ys1e2")
 surface_material_override/1 = SubResource("StandardMaterial3D_r152g")
 surface_material_override/2 = SubResource("StandardMaterial3D_if5bf")
 surface_material_override/3 = SubResource("StandardMaterial3D_0msr4")
 
-[node name="GrabPointHandLeft" parent="." index="2" instance=ExtResource("4_1vg0j")]
-transform = Transform3D(0.00342085, -0.999989, 0.00331607, -0.999994, -0.00342087, 0, 1.13438e-05, -0.00331605, -0.999995, 0.289239, -0.0104861, 0.0917991)
+[node name="GrabPointHandLeft" parent="." instance=ExtResource("4_1vg0j")]
+transform = Transform3D(0.00342085, -0.999989, 0.00331607, -0.999994, -0.00342087, 0, 1.13438e-05, -0.00331605, -0.999995, 0, -0.01, 0.092)
 visible = true
 
-[node name="GrabPointHandRight" parent="." index="3" instance=ExtResource("5_mkmj4")]
-transform = Transform3D(-0.00232128, -0.999997, 0, 0.999997, -0.00232128, 0, 0, 0, 1, 0.303395, -0.0131871, -0.0978769)
+[node name="GrabPointHandRight" parent="." instance=ExtResource("5_mkmj4")]
+transform = Transform3D(-0.00232128, -0.999997, 0, 0.999997, -0.00232128, 0, 0, 0, 1, 0, -0.013, -0.098)
 visible = true
 
-[node name="GrabPointSnap" parent="." index="4" instance=ExtResource("3_c8ewr")]
+[node name="GrabPointSnap" parent="." instance=ExtResource("3_c8ewr")]
 visible = true
 
-[node name="XRToolsHighlightVisible" type="Node3D" parent="." index="5"]
+[node name="XRToolsHighlightVisible" type="Node3D" parent="."]
 script = ExtResource("6_g620s")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="XRToolsHighlightVisible" index="0"]
-transform = Transform3D(-1.06219e-08, 0, -0.243, 0, 0.243, 0, 0.243, 0, -1.06219e-08, 0.337, 0, 0)
-visible = false
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XRToolsHighlightVisible"]
+transform = Transform3D(-1.06219e-08, 0, -0.243, 0, 0.243, 0, 0.243, 0, -1.06219e-08, 0.3, 0, 0)
 mesh = ExtResource("2_cbrjt")
 surface_material_override/0 = SubResource("StandardMaterial3D_76nxs")
 surface_material_override/1 = SubResource("StandardMaterial3D_76nxs")
 surface_material_override/2 = SubResource("StandardMaterial3D_76nxs")
 surface_material_override/3 = SubResource("StandardMaterial3D_76nxs")
 
-[node name="Area3D" type="Area3D" parent="." index="6" groups=["inf_Arrows"]]
+[node name="Area3D" type="Area3D" parent="." groups=["inf_Arrows"]]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.3, 0, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_novb8")
 
 [connection signal="body_entered" from="." to="." method="_on_arrow_body_entered"]

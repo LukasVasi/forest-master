@@ -36,6 +36,10 @@ _subresources={
 "MFishes": {
 "use_external/enabled": true,
 "use_external/path": "res://models/fishing/MFishes.tres"
+},
+"M_Highlight": {
+"use_external/enabled": true,
+"use_external/path": "res://models/fishing/fishes/M_Highlight.tres"
 }
 },
 "meshes": {

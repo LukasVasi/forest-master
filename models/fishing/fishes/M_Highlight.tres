@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://do6t6us1csgn6"]
+
+[resource]
+resource_name = "M_Highlight"
+shading_mode = 0
+albedo_color = Color(0.898106, 0.772534, 0, 1)

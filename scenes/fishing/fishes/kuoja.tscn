@@ -1,9 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://ct2g57qsopix7"]
+[gd_scene load_steps=18 format=3 uid="uid://ct2g57qsopix7"]
 
 [ext_resource type="Script" path="res://scripts/fishing/fish.gd" id="2_5ko1w"]
 [ext_resource type="ArrayMesh" uid="uid://bkyrlc4d33862" path="res://models/fishing/fishes/fishes_Kuoja.res" id="2_naito"]
+[ext_resource type="Shader" path="res://shaders/CookingShader.gdshader" id="3_pdpaq"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="3_pin84"]
+[ext_resource type="Texture2D" uid="uid://do4rovcdgomwf" path="res://models/fishing/fishes/fishes_FishesAlbedoTextureAtlas.jpg" id="4_0x6tt"]
 [ext_resource type="ArrayMesh" uid="uid://n8sgh7gsm88p" path="res://models/fishing/fishes/fishes_KuojaHighlight.res" id="4_qdiov"]
+[ext_resource type="Texture2D" uid="uid://bxo57mduw7bnn" path="res://models/fishing/fishes/fishes_FishesTextureAtlas.jpg" id="5_5v87f"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="5_d1map"]
 [ext_resource type="Animation" uid="uid://dd67rufxwj2u" path="res://addons/godot-xr-tools/hands/animations/left/Grip 3.res" id="6_ull4x"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="7_fbci6"]
@@ -12,6 +15,30 @@
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_v1vms"]
 points = PackedVector3Array(-0.00558795, -0.0500522, -0.0222457, -1.86265e-09, -0.0215619, -0.150928, 0.00558271, -0.0500522, -0.0222457, -1.86265e-09, -0.0217123, 0.0563811, -0.00627925, -0.0208848, 0.0531304, -0.00978808, -0.0198424, 0.0490488, -0.0161773, -0.0197242, 0.0321111, -0.0248656, -0.0118681, 0.0219437, -0.0267509, -0.0100411, 0.0163467, -0.00454578, -0.0111803, -0.139074, -1.86265e-09, 0.0342796, -0.149241, 0.00454054, -0.0111803, -0.139074, 0.0267509, -0.0100411, 0.0163467, 0.0248604, -0.0118681, 0.0219437, 0.0161721, -0.0197242, 0.0321111, 0.00978284, -0.0198424, 0.0490488, 0.006274, -0.0208848, 0.0531304, -1.86265e-09, -0.0118036, 0.0818731, -0.00550416, -0.0150062, 0.0675262, -0.00463481, -0.0106429, 0.0779625, -0.00552511, -0.00209904, 0.0919673, -0.0103327, -0.00723612, 0.0711435, -0.00562985, 7.37235e-06, 0.0925783, -0.00935864, 0.00408049, 0.0781336, -0.00818554, 0.00548835, 0.0819709, -0.00984045, 0.0120333, 0.0688216, -0.0115477, 0.0148812, 0.0579209, -0.0143967, 0.0235756, 0.0229702, -0.015575, 0.0242312, -0.00279069, -0.00416871, 0.0244138, -0.137021, 0.00416347, 0.0244138, -0.137021, -1.86265e-09, 0.0597393, -0.0329754, 0.0155698, 0.0242312, -0.00279069, 0.0143915, 0.0235756, 0.0229702, 0.0115425, 0.0148812, 0.0579209, 0.00983521, 0.0120333, 0.0688216, 0.0081803, 0.00548835, 0.0819709, 0.0093534, 0.00408049, 0.0781336, 0.00562461, 7.37235e-06, 0.0925783, 0.00551987, -0.00209904, 0.0919673, 0.0103275, -0.00723612, 0.0711435, 0.00462957, -0.0106429, 0.0779625, 0.00549892, -0.0150062, 0.0675262, 0.00323127, -0.002271, 0.0947535, -1.86265e-09, -0.00249668, 0.0958045, -0.00323651, -0.002271, 0.0947535, -0.00340933, 0.00181287, 0.0969044, -0.00515851, 0.00516594, 0.0917473, -0.00707528, 0.00721862, 0.0835107, -0.0059755, 0.0259077, 0.0520795, -0.00630019, 0.00964744, 0.0827774, -0.00551463, 0.0127641, 0.0797956, -0.00787131, 0.0332909, 0.0246322, -1.86265e-09, 0.0267567, 0.053326, 0.00597025, 0.0259077, 0.0520795, 0.00786607, 0.0332909, 0.0246322, 0.0055094, 0.0127641, 0.0797956, 0.00629495, 0.00964744, 0.0827774, 0.00707004, 0.00721862, 0.0835107, 0.00515327, 0.00516594, 0.0917473, 0.00340409, 0.00181287, 0.0969044, -1.86265e-09, 0.00237171, 0.0987619, -1.86265e-09, 0.00677799, 0.0956579, -0.00203198, 0.00742281, 0.0934337, -0.00438343, 0.011324, 0.0845861, -0.00313701, 0.0144406, 0.0805533, -1.86265e-09, 0.0156658, 0.0805777, 0.00313176, 0.0144406, 0.0805533, 0.00437819, 0.011324, 0.0845861, 0.00202674, 0.00742281, 0.0934337, -1.86265e-09, 0.0127211, 0.0865413, -0.00403254, 0.0114315, 0.0847571, 0.0040273, 0.0114315, 0.0847571)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4sd8c"]
+render_priority = 0
+shader = ExtResource("3_pdpaq")
+shader_parameter/cooking_level = 0.0
+shader_parameter/max_cooking_level = 3.0
+shader_parameter/base_albedo = Color(1, 1, 1, 1)
+shader_parameter/cooked_color = Color(0.4, 0.28, 0.15, 1)
+shader_parameter/base_roughness = 1.0
+shader_parameter/cooked_roughness = 0.8
+shader_parameter/base_albedo_texture = ExtResource("4_0x6tt")
+shader_parameter/base_roughness_texture = ExtResource("5_5v87f")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q7td3"]
+render_priority = 0
+shader = ExtResource("3_pdpaq")
+shader_parameter/cooking_level = 0.0
+shader_parameter/max_cooking_level = 3.0
+shader_parameter/base_albedo = Color(1, 1, 1, 1)
+shader_parameter/cooked_color = Color(0.4, 0.28, 0.15, 1)
+shader_parameter/base_roughness = 1.0
+shader_parameter/cooked_roughness = 0.8
+shader_parameter/base_albedo_texture = ExtResource("4_0x6tt")
+shader_parameter/base_roughness_texture = ExtResource("5_5v87f")
 
 [sub_resource type="Resource" id="Resource_7m3db"]
 script = ExtResource("7_fbci6")
@@ -25,11 +52,11 @@ closed_pose = ExtResource("9_3dgwt")
 top_level = true
 collision_layer = 4
 collision_mask = 196615
+mass = 0.4
 freeze_mode = 1
 script = ExtResource("2_5ko1w")
 type = 1
 max_cooking_level = 3.0
-cooking_levels = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
@@ -37,6 +64,8 @@ shape = SubResource("ConvexPolygonShape3D_v1vms")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_naito")
+surface_material_override/0 = SubResource("ShaderMaterial_4sd8c")
+surface_material_override/1 = SubResource("ShaderMaterial_q7td3")
 
 [node name="XRToolsHighlightVisible" type="Node3D" parent="."]
 script = ExtResource("3_pin84")
