@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://csddg4xbjp0b6"]
+[gd_scene load_steps=8 format=3 uid="uid://csddg4xbjp0b6"]
 
 [ext_resource type="Script" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_0dk5u"]
 [ext_resource type="PackedScene" uid="uid://b0t75hmsf5txv" path="res://scenes/new_player.tscn" id="1_yqa2s"]
 [ext_resource type="PackedScene" uid="uid://bdmtj8pyblxl5" path="res://scenes/utils/pickable_cube.tscn" id="3_7kk0d"]
+[ext_resource type="PackedScene" uid="uid://ces1enrushk7a" path="res://scenes/utils/pause_menu_viewport.tscn" id="4_x2xv0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_s1oei"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -55,3 +56,6 @@ second_hand_grab = 2
 [node name="PickableCube4" parent="." instance=ExtResource("3_7kk0d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.00876, 1.22904, -4.73465)
 mass = 2000.0
+
+[node name="PickablePauseMenu" parent="." instance=ExtResource("4_x2xv0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.64479, -1.72759)

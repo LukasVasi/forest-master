@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://ces1enrushk7a"]
+
+[ext_resource type="Script" path="res://scripts/utils/pickable_viewport.gd" id="1_n1kck"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="2_ekq1j"]
+[ext_resource type="PackedScene" uid="uid://b5gug5ecibfou" path="res://scenes/ui/pause_menu.tscn" id="3_0tqcl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_grj0i"]
+resource_local_to_scene = true
+size = Vector3(1.2, 1.2, 0.04)
+
+[sub_resource type="BoxMesh" id="BoxMesh_m1pjs"]
+size = Vector3(1.2, 1.2, 0.04)
+
+[node name="PickablePauseMenuViewport" type="RigidBody3D"]
+process_mode = 3
+collision_layer = 4
+collision_mask = 131072
+mass = 0.1
+gravity_scale = 0.0
+freeze = true
+freeze_mode = 1
+script = ExtResource("1_n1kck")
+release_mode = 1
+ranged_grab_method = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0406442)
+shape = SubResource("BoxShape3D_grj0i")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+visible = false
+mesh = SubResource("BoxMesh_m1pjs")
+
+[node name="Viewport2Din3D" parent="." instance=ExtResource("2_ekq1j")]
+screen_size = Vector2(0.8, 0.7)
+scene = ExtResource("3_0tqcl")
+viewport_size = Vector2(800, 700)
+unshaded = true
+scene_properties_keys = PackedStringArray("pause_menu.gd", "distance")
+distance = 1.4
