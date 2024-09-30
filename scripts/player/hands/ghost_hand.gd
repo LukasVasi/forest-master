@@ -6,15 +6,11 @@ extends Node3D
 
 ## Ghost Hand Script
 ##
-## Based on Godot XR Tools hand. 
-## Follows the controller exactly. Does not actually interact with the world.
+## This hand is based on Godot XR Tools hand.
+## Follows the controller exactly. Does not interact with the world by itself.
 ##
-## This script manages a godot-xr-tools hand. It animates the hand blending
-## grip and trigger animations based on controller input.
-##
-## Additionally the hand script detects world-scale changes in the XRServer
-## and re-scales the hand appropriately so the hand stays scaled to the
-## physical hand of the user.
+## Manages the hand poses so they'd match player inputs.
+## Controls the transparency of the ghost hand shader. 
 
 
 ## Blend tree to use
@@ -56,12 +52,6 @@ var _force_grip := -1.0
 ## Force trigger value (< 0 for no force)
 var _force_trigger := -1.0
 
-# Sorted stack of TargetOverride
-var _target_overrides := []
-
-# Current target (controller or override)
-var _target : Node3D
-
 
 ## Pose-override class
 class PoseOverride:
@@ -102,13 +92,6 @@ func is_xr_class(name : String) -> bool:
 
 ## Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# Disconnect from parent transform as we move to it in the physics step,
-	# and boost the physics priority after any grab-drivers but before other
-	# processing.
-	if not Engine.is_editor_hint():
-		top_level = true
-		process_physics_priority = -70
-
 	# Find our controller
 	_controller = XRTools.find_xr_ancestor(self, "*", "XRController3D")
 
@@ -121,14 +104,11 @@ func _ready() -> void:
 	_update_hand_blend_tree()
 	_update_hand_material_override()
 	_update_pose()
-	_update_target()
 
 
-## This method checks for world-scale changes and scales itself causing the
-## hand mesh and skeleton to scale appropriately. It then reads the grip and
-## trigger action values to animate the hand.
-func _physics_process(_delta: float) -> void:
-	# Do not run physics if in the editor
+## This method reads the grip and trigger action values to animate the hand.
+func _process(_delta: float) -> void:
+	# Do not run if in the editor
 	if Engine.is_editor_hint():
 		return
 
@@ -143,10 +123,6 @@ func _physics_process(_delta: float) -> void:
 
 		$AnimationTree.set("parameters/Grip/blend_amount", grip)
 		$AnimationTree.set("parameters/Trigger/blend_amount", trigger)
-
-	# Move to target
-	global_transform = _target.global_transform
-	force_update_transform()
 
 
 # This method verifies the hand has a valid configuration.
@@ -259,32 +235,6 @@ func force_grip_trigger(grip : float = -1.0, trigger : float = -1.0) -> void:
 	if trigger >= 0.0: $AnimationTree.set("parameters/Trigger/blend_amount", trigger)
 
 
-## This function adds a target override. The collision hand will attempt to
-## move to the highest priority target, or the [XRController3D] if no override
-## is specified.
-func add_target_override(target : Node3D, priority : int) -> void:
-	# Remove any existing target override from this source
-	var modified := _remove_target_override(target)
-
-	# Insert the target override
-	_insert_target_override(target, priority)
-	modified = true
-
-	# Update the target
-	if modified:
-		_update_target()
-
-
-## This function remove a target override.
-func remove_target_override(target : Node3D) -> void:
-	# Remove the target override
-	var modified := _remove_target_override(target)
-
-	# Update the pose
-	if modified:
-		_update_target()
-
-
 func _update_hand_blend_tree() -> void:
 	# As we're going to make modifications to our animation tree, we need to do
 	# a deep copy, simply setting resource local to scene does not seem to be enough
@@ -385,59 +335,6 @@ func _remove_pose_override(who : Node) -> bool:
 
 	# Return the modified indicator
 	return modified
-
-
-# This function inserts a target override into the overrides list by priority
-# order.
-func _insert_target_override(target : Node3D, priority : int) -> void:
-	# Construct the target override
-	var override := TargetOverride.new(target, priority)
-
-	# Iterate over all target overrides in the list
-	for pos in _target_overrides.size():
-		# Get the target override
-		var o : TargetOverride = _target_overrides[pos]
-
-		# Insert as early as possible to not invalidate sorting
-		if o.priority <= priority:
-			_target_overrides.insert(pos, override)
-			return
-
-	# Insert at the end
-	_target_overrides.push_back(override)
-
-
-# This function removes a target from the overrides list
-func _remove_target_override(target : Node) -> bool:
-	var pos := 0
-	var length := _target_overrides.size()
-	var modified := false
-
-	# Iterate over all pose overrides in the list
-	while pos < length:
-		# Get the target override
-		var o : TargetOverride = _target_overrides[pos]
-
-		# Check for a match
-		if o.target == target:
-			# Remove the override
-			_target_overrides.remove_at(pos)
-			modified = true
-			length -= 1
-		else:
-			# Advance down the list
-			pos += 1
-
-	# Return the modified indicator
-	return modified
-
-
-# This function updates the target for hand movement.
-func _update_target() -> void:
-	if _target_overrides.size():
-		_target = _target_overrides[0].target
-	else:
-		_target = get_parent()
 
 
 static func _find_child(node : Node, type : String) -> Node:
