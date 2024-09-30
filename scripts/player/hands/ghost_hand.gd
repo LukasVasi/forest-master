@@ -16,8 +16,6 @@ extends Node3D
 ## Blend tree to use
 @export var hand_blend_tree : AnimationNodeBlendTree: set = set_hand_blend_tree
 
-## Override the hand material
-@export var hand_material_override : Material: set = set_hand_material_override
 
 ## Default hand pose
 @export var default_pose : XRToolsHandPoseSettings: set = set_default_pose
@@ -27,6 +25,23 @@ extends Node3D
 
 ## Name of the Trigger action in the OpenXR Action Map.
 @export var trigger_action : String = "trigger"
+
+@export_category("Transparency")
+
+## Override the hand material with the ghost hand material. 
+## Must have the min_alpha, max_alpha and alpha parameters.
+@export var hand_material_override : ShaderMaterial: set = set_hand_material_override
+
+## The relative path to the corresponding physical hand
+@export var physical_hand_path : NodePath
+
+@export var min_visibility_distance : float = 0.3
+
+@export var max_visibility_distance : float = 0.6
+
+var _max_shader_alpha : float
+
+var _min_shader_alpha : float
 
 ## Controller used for input/tracking
 var _controller : XRController3D
@@ -52,6 +67,7 @@ var _force_grip := -1.0
 ## Force trigger value (< 0 for no force)
 var _force_trigger := -1.0
 
+var _physical_hand : PhysicalHand
 
 ## Pose-override class
 class PoseOverride:
@@ -94,6 +110,9 @@ func is_xr_class(name : String) -> bool:
 func _ready() -> void:
 	# Find our controller
 	_controller = XRTools.find_xr_ancestor(self, "*", "XRController3D")
+	
+	# Find our physical hand
+	_physical_hand = get_node(physical_hand_path)
 
 	# Find the relevant hand nodes
 	_hand_mesh = _find_child(self, "MeshInstance3D")
@@ -123,7 +142,18 @@ func _process(_delta: float) -> void:
 
 		$AnimationTree.set("parameters/Grip/blend_amount", grip)
 		$AnimationTree.set("parameters/Trigger/blend_amount", trigger)
-
+	
+	# Update the visibility and shader
+	if _physical_hand:
+		var distance_to_hand: float = _physical_hand.distance_to_target
+		
+		if distance_to_hand < min_visibility_distance:
+			if visible : visible = false
+		else:
+			if not visible : visible = true
+			var alpha_ratio: float = clampf((distance_to_hand - min_visibility_distance) / (max_visibility_distance - min_visibility_distance), 0.0, 1.0)
+			var alpha_value: float = _min_shader_alpha + (_max_shader_alpha - _min_shader_alpha) * alpha_ratio
+			hand_material_override.set_shader_parameter("alpha", alpha_value)
 
 # This method verifies the hand has a valid configuration.
 func _get_configuration_warnings() -> PackedStringArray:
@@ -186,10 +216,20 @@ func set_hand_blend_tree(blend_tree : AnimationNodeBlendTree) -> void:
 
 
 ## Set the hand material override
-func set_hand_material_override(material : Material) -> void:
-	hand_material_override = material
-	if is_inside_tree():
-		_update_hand_material_override()
+func set_hand_material_override(material : ShaderMaterial) -> void:
+	if ( 
+		material.get_shader_parameter("alpha") == null 
+		or material.get_shader_parameter("min_alpha") == null
+		or material.get_shader_parameter("max_alpha") == null
+	):
+		push_error("The passed material is not supported. Shader must have alpha, min_alpha and max_alpha params")
+	else:
+		# Duplicate so as not to change the og resource's alpha
+		hand_material_override = material.duplicate()
+		_min_shader_alpha = hand_material_override.get_shader_parameter("min_alpha")
+		_max_shader_alpha = hand_material_override.get_shader_parameter("max_alpha")
+		if is_inside_tree():
+			_update_hand_material_override()
 
 
 ## Set the default open-hand pose

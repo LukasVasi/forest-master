@@ -48,6 +48,8 @@ extends RigidBody3D
 ## Name of the Trigger action in the OpenXR Action Map.
 @export var trigger_action : String = "trigger"
 
+var distance_to_target: float = 0.0
+
 ## Controller used for input/tracking
 var _controller : XRController3D
 
@@ -209,7 +211,7 @@ func _physics_process(_delta: float) -> void:
 		$AnimationTree.set("parameters/Grip/blend_amount", grip)
 		$AnimationTree.set("parameters/Trigger/blend_amount", trigger)
 	
-	var distance_to_target: float = _target.global_position.distance_to(global_position)
+	distance_to_target = _target.global_position.distance_to(global_position)
 	
 	if distance_to_target > distance_to_rumble:
 		if not _rumbling:

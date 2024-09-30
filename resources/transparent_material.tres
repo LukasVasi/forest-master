@@ -2,7 +2,6 @@
 
 [resource]
 transparency = 1
-blend_mode = 1
 no_depth_test = true
 shading_mode = 0
 albedo_color = Color(0, 0.505882, 0.517647, 0.686275)

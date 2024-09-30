@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b0t75hmsf5txv"]
+[gd_scene load_steps=21 format=3 uid="uid://b0t75hmsf5txv"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_dpnha"]
 [ext_resource type="PackedScene" uid="uid://btknduttnmoxf" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="2_wb3xa"]
@@ -12,11 +12,30 @@
 [ext_resource type="PackedScene" uid="uid://dl1miotgluu08" path="res://scenes/player/hands/left_physics_hand_v1.tscn" id="9_isomr"]
 [ext_resource type="PackedScene" uid="uid://mx6owhjjvnc8" path="res://scenes/player/hands/left_ghost_hand.tscn" id="9_vy2ea"]
 [ext_resource type="PackedScene" uid="uid://fiul51tsyoop" path="res://addons/godot-xr-tools/functions/function_teleport.tscn" id="10_fxqs6"]
+[ext_resource type="Shader" path="res://shaders/ghost_hand_shader.gdshader" id="10_lq42o"]
 [ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="11_xlbbe"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="12_editf"]
 [ext_resource type="PackedScene" uid="uid://dphcujw0jaqld" path="res://scenes/utils/fps_counter.tscn" id="13_45c4y"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="14_1b86k"]
 [ext_resource type="Script" path="res://scripts/player/player_body.gd" id="16_inuc8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2118l"]
+render_priority = 0
+shader = ExtResource("10_lq42o")
+shader_parameter/base_color = Color(3.94672e-06, 0.737807, 0.523496, 1)
+shader_parameter/alpha = 0.0
+shader_parameter/min_alpha = 0.0
+shader_parameter/max_alpha = 0.5
+shader_parameter/fresnel_amount = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3lwkb"]
+render_priority = 0
+shader = ExtResource("10_lq42o")
+shader_parameter/base_color = Color(3.94672e-06, 0.737807, 0.523496, 1)
+shader_parameter/alpha = 0.0
+shader_parameter/min_alpha = 0.0
+shader_parameter/max_alpha = 0.5
+shader_parameter/fresnel_amount = 3.0
 
 [node name="XROrigin3D" type="XROrigin3D" groups=["player"]]
 process_mode = 3
@@ -37,6 +56,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, -0.5)
 tracker = &"right_hand"
 
 [node name="RightGhostHand" parent="RightHandController" instance=ExtResource("3_xp54x")]
+hand_material_override = SubResource("ShaderMaterial_2118l")
+physical_hand_path = NodePath("../RightPhysicsHand")
+min_visibility_distance = 0.08
+max_visibility_distance = 0.8
 
 [node name="RightPhysicsHand" parent="RightHandController" instance=ExtResource("7_ujwnk")]
 freeze = false
@@ -68,6 +91,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.5, -0.5)
 tracker = &"left_hand"
 
 [node name="LeftGhostHand" parent="LeftHandController" instance=ExtResource("9_vy2ea")]
+hand_material_override = SubResource("ShaderMaterial_3lwkb")
+physical_hand_path = NodePath("../LeftPhysicsHand")
+min_visibility_distance = 0.08
+max_visibility_distance = 0.8
 
 [node name="LeftPhysicsHand" parent="LeftHandController" instance=ExtResource("9_isomr")]
 freeze = false
