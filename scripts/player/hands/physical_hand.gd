@@ -176,16 +176,16 @@ func _ready() -> void:
 	_animation_player = _find_child(self, "AnimationPlayer")
 	_animation_tree = _find_child(self, "AnimationTree")
 
-	PauseManager.pause_state_changed.connect(_on_pause_state_changed)
-
 	# Apply all updates
 	_update_hand_blend_tree()
 	_update_hand_material_override()
 	_update_pose()
 	_update_target()
 	
-	# Teleport to controller
-	_teleport_to_target()
+	if not Engine.is_editor_hint():
+		PauseManager.pause_state_changed.connect(_on_pause_state_changed)
+		# Teleport to controller
+		_teleport_to_target()
 
 
 func _teleport_to_target() -> void:

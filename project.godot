@@ -46,6 +46,7 @@ import/blender/enabled=false
 player="The player XROrigin in the main scene"
 water=""
 puntukas=""
+pause_menu_container=""
 
 [layer_names]
 

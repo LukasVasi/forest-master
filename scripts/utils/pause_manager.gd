@@ -13,7 +13,7 @@ var paused : bool = false : set = set_pause
 ## Sets a specific pause state
 func set_pause(new_value: bool) -> void:
 	paused = new_value
-	#get_tree().paused = paused
+	get_tree().paused = paused
 	#PhysicsServer3D.set_active(true)
 	pause_state_changed.emit(paused)
 

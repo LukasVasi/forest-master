@@ -8,11 +8,6 @@ extends Control
 ## The player's camera. Only retrieves and works with the camera in main.
 @onready var player_camera: XRCamera3D = get_tree().get_first_node_in_group("player").get_node("XRCamera3D")
 
-## Distance from camera to the menu when displayed.
-@export var distance: float = 1.0
-
-var _paused : bool = false
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Hide all the UIs
@@ -26,10 +21,8 @@ func _ready():
 ## Method that handles the pause state change singal from PauseManager
 func _on_pause_state_changed(paused : bool):
 	if paused:
-		_paused = true
 		pause_menu_ui.visible = true
 	else:
-		_paused = false
 		pause_menu_ui.visible = false
 		settings_ui.visible = false
 
