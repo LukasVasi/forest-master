@@ -182,8 +182,10 @@ func _ready() -> void:
 	_update_pose()
 	_update_target()
 	
-	# Teleport to controller
-	_teleport_to_target()
+	if not Engine.is_editor_hint():
+		PauseManager.pause_state_changed.connect(_on_pause_state_changed)
+		# Teleport to controller
+		_teleport_to_target()
 
 
 func _teleport_to_target() -> void:
@@ -210,6 +212,11 @@ func _physics_process(_delta: float) -> void:
 
 		$AnimationTree.set("parameters/Grip/blend_amount", grip)
 		$AnimationTree.set("parameters/Trigger/blend_amount", trigger)
+	
+	# TODO: maybe introduce a local variable or just do it differently somehow?
+	if PauseManager.paused:
+		global_transform = _target.global_transform
+		return
 	
 	distance_to_target = _target.global_position.distance_to(global_position)
 	
@@ -545,6 +552,12 @@ func _update_target() -> void:
 		_target = _target_overrides[0].target
 	else:
 		_target = get_parent()
+
+
+func _on_pause_state_changed(paused: bool) -> void:
+	if paused:
+		_func_pickup.drop_object()
+		_teleport_to_target()
 
 
 static func _find_child(node : Node, type : String) -> Node:

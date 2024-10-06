@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ke308b8xd5wh"]
+
+[ext_resource type="Script" path="res://scripts/utils/pause_menu_function_pickup.gd" id="1_ryylx"]
+
+[node name="PauseMenuFunctionPickup" type="Node3D"]
+script = ExtResource("1_ryylx")
