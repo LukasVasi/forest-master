@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnno5b20tmn85"]
+
+[ext_resource type="PackedScene" uid="uid://fhbjxsc7gxf1" path="res://models/man_scale_benchmark.glb" id="1_vljc3"]
+
+[node name="man_scale_benchmark" instance=ExtResource("1_vljc3")]

@@ -33,9 +33,9 @@ animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
 "materials": {
-"MFishes": {
+"M_Fishes": {
 "use_external/enabled": true,
-"use_external/path": "res://models/fishing/MFishes.tres"
+"use_external/path": "res://models/fishing/fishes/MFishes.tres"
 },
 "M_Highlight": {
 "use_external/enabled": true,
