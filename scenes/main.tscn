@@ -1,7 +1,7 @@
 [gd_scene load_steps=80 format=4 uid="uid://dqmlp2hfmrh7m"]
 
 [ext_resource type="Script" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_0wkb3"]
-[ext_resource type="PackedScene" uid="uid://ces1enrushk7a" path="res://scenes/utils/pause_menu_viewport.tscn" id="2_iwn03"]
+[ext_resource type="PackedScene" uid="uid://ces1enrushk7a" path="res://scenes/utils/pause_menu_container.tscn" id="2_iwn03"]
 [ext_resource type="Environment" uid="uid://edotw462mqao" path="res://resources/environment.tres" id="3_uue1d"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="3_x6jvw"]
 [ext_resource type="Shader" path="res://shaders/Low_poly_water.gdshader" id="6_65b7g"]
@@ -42,9 +42,9 @@
 [ext_resource type="PackedScene" uid="uid://bkj6ty5kdth1w" path="res://scenes/combat/quiver.tscn" id="44_nghe1"]
 [ext_resource type="PackedScene" uid="uid://wt3xvamdtofe" path="res://scenes/environment/log.tscn" id="45_5njgx"]
 [ext_resource type="PackedScene" uid="uid://c6wf68pe71k2a" path="res://scenes/cooking/skillet.tscn" id="45_6wdpy"]
-[ext_resource type="PackedScene" uid="uid://c345dpvaqcva1" path="res://scenes/demo_player.tscn" id="46_a22vp"]
 [ext_resource type="PackedScene" uid="uid://h4roksm87ytx" path="res://scenes/cooking/lid.tscn" id="46_vwkmn"]
 [ext_resource type="PackedScene" uid="uid://gvyk1si63evv" path="res://scenes/environment/flowers.tscn" id="47_kirqo"]
+[ext_resource type="PackedScene" uid="uid://b0t75hmsf5txv" path="res://scenes/new_player.tscn" id="47_q00my"]
 [ext_resource type="PackedScene" uid="uid://ct2g57qsopix7" path="res://scenes/fishing/fishes/kuoja.tscn" id="47_yw4jv"]
 [ext_resource type="PackedScene" uid="uid://b2wwpdu2ao0np" path="res://scenes/environment/bushes2.tscn" id="48_1ny86"]
 
@@ -412,7 +412,7 @@ transform = Transform3D(-0.137841, 0, 0.0812398, 0, 0.16, 0, -0.0812398, 0, -0.1
 curve = SubResource("Curve3D_i6pi6")
 
 [node name="MockFish1" parent="Fishing/MockFishes/MockFishPath1" instance=ExtResource("14_h3ydf")]
-transform = Transform3D(-0.961927, -0.00266091, 0.273209, 0, 0.999878, 0.00973934, -0.273221, 0.00936823, -0.961885, 17.8061, -1.12253, 13.4726)
+transform = Transform3D(-0.961927, -0.00266091, 0.273209, 0, 0.999878, 0.00973934, -0.273221, 0.00936824, -0.961885, 17.8061, -1.12253, 13.4726)
 progress = 39.4198
 rotation_mode = 2
 use_model_front = true
@@ -1833,9 +1833,9 @@ shadow_opacity = 0.8
 shadow_blur = 0.6
 directional_shadow_mode = 0
 
-[node name="XROrigin3D" parent="." instance=ExtResource("46_a22vp")]
-
 [node name="Kuoja" parent="." instance=ExtResource("47_yw4jv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35873, 1.59136, -5.64971)
+
+[node name="XROrigin3D" parent="." instance=ExtResource("47_q00my")]
 
 [editable path="Skillet"]
