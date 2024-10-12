@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=4 uid="uid://dqmlp2hfmrh7m"]
+[gd_scene load_steps=81 format=4 uid="uid://dqmlp2hfmrh7m"]
 
 [ext_resource type="Script" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_0wkb3"]
 [ext_resource type="PackedScene" uid="uid://ces1enrushk7a" path="res://scenes/utils/pause_menu_container.tscn" id="2_iwn03"]
@@ -47,6 +47,7 @@
 [ext_resource type="PackedScene" uid="uid://b0t75hmsf5txv" path="res://scenes/new_player.tscn" id="47_q00my"]
 [ext_resource type="PackedScene" uid="uid://ct2g57qsopix7" path="res://scenes/fishing/fishes/kuoja.tscn" id="47_yw4jv"]
 [ext_resource type="PackedScene" uid="uid://b2wwpdu2ao0np" path="res://scenes/environment/bushes2.tscn" id="48_1ny86"]
+[ext_resource type="PackedScene" uid="uid://cnno5b20tmn85" path="res://scenes/man_scale_benchmark.tscn" id="48_qih47"]
 
 [sub_resource type="Curve3D" id="Curve3D_i6pi6"]
 _data = {
@@ -383,10 +384,10 @@ transform = Transform3D(-1.21918, 0, -0.443855, 0, 1, 0, 0.490106, 0, -1.10413, 
 [node name="Fishing" type="Node" parent="."]
 
 [node name="holding_stick" parent="Fishing" instance=ExtResource("25_70mbh")]
-transform = Transform3D(-0.634024, 0, 1.35942, 0, 1.5, 0, -1.35942, 0, -0.634024, 18.7515, 0.178752, 8.37013)
+transform = Transform3D(-0.634024, 0, 1.35942, 0, 1.5, 0, -1.35942, 0, -0.634024, 18.1742, -0.21678, 8.338)
 
 [node name="Bucket" parent="Fishing" instance=ExtResource("10_ym32v")]
-transform = Transform3D(0.906684, 0, 0.421811, 0, 1, 0, -0.421811, 0, 0.906684, 19.7135, 0.540002, 6.17818)
+transform = Transform3D(0.906684, 0, 0.421811, 0, 1, 0, -0.421811, 0, 0.906684, 18.614, 0.036137, 5.97415)
 
 [node name="Dragonfly" parent="Fishing" instance=ExtResource("42_lcci2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6287, 4.42691, 11.112)
@@ -404,7 +405,7 @@ transform = Transform3D(0.125091, 0, -0.992145, 0, 1, 0, 0.992145, 0, 0.125091, 
 transform = Transform3D(0.125091, 0, -0.992145, 0, 1, 0, 0.992145, 0, 0.125091, 23.8542, 2.29363, 3.094)
 
 [node name="Dock" parent="Fishing" instance=ExtResource("18_r5c2f")]
-transform = Transform3D(-0.137841, 0, 0.0812398, 0, 0.16, 0, -0.0812398, 0, -0.137841, 16.472, -0.846111, 3.36842)
+transform = Transform3D(-0.113004, 0, 0.0403744, 0, 0.12, 0, -0.0403744, 0, -0.113004, 16.472, -0.995447, 3.36842)
 
 [node name="MockFishes" type="Node" parent="Fishing"]
 
@@ -439,7 +440,7 @@ use_model_front = true
 movement_speed = 2.4
 
 [node name="FishingRod" parent="." instance=ExtResource("18_ap21l")]
-transform = Transform3D(-0.915531, -0.0327862, -0.400908, 0.208503, 0.813645, -0.542686, 0.343991, -0.580438, -0.738082, 18.4199, 0.748272, 7.76648)
+transform = Transform3D(-0.915531, -0.0327862, -0.400908, 0.208503, 0.813645, -0.542686, 0.343991, -0.580438, -0.738082, 17.8426, 0.35274, 7.73435)
 
 [node name="Water" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.822382, 0, -0.568935, 0, 1, 0, 0.568935, 0, 0.822382, 34.3754, -0.889945, 21.0098)
@@ -452,7 +453,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_frkp2")
 transform = Transform3D(0.280918, 0, -0.959732, 0, 1, 0, 0.959732, 0, 0.280918, -8.87534, -0.193142, -3.86797)
 
 [node name="Tent" parent="." instance=ExtResource("8_tg55q")]
-transform = Transform3D(1.05683, 0, -0.164021, 0, 1.06948, 0, 0.164021, 0, 1.05683, -5.69546, 0.815245, -2.02315)
+transform = Transform3D(0.985911, -0.0637983, -0.154625, 0.0668801, 0.997651, 0.0148054, 0.153317, -0.0249382, 0.987862, -5.69546, 0.727935, -2.02315)
 
 [node name="FireWoodPile" parent="." instance=ExtResource("16_20otq")]
 transform = Transform3D(2.13578, 0, -2.10676, 0, 3, 0, 2.10676, 0, 2.13578, -4.26789, 0.845779, 1.28163)
@@ -1837,5 +1838,13 @@ directional_shadow_mode = 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35873, 1.59136, -5.64971)
 
 [node name="XROrigin3D" parent="." instance=ExtResource("47_q00my")]
+
+[node name="man_scale_benchmark" parent="." instance=ExtResource("48_qih47")]
+transform = Transform3D(0.999938, 0, 0.0111699, 0, 1, 0, -0.0111699, 0, 0.999938, -1.43748, 0.725542, -2.43402)
+visible = false
+
+[node name="man_scale_benchmark2" parent="." instance=ExtResource("48_qih47")]
+transform = Transform3D(0.999938, 0, 0.0111699, 0, 1, 0, -0.0111699, 0, 0.999938, 19.6467, -0.186513, 2.40205)
+visible = false
 
 [editable path="Skillet"]

@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxo57mduw7bnn"
-path.s3tc="res://.godot/imported/fishes_FishesTextureAtlas.jpg-3b2560841b0d657957e93443fc70ae97.s3tc.ctex"
-path.etc2="res://.godot/imported/fishes_FishesTextureAtlas.jpg-3b2560841b0d657957e93443fc70ae97.etc2.ctex"
+uid="uid://ds8mpu6hfl800"
+path.s3tc="res://.godot/imported/fishes_FishesRoughnessTextureAtlas.jpg-45a65ca66931b31789882d7dae1f7fd0.s3tc.ctex"
+path.etc2="res://.godot/imported/fishes_FishesRoughnessTextureAtlas.jpg-45a65ca66931b31789882d7dae1f7fd0.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -15,8 +15,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://models/fishing/fishes/fishes_FishesTextureAtlas.jpg"
-dest_files=["res://.godot/imported/fishes_FishesTextureAtlas.jpg-3b2560841b0d657957e93443fc70ae97.s3tc.ctex", "res://.godot/imported/fishes_FishesTextureAtlas.jpg-3b2560841b0d657957e93443fc70ae97.etc2.ctex"]
+source_file="res://models/fishing/fishes/fishes_FishesRoughnessTextureAtlas.jpg"
+dest_files=["res://.godot/imported/fishes_FishesRoughnessTextureAtlas.jpg-45a65ca66931b31789882d7dae1f7fd0.s3tc.ctex", "res://.godot/imported/fishes_FishesRoughnessTextureAtlas.jpg-45a65ca66931b31789882d7dae1f7fd0.etc2.ctex"]
 
 [params]
 
