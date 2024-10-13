@@ -9,6 +9,20 @@ const DEFAULT_LAYER := 0b0000_0000_0000_0001_0000_0000_0000_0000
 # Signal emitted when the highlight state changes
 signal highlight_updated(pickable, enable)
 
+# Signal emitted when this object is picked up (held by a player or snap-zone)
+signal picked_up(pickable)
+
+# Signal emitted when this object is dropped
+signal dropped(pickable)
+
+## Signal emitted when this object is grabbed (primary or secondary).
+## Emitted in the grab class.
+signal grabbed(pickable, by)
+
+## Signal emitted when this object is released (primary or secondary).
+## Emitted in the grab class.
+signal released(pickable, by)
+
 ## Layer for this object while picked up
 @export_flags_3d_physics var picked_up_layer : int = DEFAULT_LAYER
 
@@ -27,17 +41,15 @@ var _highlight_requests : Dictionary = {}
 var _highlighted : bool = false
 
 # Array of grab points
-var _grab_points : Array[XRToolsGrabPoint] = []
+var _grab_points : Array[PhysicalGrabPoint] = []
 
 
 func _ready():
 	# Get all grab points
 	for child in get_children():
-		var grab_point := child as XRToolsGrabPoint
+		var grab_point := child as PhysicalGrabPoint
 		if grab_point:
 			_grab_points.push_back(grab_point)
-			
-	print(_grab_points.size())
 
 
 #func _physics_process(delta: float) -> void:
@@ -66,24 +78,42 @@ func pick_up(by: Node3D) -> void:
 	
 	if not is_picked_up():
 		# Find a suitable primary hand grab
-		var by_grab_point := _grab_points[0]
-		print(by_grab_point)
-		_grab_driver = PhysicalGrabDriver.new(self, by.hand, by_grab_point)
+		var by_grab_point := _get_grab_point(by, null)
+		var grab := PhysicalGrab.new(by, self, by_grab_point)
+		_grab_driver = PhysicalGrabDriver.new(grab)
 		add_child(_grab_driver)
+	else:
+		var by_grab_point := _get_grab_point(by, _grab_driver.primary_grab.grab_point)
+		var grab := PhysicalGrab.new(by, self, by_grab_point)
+		_grab_driver.add_grab(grab)
 	
-	print("Object picked up")
-
+	# Report picked up
+	picked_up.emit(self)
 
 # Called when this object is dropped
 func let_go(by: Node3D, p_linear_velocity: Vector3, p_angular_velocity: Vector3) -> void:
 	# Skip if not picked up
 	if not is_picked_up():
 		return
-
-	print_verbose("%s> dropping" % name)
-	_grab_driver.discard()
-	_grab_driver = null
-	print("Object let go")
+	
+	# Get the grab information
+	var grab := _grab_driver.get_grab(by)
+	if not grab:
+		return
+	
+	# Remove the grab from the driver and release the grab
+	_grab_driver.remove_grab(grab)
+	grab.release()
+	
+	# Check if there is still a grab
+	if not _grab_driver.primary_grab:
+		# Drop the grab-driver
+		print_verbose("%s> dropping" % name)
+		_grab_driver.discard()
+		_grab_driver = null
+	
+	# Let interested parties know
+	dropped.emit(self)
 
 
 ## This method requests highlighting of the [XRToolsPickable].

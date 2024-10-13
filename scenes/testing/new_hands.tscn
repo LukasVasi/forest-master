@@ -1,9 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://csddg4xbjp0b6"]
+[gd_scene load_steps=27 format=3 uid="uid://csddg4xbjp0b6"]
 
 [ext_resource type="Script" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_0dk5u"]
+[ext_resource type="PackedScene" uid="uid://0a3edbceqgym" path="res://scenes/utils/physical_grab_point_right.tscn" id="3_aiss2"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/objects/pickable.gd" id="3_ovmxk"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="4_h04ms"]
 [ext_resource type="PackedScene" uid="uid://ces1enrushk7a" path="res://scenes/utils/pause_menu_container.tscn" id="4_x2xv0"]
+[ext_resource type="PackedScene" uid="uid://bsvi1o45dttw5" path="res://scenes/utils/physical_grab_point_left.tscn" id="4_xehqh"]
 [ext_resource type="Animation" uid="uid://bediglpx0rj7i" path="res://addons/godot-xr-tools/hands/animations/left/Grip 5.res" id="5_0hj5p"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="6_rlyql"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="7_bwpo6"]
@@ -36,10 +38,6 @@ size = Vector3(0.5, 0.1, 0.1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yvvjg"]
 albedo_color = Color(0, 0.56073, 0.399613, 1)
 
-[sub_resource type="Resource" id="Resource_p45jf"]
-script = ExtResource("6_rlyql")
-closed_pose = ExtResource("8_40pls")
-
 [sub_resource type="BoxMesh" id="BoxMesh_cm5kt"]
 size = Vector3(0.1, 0.1, 0.1)
 
@@ -49,6 +47,10 @@ albedo_color = Color(0.70383, 0.4992, 0, 1)
 [sub_resource type="Resource" id="Resource_thcvs"]
 script = ExtResource("6_rlyql")
 closed_pose = ExtResource("5_0hj5p")
+
+[sub_resource type="Resource" id="Resource_p45jf"]
+script = ExtResource("6_rlyql")
+closed_pose = ExtResource("8_40pls")
 
 [sub_resource type="BoxMesh" id="BoxMesh_ql83l"]
 flip_faces = true
@@ -94,9 +96,11 @@ shape = SubResource("BoxShape3D_kfo7u")
 mesh = SubResource("BoxMesh_x0on8")
 surface_material_override/0 = SubResource("StandardMaterial3D_yvvjg")
 
-[node name="GrabPointHandRight" parent="PhysicalPickableCube" instance=ExtResource("7_bwpo6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.260634, 0.040145, -0.0620918)
-hand_pose = SubResource("Resource_p45jf")
+[node name="PhysicalGrabPointRight" parent="PhysicalPickableCube" instance=ExtResource("3_aiss2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.247066, 0.040145, -0.0620918)
+
+[node name="PhysicalGrabPointLeft" parent="PhysicalPickableCube" instance=ExtResource("4_xehqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.251966, 0.0399559, -0.0607533)
 
 [node name="PickableCube7" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.941268, 1.22904, -4.73465)
