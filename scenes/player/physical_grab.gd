@@ -62,7 +62,7 @@ func _init(
 		transform = p_what.global_transform.inverse() * by.global_transform
 
 	# Apply collision exceptions
-	if hand:
+	if is_instance_valid(hand):
 		hand.add_collision_exception_with(what)
 		what.add_collision_exception_with(hand)
 
@@ -73,7 +73,7 @@ func release() -> void:
 	_clear_hand_pose()
 
 	# Remove collision exceptions
-	if hand:
+	if is_instance_valid(hand):
 		hand.remove_collision_exception_with(what)
 		what.remove_collision_exception_with(hand)
 

@@ -12,11 +12,20 @@ var primary_grab : PhysicalGrab = null
 ## Secondary grab information
 var secondary_grab : PhysicalGrab = null
 
+var _original_linear_damp : float
+
+var _original_angular_damp : float
+
 func _init(
 	p_grab : PhysicalGrab
 ) -> void:
 	primary_grab = p_grab
 	target = primary_grab.what
+	
+	_original_linear_damp = target.linear_damp
+	_original_angular_damp = target.angular_damp
+	_update_damp()
+	
 	process_physics_priority = -80
 	primary_grab.set_arrived()
 
@@ -28,7 +37,9 @@ func _physics_process(_delta : float) -> void:
 	var destination_origin := destination_transform.origin
 	var destination_basis := destination_transform.basis
 	
-	target.apply_central_force(target.global_transform.origin.direction_to(destination_origin) * minf(primary_grab.hand.hand_movement_force, 2 * target.mass * ProjectSettings.get_setting("physics/3d/default_gravity")))
+	var movement_delta := destination_origin - target.global_position
+	target.apply_central_force(movement_delta * primary_grab.hand.hand_movement_force)
+	#target.apply_central_force(target.global_transform.origin.direction_to(destination_origin) * minf(primary_grab.hand.hand_movement_force, 2 * target.mass * ProjectSettings.get_setting("physics/3d/default_gravity")))
 	
 	#target.global_basis = destination_basis
 	var quat_target := destination_basis.get_rotation_quaternion()
@@ -36,6 +47,7 @@ func _physics_process(_delta : float) -> void:
 	var quat_delta := quat_target * (quat_curr.inverse())
 	var euler_delta := Vector3(quat_delta.x, quat_delta.y, quat_delta.z) * quat_delta.w
 	target.apply_torque(euler_delta * primary_grab.hand.hand_rotation_torque)
+	#target.global_basis = destination_transform.basis
 	
 	#var controller_target := primary_hand._controller as XRController3D
 	#var destination := controller_target.global_transform * primary_grab_point.transform.inverse()
@@ -62,6 +74,7 @@ func add_grab(p_grab : PhysicalGrab) -> void:
 		secondary_grab = primary_grab
 		primary_grab = p_grab
 		primary_grab.set_arrived()
+		_update_damp()
 	else:
 		print_verbose("%s> new secondary grab %s" % [target.name, p_grab.by.name])
 		secondary_grab = p_grab
@@ -95,4 +108,17 @@ func discard() -> void:
 		remove_grab(secondary_grab)
 	if primary_grab:
 		remove_grab(primary_grab)
+	_update_damp()
 	queue_free()
+
+
+# TODO: imporve this?
+## Used for a hacky way to match the picked up object's behaviour to the hand.
+## Sets the object's damping to values of the priamry hand.
+func _update_damp() -> void:
+	if primary_grab:
+		target.linear_damp = primary_grab.hand.linear_damp
+		target.angular_damp = primary_grab.hand.angular_damp
+	else:
+		target.linear_damp = _original_linear_damp
+		target.angular_damp = _original_angular_damp
