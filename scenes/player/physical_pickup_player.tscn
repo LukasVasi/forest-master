@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dq64swo20yxkj"]
+[gd_scene load_steps=22 format=3 uid="uid://dq64swo20yxkj"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_oyxju"]
 [ext_resource type="PackedScene" uid="uid://btknduttnmoxf" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="2_n3ej6"]
@@ -6,7 +6,6 @@
 [ext_resource type="Shader" path="res://shaders/ghost_hand_shader.gdshader" id="4_yrvok"]
 [ext_resource type="PackedScene" uid="uid://difr003pluy10" path="res://scenes/player/hands/right_physics_hand_v1.tscn" id="5_7jbjk"]
 [ext_resource type="Script" path="res://scripts/physical_function_pickup.gd" id="6_ck8hc"]
-[ext_resource type="Script" path="res://scripts/utils/function_pickup.gd" id="6_ivne1"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="7_ujmcf"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="8_qcxyg"]
 [ext_resource type="Material" path="res://addons/godot-xr-tools/materials/pointer.tres" id="9_426bj"]
@@ -103,12 +102,9 @@ freeze = false
 
 [node name="FunctionPickupLeft" type="Node3D" parent="LeftHandController/LeftPhysicsHand"]
 process_mode = 3
-script = ExtResource("6_ivne1")
+script = ExtResource("6_ck8hc")
 grab_distance = 0.2
 grab_collision_mask = 328708
-ranged_enable = false
-ranged_distance = 2.0
-ranged_collision_mask = 1028
 
 [node name="MovementDirect" parent="LeftHandController" instance=ExtResource("13_gelqr")]
 strafe = true

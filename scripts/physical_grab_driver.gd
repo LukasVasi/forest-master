@@ -31,36 +31,44 @@ func _init(
 
 
 func _physics_process(_delta : float) -> void:
-	# TODO: check for arrival and set arridev properly
+	# TODO: check for arrival and set arrived properly
+	
+	
+	var primary_movement_force : Vector3
+	var primary_rotation_torque : Vector3
+	
+	var secondary_movement_force : Vector3
+	var secondary_rotation_torque : Vector3
+	
+	
 	var controller := primary_grab.controller
 	var destination_transform := controller.global_transform * primary_grab.transform.inverse()
-	var destination_origin := destination_transform.origin
-	var destination_basis := destination_transform.basis
-	
-	var movement_delta := destination_origin - target.global_position
-	target.apply_central_force(movement_delta * primary_grab.hand.hand_movement_force)
-	#target.apply_central_force(target.global_transform.origin.direction_to(destination_origin) * minf(primary_grab.hand.hand_movement_force, 2 * target.mass * ProjectSettings.get_setting("physics/3d/default_gravity")))
-	
-	#target.global_basis = destination_basis
-	var quat_target := destination_basis.get_rotation_quaternion()
+	var movement_delta := destination_transform.origin - target.global_position
+	primary_movement_force = movement_delta * primary_grab.hand.hand_movement_force
+
+	var quat_target := destination_transform.basis.get_rotation_quaternion()
 	var quat_curr := target.global_basis.get_rotation_quaternion()
 	var quat_delta := quat_target * (quat_curr.inverse())
 	var euler_delta := Vector3(quat_delta.x, quat_delta.y, quat_delta.z) * quat_delta.w
-	target.apply_torque(euler_delta * primary_grab.hand.hand_rotation_torque)
-	#target.global_basis = destination_transform.basis
+	primary_rotation_torque = euler_delta * primary_grab.hand.hand_rotation_torque
 	
-	#var controller_target := primary_hand._controller as XRController3D
-	#var destination := controller_target.global_transform * primary_grab_point.transform.inverse()
-	## Move to target
-	#var movement_delta: Vector3 = destination.origin - target.global_position
-	#target.apply_force(movement_delta * 10, primary_grab_point.global_position - target.global_position)
-	#
-	## Rotate to target
-	#var quat_target: Quaternion = destination.basis.get_rotation_quaternion()
-	#var quat_hand: Quaternion = controller_target.global_basis.get_rotation_quaternion()
-	#var quat_delta: Quaternion = quat_target * (quat_hand.inverse())
-	#var rotation_delta: Vector3 = Vector3(quat_delta.x, quat_delta.y, quat_delta.z) * quat_delta.w
-	#target.apply_torque(rotation_delta * primary_hand.hand_rotation_torque)
+	if secondary_grab:
+		controller = primary_grab.controller
+		destination_transform = controller.global_transform * primary_grab.transform.inverse()
+		movement_delta = destination_transform.origin - target.global_position
+		secondary_movement_force = movement_delta * primary_grab.hand.hand_movement_force
+
+		quat_target = destination_transform.basis.get_rotation_quaternion()
+		quat_curr = target.global_basis.get_rotation_quaternion()
+		quat_delta = quat_target * (quat_curr.inverse())
+		euler_delta = Vector3(quat_delta.x, quat_delta.y, quat_delta.z) * quat_delta.w
+		
+		# Torque needs to be halfed because summing up just makes it freak out
+		secondary_rotation_torque = (euler_delta * primary_grab.hand.hand_rotation_torque) / 2
+		primary_rotation_torque /= 2
+	
+	target.apply_central_force(primary_movement_force + secondary_movement_force)
+	target.apply_torque(primary_rotation_torque + secondary_rotation_torque)
 	
 	# Force the transform update at this moment
 	target.force_update_transform()

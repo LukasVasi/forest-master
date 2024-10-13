@@ -14,7 +14,7 @@ var xr_controller_left: XRController3D
 var movement_jump_left: XRToolsMovementJump
 var movement_direct_left: XRToolsMovementDirect
 var function_teleport_left: XRToolsFunctionTeleport
-var function_pickup_left: XRToolsFunctionPickup
+#var function_pickup_left: XRToolsFunctionPickup
 var function_pointer_left: XRToolsFunctionPointer
 var function_pointer_collision_left: CollisionShape3D
 
@@ -78,8 +78,8 @@ func init_controllers() -> void:
 			movement_direct_left.enabled = false
 			function_teleport_left.enabled = true
 		
-		function_pickup_left = XRTools.find_xr_child(xr_controller_left, "*", "XRToolsFunctionPickup", true)
-		function_pointer_left = XRTools.find_xr_child(xr_controller_left, "*", "XRToolsFunctionPointer", true)
+		#function_pickup_left = XRTools.find_xr_child(xr_controller_left, "*", "XRToolsFunctionPickup", true)
+		#function_pointer_left = XRTools.find_xr_child(xr_controller_left, "*", "XRToolsFunctionPointer", true)
 		
 		if not function_pointer_left:
 			push_error("The left function pointer was not found")
@@ -102,13 +102,13 @@ func disable_right_pointer() -> void:
 func enable_left_pointer() -> void:
 	function_pointer_left.set_enabled(true)
 	function_pointer_left.set_show_laser(XRToolsFunctionPointer.LaserShow.SHOW)
-	function_pickup_left.ranged_enable = true
+	#function_pickup_left.ranged_enable = true
 
 
 func disable_left_pointer() -> void:
 	function_pointer_left.set_enabled(false)
 	function_pointer_left.set_show_laser(XRToolsFunctionPointer.LaserShow.HIDE)
-	function_pickup_left.ranged_enable = false
+	#function_pickup_left.ranged_enable = false
 	
 	
 ## Controller input handling
