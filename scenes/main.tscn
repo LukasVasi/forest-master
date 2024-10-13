@@ -44,7 +44,7 @@
 [ext_resource type="PackedScene" uid="uid://c6wf68pe71k2a" path="res://scenes/cooking/skillet.tscn" id="45_6wdpy"]
 [ext_resource type="PackedScene" uid="uid://h4roksm87ytx" path="res://scenes/cooking/lid.tscn" id="46_vwkmn"]
 [ext_resource type="PackedScene" uid="uid://gvyk1si63evv" path="res://scenes/environment/flowers.tscn" id="47_kirqo"]
-[ext_resource type="PackedScene" uid="uid://b0t75hmsf5txv" path="res://scenes/new_player.tscn" id="47_q00my"]
+[ext_resource type="PackedScene" uid="uid://b0t75hmsf5txv" path="res://scenes/player/new_player.tscn" id="47_q00my"]
 [ext_resource type="PackedScene" uid="uid://ct2g57qsopix7" path="res://scenes/fishing/fishes/kuoja.tscn" id="47_yw4jv"]
 [ext_resource type="PackedScene" uid="uid://b2wwpdu2ao0np" path="res://scenes/environment/bushes2.tscn" id="48_1ny86"]
 [ext_resource type="PackedScene" uid="uid://cnno5b20tmn85" path="res://scenes/man_scale_benchmark.tscn" id="48_qih47"]
@@ -384,10 +384,10 @@ transform = Transform3D(-1.21918, 0, -0.443855, 0, 1, 0, 0.490106, 0, -1.10413, 
 [node name="Fishing" type="Node" parent="."]
 
 [node name="holding_stick" parent="Fishing" instance=ExtResource("25_70mbh")]
-transform = Transform3D(-0.634024, 0, 1.35942, 0, 1.5, 0, -1.35942, 0, -0.634024, 18.1742, -0.21678, 8.338)
+transform = Transform3D(-0.634024, 0, 1.35942, 0, 1.5, 0, -1.35942, 0, -0.634024, 16.7188, 0.258324, 7.4573)
 
 [node name="Bucket" parent="Fishing" instance=ExtResource("10_ym32v")]
-transform = Transform3D(0.906684, 0, 0.421811, 0, 1, 0, -0.421811, 0, 0.906684, 18.614, 0.036137, 5.97415)
+transform = Transform3D(0.906684, 0, 0.421811, 0, 1, 0, -0.421811, 0, 0.906684, 16.9442, 0.483129, 5.58276)
 
 [node name="Dragonfly" parent="Fishing" instance=ExtResource("42_lcci2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6287, 4.42691, 11.112)
@@ -405,7 +405,7 @@ transform = Transform3D(0.125091, 0, -0.992145, 0, 1, 0, 0.992145, 0, 0.125091, 
 transform = Transform3D(0.125091, 0, -0.992145, 0, 1, 0, 0.992145, 0, 0.125091, 23.8542, 2.29363, 3.094)
 
 [node name="Dock" parent="Fishing" instance=ExtResource("18_r5c2f")]
-transform = Transform3D(-0.113004, 0, 0.0403744, 0, 0.12, 0, -0.0403744, 0, -0.113004, 16.472, -0.995447, 3.36842)
+transform = Transform3D(-0.113004, 0, 0.0403744, 0, 0.12, 0, -0.0403744, 0, -0.113004, 14.8827, -0.555832, 2.26284)
 
 [node name="MockFishes" type="Node" parent="Fishing"]
 
@@ -413,7 +413,7 @@ transform = Transform3D(-0.113004, 0, 0.0403744, 0, 0.12, 0, -0.0403744, 0, -0.1
 curve = SubResource("Curve3D_i6pi6")
 
 [node name="MockFish1" parent="Fishing/MockFishes/MockFishPath1" instance=ExtResource("14_h3ydf")]
-transform = Transform3D(-0.961927, -0.00266091, 0.273209, 0, 0.999878, 0.00973934, -0.273221, 0.00936824, -0.961885, 17.8061, -1.12253, 13.4726)
+transform = Transform3D(-0.961927, -0.00266091, 0.273209, 0, 0.999878, 0.00973934, -0.273221, 0.00936823, -0.961885, 17.8061, -1.12253, 13.4726)
 progress = 39.4198
 rotation_mode = 2
 use_model_front = true
@@ -440,7 +440,7 @@ use_model_front = true
 movement_speed = 2.4
 
 [node name="FishingRod" parent="." instance=ExtResource("18_ap21l")]
-transform = Transform3D(-0.915531, -0.0327862, -0.400908, 0.208503, 0.813645, -0.542686, 0.343991, -0.580438, -0.738082, 17.8426, 0.35274, 7.73435)
+transform = Transform3D(-0.915531, -0.0327862, -0.400908, 0.208503, 0.813645, -0.542686, 0.343991, -0.580438, -0.738082, 16.3872, 0.827844, 6.85365)
 
 [node name="Water" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.822382, 0, -0.568935, 0, 1, 0, 0.568935, 0, 0.822382, 34.3754, -0.889945, 21.0098)

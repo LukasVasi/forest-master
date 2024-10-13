@@ -145,7 +145,7 @@ func _process(_delta: float) -> void:
 	
 	# Update the visibility and shader
 	if _physical_hand:
-		var distance_to_hand: float = _physical_hand.distance_to_target
+		var distance_to_hand: float = _physical_hand.distance_to_controller
 		
 		if distance_to_hand < min_visibility_distance:
 			if visible : visible = false

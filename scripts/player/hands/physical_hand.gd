@@ -48,7 +48,7 @@ extends RigidBody3D
 ## Name of the Trigger action in the OpenXR Action Map.
 @export var trigger_action : String = "trigger"
 
-var distance_to_target: float = 0.0
+var distance_to_controller: float = 0.0
 
 ## Controller used for input/tracking
 var _controller : XRController3D
@@ -167,9 +167,9 @@ func _ready() -> void:
 	_controller = XRTools.find_xr_ancestor(self, "*", "XRController3D")
 	
 	# Find our pickup
-	_func_pickup = XRTools.find_xr_child(self, "*", "XRToolsFunctionPickup")
-	_func_pickup.has_picked_up.connect(_on_has_picked_up)
-	_func_pickup.has_dropped.connect(_on_has_dropped)
+	#_func_pickup = XRTools.find_xr_child(self, "*", "XRToolsFunctionPickup")
+	#_func_pickup.has_picked_up.connect(_on_has_picked_up)
+	#_func_pickup.has_dropped.connect(_on_has_dropped)
 
 	# Find the relevant hand nodes
 	_hand_mesh = _find_child(self, "MeshInstance3D")
@@ -215,26 +215,26 @@ func _physics_process(_delta: float) -> void:
 	
 	# TODO: maybe introduce a local variable or just do it differently somehow?
 	if PauseManager.paused:
-		global_transform = _target.global_transform
+		global_transform = _controller.global_transform
 		return
 	
-	distance_to_target = _target.global_position.distance_to(global_position)
+	distance_to_controller = _controller.global_position.distance_to(global_position)
 	
-	if distance_to_target > distance_to_rumble:
+	if distance_to_controller > distance_to_rumble:
 		if not _rumbling:
 			_rumbling = true
 			XRToolsRumbleManager.add(self, rumble_event, rumble_trackers)
 		
-		var rumble_magnitude: float = max_rumble_magnitude * (distance_to_target - distance_to_rumble)  / (max_distance_to_controller - distance_to_rumble) 
+		var rumble_magnitude: float = max_rumble_magnitude * (distance_to_controller - distance_to_rumble)  / (max_distance_to_controller - distance_to_rumble) 
 		rumble_event.magnitude = rumble_magnitude
-	elif distance_to_target < distance_to_rumble and _rumbling:
+	elif distance_to_controller < distance_to_rumble and _rumbling:
 		_rumbling = false
 		XRToolsRumbleManager.clear(self, rumble_trackers)
 	
 	# Check distance to hand
-	if distance_to_target > max_distance_to_controller:
+	if distance_to_controller > max_distance_to_controller:
 		# Hand's too far away, maybe gotten stuck or holding an object that's too heavy
-		_func_pickup.drop_object()
+		#_func_pickup.drop_object()
 		_teleport_to_target()
 	else:
 		# Move to target
