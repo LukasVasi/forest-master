@@ -344,10 +344,10 @@ func _pick_up_object(target: Node3D) -> void:
 	picked_up_object = target
 	target.pick_up(self)
 
-	## If object picked up then emit signal
-	#if is_instance_valid(picked_up_object):
-		#picked_up_object.request_highlight(self, false)
-		#emit_signal("has_picked_up", picked_up_object)
+	# If object picked up then emit signal
+	if is_instance_valid(picked_up_object):
+		picked_up_object.request_highlight(self, false)
+		emit_signal("has_picked_up", picked_up_object)
 
 
 func _on_button_pressed(p_button) -> void:

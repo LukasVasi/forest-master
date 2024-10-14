@@ -53,10 +53,10 @@ func _physics_process(_delta : float) -> void:
 	primary_rotation_torque = euler_delta * primary_grab.hand.hand_rotation_torque
 	
 	if secondary_grab:
-		controller = primary_grab.controller
-		destination_transform = controller.global_transform * primary_grab.transform.inverse()
+		controller = secondary_grab.controller
+		destination_transform = controller.global_transform * secondary_grab.transform.inverse()
 		movement_delta = destination_transform.origin - target.global_position
-		secondary_movement_force = movement_delta * primary_grab.hand.hand_movement_force
+		secondary_movement_force = movement_delta * secondary_grab.hand.hand_movement_force
 
 		quat_target = destination_transform.basis.get_rotation_quaternion()
 		quat_curr = target.global_basis.get_rotation_quaternion()
@@ -64,7 +64,7 @@ func _physics_process(_delta : float) -> void:
 		euler_delta = Vector3(quat_delta.x, quat_delta.y, quat_delta.z) * quat_delta.w
 		
 		# Torque needs to be halfed because summing up just makes it freak out
-		secondary_rotation_torque = (euler_delta * primary_grab.hand.hand_rotation_torque) / 2
+		secondary_rotation_torque = (euler_delta * secondary_grab.hand.hand_rotation_torque) / 2
 		primary_rotation_torque /= 2
 	
 	target.apply_central_force(target.force_multiplier * (primary_movement_force + secondary_movement_force))

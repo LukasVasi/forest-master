@@ -80,7 +80,7 @@ var _target_overrides := []
 # Current target (controller or override)
 var _target : Node3D
 
-var _func_pickup : FunctionPickup
+var _func_pickup : PhysicalFunctionPickup
 
 var _initial_mass : float
 
@@ -147,8 +147,8 @@ class TargetOverride:
 
 
 # Add support for is_xr_class on XRTools classes
-func is_xr_class(name : String) -> bool:
-	return name == "XRToolsPhysicsHand" or name == "XRToolsHand"
+func is_xr_class(p_name : String) -> bool:
+	return p_name == "XRToolsPhysicsHand" or p_name == "XRToolsHand"
 
 
 ## Called when the node enters the scene tree for the first time.
@@ -167,9 +167,7 @@ func _ready() -> void:
 	_controller = XRTools.find_xr_ancestor(self, "*", "XRController3D")
 	
 	# Find our pickup
-	#_func_pickup = XRTools.find_xr_child(self, "*", "XRToolsFunctionPickup")
-	#_func_pickup.has_picked_up.connect(_on_has_picked_up)
-	#_func_pickup.has_dropped.connect(_on_has_dropped)
+	_func_pickup = _find_func_pickup(self)
 
 	# Find the relevant hand nodes
 	_hand_mesh = _find_child(self, "MeshInstance3D")
@@ -234,7 +232,7 @@ func _physics_process(_delta: float) -> void:
 	# Check distance to hand
 	if distance_to_controller > max_distance_to_controller:
 		# Hand's too far away, maybe gotten stuck or holding an object that's too heavy
-		#_func_pickup.drop_object()
+		_func_pickup.drop_object()
 		_teleport_to_target()
 	else:
 		# Move to target
@@ -250,17 +248,6 @@ func _physics_process(_delta: float) -> void:
 	
 	# Force the transform update at this moment
 	force_update_transform()
-
-
-func _on_has_picked_up(object: Node3D) -> void:
-	var object_rigid: RigidBody3D = object as RigidBody3D
-	mass += object_rigid.mass
-	gravity_scale = object_rigid.gravity_scale
-
-
-func _on_has_dropped() -> void:
-	mass = _initial_mass
-	gravity_scale = _initial_gravity_scale
 
 
 # This method verifies the hand has a valid configuration.
@@ -571,6 +558,15 @@ static func _find_child(node : Node, type : String) -> Node:
 		var found := _find_child(child, type)
 		if found:
 			return found
+
+	# No child found matching type
+	return null
+
+static func _find_func_pickup(node: Node) -> PhysicalFunctionPickup:
+	for child in node.get_children():
+		# If the child is a match then return it
+		if child is PhysicalFunctionPickup:
+			return child
 
 	# No child found matching type
 	return null

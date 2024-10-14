@@ -1812,6 +1812,7 @@ transform = Transform3D(0.00955997, -0.484197, -0.354206, 0.599924, 0.00758442, 
 
 [node name="Skillet" parent="." instance=ExtResource("45_6wdpy")]
 transform = Transform3D(-0.214906, 0, -0.976635, 0, 1, 0, 0.976635, 0, -0.214906, -1.20625, 1.39732, -6.01796)
+torque_multiplier = Vector3(1, 1, 1)
 
 [node name="Lid" parent="." instance=ExtResource("46_vwkmn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5283, 1.21558, -4.94514)
@@ -1846,6 +1847,6 @@ transform = Transform3D(0.999938, 0, 0.0111699, 0, 1, 0, -0.0111699, 0, 0.999938
 visible = false
 
 [node name="XROrigin3D" parent="." instance=ExtResource("48_7y7m1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.33451, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [editable path="Skillet"]

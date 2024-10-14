@@ -40,7 +40,7 @@ signal released(pickable, by)
 
 @export var force_multiplier : float = 1.0
 
-@export var torque_multiplier : float = 1.0
+@export var torque_multiplier : Vector3 = Vector3.ONE
 
 # Remember some state so we can return to it when the user drops the object
 @onready var original_collision_mask : int = collision_mask
@@ -74,6 +74,8 @@ func can_pick_up(by: Node3D) -> bool:
 
 	# Allow if not held by anything
 	if not is_picked_up():
+		return true
+	elif not _grab_driver.secondary_grab:
 		return true
 	else:
 		return false

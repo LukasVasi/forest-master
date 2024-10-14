@@ -130,11 +130,11 @@ closed_pose = ExtResource("5_lecea")
 script = ExtResource("6_0ucvv")
 closed_pose = ExtResource("8_3q68x")
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_lh8xx"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_q1h5m"]
 material = ExtResource("13_ahgwm")
 top_radius = 0.001
 bottom_radius = 0.001
-height = 0.096655
+height = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c4quo"]
 resource_name = "M_FishingRod_Wood"
@@ -265,13 +265,10 @@ shadow_mesh = SubResource("ArrayMesh_vcwkc")
 collision_layer = 4
 collision_mask = 196615
 mass = 0.8
-center_of_mass_mode = 1
-center_of_mass = Vector3(0, 0, 0.7)
 freeze_mode = 1
 linear_damp = 1.0
 angular_damp = 1.0
 script = ExtResource("2_h6u5q")
-torque_multiplier = 8.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
@@ -312,7 +309,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0537452, -0.932214)
 [node name="Line" parent="." node_paths=PackedStringArray("start_point", "end_point") instance=ExtResource("12_1hf0y")]
 transform = Transform3D(0.999994, 0, 0, 0, 0.995838, -0.0908983, 0, 0.0908983, 0.995838, 0, -0.101873, -0.936607)
 top_level = true
-mesh = SubResource("CylinderMesh_lh8xx")
+mesh = SubResource("CylinderMesh_q1h5m")
 skeleton = NodePath("../..")
 radius = 0.001
 material = ExtResource("13_ahgwm")

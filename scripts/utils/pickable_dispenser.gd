@@ -82,8 +82,8 @@ func request_highlight(from: XRToolsFunctionPickup, on: bool = true) -> void:
 
 
 # Called when FunctionPickup requests a pciakble
-func pick_up() -> XRToolsPickable:
-	var dispensed_object: XRToolsPickable = _get_dispensable_instance()
+func pick_up() -> PhysicalPickable:
+	var dispensed_object: PhysicalPickable = _get_dispensable_instance()
 	if dispensed_object:
 		add_child(dispensed_object)
 		dispensed_object.global_position = global_position
@@ -93,5 +93,5 @@ func pick_up() -> XRToolsPickable:
 
 
 ## Instantiate a random scene by default
-func _get_dispensable_instance() -> XRToolsPickable:
+func _get_dispensable_instance() -> PhysicalPickable:
 	return dispensed_scenes.pick_random().instantiate()
