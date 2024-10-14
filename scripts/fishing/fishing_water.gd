@@ -55,10 +55,10 @@ var fishing_in_progress: bool = false
 @onready var distraction_timer: Timer = get_node("DistractionTimer");
 
 ## The fishing rod container.
-@onready var fishing_rod: FishingRod = get_node("../../FishingRod/FishingRod")
+@onready var fishing_rod: FishingRod = get_tree().get_first_node_in_group("fishing_rod")
 
 ## The fishing float.
-@onready var fishing_float: FishingFloat = get_node("../../FishingRod/FishingFloat")
+@onready var fishing_float: FishingFloat = fishing_rod.get_node("FishingFloat") if fishing_rod else null
 
 ## The player (needed to target the fish).
 @onready var player: XROrigin3D = get_tree().get_first_node_in_group("player")
@@ -84,8 +84,7 @@ var distractions: Array[Distraction] = []
 var fish_scenes: Array[PackedScene] = []
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	#fishing_rod.action_pressed.connect(_on_fishing_rod_action)
+func _ready() -> void:
 	fishing_rod.tugged.connect(_on_fishing_rod_tugged)
 	
 	if water_mesh:
@@ -105,27 +104,27 @@ func _ready():
 	fish_scenes.append(LynasScene)
 
 
-func _start_fishing():
+func _start_fishing() -> void:
 	trial_number = 1
 	_reset_timers()
 	_reset_distraction_timer()
 	fishing_in_progress = true
 
-func _complete_trial():
+func _complete_trial() -> void:
 	fishing_float.emit_particles()
 	trial_number += 1
 	_reset_timers()
 	
-func _fail_trial():
+func _fail_trial() -> void:
 	_reset_timers()
 
-func _catch_fish():
-	var fish_spawn_position = fishing_float.global_position
-	var fish_scene = fish_scenes.pick_random()
+func _catch_fish() -> void:
+	var fish_spawn_position := fishing_float.global_position
+	var fish_scene: PackedScene = fish_scenes.pick_random()
 	
 	if fish_scene:
 		# Create a new instance of the fish
-		var fish_instance = fish_scene.instantiate()
+		var fish_instance: Fish = fish_scene.instantiate()
 		
 		if fish_instance:
 			# Add the fish and set it up
@@ -134,27 +133,27 @@ func _catch_fish():
 			fish_instance.global_position = fish_spawn_position
 
 			# Calculate initial velocity to hit the target with an arched trajectory
-			var displacement = player.global_position - fish_spawn_position
-			var time_to_reach_target = displacement.y / gravity
-			var horizontal_velocity = Vector3(displacement.x / (time_to_reach_target * 10), 0, displacement.z / (time_to_reach_target * 10)) # Slower horizontal velocity
-			var vertical_velocity = Vector3(0, gravity * (time_to_reach_target * 6), 0) # Higher vertical velocity
+			var displacement := player.global_position - fish_spawn_position
+			var time_to_reach_target := displacement.y / gravity
+			var horizontal_velocity := Vector3(displacement.x / (time_to_reach_target * 10), 0, displacement.z / (time_to_reach_target * 10)) # Slower horizontal velocity
+			var vertical_velocity := Vector3(0, gravity * (time_to_reach_target * 6), 0) # Higher vertical velocity
 			# TODO: the linear velocity should be set in _integrate_forces(), not in a wholy different script
 			fish_instance.linear_velocity = horizontal_velocity + vertical_velocity
 			# TODO: implement a cap on the fish impulse so it wouldn't fly out of the map
 
 
-func _finish_fishing():
+func _finish_fishing() -> void:
 	fishing_in_progress = false
 	trial_number = 0
 	trial_timer.stop()
 	catch_timer.stop()
 	distraction_timer.stop()
 
-func _reset_distraction_timer():
+func _reset_distraction_timer() -> void:
 	distraction_timer.wait_time = _get_time_until_distraction()
 	distraction_timer.start()
 
-func _reset_timers():
+func _reset_timers() -> void:
 	trial_timer.wait_time = _get_time_until_next_trial()
 	catch_timer.wait_time = catch_windown
 	trial_timer.start()
@@ -162,18 +161,18 @@ func _reset_timers():
 
 ## Calculates the randomised time until next trial.
 func _get_time_until_next_trial() -> float:
-	var randomness = trial_time * trial_wait_time_randomness
-	var time_until_next_trial = randf_range(trial_time - randomness, trial_time + randomness)
+	var randomness := trial_time * trial_wait_time_randomness
+	var time_until_next_trial := randf_range(trial_time - randomness, trial_time + randomness)
 	return time_until_next_trial
 
 func _get_time_until_distraction() -> float:
-	var randomness = distraction_time * distraction_time_randomness
-	var time = randf_range(distraction_time - randomness, distraction_time + randomness)
+	var randomness := distraction_time * distraction_time_randomness
+	var time := randf_range(distraction_time - randomness, distraction_time + randomness)
 	return time
 
 ## Handles the entry of the fishable water. 
 ## Connected to the body entered signal of this node.
-func _on_water_entered(body: Node3D):
+func _on_water_entered(body: Node3D) -> void:
 	# Check if the body that landed in the water has a func for processing this event
 	if body.has_method("on_water_entered"):
 		# Call it if it does
@@ -187,7 +186,7 @@ func _on_water_entered(body: Node3D):
 
 ## Handles the exit of the fishable water. 
 ## Connected to the body exited signal of this node.
-func _on_water_exited(body: Node3D):
+func _on_water_exited(body: Node3D) -> void:
 	# Check if the body that exited the water has a func for processing this event
 	if body.has_method("on_water_exited"):
 		# Call it if it does
@@ -199,14 +198,8 @@ func _on_water_exited(body: Node3D):
 		print("An unrecognised body has exited the water: " + str(body))
 
 
-## Handles the logic upon fishing rod action. 
-## Connected to the action_pressed signal of the fishing rod container.
-#func _on_fishing_rod_action(_pickable: Variant):
-	#pass
-
-
 ## Handles the fishing rod tug.
-func _on_fishing_rod_tugged():
+func _on_fishing_rod_tugged() -> void:
 	if can_catch:
 		catch_timer.stop()
 		can_catch = false
@@ -219,22 +212,22 @@ func _on_fishing_rod_tugged():
 
 
 ## Connected to the timeout of the trial timer - when the moment to catch comes.
-func _on_trial_timer_timeout():
+func _on_trial_timer_timeout() -> void:
 	fishing_float.plunge()
 	can_catch = true
 	catch_timer.start()
 
 
 ## Connected to the timeout of the catch timer - when the moment to catch passes.
-func _on_catch_timer_timeout():
+func _on_catch_timer_timeout() -> void:
 	can_catch = false
 	_fail_trial()
 
 
-func _on_distraction_timer_timeout():
+func _on_distraction_timer_timeout() -> void:
 	if fishing_in_progress:
 		_reset_distraction_timer()
-		var available_distractions = distractions.filter(func(d: Distraction): return not d.active)
+		var available_distractions := distractions.filter(func(d: Distraction) -> bool: return not d.active)
 		if available_distractions.size() > 0:
 			var available_distraction: Distraction = available_distractions.pick_random()
 			available_distraction.activate(_random_position_for_distraction(), fishing_rod)
@@ -242,12 +235,12 @@ func _on_distraction_timer_timeout():
 			print("No available distractions were found") # TODO: get rid of this, only for debug
 
 func _random_position_for_distraction() -> Vector3:
-	var float_position = fishing_float.global_position
+	var float_position := fishing_float.global_position
 	# TODO: this can go beyond fishable water
 	# Get random coords in circle around float
-	var angle = randf() * TAU
-	var radius = randf_range(min_distance, max_distance)
-	var pos_x = float_position.x + cos(angle) * radius
-	var pos_z = float_position.z + sin(angle) * radius
-	var pos_y = global_position.y
+	var angle := randf() * TAU
+	var radius := randf_range(min_distance, max_distance)
+	var pos_x := float_position.x + cos(angle) * radius
+	var pos_z := float_position.z + sin(angle) * radius
+	var pos_y := global_position.y
 	return Vector3(pos_x, pos_y, pos_z)

@@ -1,7 +1,7 @@
 @tool
 @icon("res://addons/godot-xr-tools/editor/icons/function.svg")
 class_name PhysicalFunctionPickup
-extends  Node3D
+extends Node3D
 
 ## Signal emitted when the pickup picks something up
 signal has_picked_up(what)
@@ -45,6 +45,8 @@ const MAX_GRAB_DISTANCE2: float = 1000000.0
 ## Throw velocity averaging
 @export var velocity_samples: int = 5
 
+# TODO: fix this
+@onready var player : PlayerBody = get_node("../../../PlayerBody")
 
 # Public fields
 var closest_object : Node3D = null

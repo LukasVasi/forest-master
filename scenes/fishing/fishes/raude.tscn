@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b562tmnadvtpm"]
+[gd_scene load_steps=14 format=3 uid="uid://b562tmnadvtpm"]
 
 [ext_resource type="Script" path="res://scripts/fishing/fish.gd" id="2_8ijpg"]
 [ext_resource type="ArrayMesh" uid="uid://bod2dkjjdge40" path="res://models/fishing/fishes/fishes_Raude.res" id="2_ug7c0"]
@@ -8,15 +8,13 @@
 [ext_resource type="ArrayMesh" uid="uid://6pg6ho7d3cai" path="res://models/fishing/fishes/fishes_RaudeHighlight.res" id="4_w245c"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="5_opqo2"]
 [ext_resource type="Texture2D" uid="uid://ds8mpu6hfl800" path="res://models/fishing/fishes/fishes_FishesRoughnessTextureAtlas.jpg" id="5_q4orl"]
-[ext_resource type="Animation" uid="uid://dd67rufxwj2u" path="res://addons/godot-xr-tools/hands/animations/left/Grip 3.res" id="6_oejoc"]
-[ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="7_co3sj"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="8_sh7lw"]
-[ext_resource type="Animation" uid="uid://rs7vpclot07o" path="res://addons/godot-xr-tools/hands/animations/right/Grip 3.res" id="9_ou1ng"]
+[ext_resource type="Script" path="res://scenes/testing/physical_grab_point.gd" id="9_ln5ty"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ovh7y"]
 points = PackedVector3Array(-0.00629181, -0.0902872, -0.0396463, 0.00628191, -0.0902872, -0.0396463, -0.00652961, -0.0834135, -0.0208403, -0.037414, -0.0226312, 0.0229228, -0.0420709, -0.0179603, 0.00611494, 0, -0.0541645, -0.242751, 0.0420511, -0.0179603, 0.00611494, 0.0374041, -0.0226312, 0.0229228, 0.00651971, -0.0834135, -0.0208403, 0, -0.0427424, 0.0712308, 0, -0.0204079, 0.121694, -0.0105425, -0.018919, 0.120479, -0.011246, -0.0398868, 0.0705647, -0.0253456, -0.0163286, 0.0838856, -0.031895, -0.0242833, 0.0398874, -0.0404856, -0.0154515, 0.0213948, -0.0440922, -0.00961805, 0.0104247, -0.0486303, 0.00553673, 0.00192279, -0.0506119, 0.0141442, -0.00943919, 0, 0.0683587, -0.24616, 0.050602, 0.0141442, -0.00943919, 0.0486204, 0.00553673, 0.00192279, 0.0440823, -0.00961805, 0.0104247, 0.0404757, -0.0154515, 0.0213948, 0.0253258, -0.0163286, 0.0838856, 0.0318851, -0.0242833, 0.0398874, 0.0112361, -0.0398868, 0.0705647, 0.0105227, -0.018919, 0.120479, 0.0101759, -0.0103319, 0.136778, 0, -0.010903, 0.138423, -0.0101858, -0.0103319, 0.136778, -0.0212039, -0.00865941, 0.113388, -0.0228784, 0.00355824, 0.113544, -0.0232946, 0.00751521, 0.113819, -0.023136, 0.0123288, 0.11566, -0.0317068, 0.0511438, -0.0186463, 0, 0.118086, -0.0887378, -0.0221551, 0.0128184, 0.119891, -0.0212534, 0.0168161, 0.12138, -0.0213129, 0.020304, 0.118638, -0.0242161, 0.033827, 0.0873334, -0.026277, 0.0405171, 0.0621412, -0.0287244, 0.0498996, 0.0257045, 0.031687, 0.0511438, -0.0186463, 0.0287145, 0.0498996, 0.0257045, 0.0262671, 0.0405171, 0.0621412, 0.0242061, 0.033827, 0.0873334, 0.021303, 0.020304, 0.118638, 0.0212435, 0.0168161, 0.12138, 0.0221452, 0.0128184, 0.119891, 0.0231261, 0.0123288, 0.11566, 0.0232847, 0.00751521, 0.113819, 0.0228685, 0.00355824, 0.113544, 0.021194, -0.00865941, 0.113388, 0.0170325, -0.0030707, 0.130587, 0.00980929, 9.20892e-06, 0.147669, 0, 9.20892e-06, 0.149707, -0.00981919, 9.20892e-06, 0.147669, -0.0170424, -0.0030707, 0.130587, -0.0212634, 0.00855544, 0.122673, -0.0121972, 0.0714794, 0.0285646, -0.011464, 0.0567529, 0.0718968, 0, 0.059119, 0.0725629, 0.0114541, 0.0567529, 0.0718968, 0.0121873, 0.0714794, 0.0285646, -0.0144464, 0.00523078, 0.141166, -0.0193709, 0.0168773, 0.125768, -0.0159029, 0.0212014, 0.131567, -0.0195096, 0.0241793, 0.120009, -0.016973, 0.0276468, 0.119304, 0.0169631, 0.0276468, 0.119304, 0.0194997, 0.0241793, 0.120009, 0.015893, 0.0212014, 0.131567, 0.019361, 0.0168773, 0.125768, 0.0144365, 0.00523078, 0.141166, 0.0212535, 0.00855544, 0.122673, 0.0142284, 0.00113103, 0.140108, 0.0101462, 0.00784156, 0.149863, 0, 0.00971806, 0.154095, -0.0101561, 0.00784156, 0.149863, -0.0142482, 0.00113103, 0.140108, -0.00953185, 0.0359279, 0.11519, -0.00771862, 0.0253012, 0.137287, 0, 0.0373352, 0.115934, 0.00770871, 0.0253012, 0.137287, 0.00952194, 0.0359279, 0.11519, -0.0129403, 0.01753, 0.13905, 0.0129304, 0.01753, 0.13905, 0.00744119, 0.0195289, 0.143477, 0, 0.0195085, 0.145985, -0.00745109, 0.0195289, 0.143477, 0, 0.0257703, 0.138031)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_v3kip"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fe4gj"]
 render_priority = 0
 shader = ExtResource("3_g0u7c")
 shader_parameter/cooking_level = 0.0
@@ -28,7 +26,7 @@ shader_parameter/cooked_roughness = 0.8
 shader_parameter/base_albedo_texture = ExtResource("4_mgkyp")
 shader_parameter/base_roughness_texture = ExtResource("5_q4orl")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_obejf"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wqbn3"]
 render_priority = 0
 shader = ExtResource("3_g0u7c")
 shader_parameter/cooking_level = 0.0
@@ -39,14 +37,6 @@ shader_parameter/base_roughness = 1.0
 shader_parameter/cooked_roughness = 0.8
 shader_parameter/base_albedo_texture = ExtResource("4_mgkyp")
 shader_parameter/base_roughness_texture = ExtResource("5_q4orl")
-
-[sub_resource type="Resource" id="Resource_7m3db"]
-script = ExtResource("7_co3sj")
-closed_pose = ExtResource("6_oejoc")
-
-[sub_resource type="Resource" id="Resource_avugu"]
-script = ExtResource("7_co3sj")
-closed_pose = ExtResource("9_ou1ng")
 
 [node name="Raude" type="RigidBody3D" groups=["Cookable", "Fish"]]
 top_level = true
@@ -62,8 +52,8 @@ shape = SubResource("ConvexPolygonShape3D_ovh7y")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_ug7c0")
-surface_material_override/0 = SubResource("ShaderMaterial_v3kip")
-surface_material_override/1 = SubResource("ShaderMaterial_obejf")
+surface_material_override/0 = SubResource("ShaderMaterial_fe4gj")
+surface_material_override/1 = SubResource("ShaderMaterial_wqbn3")
 
 [node name="XRToolsHighlightVisible" type="Node3D" parent="."]
 script = ExtResource("4_58u5g")
@@ -74,8 +64,8 @@ skeleton = NodePath("")
 
 [node name="GrabPointHandLeft" parent="." instance=ExtResource("5_opqo2")]
 transform = Transform3D(1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 0, -4.37114e-08, -1, -4.37114e-08, 0.074, -0.0390667, -0.0436238)
-hand_pose = SubResource("Resource_7m3db")
+script = ExtResource("9_ln5ty")
 
 [node name="GrabPointHandRight" parent="." instance=ExtResource("8_sh7lw")]
 transform = Transform3D(1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, -0.074, -0.0390667, -0.0436238)
-hand_pose = SubResource("Resource_avugu")
+script = ExtResource("9_ln5ty")

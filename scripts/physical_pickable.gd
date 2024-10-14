@@ -6,14 +6,20 @@ extends RigidBody3D
 # Default layer for held objects is 17:held-object
 const DEFAULT_LAYER := 0b0000_0000_0000_0001_0000_0000_0000_0000
 
-# Signal emitted when the highlight state changes
+## Signal emitted when the highlight state changes
 signal highlight_updated(pickable, enable)
 
-# Signal emitted when this object is picked up (held by a player or snap-zone)
+## Signal emitted when this object is picked up (held by a player or snap-zone)
 signal picked_up(pickable)
 
-# Signal emitted when this object is dropped
+## Signal emitted when this object is dropped
 signal dropped(pickable)
+
+## Signal emitted when the user presses the action button while holding this object
+signal action_pressed(pickable)
+
+## Signal emitted when the user releases the action button while holding this object
+signal action_released(pickable)
 
 ## Signal emitted when this object is grabbed (primary or secondary).
 ## Emitted in the grab class.
@@ -31,6 +37,14 @@ signal released(pickable, by)
 
 ## If true, the grip control must be held to keep the object picked up
 @export var press_to_hold : bool = true
+
+@export var force_multiplier : float = 1.0
+
+@export var torque_multiplier : float = 1.0
+
+# Remember some state so we can return to it when the user drops the object
+@onready var original_collision_mask : int = collision_mask
+@onready var original_collision_layer : int = collision_layer
 
 var _grab_driver : PhysicalGrabDriver
 
@@ -51,11 +65,6 @@ func _ready():
 		if grab_point:
 			_grab_points.push_back(grab_point)
 
-
-#func _physics_process(delta: float) -> void:
-	#if _grabber:
-		#print("Hello")
-		#apply_force(_grabber.global_position - global_position, _grabber.global_position - global_position)
 
 # Test if this object can be picked up
 func can_pick_up(by: Node3D) -> bool:
@@ -82,6 +91,7 @@ func pick_up(by: Node3D) -> void:
 		var grab := PhysicalGrab.new(by, self, by_grab_point)
 		_grab_driver = PhysicalGrabDriver.new(grab)
 		add_child(_grab_driver)
+		collision_layer = picked_up_layer
 	else:
 		var by_grab_point := _get_grab_point(by, _grab_driver.primary_grab.grab_point)
 		var grab := PhysicalGrab.new(by, self, by_grab_point)
@@ -111,9 +121,21 @@ func let_go(by: Node3D, p_linear_velocity: Vector3, p_angular_velocity: Vector3)
 		print_verbose("%s> dropping" % name)
 		_grab_driver.discard()
 		_grab_driver = null
+		
+		collision_layer = original_collision_layer
 	
-	# Let interested parties know
-	dropped.emit(self)
+		# Let interested parties know
+		dropped.emit(self)
+
+
+# Called when user presses the action button while holding this object
+func action():
+	action_pressed.emit(self)
+
+
+# Called when user releases the action button while holding this object
+func action_release():
+	action_released.emit(self)
 
 
 ## This method requests highlighting of the [XRToolsPickable].
@@ -142,6 +164,16 @@ func request_highlight(from : Node, on : bool = true) -> void:
 # Test if this object is picked up
 func is_picked_up() -> bool:
 	return _grab_driver != null
+
+
+## Get the controller currently holding this object
+func get_picked_up_by_controller() -> XRController3D:
+	# Skip if not picked up
+	if not is_picked_up():
+		return null
+
+	# Get the primary pickup controller
+	return _grab_driver.primary_grab.controller
 
 
 ## Find the most suitable grab-point for the grabber

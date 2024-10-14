@@ -67,8 +67,8 @@ func _physics_process(_delta : float) -> void:
 		secondary_rotation_torque = (euler_delta * primary_grab.hand.hand_rotation_torque) / 2
 		primary_rotation_torque /= 2
 	
-	target.apply_central_force(primary_movement_force + secondary_movement_force)
-	target.apply_torque(primary_rotation_torque + secondary_rotation_torque)
+	target.apply_central_force(target.force_multiplier * (primary_movement_force + secondary_movement_force))
+	target.apply_torque(target.torque_multiplier * (primary_rotation_torque + secondary_rotation_torque))
 	
 	# Force the transform update at this moment
 	target.force_update_transform()
@@ -120,7 +120,7 @@ func discard() -> void:
 	queue_free()
 
 
-# TODO: imporve this?
+# TODO: improve this?
 ## Used for a hacky way to match the picked up object's behaviour to the hand.
 ## Sets the object's damping to values of the priamry hand.
 func _update_damp() -> void:

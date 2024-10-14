@@ -24,7 +24,7 @@ extends RigidBody3D
 @export var rotation_period: float = 3.0
 
 ## The amplitude of the rotation (in radians).
-@export var rotation_amplitude = 0.2
+@export var rotation_amplitude : float = 0.2
 
 @export_category("Distance from fishing rod")
 
@@ -65,16 +65,16 @@ var _distance: float = 0.0
 ## The mesh of the float, used for changing the visual scale.
 @onready var mesh: MeshInstance3D = get_node("FloatMesh")
 
+## The fishing rod.
+@onready var fishing_rod: FishingRod = get_node("../")
+
+## The float target that the float is attached to when connected.
+@onready var target: Node3D = fishing_rod.get_node("FloatTarget") if fishing_rod else null
+
 ## The particle system of the float, used for emitting success particles.
 @onready var particles: GPUParticles3D = get_node("SuccessParticles")
 
 @onready var splash_particles: GPUParticles3D = get_node("SplashParticles")
-
-## The float target that the float is attached to when connected.
-@onready var target: Node3D = get_node("../FishingRod/FloatTarget")
-
-## The fishing rod.
-@onready var fishing_rod: FishingRod = get_node("../FishingRod")
 
 ## The fishing water.
 @onready var water: FishingWater = get_tree().get_first_node_in_group("water")
@@ -83,72 +83,73 @@ var _distance: float = 0.0
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	# Check if fishing rod is found and connect to its signal
-	if fishing_rod:
-		fishing_rod.action_pressed.connect(_on_action_pressed)
+func _ready() -> void:
+	if not is_instance_valid(fishing_rod):
+		set_process(false)
+		set_physics_process(false)
+		return
+	
+	# Set the top level in code for better editor representation
+	top_level = true
+	
+	fishing_rod.action_pressed.connect(_on_action_pressed)
 	
 	# Make sure the float is reset
 	_reset()
 
 
 # Called every frame
-func _process(_delta):
+func _process(_delta: float) -> void:
 	if not _connected and not _in_water:
 		_adjust_mesh_scale()
 
 
 # Called every physics frame
-func _physics_process(_delta):
+func _physics_process(_delta: float) -> void:
 	if _connected:
 		set_position_at_target()
 	
 	if not _connected:
 		_update_distance_to_rod()
 
-
-func _integrate_forces(state):
+func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if _in_water:
 		if _plunging:
 			_control_plunging(state)
 			return
-		
-		#if emerging:
-			#_control_emerging(state)
-			#return
 		
 		if _bobbing:
 			_bob_in_water(state)
 
 
 ## Controls the float's bobbing when it is on the water surface.
-func _bob_in_water(state):
+func _bob_in_water(state: PhysicsDirectBodyState3D) -> void:
 	# Increment time variables by the physics frame duration
 	_bobbing_time += state.step  
 	_rotation_time += state.step
 	
-	var target_y = water.global_position.y + bobbing_amplitude * sin(TAU / bobbing_period * _bobbing_time)  # Calculate the target y using a sine wave
+	var target_y := water.global_position.y + bobbing_amplitude * sin(TAU / bobbing_period * _bobbing_time)  # Calculate the target y using a sine wave
 	
 	# Calculate the angles for rotation based on sine and cosine waves
-	var angle_x = rotation_amplitude * cos(TAU / rotation_period * _rotation_time)
-	var angle_z = rotation_amplitude * sin(TAU / rotation_period * _rotation_time)
+	var angle_x := rotation_amplitude * cos(TAU / rotation_period * _rotation_time)
+	var angle_z := rotation_amplitude * sin(TAU / rotation_period * _rotation_time)
 	
 	# Create quaternions for rotations around X and Z axes
-	var quat_x = Quaternion(Vector3(1, 0, 0), angle_x)
-	var quat_z = Quaternion(Vector3(0, 0, 1), angle_z)
+	var quat_x := Quaternion(Vector3(1, 0, 0), angle_x)
+	var quat_z := Quaternion(Vector3(0, 0, 1), angle_z)
 	
 	# Combine the two quaternions
-	var combined_quat = quat_x * quat_z
+	var combined_quat := quat_x * quat_z
 	
 	# Apply the new position and combined quaternion to the rigid body's transform
-	var current_transform = state.transform
+	var current_transform := state.transform
 	current_transform.origin.y = target_y
 	current_transform.basis = Basis(combined_quat)
 	state.set_transform(current_transform)
 
 
 ## Controls the plunging into water - applies float force until float reaches surface.
-func _control_plunging(state):
+func _control_plunging(state: PhysicsDirectBodyState3D) -> void:
 	if state.linear_velocity.y < 0 or global_position.y < water.global_position.y:
 		apply_force(Vector3.UP * (mass * gravity + float_force))
 	else:
@@ -158,7 +159,7 @@ func _control_plunging(state):
 
 
 ## Updates the current distance from the float to the fishing rod.
-func _update_distance_to_rod():
+func _update_distance_to_rod() -> void:
 	_distance = global_position.distance_to(target.global_position)
 	if not _in_water and _distance > max_distance:
 		_reset()
@@ -167,12 +168,12 @@ func _update_distance_to_rod():
 
 
 ## Used to calculate the scale the float mesh should be at the current distance.
-func _adjust_mesh_scale():
+func _adjust_mesh_scale() -> void:
 	mesh.scale = Vector3.ONE * (_distance / max_distance * (max_mesh_scale - min_mesh_scale) + min_mesh_scale)
 
 
 ## Resets the float back to the fishing rod.
-func _reset():
+func _reset() -> void:
 	freeze = true
 	_connected = true
 	# Reset the mesh scale
@@ -181,19 +182,19 @@ func _reset():
 
 
 ## Releases the float from the fishing rod.
-func _release():
+func _release() -> void:
 	_connected = false
 	freeze = false
 	linear_velocity = target.estimated_velocity
 
 
 ## Sets the position of the float at the position of the float target
-func set_position_at_target():
+func set_position_at_target() -> void:
 	global_position = target.global_position
 
 
 ## Called by water on fishing trial to plunge float.
-func plunge():
+func plunge() -> void:
 	_bobbing = false
 	apply_central_impulse(Vector3.DOWN * plunge_force)
 	_plunging = true
@@ -201,12 +202,12 @@ func plunge():
 
 
 ## Called by water upon successful fishing trial.
-func emit_particles():
+func emit_particles() -> void:
 	particles.set_emitting(true)
 
 
 ## Handles the interaction signal from the fishing rod.
-func _on_action_pressed(_pickable: Variant):	
+func _on_action_pressed(_pickable: Variant) -> void:	
 	if not _connected:
 		_reset()
 	else:
@@ -214,15 +215,15 @@ func _on_action_pressed(_pickable: Variant):
 
 
 ## Detects collisions with other bodies and resets the float upon touching something.
-func _on_body_entered(body):
-	var layer = body.get_collision_layer()
+func _on_body_entered(body: Node) -> void:
+	var layer: int = body.get_collision_layer()
 	if layer and layer != pow(2,9): 
 		_reset()
 
 
 ## Func that handles the entry into water - sets bools and maxes out the mesh scale.
 ## Called by the water.
-func on_water_entered(_water_height: float):
+func on_water_entered(_water_height: float) -> void:
 	_in_water = true
 	_plunging = true
 	mesh.scale = Vector3.ONE * max_mesh_scale # increase the scale of the float mesh to max
@@ -231,7 +232,7 @@ func on_water_entered(_water_height: float):
 
 ## Handles the exit from water - resets all bools and variables related to water.
 ## Called by the water.
-func on_water_exited():
+func on_water_exited() -> void:
 	_in_water = false
 	_plunging = false
 	_bobbing = false
