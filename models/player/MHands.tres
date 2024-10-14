@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://c6njokp1018o5"]
+
+[ext_resource type="Texture2D" uid="uid://c1eftfahqwvvd" path="res://models/player/hands_HandsAlbedoTextureAtlas.png" id="1_qmwtf"]
+[ext_resource type="Texture2D" uid="uid://b64swh63skkxa" path="res://models/player/hands_BakingStencil.png" id="2_pen3v"]
+
+[resource]
+resource_name = "MHands"
+cull_mode = 2
+albedo_texture = ExtResource("1_qmwtf")
+metallic_texture = ExtResource("2_pen3v")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_pen3v")
+roughness_texture_channel = 1
