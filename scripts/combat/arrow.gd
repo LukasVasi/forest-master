@@ -1,6 +1,6 @@
 @tool
 class_name Arrow
-extends XRToolsPickable
+extends PhysicalPickable
 
 #const FORCE_FACTOR = 1.0
 

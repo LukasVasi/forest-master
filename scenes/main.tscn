@@ -1811,7 +1811,7 @@ transform = Transform3D(0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, -5.68596, 0.487846, 
 transform = Transform3D(0.00955997, -0.484197, -0.354206, 0.599924, 0.00758442, 0.00582402, -0.000222549, -0.354254, 0.484256, -3.22135, 0.990693, 6.78666)
 
 [node name="Skillet" parent="." instance=ExtResource("45_6wdpy")]
-transform = Transform3D(-0.214906, 0, -0.976635, 0, 1, 0, 0.976635, 0, -0.214906, -1.20625, 1.39732, -6.01796)
+transform = Transform3D(-0.744137, 0, -0.668027, 0, 1, 0, 0.668027, 0, -0.744137, -1.41708, 1.39732, -5.75559)
 torque_multiplier = Vector3(1, 1, 1)
 
 [node name="Lid" parent="." instance=ExtResource("46_vwkmn")]
@@ -1836,7 +1836,7 @@ shadow_blur = 0.6
 directional_shadow_mode = 0
 
 [node name="Kuoja" parent="." instance=ExtResource("47_yw4jv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35873, 1.59136, -5.64971)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.08212, 1.59136, -5.05207)
 
 [node name="man_scale_benchmark" parent="." instance=ExtResource("48_qih47")]
 transform = Transform3D(0.999938, 0, 0.0111699, 0, 1, 0, -0.0111699, 0, 0.999938, -1.43748, 0.725542, -2.43402)

@@ -140,6 +140,24 @@ func action_release():
 	action_released.emit(self)
 
 
+func drop():
+	# Skip if not picked up
+	if not is_picked_up():
+		return
+
+	# Request secondary grabber to drop
+	if _grab_driver.secondary_grab:
+		_grab_driver.secondary_grab.function_pickup.drop_object()
+
+	# Request primary grabber to drop
+	_grab_driver.primary_grab.function_pickup.drop_object()
+
+
+func drop_and_free():
+	drop()
+	queue_free()
+
+
 ## This method requests highlighting of the [XRToolsPickable].
 ## If [param from] is null then all highlighting requests are cleared,
 ## otherwise the highlight request is associated with the specified node.

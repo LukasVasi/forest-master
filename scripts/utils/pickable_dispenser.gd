@@ -25,8 +25,8 @@ var _highlighted : bool = false
 
 
 # Add support for is_xr_class on XRTools classes
-func is_xr_class(name : String) -> bool:
-	return name == "PickableDispenser"
+func is_xr_class(p_name : String) -> bool:
+	return p_name == "PickableDispenser"
 
 
 # Called when the node enters the scene tree for the first time.
@@ -43,7 +43,7 @@ func _ready() -> void:
 			push_error("Dispensed scene in null")
 			enabled = false
 			return
-		var instance: XRToolsPickable = dispensed_scene.instantiate()
+		var instance: PhysicalPickable = dispensed_scene.instantiate()
 		if not instance.has_method("pick_up"):
 			push_error("Pickable dispenser needs dispensed scenes to have the pick_up method")
 			enabled = false
@@ -61,7 +61,7 @@ func can_pick_up(_by: Node3D) -> bool:
 ## This method requests highlighting of the [XRToolsPickable].
 ## If [param from] is null then all highlighting requests are cleared,
 ## otherwise the highlight request is associated with the specified node.
-func request_highlight(from: XRToolsFunctionPickup, on: bool = true) -> void:
+func request_highlight(from: PhysicalFunctionPickup, on: bool = true) -> void:
 	# Save if we are highlighted
 	var old_highlighted := _highlighted
 

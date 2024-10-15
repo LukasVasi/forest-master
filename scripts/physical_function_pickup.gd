@@ -340,6 +340,11 @@ func _pick_up_object(target: Node3D) -> void:
 		#target = snap.picked_up_object
 		#snap.drop_object()
 
+	# Handle pickable dispenser
+	var dispenser := target as PickableDispenser
+	if dispenser:
+		target = dispenser.pick_up()
+
 	# Pick up our target. Note, target may do instant drop_and_free
 	picked_up_object = target
 	target.pick_up(self)

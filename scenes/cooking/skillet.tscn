@@ -11,8 +11,9 @@
 [ext_resource type="AudioStream" uid="uid://bcim0pvvrjih7" path="res://resources/timer_complete.mp3" id="13_hxdty"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_elqjg"]
-height = 0.0642815
-radius = 0.552201
+margin = 0.02
+height = 0.03
+radius = 0.21
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_hxf3w"]
 height = 0.176242
@@ -137,23 +138,24 @@ points = PackedVector3Array(-0.625548, 0.205267, 0.175943, -0.52784, -0.0097746,
 points = PackedVector3Array(-0.254132, 0.048873, -0.566933, 0.0977231, 0.224816, -0.625559, 0.254132, 0.048873, -0.566933, -0.332337, 0.205251, -0.547385, -0.273651, 0.166157, -0.625559, 0.332337, 0.205251, -0.547385, 0.273651, 0.166157, -0.625559, -0.254132, 0.048873, -0.547385, -0.254132, 0.0684375, -0.586472, -0.273651, 0.205251, -0.625559, 0.22669, 0.0583724, -0.551606, 0.254132, 0.107532, -0.606012, 0.273651, 0.205251, -0.625559, -0.332337, 0.166157, -0.566933, 0.332337, 0.166157, -0.566933, -0.0977231, 0.224816, -0.625559, 0.254132, 0.0684375, -0.586472, -0.254132, 0.107532, -0.606012, -0.293234, 0.088002, -0.566933, 0.332337, 0.205251, -0.566933, -0.332337, 0.205251, -0.566933, 0.312753, 0.127097, -0.566933)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nfwds"]
-size = Vector3(0.141541, 0.0854492, 0.469238)
+size = Vector3(0.0982515, 0.067688, 0.259155)
 
 [node name="Skillet" type="RigidBody3D" groups=["Skillet"]]
 collision_layer = 7
 collision_mask = 196615
 freeze_mode = 1
+continuous_cd = true
 linear_damp = 1.0
 angular_damp = 1.0
 script = ExtResource("1_qimby")
-torque_multiplier = 10.0
+torque_multiplier = Vector3(1.5, 1.5, 1.5)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0.0053456, 0.0206645, 0.0254846)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.024, 0.025)
 shape = SubResource("CylinderShape3D_elqjg")
 
 [node name="Skillet" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0.00428949, 0.0179965, 0.00512492)
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0.00428949, 0.0179965, 0.00512492)
 mesh = ExtResource("2_4rx5x")
 skeleton = NodePath("")
 script = ExtResource("3_bml76")
@@ -217,11 +219,11 @@ wait_time = 5.0
 one_shot = true
 
 [node name="GrabPointHandLeft" type="Marker3D" parent="."]
-transform = Transform3D(-0.997024, 0, -0.0770848, 0, 1, 0, 0.0770848, 0, -0.997024, 0.0548151, 0.155291, -0.68428)
+transform = Transform3D(-0.997024, 0, -0.0770848, 0, 1, 0, 0.0770848, 0, -0.997024, 0.0548151, 0.126712, -0.304943)
 script = ExtResource("5_d8f3j")
 
 [node name="GrabPointHandRight" type="Marker3D" parent="."]
-transform = Transform3D(-0.998821, 0, -0.048536, 0, 1, 0, 0.048536, 0, -0.998821, -0.0263673, 0.170179, -0.67455)
+transform = Transform3D(-0.998821, 0, -0.048536, 0, 1, 0, 0.048536, 0, -0.998821, -0.0263673, 0.1416, -0.295213)
 script = ExtResource("5_d8f3j")
 hand = 1
 
@@ -231,61 +233,61 @@ visible = false
 script = ExtResource("8_w88r1")
 
 [node name="HighlightMesh" type="MeshInstance3D" parent="XRToolsHighlightVisible"]
-transform = Transform3D(1.00988, 0, 0, 0, 1.00988, 0, 0, 0, 1.00988, 0, -1.39773e-05, 0)
+transform = Transform3D(0.58, 0, 0, 0, 0.58, 0, 0, 0, 0.58, 0, -0.00799537, 0)
 mesh = ExtResource("2_4alw5")
 surface_material_override/0 = ExtResource("9_uemb4")
 
 [node name="GPUParticlesCollisionSphere3D" type="GPUParticlesCollisionSphere3D" parent="."]
-transform = Transform3D(0.882129, 0, 0, 0, 0.37013, 0, 0, 0, 0.882129, 0.0012416, -0.129906, 0.00135993)
+transform = Transform3D(0.5, 0, 0, 0, 0.21, 0, 0, 0, 0.5, 0.0012416, -0.129906, 0.00135993)
 layers = 5
 radius = 0.500714
 
 [node name="_CollisionShape3D_31360" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0, 0.0254099, 0)
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.0254099, 0)
 shape = SubResource("ConvexPolygonShape3D_wtwmc")
 
 [node name="_CollisionShape3D_31359" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0, 0.0254099, 0)
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.0254099, 0)
 shape = SubResource("ConvexPolygonShape3D_5s5uh")
 
 [node name="_CollisionShape3D_31358" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0, 0.0254099, 0)
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.0254099, 0)
 shape = SubResource("ConvexPolygonShape3D_tka03")
 
 [node name="_CollisionShape3D_31357" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0, 0.0254099, 0)
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.0254099, 0)
 shape = SubResource("ConvexPolygonShape3D_noyh5")
 
 [node name="_CollisionShape3D_31356" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0, 0.0254099, 0)
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.0254099, 0)
 shape = SubResource("ConvexPolygonShape3D_1kqs3")
 
 [node name="_CollisionShape3D_31355" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0, 0.0254099, 0)
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.0254099, 0)
 shape = SubResource("ConvexPolygonShape3D_uwfg0")
 
 [node name="_CollisionShape3D_31354" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0, 0.0254099, 0)
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.0254099, 0)
 shape = SubResource("ConvexPolygonShape3D_xfteg")
 
 [node name="_CollisionShape3D_31353" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0, 0.0254099, 0)
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.0254099, 0)
 shape = SubResource("ConvexPolygonShape3D_vk6y1")
 
 [node name="_CollisionShape3D_31352" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0, 0.0254099, 0)
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.0254099, 0)
 shape = SubResource("ConvexPolygonShape3D_j51mo")
 
 [node name="_CollisionShape3D_31351" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0, 0.0254099, 0)
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.0254099, 0)
 shape = SubResource("ConvexPolygonShape3D_wsm0c")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0, 0.0254099, 0)
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.0254099, 0)
 shape = SubResource("ConvexPolygonShape3D_713ic")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00349702, 0.123779, -0.658728)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00916572, 0.0832822, -0.369854)
 shape = SubResource("BoxShape3D_nfwds")
 
 [node name="LidSnapZone" parent="." instance=ExtResource("12_vp2eu")]
