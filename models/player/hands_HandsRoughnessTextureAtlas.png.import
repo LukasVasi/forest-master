@@ -2,21 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b64swh63skkxa"
-path.s3tc="res://.godot/imported/hands_BakingStencil.png-7a705bc4ea0261c34b3fd27188f4ac8e.s3tc.ctex"
-path.etc2="res://.godot/imported/hands_BakingStencil.png-7a705bc4ea0261c34b3fd27188f4ac8e.etc2.ctex"
+uid="uid://i4qt7bacupqv"
+path.s3tc="res://.godot/imported/hands_HandsRoughnessTextureAtlas.png-fb2c0bdc659968793bf9b4beb38fdfec.s3tc.ctex"
+path.etc2="res://.godot/imported/hands_HandsRoughnessTextureAtlas.png-fb2c0bdc659968793bf9b4beb38fdfec.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "26718c7832b4ed9004f1ecfb69abc8e8"
+"md5": "cd47f30a32e18b12832358ea87b97256"
 }
 
 [deps]
 
-source_file="res://models/player/hands_BakingStencil.png"
-dest_files=["res://.godot/imported/hands_BakingStencil.png-7a705bc4ea0261c34b3fd27188f4ac8e.s3tc.ctex", "res://.godot/imported/hands_BakingStencil.png-7a705bc4ea0261c34b3fd27188f4ac8e.etc2.ctex"]
+source_file="res://models/player/hands_HandsRoughnessTextureAtlas.png"
+dest_files=["res://.godot/imported/hands_HandsRoughnessTextureAtlas.png-fb2c0bdc659968793bf9b4beb38fdfec.s3tc.ctex", "res://.godot/imported/hands_HandsRoughnessTextureAtlas.png-fb2c0bdc659968793bf9b4beb38fdfec.etc2.ctex"]
 
 [params]
 

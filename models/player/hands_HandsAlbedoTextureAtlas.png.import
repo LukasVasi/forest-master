@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1eftfahqwvvd"
+uid="uid://2dklhuqs5e7p"
 path.s3tc="res://.godot/imported/hands_HandsAlbedoTextureAtlas.png-4771b1a2da57782aaa157f3ec2c1c88d.s3tc.ctex"
 path.etc2="res://.godot/imported/hands_HandsAlbedoTextureAtlas.png-4771b1a2da57782aaa157f3ec2c1c88d.etc2.ctex"
 metadata={
@@ -10,7 +10,7 @@ metadata={
 "vram_texture": true
 }
 generator_parameters={
-"md5": "84c83f98c1b6e3b97b69b493919faad8"
+"md5": "bd30e611b25e1232560935beeb2ac798"
 }
 
 [deps]

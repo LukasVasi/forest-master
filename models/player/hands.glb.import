@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b32tshbjnktcl"
+uid="uid://1ve1n5mevyht"
 path="res://.godot/imported/hands.glb-d27b25c95650f50663d40702c7b1c18c.scn"
 
 [deps]
@@ -20,7 +20,7 @@ nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
 meshes/ensure_tangents=true
 meshes/generate_lods=true
-meshes/create_shadow_meshes=false
+meshes/create_shadow_meshes=true
 meshes/light_baking=3
 meshes/lightmap_texel_size=0.2
 meshes/force_disable_compression=false
@@ -39,23 +39,23 @@ _subresources={
 }
 },
 "meshes": {
-"hands_MasterHandL": {
+"hands_Forest_Master_Hand_L": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 60.0,
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": true,
-"save_to_file/path": "res://models/player/hands_MasterHandL.res"
+"save_to_file/path": "res://models/player/hands_Forest_Master_Hand_L.res"
 },
-"hands_MasterHandR": {
+"hands_Forest_Master_Hand_R": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 60.0,
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": true,
-"save_to_file/path": "res://models/player/hands_MasterHandR.res"
+"save_to_file/path": "res://models/player/hands_Forest_Master_Hand_R.res"
 }
 }
 }
