@@ -25,7 +25,7 @@ var controller : XRController3D
 var hand : PhysicalHand
 
 ## Grab target
-var what : PhysicalPickable
+var what : PhysicalPickableV2
 
 ## Hand grab point information
 var grab_point : XRToolsGrabPointHand
@@ -40,7 +40,7 @@ var _arrived : bool = false
 ## Initialize the grab
 func _init(
 	p_by : Node3D,
-	p_what : PhysicalPickable,
+	p_what : PhysicalPickableV2,
 	p_point : XRToolsGrabPointHand
 	) -> void:
 	
@@ -62,9 +62,9 @@ func _init(
 		transform = p_what.global_transform.inverse() * by.global_transform
 
 	# Apply collision exceptions
-	if is_instance_valid(hand):
-		hand.add_collision_exception_with(what)
-		what.add_collision_exception_with(hand)
+	#if is_instance_valid(hand):
+		#hand.add_collision_exception_with(what)
+		#what.add_collision_exception_with(hand)
 
 
 ## Release the grab
@@ -73,9 +73,9 @@ func release() -> void:
 	_clear_hand_pose()
 
 	# Remove collision exceptions
-	if is_instance_valid(hand):
-		hand.remove_collision_exception_with(what)
-		what.remove_collision_exception_with(hand)
+	#if is_instance_valid(hand):
+		#hand.remove_collision_exception_with(what)
+		#what.remove_collision_exception_with(hand)
 
 	# Report the release
 	print_verbose("%s> released by %s", [what.name, by.name])

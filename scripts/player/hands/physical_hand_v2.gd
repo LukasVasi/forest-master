@@ -7,8 +7,13 @@ extends RigidBody3D
 ##
 ## Actual real hand that uses force to try and follow the controller. Can interact with the world.
 
-signal dropped_held_object(object: Node3D)
-signal grabbed(object: Node3D)
+## Signal emitted when the pickup picks something up
+signal has_picked_up(what)
+
+## Signal emitted when the pickup drops something
+signal has_dropped
+
+## Signal emitted when the hand is reset
 signal hand_reset(hand: Node3D)
 
 ## ----------------- Custom stuff
@@ -54,7 +59,6 @@ signal hand_reset(hand: Node3D)
 
 ## ------------------------ XR Kit Physical hand stuff
 
-@export var grab_area: ShapeCast3D
 @export var grab_joint: Generic6DOFJoint3D # Joint is holding objects
 
 # PID controller default values are tuned for subjective feeling of realistic hand physics
@@ -80,8 +84,6 @@ var pid_controller_angular: PIDController
 
 var previous_controller_position: Vector3
 var controller_velocity: Vector3
-
-var held_object: Node3D = null
 
 var physics_pivot_point: Node3D
 # ------------------------------------
@@ -118,45 +120,44 @@ var _target_overrides := []
 # Current target (controller or override)
 var _target : Node3D
 
-#var _func_pickup : PhysicalFunctionPickup
-
-
 var _rumbling : bool = false
 
-## ------------------------------- XR Tools Physics Hand stuff
+## ------------------------- Pickup stuff
+
+@export_group("Function pickup")
+
+# Default pickup collision mask of 3:pickable and 19:handle
+const DEFAULT_GRAB_MASK := 0b0000_0000_0000_0100_0000_0000_0000_0100
+
+# Constant for worst-case grab distance
+const MAX_GRAB_DISTANCE2: float = 1000000.0
+
+## Grip threshold (from configuration)
+@onready var _grip_threshold : float = XRTools.get_grip_threshold()
+
+## Grab collision mask. Defines the collision layers used in detecting pickable objects.
+@export_flags_3d_physics \
+		var grab_collision_mask : int = DEFAULT_GRAB_MASK: set = _set_grab_collision_mask
+
+## Grab distance. Defines the radius of the collision sphere which detects pickable objects.
+@export var grab_distance : float = 0.3: set = _set_grab_distance
+
+## Action controller button
+@export var action_button_action : String = "trigger_click"
 
 ## Grip controller axis
 @export var pickup_axis_action : String = "grip"
 
 var grip_pressed : bool = false
+var closest_object : Node3D = null
+var picked_up_object : RigidBody3D = null
 
-## Grip threshold (from configuration)
-@onready var _grip_threshold : float = XRTools.get_grip_threshold()
+var _grab_area : Area3D
+var _grab_collision : CollisionShape3D
 
-# Default hand bone layer of 18:player-hand
-#const DEFAULT_LAYER := 0b0000_0000_0000_0010_0000_0000_0000_0000
+var _objects_in_grab_area := Array()
 
-
-## Collision layer applied to all [XRToolsHandPhysicsBone] children.
-##
-## This is used to set physics collision layers for every bone in a hand.
-## Additionally [XRToolsHandPhysicsBone] nodes can specify additional
-## bone-specific collision layers - for example to give the fore-finger bone
-## additional collision capabilities.
-#@export_flags_3d_physics var collision_layer : int = DEFAULT_LAYER
-
-## Bone collision margin applied to all [XRToolsHandPhysicsBone] children.
-##
-## This is used for fine-tuning the collision margins for all
-## [XRToolsHandPhysicsBone] children in the hand.
-@export var margin : float = 0.004
-
-## Group applied to all [XRToolsHandPhysicsBone] children.
-##
-## This is used to set groups for every bone in the hand. Additionally
-## [XRToolsHandPhysicsBone] nodes can specify additional bone-specific groups.
-@export var bone_group : String = ""
-
+## --------------------------------------
 
 # Add support for is_xr_class on XRTools classes
 func is_xr_class(p_name : String) -> bool:
@@ -196,19 +197,32 @@ func _ready() -> void:
 	# Find our controller
 	_controller = XRTools.find_xr_ancestor(self, "*", "XRController3D")
 	
-	# Find our pickup
-	#_func_pickup = _find_func_pickup(self)
 
 	# Find the relevant hand nodes
 	_hand_mesh = _find_child(self, "MeshInstance3D")
 	_animation_player = _find_child(self, "AnimationPlayer")
 	_animation_tree = _find_child(self, "AnimationTree")
 	
+	# Create the grab collision shape for the grab area
+	_grab_collision = CollisionShape3D.new()
+	_grab_collision.set_name("GrabCollisionShape")
+	_grab_collision.shape = SphereShape3D.new()
+	_grab_collision.shape.radius = grab_distance
 
-	
-	#PauseManager.pause_state_changed.connect(_on_pause_state_changed)
+	# Create the grab area
+	_grab_area = Area3D.new()
+	_grab_area.set_name("GrabArea")
+	_grab_area.collision_layer = 0
+	_grab_area.collision_mask = grab_collision_mask
+	_grab_area.add_child(_grab_collision)
+	_grab_area.area_entered.connect(_on_grab_entered)
+	_grab_area.body_entered.connect(_on_grab_entered)
+	_grab_area.area_exited.connect(_on_grab_exited)
+	_grab_area.body_exited.connect(_on_grab_exited)
+	add_child(_grab_area)
 	
 	# Apply all updates
+	_update_colliders()
 	_update_hand_blend_tree()
 	_update_hand_material_override()
 	_update_pose()
@@ -217,7 +231,7 @@ func _ready() -> void:
 
 
 func _reset_hand() -> void:
-	# TODO: drop object
+	drop_object()
 	freeze = true
 	global_transform = _controller.global_transform
 	freeze = false
@@ -234,6 +248,8 @@ func _physics_process(delta: float) -> void:
 	# Animate the hand mesh with the controller inputs
 	if _controller:
 		_animate_hand_with_controller_inputs()
+	
+	_update_closest_object()
 	
 	# Handle our grip
 	var grip_value = _controller.get_float(pickup_axis_action)
@@ -253,32 +269,6 @@ func _physics_process(delta: float) -> void:
 		# Physics hand can be bugged or stuck so it needs to reset itself automatically
 		# when it is too far away from the controller
 		_reset_hand()
-	
-	# TODO: maybe introduce a local variable or just do it differently somehow?
-	#if PauseManager.paused:
-		#global_transform = _controller.global_transform
-		#return
-	
-	
-	
-	
-	# Check distance to hand
-	#if distance_to_controller > max_distance_to_controller:
-		# Physics hand can be bugged or stuck so it needs to reset itself automatically
-		# when it is too far away from the controller
-		#_func_pickup.drop_object()
-		#_teleport_to_target()
-	#else:
-		## Move to target
-		#var movement_delta: Vector3 = _target.global_position - global_position
-		#apply_central_force(movement_delta * hand_movement_force)
-		#
-		## Rotate to target
-		#var quat_target: Quaternion = _target.global_basis.get_rotation_quaternion()
-		#var quat_hand: Quaternion = global_basis.get_rotation_quaternion()
-		#var quat_delta: Quaternion = quat_target * (quat_hand.inverse())
-		#var rotation_delta: Vector3 = Vector3(quat_delta.x, quat_delta.y, quat_delta.z) * quat_delta.w
-		#apply_torque(rotation_delta * hand_rotation_torque)
 	
 	_move(delta)
 	
@@ -325,6 +315,12 @@ func _move(delta: float) -> void:
 	var linear_acceleration: Vector3 = pid_controller_linear.calculate(target.origin, global_transform.origin, delta)
 	var angular_acceleration: Vector3 = pid_controller_angular.calculate((target.basis * global_transform.basis.inverse()).get_euler(), Vector3.ZERO, delta)
 	
+	# TODO: use quaternions for rotation calculation 
+	#var quat_target: Quaternion = _target.global_basis.get_rotation_quaternion()
+	#var quat_hand: Quaternion = global_basis.get_rotation_quaternion()
+	#var quat_delta: Quaternion = quat_target * (quat_hand.inverse())
+	#var rotation_delta: Vector3 = Vector3(quat_delta.x, quat_delta.y, quat_delta.z) * quat_delta.w
+	
 	# Desired acceleration needs to be multiplied by mass to get the desired torque
 	apply_central_force(linear_acceleration * mass)
 	
@@ -333,74 +329,135 @@ func _move(delta: float) -> void:
 	apply_torque(angular_acceleration)
 
 
+func _pick_up_object(target: Node3D) -> void:
+	# Check if already holding an object
+	if is_instance_valid(picked_up_object):
+		# Skip if holding the target object
+		if picked_up_object == target:
+			return
+		# Holding something else? drop it
+		drop_object()
+	
+	# Skip if target null or freed
+	if not is_instance_valid(target):
+		return
+	
+	# TODO: implement
+	## Handle snap-zone
+	#var snap := target as XRToolsSnapZone
+	#if snap:
+		#target = snap.picked_up_object
+		#snap.drop_object()
+	
+	# TODO: implement
+	# Handle pickable dispenser
+	#var dispenser := target as PickableDispenser
+	#if dispenser:
+		#target = dispenser.pick_up()
+	
+	# Pick up our target. Note, target may do instant drop_and_free
+	picked_up_object = target
+	var grab_point : PhysicalGrabPoint = target.pick_up(self)
+	if not is_instance_valid(grab_point):
+		push_warning("Grab point wasn't retrieved for some reason")
+		drop_object()
+		return
+	
+	# Physics pivot point attaches to Palm and rotates with it
+	# TODO: If other hand is holding an object with free rotation, do not update pivot point
+	physics_pivot_point = Node3D.new()
+	grab_point.add_child(physics_pivot_point)
+	
+	# TODO: move smoothly
+	# Teleport to grab point
+	freeze = true
+	global_transform = grab_point.global_transform
+	freeze = false
+	
+	# Set joint between hand and grabbed object
+	grab_joint.set_node_a(get_path())
+	grab_joint.set_node_b(picked_up_object.get_path())
+	
+	# TODO: not all of this will work due to the fact that must be pickable
+	# If grabbing a static object, we let physical hand rotate freely on the surface of the object
+	if picked_up_object.is_class("StaticBody3D"):
+		grab_joint.set_flag_y(1, false) # FLAG_ENABLE_ANGULAR_LIMIT = 1
+
+	if picked_up_object.is_class("RigidBody3D"):
+		print("Jes, rigid body")
+		grab_joint.set_flag_y(1, true) # FLAG_ENABLE_ANGULAR_LIMIT = 1
+		picked_up_object.angular_damp = 1 # Reduce rotational forces to make holding more natural
+		var new_center_of_mass = physics_pivot_point.global_transform.origin - picked_up_object.global_transform.origin
+		#picked_up_object.set_center_of_mass_mode(1) # Enable custom center of mass
+		#picked_up_object.set_center_of_mass(center_of_mass)
+		picked_up_object.center_of_mass_mode = RigidBody3D.CENTER_OF_MASS_MODE_CUSTOM
+		picked_up_object.center_of_mass = new_center_of_mass
+	
+	# If object picked up then emit signal
+	if is_instance_valid(picked_up_object):
+		picked_up_object.request_highlight(self, false)
+		has_picked_up.emit(picked_up_object)
+
+
+# TODO: Compare objects in grab_area for controller and physics hand and only if they match, grab this object - ???
+# TODO: highlight color based on object mass
+## Drop the currently held object
+func drop_object() -> void:
+	if not is_instance_valid(picked_up_object):
+		return
+	
+	# Let go of the current held object
+	picked_up_object.let_go(self)
+	
+	# Reset the grab joint
+	grab_joint.set_node_a("")
+	grab_joint.set_node_b("")
+	
+	# Reset the [RigidBody3D] properties
+	# TODO: do this in the pickable object only when we know it is no longer
+	# picked up by either hand
+	if picked_up_object.is_class("RigidBody3D"):
+		picked_up_object.angular_damp = 0
+		picked_up_object.center_of_mass_mode = RigidBody3D.CENTER_OF_MASS_MODE_AUTO
+		picked_up_object.center_of_mass = Vector3.ZERO
+	
+	# TODO: figure out what the pivot is used for
+	# Clear the physics pivot
+	physics_pivot_point.free()
+	
+	picked_up_object = null
+	has_dropped.emit()
+
+
+## Get the [XRController3D] driving this pickup.
+func get_controller() -> XRController3D:
+	return _controller
+
+
 func _on_grip_pressed() -> void:
-	if not is_instance_valid(held_object):
-		grab()
+	#if not is_instance_valid(held_object):
+		#grab()
+	if is_instance_valid(picked_up_object) and !picked_up_object.press_to_hold:
+		drop_object()
+	elif is_instance_valid(closest_object):
+		_pick_up_object(closest_object)
 
 
 func _on_grip_release() -> void:
-	if is_instance_valid(held_object):
-		drop_held_object()
+	if is_instance_valid(picked_up_object) and picked_up_object.press_to_hold:
+		drop_object()
 
 
-func grab() -> Node3D:
-	if held_object:
-		return held_object
-	
-	print("Grab called")
-	# TODO: Compare objects in grab_area for controller and physics hand and only if they match, grab this object
-	# TODO: Highlight object which will be grabbed when hand is close to it
-	# TODO: highlight color based on object mass
-	# TODO: Select object closest to grab_area center (or palm)
-	grab_area.force_shapecast_update()
-	if grab_area.is_colliding():
-		print("Collision detected")
-		# Get object we just grabbed
-		held_object = grab_area.get_collider(0)
-		# Physics pivot point attaches to Palm and rotates with it
-		# TODO: If other hand is holding an object with free rotation, do not update pivot point
-		physics_pivot_point = Node3D.new()
-		grab_area.add_child(physics_pivot_point)
-
-		# Set joint between hand and grabbed object
-		grab_joint.set_node_a(get_path())
-		grab_joint.set_node_b(held_object.get_path())
-
-		# If holding a static object, we let physical hand rotate freely on the surface of the object
-		if held_object.is_class("StaticBody3D"):
-			grab_joint.set_flag_y(1, false) # FLAG_ENABLE_ANGULAR_LIMIT = 1
-
-		if held_object.is_class("RigidBody3D"):
-			grab_joint.set_flag_y(1, true) # FLAG_ENABLE_ANGULAR_LIMIT = 1
-			held_object.set_angular_damp(1) # Reduce rotational forces to make holding more natural
-			var center_of_mass = physics_pivot_point.global_transform.origin - held_object.global_transform.origin
-			held_object.set_center_of_mass_mode(1) # Enable custom center of mass
-			held_object.set_center_of_mass(center_of_mass)
-
-		# TODO: Check how it works after collider has been moved under Body node
-		held_object.set_collision_layer_value(12, true) # Held objects are in layer 12 to filter out collisions with player head
-
-		grabbed.emit(held_object)
-
-		return held_object
-	else:
-		return null
+func _on_button_pressed(p_button) -> void:
+	if p_button == action_button_action:
+		if is_instance_valid(picked_up_object) and picked_up_object.has_method("action"):
+			picked_up_object.action()
 
 
-func drop_held_object() -> void:
-	if held_object:
-		grab_joint.set_node_a("")
-		grab_joint.set_node_b("")
-		held_object.set_collision_layer_value(12, false)
-
-		if held_object.is_class("RigidBody3D"):
-			held_object.set_angular_damp(0)
-			held_object.set_center_of_mass_mode(0)
-
-		dropped_held_object.emit(held_object)
-
-		held_object = null
-		physics_pivot_point.free()
+func _on_button_released(p_button) -> void:
+	if p_button == action_button_action:
+		if is_instance_valid(picked_up_object) and picked_up_object.has_method("action_release"):
+			picked_up_object.action_release()
 
 
 # This method verifies the hand has a valid configuration.
@@ -724,6 +781,94 @@ static func _find_func_pickup(node: Node) -> PhysicalFunctionPickup:
 
 	# No child found matching type
 	return null
+
+
+## Update the closest object field with the best choice of grab
+func _update_closest_object() -> void:
+	# Find the closest object we can pickup
+	var new_closest_obj: Node3D = null
+	if not picked_up_object:
+		# Find the closest in grab area
+		new_closest_obj = _get_closest_grab()
+	
+	# Skip if no change
+	if closest_object == new_closest_obj:
+		return
+	
+	# remove highlight on old object
+	if is_instance_valid(closest_object):
+		closest_object.request_highlight(self, false)
+	
+	# add highlight to new object
+	closest_object = new_closest_obj
+	if is_instance_valid(closest_object):
+		closest_object.request_highlight(self, true)
+
+
+## Find the pickable object closest to our hand's grab location
+func _get_closest_grab() -> Node3D:
+	var new_closest_obj: Node3D = null
+	var new_closest_distance := MAX_GRAB_DISTANCE2
+	for o in _objects_in_grab_area:
+		# skip objects that can not be picked up
+		if not o.can_pick_up(self):
+			continue
+		
+		# Save if this object is closer than the current best
+		var distance_squared := global_transform.origin.distance_squared_to(
+				o.global_transform.origin)
+		if distance_squared < new_closest_distance:
+			new_closest_obj = o
+			new_closest_distance = distance_squared
+	
+	# Return best object
+	return new_closest_obj
+
+
+## Called when the grab collision mask has been modified
+func _set_grab_collision_mask(new_value: int) -> void:
+	grab_collision_mask = new_value
+	if is_inside_tree() and _grab_collision:
+		_grab_collision.collision_mask = new_value
+
+
+## Called when the grab distance has been modified
+func _set_grab_distance(new_value: float) -> void:
+	grab_distance = new_value
+	if is_inside_tree():
+		_update_colliders()
+
+
+## Update the colliders geometry
+func _update_colliders() -> void:
+	# Update the grab sphere
+	if _grab_collision:
+		_grab_collision.shape.radius = grab_distance
+
+
+## Called when an object enters the grab sphere
+func _on_grab_entered(target: Node3D) -> void:
+	# Reject objects which don't support picking up
+	if not target.has_method('pick_up'):
+		return
+	
+	# TODO: implement for non pickables so any [RigidBody3D] is supported
+	# TODO: implement for dispensers
+	# Reject objects which aren't physical pickables
+	if not target is PhysicalPickableV2:
+		return
+	
+	# Ignore objects already known
+	if _objects_in_grab_area.find(target) >= 0:
+		return
+
+	# Add to the list of objects in grab area
+	_objects_in_grab_area.push_back(target)
+
+
+## Called when an object exits the grab sphere
+func _on_grab_exited(target: Node3D) -> void:
+	_objects_in_grab_area.erase(target)
 
 
 ## PID controller class

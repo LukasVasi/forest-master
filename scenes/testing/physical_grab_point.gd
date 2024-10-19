@@ -12,7 +12,10 @@ static func _get_grabber_controller(grabber : Node3D) -> XRController3D:
 		return null
 
 	# Ensure the pickup is a function pickup for a controller
-	var pickup := grabber as PhysicalFunctionPickup
+	#var pickup := grabber as PhysicalFunctionPickup
+	#if not pickup:
+		#return null
+	var pickup := grabber as PhysicalHandV2
 	if not pickup:
 		return null
 

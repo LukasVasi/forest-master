@@ -1,6 +1,6 @@
 @tool
 class_name FishingRod
-extends PhysicalPickable
+extends PhysicalPickableV2
 
 
 ## The fishing rod object.
@@ -39,14 +39,14 @@ func _process(_delta: float) -> void:
 		reset()
 
 
-func pick_up(by: Node3D) -> void:
-	super.pick_up(by) # Run the parent pick up function
+func pick_up(by: Node3D) -> PhysicalGrabPoint:
 	_moved = true
 	float_target.set_picked_up(true) # Tell the target to start calculating velocity
+	return super.pick_up(by) # Run the parent pick up function
 
 
-func let_go(by: Node3D, p_linear_velocity: Vector3, p_angular_velocity: Vector3) -> void:
-	super.let_go(by, p_linear_velocity, p_angular_velocity) # Run the parent function
+func let_go(by: Node3D) -> void:
+	super.let_go(by) # Run the parent function
 	float_target.set_picked_up(false) # Tell the target to stop calculating velocity
 
 

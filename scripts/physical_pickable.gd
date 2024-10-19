@@ -71,36 +71,40 @@ func can_pick_up(by: Node3D) -> bool:
 	# Allow if not held by anything
 	if not is_picked_up():
 		return true
-	elif not _grab_driver.secondary_grab:
+	elif not is_instance_valid(_grab_driver.secondary_grab):
 		return true
 	else:
 		return false
 
 
 # Called when this object is picked up
-func pick_up(by: Node3D) -> void:
+func pick_up(by: Node3D) -> PhysicalGrabPoint:
 	# Skip if not enabled
 	if not enabled:
 		return
 	
-	#if not is_picked_up():
-		## Find a suitable primary hand grab
-		#var by_grab_point := _get_grab_point(by, null)
-		#var grab := PhysicalGrab.new(by, self, by_grab_point)
-		#_grab_driver = PhysicalGrabDriver.new(grab)
-		#add_child(_grab_driver)
-		#collision_layer = picked_up_layer
-		##inertia = Vector3.ONE # force inertia to be equal on every axis
-	#else:
-		#var by_grab_point := _get_grab_point(by, _grab_driver.primary_grab.grab_point)
-		#var grab := PhysicalGrab.new(by, self, by_grab_point)
-		#_grab_driver.add_grab(grab)
+	var by_grab_point : PhysicalGrabPoint
+	
+	if not is_picked_up():
+		# Find a suitable primary hand grab
+		by_grab_point = _get_grab_point(by, null)
+		var grab := PhysicalGrab.new(by, self, by_grab_point)
+		_grab_driver = PhysicalGrabDriver.new(grab)
+		add_child(_grab_driver)
+		collision_layer = picked_up_layer
+		#inertia = Vector3.ONE # force inertia to be equal on every axis
+	else:
+		by_grab_point = _get_grab_point(by, _grab_driver.primary_grab.grab_point)
+		var grab := PhysicalGrab.new(by, self, by_grab_point)
+		_grab_driver.add_grab(grab)
 	
 	# Report picked up
 	picked_up.emit(self)
+	
+	return by_grab_point
 
 # Called when this object is dropped
-func let_go(by: Node3D, p_linear_velocity: Vector3, p_angular_velocity: Vector3) -> void:
+func let_go(by: Node3D) -> void:
 	# Skip if not picked up
 	if not is_picked_up():
 		return
