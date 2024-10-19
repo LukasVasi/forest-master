@@ -16,6 +16,8 @@ var _original_linear_damp : float
 
 var _original_angular_damp : float
 
+var _target_inertia : Vector3
+
 func _init(
 	p_grab : PhysicalGrab
 ) -> void:
@@ -25,6 +27,9 @@ func _init(
 	_original_linear_damp = target.linear_damp
 	_original_angular_damp = target.angular_damp
 	_update_damp()
+	
+	_target_inertia = PhysicsServer3D.body_get_direct_state(target.get_rid()).inverse_inertia.inverse()
+	print(_target_inertia)
 	
 	process_physics_priority = -80
 	primary_grab.set_arrived()
@@ -43,20 +48,33 @@ func _physics_process(_delta : float) -> void:
 	
 	var controller := primary_grab.controller
 	var destination_transform := controller.global_transform * primary_grab.transform.inverse()
-	var movement_delta := destination_transform.origin - target.global_position
-	primary_movement_force = movement_delta * primary_grab.hand.hand_movement_force
+	
+	var movement_direction := target.global_position.direction_to(destination_transform.origin)
+	var movement_factor : float = min((destination_transform.origin - target.global_position).length(), 2)
+	primary_movement_force = movement_direction * movement_factor * primary_grab.hand.hand_movement_force
+
+	var grab_point_pos := primary_grab.transform.origin
+	var object_center := target.global_position
+	var radii := (grab_point_pos - object_center).abs()
 
 	var quat_target := destination_transform.basis.get_rotation_quaternion()
 	var quat_curr := target.global_basis.get_rotation_quaternion()
 	var quat_delta := quat_target * (quat_curr.inverse())
 	var euler_delta := Vector3(quat_delta.x, quat_delta.y, quat_delta.z) * quat_delta.w
-	primary_rotation_torque = euler_delta * primary_grab.hand.hand_rotation_torque
+	
+	# Account for the radius differences on each axis
+	if radii.x > 0: euler_delta.x /= radii.x
+	if radii.y > 0: euler_delta.y /= radii.y
+	if radii.z > 0: euler_delta.z /= radii.z
+	
+	primary_rotation_torque = 1 * euler_delta * primary_grab.hand.hand_rotation_torque
 	
 	if secondary_grab:
 		controller = secondary_grab.controller
 		destination_transform = controller.global_transform * secondary_grab.transform.inverse()
-		movement_delta = destination_transform.origin - target.global_position
-		secondary_movement_force = movement_delta * secondary_grab.hand.hand_movement_force
+		movement_direction = target.global_position.direction_to(destination_transform.origin)
+		movement_factor = min((destination_transform.origin - target.global_position).length(), 2)
+		secondary_movement_force = movement_direction * movement_factor * secondary_grab.hand.hand_movement_force
 
 		quat_target = destination_transform.basis.get_rotation_quaternion()
 		quat_curr = target.global_basis.get_rotation_quaternion()
@@ -67,8 +85,8 @@ func _physics_process(_delta : float) -> void:
 		secondary_rotation_torque = (euler_delta * secondary_grab.hand.hand_rotation_torque) / 2
 		primary_rotation_torque /= 2
 	
-	target.apply_central_force(target.force_multiplier * (primary_movement_force + secondary_movement_force))
-	target.apply_torque(target.torque_multiplier * (primary_rotation_torque + secondary_rotation_torque))
+	target.apply_central_force(primary_movement_force + secondary_movement_force)
+	target.apply_torque(_target_inertia * (primary_rotation_torque + secondary_rotation_torque))
 	
 	# Force the transform update at this moment
 	target.force_update_transform()

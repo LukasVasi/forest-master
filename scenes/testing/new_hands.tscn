@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://csddg4xbjp0b6"]
+[gd_scene load_steps=29 format=3 uid="uid://csddg4xbjp0b6"]
 
 [ext_resource type="Script" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_0dk5u"]
 [ext_resource type="PackedScene" uid="uid://0a3edbceqgym" path="res://scenes/utils/physical_grab_point_right.tscn" id="3_aiss2"]
@@ -63,6 +63,12 @@ size = Vector3(0.1, 0.1, 0.1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lbdbp"]
 albedo_color = Color(0.833194, 0.0180394, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_t3s1h"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qhvkc"]
+size = Vector3(0.2, 0.2, 0.2)
 
 [node name="NewHands" type="Node3D"]
 script = ExtResource("1_0dk5u")
@@ -222,4 +228,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.64479, -1.72759)
 
 [node name="FishingRod" parent="." instance=ExtResource("12_fm2xj")]
 transform = Transform3D(0.612728, 0.176541, 0.770323, 1.49012e-08, 0.97473, -0.223386, -0.790294, 0.136875, 0.597244, -4.42413, 1.16693, -4.24337)
-torque_multiplier = Vector3(3, 3, 0.1)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15508, 1.14645, -4.75127)
+collision_layer = 4
+collision_mask = 131075
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("BoxMesh_t3s1h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_qhvkc")

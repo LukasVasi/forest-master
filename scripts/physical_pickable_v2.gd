@@ -1,5 +1,5 @@
 @tool
-class_name PhysicalPickableV2
+class_name PhysicalPickable
 extends RigidBody3D
 
 
@@ -83,18 +83,18 @@ func pick_up(by: Node3D) -> void:
 	if not enabled:
 		return
 	
-	#if not is_picked_up():
-		## Find a suitable primary hand grab
-		#var by_grab_point := _get_grab_point(by, null)
-		#var grab := PhysicalGrab.new(by, self, by_grab_point)
-		#_grab_driver = PhysicalGrabDriver.new(grab)
-		#add_child(_grab_driver)
-		#collision_layer = picked_up_layer
-		##inertia = Vector3.ONE # force inertia to be equal on every axis
-	#else:
-		#var by_grab_point := _get_grab_point(by, _grab_driver.primary_grab.grab_point)
-		#var grab := PhysicalGrab.new(by, self, by_grab_point)
-		#_grab_driver.add_grab(grab)
+	if not is_picked_up():
+		# Find a suitable primary hand grab
+		var by_grab_point := _get_grab_point(by, null)
+		var grab := PhysicalGrab.new(by, self, by_grab_point)
+		_grab_driver = PhysicalGrabDriver.new(grab)
+		add_child(_grab_driver)
+		collision_layer = picked_up_layer
+		#inertia = Vector3.ONE # force inertia to be equal on every axis
+	else:
+		var by_grab_point := _get_grab_point(by, _grab_driver.primary_grab.grab_point)
+		var grab := PhysicalGrab.new(by, self, by_grab_point)
+		_grab_driver.add_grab(grab)
 	
 	# Report picked up
 	picked_up.emit(self)
