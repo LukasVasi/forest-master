@@ -413,7 +413,7 @@ transform = Transform3D(-0.113004, 0, 0.0403744, 0, 0.12, 0, -0.0403744, 0, -0.1
 curve = SubResource("Curve3D_i6pi6")
 
 [node name="MockFish1" parent="Fishing/MockFishes/MockFishPath1" instance=ExtResource("14_h3ydf")]
-transform = Transform3D(-0.961927, -0.00266091, 0.273209, 0, 0.999878, 0.00973934, -0.273221, 0.00936823, -0.961885, 17.8061, -1.12253, 13.4726)
+transform = Transform3D(-0.961927, -0.00266091, 0.273209, 0, 0.999878, 0.00973934, -0.273221, 0.00936824, -0.961885, 17.8061, -1.12253, 13.4726)
 progress = 39.4198
 rotation_mode = 2
 use_model_front = true
@@ -1671,8 +1671,7 @@ transform = Transform3D(-0.964617, 0, -0.263654, 0, 1, 0, 0.263654, 0, -0.964617
 transform = Transform3D(0.472375, -0.129003, 0.871906, 0.354164, 0.933638, -0.0537402, -0.807112, 0.334183, 0.486716, -5.20111, 0.542516, 4.47996)
 
 [node name="Bow" parent="Combat" instance=ExtResource("22_6ivd3")]
-transform = Transform3D(0.778921, 0.536711, -0.324378, -2.36044e-08, 0.517251, 0.855834, 0.62712, -0.666628, 0.402898, -4.36068, 1.14276, 5.25058)
-mass = 0.8
+transform = Transform3D(0.779337, -0.480006, 0.402773, 0, -0.642788, -0.766044, 0.626603, 0.597008, -0.500949, -4.36068, 1.14276, 5.25058)
 
 [node name="Creatures" type="Node" parent="Combat"]
 script = ExtResource("33_f4c4m")

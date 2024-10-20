@@ -22,11 +22,11 @@ signal action_released(pickable: PhysicalPickable)
 
 ## Signal emitted when this object is grabbed (primary or secondary).
 ## Emitted in the grab class.
-signal grabbed(pickable: PhysicalPickable, by: PhysicalHand)
+signal grabbed(pickable: PhysicalPickable, by: Node3D)
 
 ## Signal emitted when this object is released (primary or secondary).
 ## Emitted in the grab class.
-signal released(pickable: PhysicalPickable, by: PhysicalHand)
+signal released(pickable: PhysicalPickable, by: Node3D)
 
 ## Layer for this object while picked up
 @export_flags_3d_physics var picked_up_layer : int = DEFAULT_LAYER
@@ -50,29 +50,31 @@ var _highlight_requests : Dictionary = {}
 var _highlighted : bool = false
 
 # Array of grab points
-var _grab_points : Array[PhysicalGrabPoint] = []
+var _grab_points : Array[XRToolsGrabPoint] = []
 
 
 func _ready() -> void:
 	# Get all grab points
 	for child in get_children():
-		var grab_point := child as PhysicalGrabPoint
+		var grab_point := child as XRToolsGrabPoint
 		if grab_point:
 			_grab_points.push_back(grab_point)
 
 
-# TODO: test if this hand isn't already picking up
 # Test if this object can be picked up
 func can_pick_up(by: Node3D) -> bool:
 	# Refuse if not enabled
 	if not enabled:
+		return false
+	elif _grabs.any(func(grab: PhysicalGrab) -> bool: return grab.by == by):
+		# The same thing can't grab twice
 		return false
 	else:
 		return _grabs.size() < 2
 
 
 ## Called when this object is picked up. Returns the grab information.
-func pick_up(by: PhysicalHand) -> PhysicalGrab:
+func pick_up(by: Node3D) -> PhysicalGrab:
 	# Skip if not enabled
 	if not enabled:
 		return
@@ -80,19 +82,30 @@ func pick_up(by: PhysicalHand) -> PhysicalGrab:
 	var new_grab : PhysicalGrab
 	
 	if not is_picked_up():
-		# Find a suitable primary hand grab
+		# Find a suitable grab point
 		var by_grab_point := _get_grab_point(by, null)
+		
+		# Fail if no suitable grab point is available
 		if not is_instance_valid(by_grab_point):
 			return null
+		
+		# Create the grab
 		new_grab = PhysicalGrab.new(by, self, by_grab_point)
 		
 		# TODO: set center of mass to palm instead of center of grab point because they don't align
+		# Set properties
 		collision_layer = picked_up_layer
 		angular_damp = 1 # Reduce rotational forces to make holding more natural
 		var new_center_of_mass := new_grab.grab_point.global_position - global_position
 		center_of_mass_mode = RigidBody3D.CENTER_OF_MASS_MODE_CUSTOM
 		center_of_mass = new_center_of_mass
 	else:
+		# Ignore if either pickup isn't by a hand
+		# This prevents a hand from secondary grabbing a snapped object
+		# and snap zones from repeatedly exchagning a picked up object
+		if by is not PhysicalHand or not is_instance_valid(_grabs[0].hand):
+			return
+		
 		var by_grab_point := _get_grab_point(by, _grabs.front().grab_point)
 		if not is_instance_valid(by_grab_point):
 			return null
@@ -111,17 +124,17 @@ func pick_up(by: PhysicalHand) -> PhysicalGrab:
 
 
 ## Called when this object is dropped
-func let_go(by: PhysicalHand) -> void:
+func let_go(by: Node3D) -> void:
 	# Skip if not picked up
 	if not is_picked_up():
 		return
 	
 	# Skip if such grab doesn't exist
-	if not _grabs.any(func(grab: PhysicalGrab) -> bool: return grab.hand == by):
+	if not _grabs.any(func(grab: PhysicalGrab) -> bool: return grab.by == by):
 		return
 	
 	for grab in _grabs:
-		if grab.hand == by:
+		if grab.by == by:
 			# Remove the grab from the driver and release the grab
 			_grabs.erase(grab)
 			grab.release()

@@ -1,5 +1,5 @@
 @tool
-class_name PhysicalGrabPoint
+class_name PhysicalGrabPointHand
 extends XRToolsGrabPointHand
 
 ## Extends the XRToolsGrabPointHand class to allow use of PhysicalHand 
@@ -11,13 +11,10 @@ static func _get_grabber_controller(grabber : Node3D) -> XRController3D:
 	if not is_instance_valid(grabber):
 		return null
 
-	# Ensure the pickup is a function pickup for a controller
-	#var pickup := grabber as PhysicalFunctionPickup
-	#if not pickup:
-		#return null
+	# Ensure the pickup is a physical hand
 	var pickup := grabber as PhysicalHand
 	if not pickup:
 		return null
 
-	# Get the controller associated with the pickup
+	# Get the controller associated with the hand
 	return pickup.get_controller()

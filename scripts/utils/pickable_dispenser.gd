@@ -82,11 +82,11 @@ func request_highlight(from: PhysicalHand, on: bool = true) -> void:
 
 
 # Called when FunctionPickup requests a pciakble
-func pick_up() -> PhysicalPickable:
+func get_dispensable(by: Node3D) -> PhysicalPickable:
 	var dispensed_object: PhysicalPickable = _get_dispensable_instance()
-	if dispensed_object:
+	if is_instance_valid(dispensed_object):
 		add_child(dispensed_object)
-		dispensed_object.global_position = global_position
+		dispensed_object.global_position = by.global_position
 		return dispensed_object
 	else:
 		return null

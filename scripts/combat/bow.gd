@@ -1,6 +1,6 @@
 @tool
 class_name Bow
-extends XRToolsPickable
+extends PhysicalPickable
 
 const FIRE_FACTOR = 85
 
@@ -11,7 +11,7 @@ const FIRE_FACTOR = 85
 @onready var _pull_pivot: Node3D = $PullPivot
 @onready var _pull_pivot_org_position: Vector3 = _pull_pivot.position
 @onready var _arrow_snap_zone_timer: Timer = $PullPivot/ArrowSnapZone/Timer
-@onready var _arrow_snap_zone : XRToolsSnapZone = $PullPivot/ArrowSnapZone
+@onready var _arrow_snap_zone : PhysicalSnapZone = $PullPivot/ArrowSnapZone
 
 
 func _ready() -> void:

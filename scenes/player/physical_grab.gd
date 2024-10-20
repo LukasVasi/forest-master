@@ -15,6 +15,9 @@ const GRIP_TARGET_PRIORITY := 100
 ## The controller associated with the grabber
 var controller : XRController3D
 
+## The grabber node (could be PhysicalHand or PhysicalSnapZone)
+var by : Node3D
+
 ## The physical hand associated with the grabber
 var hand : PhysicalHand
 
@@ -22,7 +25,7 @@ var hand : PhysicalHand
 var what : PhysicalPickable
 
 ## Hand grab point information
-var grab_point : XRToolsGrabPointHand
+var grab_point : XRToolsGrabPoint
 
 ## Grab transform
 var transform : Transform3D
@@ -33,12 +36,13 @@ var _arrived : bool = false
 
 ## Initialize the grab
 func _init(
-	p_hand : PhysicalHand,
+	p_by : Node3D,
 	p_what : PhysicalPickable,
-	p_point : XRToolsGrabPointHand
+	p_point : XRToolsGrabPoint
 	) -> void:
-	hand = p_hand
-	controller = hand.get_controller()
+	by = p_by
+	hand = p_by as PhysicalHand
+	controller = hand.get_controller() if is_instance_valid(hand) else null
 	what = p_what
 	grab_point = p_point
 
@@ -46,27 +50,17 @@ func _init(
 	if p_point:
 		transform = p_point.transform
 	else:
-		transform = p_what.global_transform.inverse() * p_hand.global_transform
-
-	# Apply collision exceptions
-	#if is_instance_valid(hand):
-		#hand.add_collision_exception_with(what)
-		#what.add_collision_exception_with(hand)
+		transform = p_what.global_transform.inverse() * p_by.global_transform
 
 
 ## Release the grab
 func release() -> void:
 	# Clear any hand pose
 	_clear_hand_pose()
-
-	# Remove collision exceptions
-	#if is_instance_valid(hand):
-		#hand.remove_collision_exception_with(what)
-		#what.remove_collision_exception_with(hand)
-
+	
 	# Report the release
-	print_verbose("%s> released by %s", [what.name, hand.name])
-	what.released.emit(what, hand)
+	print_verbose("%s> released by %s", [what.name, by.name])
+	what.released.emit(what, by)
 
 
 ## Set the target as arrived at the grab-point
@@ -81,13 +75,13 @@ func set_arrived() -> void:
 	_set_hand_pose()
 
 	# Report the grab
-	print_verbose("%s> grabbed by %s", [what.name, hand.name])
-	what.grabbed.emit(what, hand)
+	print_verbose("%s> grabbed by %s", [what.name, by.name])
+	what.grabbed.emit(what, by)
 
 
 # Set hand-pose overrides
 func _set_hand_pose() -> void:
-	# Skip if not hand
+	# Skip if not grabbed by hand or if no grab point to have set pose
 	if not is_instance_valid(hand) or not is_instance_valid(grab_point):
 		return
 
@@ -102,7 +96,7 @@ func _set_hand_pose() -> void:
 
 # Clear any hand-pose overrides
 func _clear_hand_pose() -> void:
-	# Skip if not hand
+	# Skip if not grabbed by hand or if no grab point to have set pose
 	if not is_instance_valid(hand) or not is_instance_valid(grab_point):
 		return
 

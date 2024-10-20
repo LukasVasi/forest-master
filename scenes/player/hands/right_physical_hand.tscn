@@ -172,34 +172,34 @@ _data = {
 "Thumb": ExtResource("40_tncpq")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_v4jgr"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x4ip8"]
 animation = &"Grip"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xka4a"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fw6w1"]
 animation = &"Grip"
 
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_d0sqq"]
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_njlsu"]
 filter_enabled = true
 filters = ["Armature/Skeleton3D:Little_Distal_R", "Armature/Skeleton3D:Little_Intermediate_R", "Armature/Skeleton3D:Little_Metacarpal_R", "Armature/Skeleton3D:Little_Proximal_R", "Armature/Skeleton3D:Middle_Distal_R", "Armature/Skeleton3D:Middle_Intermediate_R", "Armature/Skeleton3D:Middle_Metacarpal_R", "Armature/Skeleton3D:Middle_Proximal_R", "Armature/Skeleton3D:Ring_Distal_R", "Armature/Skeleton3D:Ring_Intermediate_R", "Armature/Skeleton3D:Ring_Metacarpal_R", "Armature/Skeleton3D:Ring_Proximal_R", "Armature/Skeleton3D:Thumb_Distal_R", "Armature/Skeleton3D:Thumb_Metacarpal_R", "Armature/Skeleton3D:Thumb_Proximal_R", "Armature/Skeleton:Little_Distal_R", "Armature/Skeleton:Little_Intermediate_R", "Armature/Skeleton:Little_Proximal_R", "Armature/Skeleton:Middle_Distal_R", "Armature/Skeleton:Middle_Intermediate_R", "Armature/Skeleton:Middle_Proximal_R", "Armature/Skeleton:Ring_Distal_R", "Armature/Skeleton:Ring_Intermediate_R", "Armature/Skeleton:Ring_Proximal_R", "Armature/Skeleton:Thumb_Distal_R", "Armature/Skeleton:Thumb_Proximal_R"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3u4jb"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lycvt"]
 animation = &"Grip 5"
 
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_0f1ov"]
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_e2e7m"]
 filter_enabled = true
 filters = ["Armature/Skeleton3D:Index_Distal_R", "Armature/Skeleton3D:Index_Intermediate_R", "Armature/Skeleton3D:Index_Metacarpal_R", "Armature/Skeleton3D:Index_Proximal_R", "Armature/Skeleton:Index_Distal_R", "Armature/Skeleton:Index_Intermediate_R", "Armature/Skeleton:Index_Proximal_R"]
 
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_bunls"]
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_i4rmd"]
 graph_offset = Vector2(-552.664, 107.301)
-nodes/ClosedHand1/node = SubResource("AnimationNodeAnimation_v4jgr")
+nodes/ClosedHand1/node = SubResource("AnimationNodeAnimation_x4ip8")
 nodes/ClosedHand1/position = Vector2(-600, 300)
-nodes/ClosedHand2/node = SubResource("AnimationNodeAnimation_xka4a")
+nodes/ClosedHand2/node = SubResource("AnimationNodeAnimation_fw6w1")
 nodes/ClosedHand2/position = Vector2(-360, 300)
-nodes/Grip/node = SubResource("AnimationNodeBlend2_d0sqq")
+nodes/Grip/node = SubResource("AnimationNodeBlend2_njlsu")
 nodes/Grip/position = Vector2(0, 40)
-nodes/OpenHand/node = SubResource("AnimationNodeAnimation_3u4jb")
+nodes/OpenHand/node = SubResource("AnimationNodeAnimation_lycvt")
 nodes/OpenHand/position = Vector2(-600, 100)
-nodes/Trigger/node = SubResource("AnimationNodeBlend2_0f1ov")
+nodes/Trigger/node = SubResource("AnimationNodeBlend2_e2e7m")
 nodes/Trigger/position = Vector2(-360, 40)
 node_connections = [&"Grip", 0, &"Trigger", &"Grip", 1, &"ClosedHand2", &"Trigger", 0, &"OpenHand", &"Trigger", 1, &"ClosedHand1", &"output", 0, &"Grip"]
 
@@ -209,6 +209,7 @@ collision_layer = 131072
 collision_mask = 131079
 gravity_scale = 0.0
 inertia = Vector3(0.01, 0.01, 0.01)
+freeze = true
 continuous_cd = true
 script = ExtResource("1_lm2g5")
 grab_joint = NodePath("Generic6DOFJoint3D")
@@ -421,7 +422,7 @@ libraries = {
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 root_node = NodePath("../Hand_low_R")
-tree_root = SubResource("AnimationNodeBlendTree_bunls")
+tree_root = SubResource("AnimationNodeBlendTree_i4rmd")
 anim_player = NodePath("../Hand_low_R/AnimationPlayer")
 parameters/Grip/blend_amount = 0.0
 parameters/Trigger/blend_amount = 0.0

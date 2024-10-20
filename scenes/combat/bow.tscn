@@ -1,7 +1,8 @@
-[gd_scene load_steps=23 format=4 uid="uid://baqn44ngm0jv1"]
+[gd_scene load_steps=24 format=4 uid="uid://baqn44ngm0jv1"]
 
 [ext_resource type="Script" path="res://scripts/combat/bow.gd" id="2_cgjgp"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="3_ohdt4"]
+[ext_resource type="Script" path="res://scenes/testing/physical_grab_point_hand.gd" id="4_2qnpp"]
 [ext_resource type="Animation" uid="uid://dqa0h82y3qn1t" path="res://addons/godot-xr-tools/hands/animations/left/Grip 1.res" id="4_bdr5j"]
 [ext_resource type="Texture2D" uid="uid://raydtcfqir2e" path="res://models/combat/Bow.png" id="4_u0ty5"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="5_pfwtn"]
@@ -9,6 +10,7 @@
 [ext_resource type="Script" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="7_m761g"]
 [ext_resource type="PackedScene" uid="uid://ce7vysyvondf8" path="res://addons/godot-xr-tools/objects/snap_zone.tscn" id="9_phia5"]
 [ext_resource type="PackedScene" uid="uid://bddj5m7ull6g0" path="res://addons/godot-xr-tools/interactables/interactable_handle.tscn" id="9_q5fw6"]
+[ext_resource type="Script" path="res://scripts/utils/physical_snap_zone.gd" id="11_un54c"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cxhhj"]
 margin = 0.005
@@ -69,10 +71,6 @@ _data = {
 "ArmatureAction": SubResource("Animation_d4mip")
 }
 
-[sub_resource type="Resource" id="Resource_s3v65"]
-script = ExtResource("5_pfwtn")
-closed_pose = ExtResource("4_bdr5j")
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6vl11"]
 resource_name = "Material"
 cull_mode = 2
@@ -115,6 +113,7 @@ closed_pose = ExtResource("4_bdr5j")
 [node name="Bow" type="RigidBody3D"]
 collision_layer = 4
 collision_mask = 196615
+mass = 0.6
 freeze_mode = 1
 script = ExtResource("2_cgjgp")
 
@@ -157,10 +156,11 @@ libraries = {
 
 [node name="GrabPointHandLeft" parent="." instance=ExtResource("3_ohdt4")]
 transform = Transform3D(-0.00541045, -0.00684155, 0.999962, -0.999985, 3.70164e-05, -0.00541032, 0, -0.999977, -0.00684165, -0.13834, -0.00585752, 0.0119577)
-hand_pose = SubResource("Resource_s3v65")
+script = ExtResource("4_2qnpp")
 
 [node name="GrabPointHandRight" parent="." instance=ExtResource("6_v4ojs")]
 transform = Transform3D(-0.0131943, 0, 0.999913, -0.999913, 0.0008551, -0.0131943, -0.000855026, -1, -1.12825e-05, -0.15685, 0.0202121, 0.0100229)
+script = ExtResource("4_2qnpp")
 
 [node name="XRToolsHighlightVisible" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0546894, 0, 0)
@@ -194,15 +194,18 @@ hand_pose = SubResource("Resource_gjjlt")
 transform = Transform3D(-0.00652754, 0, 0.999979, -0.999579, -0.028288, -0.00652493, 0.0282874, -0.9996, 0.000184651, -0.0836269, 0, -0.0126122)
 visible = true
 
-[node name="ArrowSnapZone" parent="PullPivot" instance=ExtResource("9_phia5")]
+[node name="ArrowSnapZone" parent="PullPivot" node_paths=PackedStringArray("grab_joint") instance=ExtResource("9_phia5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.423677, 0, 0)
 collision_layer = 2
 collision_mask = 65538
-enabled = false
-snap_require = "Arrow"
+script = ExtResource("11_un54c")
+grab_joint = NodePath("Generic6DOFJoint3D")
 
 [node name="Timer" type="Timer" parent="PullPivot/ArrowSnapZone"]
 one_shot = true
+
+[node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D" parent="PullPivot/ArrowSnapZone"]
+transform = Transform3D(0.990099, 0, 0, 0, 0.990099, 0, 0, 0, 0.990099, 0.333276, 0, 0)
 
 [connection signal="dropped" from="." to="." method="_on_bow_dropped"]
 [connection signal="picked_up" from="." to="." method="_on_bow_picked_up"]

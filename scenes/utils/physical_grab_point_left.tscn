@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bsvi1o45dttw5"]
 
-[ext_resource type="Script" path="res://scenes/testing/physical_grab_point.gd" id="1_fi305"]
+[ext_resource type="Script" path="res://scenes/testing/physical_grab_point_hand.gd" id="1_fi305"]
 [ext_resource type="Animation" uid="uid://bediglpx0rj7i" path="res://addons/godot-xr-tools/hands/animations/left/Grip 5.res" id="2_bj0p6"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="3_jqpbs"]
 
@@ -9,7 +9,6 @@ script = ExtResource("3_jqpbs")
 closed_pose = ExtResource("2_bj0p6")
 
 [node name="PhysicalGrabPointLeft" type="Marker3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.50231, 0.0399559, -0.0607533)
 visible = false
 script = ExtResource("1_fi305")
 hand_pose = SubResource("Resource_thcvs")

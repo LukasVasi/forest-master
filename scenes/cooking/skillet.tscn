@@ -4,7 +4,7 @@
 [ext_resource type="ArrayMesh" uid="uid://doomqa3c7iyq7" path="res://resources/skillet.mesh" id="2_4alw5"]
 [ext_resource type="ArrayMesh" uid="uid://bktbigbqg7xsi" path="res://resources/skillet2.mesh" id="2_4rx5x"]
 [ext_resource type="Script" path="res://scripts/cooking/skillet.gd" id="3_bml76"]
-[ext_resource type="Script" path="res://scenes/testing/physical_grab_point.gd" id="5_d8f3j"]
+[ext_resource type="Script" path="res://scenes/testing/physical_grab_point_hand.gd" id="5_d8f3j"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="8_w88r1"]
 [ext_resource type="Material" uid="uid://nuogvh1u6wye" path="res://resources/highlight_material.tres" id="9_uemb4"]
 [ext_resource type="PackedScene" uid="uid://c6m5wp5vleaeb" path="res://scenes/cooking/lid_snap_zone.tscn" id="12_vp2eu"]

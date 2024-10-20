@@ -39,13 +39,13 @@ func _process(_delta: float) -> void:
 		reset()
 
 
-func pick_up(by: PhysicalHand) -> PhysicalGrab:
+func pick_up(by: Node3D) -> PhysicalGrab:
 	_moved = true
 	float_target.set_picked_up(true) # Tell the target to start calculating velocity
 	return super.pick_up(by) # Run the parent pick up function
 
 
-func let_go(by: PhysicalHand) -> void:
+func let_go(by: Node3D) -> void:
 	super.let_go(by) # Run the parent function
 	float_target.set_picked_up(false) # Tell the target to stop calculating velocity
 

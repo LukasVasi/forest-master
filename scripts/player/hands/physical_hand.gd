@@ -159,12 +159,14 @@ func is_xr_class(p_name : String) -> bool:
 
 ## Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+	
 	# Disconnect from parent transform as we move to it in the physics step,
 	# and boost the physics priority after any grab-drivers but before other
 	# processing.
-	if not Engine.is_editor_hint():
-		top_level = true
-		process_physics_priority = -70
+	top_level = true
+	process_physics_priority = -70
 	
 	# Setup the pid controllers used to simulate smooth physical movement
 	pid_controller_linear = PIDController.new({
@@ -331,41 +333,36 @@ func _pick_up_object(target: Node3D) -> void:
 	if not is_instance_valid(target):
 		return
 	
-	# Skip if target is not pickable
-	var pickable_target : PhysicalPickable = target
-	if not is_instance_valid(pickable_target):
-		return
-	
 	# Check if already holding an object
 	if is_instance_valid(picked_up_object):
 		# Skip if holding the target object
-		if picked_up_object == pickable_target:
+		if picked_up_object == target:
 			return
 		# Holding something else? drop it
 		drop_object()
 	
+	var pickable_target : PhysicalPickable
 	
-	
+	if target is PhysicalPickable:
+		pickable_target = target
+	elif target is PickableDispenser:
+		pickable_target = target.get_dispensable(self)
 	# TODO: implement
-	## Handle snap-zone
-	#var snap := target as XRToolsSnapZone
-	#if snap:
-		#target = snap.picked_up_object
-		#snap.drop_object()
+	#elif target is XRToolsSnapZone:
+		#pickable_target = snap.picked_up_object
+		#target.drop_object()
 	
-	# TODO: implement
-	# Handle pickable dispenser
-	#var dispenser := target as PickableDispenser
-	#if dispenser:
-		#target = dispenser.pick_up()
+	# Check if target was acquired, fail if not
+	if not is_instance_valid(pickable_target):
+		return
 	
 	var grab : PhysicalGrab = pickable_target.pick_up(self)
 	
-	# Check if succeded in picking up, skip if not
+	# Check if succeded in picking up, fail if not
 	if not is_instance_valid(grab):
 		return
 	
-	# Pick up our target. Note, target may do instant drop_and_free
+	# Pick up our target
 	picked_up_object = pickable_target
 	
 	var grab_point := grab.grab_point
@@ -783,8 +780,8 @@ func _update_closest_object() -> void:
 func _get_closest_grab() -> Node3D:
 	var new_closest_obj: Node3D = null
 	var new_closest_distance := MAX_GRAB_DISTANCE2
-	for o : PhysicalPickable in _objects_in_grab_area:
-		# skip objects that can not be picked up
+	for o : Node3D in _objects_in_grab_area:
+		# Skip objects that can not be picked up
 		if not o.can_pick_up(self):
 			continue
 		
@@ -823,13 +820,7 @@ func _update_colliders() -> void:
 ## Called when an object enters the grab sphere
 func _on_grab_entered(target: Node3D) -> void:
 	# Reject objects which don't support picking up
-	if not target.has_method('pick_up'):
-		return
-	
-	# TODO: implement for non pickables so any [RigidBody3D] is supported?
-	# TODO: implement for dispensers
-	# Reject objects which aren't physical pickables
-	if not target is PhysicalPickable:
+	if target is not PhysicalPickable and target is not PickableDispenser:
 		return
 	
 	# Ignore objects already known

@@ -1,6 +1,8 @@
-[gd_scene load_steps=7 format=4 uid="uid://cyxvc0461fbjf"]
+[gd_scene load_steps=9 format=4 uid="uid://cyxvc0461fbjf"]
 
 [ext_resource type="Script" path="res://scripts/physical_pickable.gd" id="1_p6ftr"]
+[ext_resource type="PackedScene" uid="uid://0a3edbceqgym" path="res://scenes/utils/physical_grab_point_right.tscn" id="2_c5hq6"]
+[ext_resource type="PackedScene" uid="uid://bsvi1o45dttw5" path="res://scenes/utils/physical_grab_point_left.tscn" id="3_4labn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kg30h"]
 resource_name = "Wood"
@@ -74,8 +76,17 @@ size = Vector3(0.119873, 0.0661621, 0.247589)
 [node name="FireWood" type="RigidBody3D" groups=["fire_wood"]]
 collision_layer = 4
 collision_mask = 196615
+mass = 0.5
 freeze_mode = 1
 script = ExtResource("1_p6ftr")
+
+[node name="PhysicalGrabPointRight" parent="." instance=ExtResource("2_c5hq6")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.140557, -0.117545, 0)
+visible = true
+
+[node name="PhysicalGrabPointLeft" parent="." instance=ExtResource("3_4labn")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.180891, -0.0972274, 0)
+visible = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(2.42705, -1.76336, 0, 1.76336, 2.42705, 0, 0, 0, 3, 0, 0, 0)
