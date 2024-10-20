@@ -29,7 +29,6 @@ func _init(
 	#_update_damp()
 	
 	_target_inertia = PhysicsServer3D.body_get_direct_state(target.get_rid()).inverse_inertia.inverse()
-	print(_target_inertia)
 	
 	process_physics_priority = -80
 	primary_grab.set_arrived()
