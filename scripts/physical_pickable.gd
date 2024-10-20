@@ -82,6 +82,8 @@ func pick_up(by: PhysicalHand) -> PhysicalGrab:
 	if not is_picked_up():
 		# Find a suitable primary hand grab
 		var by_grab_point := _get_grab_point(by, null)
+		if not is_instance_valid(by_grab_point):
+			return null
 		new_grab = PhysicalGrab.new(by, self, by_grab_point)
 		
 		# TODO: set center of mass to palm instead of center of grab point because they don't align
@@ -92,6 +94,8 @@ func pick_up(by: PhysicalHand) -> PhysicalGrab:
 		center_of_mass = new_center_of_mass
 	else:
 		var by_grab_point := _get_grab_point(by, _grabs.front().grab_point)
+		if not is_instance_valid(by_grab_point):
+			return null
 		new_grab = PhysicalGrab.new(by, self, by_grab_point)
 		
 		var new_center_of_mass := new_grab.grab_point.global_position - global_position

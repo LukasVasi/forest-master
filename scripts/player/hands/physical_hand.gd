@@ -359,14 +359,14 @@ func _pick_up_object(target: Node3D) -> void:
 	#if dispenser:
 		#target = dispenser.pick_up()
 	
-	# Pick up our target. Note, target may do instant drop_and_free
-	picked_up_object = pickable_target
 	var grab : PhysicalGrab = pickable_target.pick_up(self)
 	
-	# Check if succeded in picking up, reset if not
+	# Check if succeded in picking up, skip if not
 	if not is_instance_valid(grab):
-		picked_up_object = null
 		return
+	
+	# Pick up our target. Note, target may do instant drop_and_free
+	picked_up_object = pickable_target
 	
 	var grab_point := grab.grab_point
 	
@@ -752,15 +752,6 @@ static func _find_child(node : Node, type : String) -> Node:
 		var found := _find_child(child, type)
 		if found:
 			return found
-
-	# No child found matching type
-	return null
-
-static func _find_func_pickup(node: Node) -> PhysicalFunctionPickup:
-	for child in node.get_children():
-		# If the child is a match then return it
-		if child is PhysicalFunctionPickup:
-			return child
 
 	# No child found matching type
 	return null

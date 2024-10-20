@@ -1,10 +1,9 @@
-[gd_scene load_steps=34 format=4 uid="uid://482xli6khdjt"]
+[gd_scene load_steps=31 format=4 uid="uid://482xli6khdjt"]
 
 [ext_resource type="Script" path="res://scripts/physical_pickable.gd" id="1_6crs3"]
 [ext_resource type="Script" path="res://scripts/fishing/bucket.gd" id="2_28oen"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="2_tawm8"]
-[ext_resource type="Animation" uid="uid://dqa0h82y3qn1t" path="res://addons/godot-xr-tools/hands/animations/left/Grip 1.res" id="3_hsqe3"]
-[ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="4_b2q5i"]
+[ext_resource type="Script" path="res://scenes/testing/physical_grab_point.gd" id="3_juv6h"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="5_oxjma"]
 [ext_resource type="Material" uid="uid://nuogvh1u6wye" path="res://resources/highlight_material.tres" id="7_8kx1u"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="7_jphvn"]
@@ -60,13 +59,6 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_62pxd")
-
-[sub_resource type="Resource" id="Resource_egaf3"]
-script = ExtResource("4_b2q5i")
-closed_pose = ExtResource("3_hsqe3")
-
-[sub_resource type="Resource" id="Resource_p45jf"]
-script = ExtResource("4_b2q5i")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_cslsm"]
 _surfaces = [{
@@ -229,32 +221,32 @@ skeleton = NodePath("")
 [node name="GrabPointHandLeft" parent="Handle" instance=ExtResource("2_tawm8")]
 transform = Transform3D(-1, -8.74228e-08, 4.37114e-08, 4.37114e-08, 1.91069e-15, 1, -8.74228e-08, 1, 1.91069e-15, 0, 0.483, 0.05)
 visible = true
-hand_pose = SubResource("Resource_egaf3")
+script = ExtResource("3_juv6h")
 
 [node name="GrabPointHandLeft2" parent="Handle" instance=ExtResource("2_tawm8")]
 transform = Transform3D(-3.66595e-08, -2.38069e-08, -1, -0.544639, 0.838671, 0, 0.838671, 0.544639, -4.37114e-08, 0.075, 0.475, -0.19)
 visible = true
-hand_pose = SubResource("Resource_egaf3")
+script = ExtResource("3_juv6h")
 
 [node name="GrabPointHandLeft3" parent="Handle" instance=ExtResource("2_tawm8")]
 transform = Transform3D(-3.66595e-08, -2.38069e-08, 1, -0.544639, 0.838671, 0, -0.838671, -0.544639, -4.37114e-08, -0.075, 0.475, 0.19)
 visible = true
-hand_pose = SubResource("Resource_egaf3")
+script = ExtResource("3_juv6h")
 
 [node name="GrabPointHandRight" parent="Handle" instance=ExtResource("5_oxjma")]
 transform = Transform3D(-1, -1.50996e-07, -6.60024e-15, 0, -4.37114e-08, 1, -1.50996e-07, 1, 4.37114e-08, 0, 0.483, 0.05)
 visible = true
-hand_pose = SubResource("Resource_p45jf")
+script = ExtResource("3_juv6h")
 
 [node name="GrabPointHandRight2" parent="Handle" instance=ExtResource("5_oxjma")]
 transform = Transform3D(-3.66595e-08, 2.38069e-08, 1, 0.544639, 0.838671, 0, -0.838671, 0.544639, -4.37114e-08, -0.075, 0.475, -0.19)
 visible = true
-hand_pose = SubResource("Resource_p45jf")
+script = ExtResource("3_juv6h")
 
 [node name="GrabPointHandRight3" parent="Handle" instance=ExtResource("5_oxjma")]
 transform = Transform3D(-3.66595e-08, 2.38069e-08, -1, 0.544639, 0.838671, 0, 0.838671, -0.544639, -4.37114e-08, 0.075, 0.475, 0.19)
 visible = true
-hand_pose = SubResource("Resource_p45jf")
+script = ExtResource("3_juv6h")
 
 [node name="XRToolsHighlightVisible" type="Node3D" parent="Handle"]
 script = ExtResource("7_jphvn")

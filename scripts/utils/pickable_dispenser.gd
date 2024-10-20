@@ -61,7 +61,7 @@ func can_pick_up(_by: Node3D) -> bool:
 ## This method requests highlighting of the [XRToolsPickable].
 ## If [param from] is null then all highlighting requests are cleared,
 ## otherwise the highlight request is associated with the specified node.
-func request_highlight(from: PhysicalFunctionPickup, on: bool = true) -> void:
+func request_highlight(from: PhysicalHand, on: bool = true) -> void:
 	# Save if we are highlighted
 	var old_highlighted := _highlighted
 
