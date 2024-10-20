@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://csddg4xbjp0b6"]
+[gd_scene load_steps=41 format=3 uid="uid://csddg4xbjp0b6"]
 
 [ext_resource type="Script" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_0dk5u"]
 [ext_resource type="PackedScene" uid="uid://0a3edbceqgym" path="res://scenes/utils/physical_grab_point_right.tscn" id="3_aiss2"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ces1enrushk7a" path="res://scenes/utils/pause_menu_container.tscn" id="4_x2xv0"]
 [ext_resource type="PackedScene" uid="uid://bsvi1o45dttw5" path="res://scenes/utils/physical_grab_point_left.tscn" id="4_xehqh"]
 [ext_resource type="Script" path="res://scenes/testing/physical_grab_point.gd" id="5_4xwpe"]
+[ext_resource type="Script" path="res://scripts/utils/center_of_mass_visualizer.gd" id="7_6t8y1"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="7_bwpo6"]
 [ext_resource type="Animation" uid="uid://bediglpx0rj7i" path="res://addons/godot-xr-tools/hands/animations/left/Grip 5.res" id="8_mmj6a"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="9_5ud6g"]
@@ -42,6 +43,14 @@ albedo_color = Color(0, 0.56073, 0.399613, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_me5ep"]
 flip_faces = true
 size = Vector3(0.51, 0.11, 0.11)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gvb5r"]
+shading_mode = 0
+albedo_color = Color(1, 0.390565, 0.385072, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hafr1"]
+material = SubResource("StandardMaterial3D_gvb5r")
+size = Vector3(0.01, 0.01, 0.01)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jkkg6"]
 margin = 0.02
@@ -136,6 +145,7 @@ script = ExtResource("10_qa63k")
 shape = SubResource("BoxShape3D_kfo7u")
 
 [node name="CubeMesh" type="MeshInstance3D" parent="PhysicalPickableCube"]
+visible = false
 mesh = SubResource("BoxMesh_x0on8")
 surface_material_override/0 = SubResource("StandardMaterial3D_yvvjg")
 
@@ -153,6 +163,10 @@ script = ExtResource("9_yd8bi")
 [node name="HighlightMesh" type="MeshInstance3D" parent="PhysicalPickableCube/XRToolsHighlightVisible"]
 mesh = SubResource("BoxMesh_me5ep")
 surface_material_override/0 = ExtResource("10_cu8np")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PhysicalPickableCube"]
+mesh = SubResource("BoxMesh_hafr1")
+script = ExtResource("7_6t8y1")
 
 [node name="PhysicalPickableCube2" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.150631, 1.22904, -4.73465)

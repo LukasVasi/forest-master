@@ -12,12 +12,6 @@ const GRIP_POSE_PRIORITY := 100
 ## Priority for grip targeting
 const GRIP_TARGET_PRIORITY := 100
 
-## The grabber node (function pickup as Node3D)
-var by : Node3D
-
-## The physical pickup associated with the grabber
-var function_pickup : PhysicalFunctionPickup
-
 ## The controller associated with the grabber
 var controller : XRController3D
 
@@ -25,7 +19,7 @@ var controller : XRController3D
 var hand : PhysicalHand
 
 ## Grab target
-var what : PhysicalPickableV2
+var what : PhysicalPickable
 
 ## Hand grab point information
 var grab_point : XRToolsGrabPointHand
@@ -39,19 +33,12 @@ var _arrived : bool = false
 
 ## Initialize the grab
 func _init(
-	p_by : Node3D,
-	p_what : PhysicalPickableV2,
+	p_hand : PhysicalHand,
+	p_what : PhysicalPickable,
 	p_point : XRToolsGrabPointHand
 	) -> void:
-	
-	# TODO: there are now some null checks from the XRTools implementation
-	# that might not be necessary as this will break 
-	# if one of these things are null
-	by = p_by
-	function_pickup = p_by as PhysicalFunctionPickup
-	controller = function_pickup.get_controller() if function_pickup else null
-	hand = function_pickup.hand if function_pickup else null
-	
+	hand = p_hand
+	controller = hand.get_controller()
 	what = p_what
 	grab_point = p_point
 
@@ -59,7 +46,7 @@ func _init(
 	if p_point:
 		transform = p_point.transform
 	else:
-		transform = p_what.global_transform.inverse() * by.global_transform
+		transform = p_what.global_transform.inverse() * p_hand.global_transform
 
 	# Apply collision exceptions
 	#if is_instance_valid(hand):
@@ -78,8 +65,8 @@ func release() -> void:
 		#what.remove_collision_exception_with(hand)
 
 	# Report the release
-	print_verbose("%s> released by %s", [what.name, by.name])
-	what.released.emit(what, by)
+	print_verbose("%s> released by %s", [what.name, hand.name])
+	what.released.emit(what, hand)
 
 
 ## Set the target as arrived at the grab-point
@@ -94,8 +81,8 @@ func set_arrived() -> void:
 	_set_hand_pose()
 
 	# Report the grab
-	print_verbose("%s> grabbed by %s", [what.name, by.name])
-	what.grabbed.emit(what, by)
+	print_verbose("%s> grabbed by %s", [what.name, hand.name])
+	what.grabbed.emit(what, hand)
 
 
 # Set hand-pose overrides

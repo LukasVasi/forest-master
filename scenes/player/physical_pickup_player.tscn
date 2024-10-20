@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/test_player.gd" id="1_hr6oi"]
 [ext_resource type="PackedScene" uid="uid://btknduttnmoxf" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="2_n3ej6"]
-[ext_resource type="Script" path="res://scripts/player/hands/physical_hand_v2.gd" id="5_c0ob8"]
+[ext_resource type="Script" path="res://scripts/player/hands/physical_hand.gd" id="5_c0ob8"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="6_dfnmo"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://m85b1gogdums" path="res://addons/godot-xr-tools/hands/animations/right/hand_blend_tree.tres" id="7_bkop7"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="7_ujmcf"]
@@ -223,34 +223,34 @@ _data = {
 "Thumb": ExtResource("44_me0ab")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nsqcf"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_v4jgr"]
 animation = &"Grip"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7f1y8"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xka4a"]
 animation = &"Grip"
 
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_71134"]
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_d0sqq"]
 filter_enabled = true
 filters = ["Armature/Skeleton3D:Little_Distal_R", "Armature/Skeleton3D:Little_Intermediate_R", "Armature/Skeleton3D:Little_Metacarpal_R", "Armature/Skeleton3D:Little_Proximal_R", "Armature/Skeleton3D:Middle_Distal_R", "Armature/Skeleton3D:Middle_Intermediate_R", "Armature/Skeleton3D:Middle_Metacarpal_R", "Armature/Skeleton3D:Middle_Proximal_R", "Armature/Skeleton3D:Ring_Distal_R", "Armature/Skeleton3D:Ring_Intermediate_R", "Armature/Skeleton3D:Ring_Metacarpal_R", "Armature/Skeleton3D:Ring_Proximal_R", "Armature/Skeleton3D:Thumb_Distal_R", "Armature/Skeleton3D:Thumb_Metacarpal_R", "Armature/Skeleton3D:Thumb_Proximal_R", "Armature/Skeleton:Little_Distal_R", "Armature/Skeleton:Little_Intermediate_R", "Armature/Skeleton:Little_Proximal_R", "Armature/Skeleton:Middle_Distal_R", "Armature/Skeleton:Middle_Intermediate_R", "Armature/Skeleton:Middle_Proximal_R", "Armature/Skeleton:Ring_Distal_R", "Armature/Skeleton:Ring_Intermediate_R", "Armature/Skeleton:Ring_Proximal_R", "Armature/Skeleton:Thumb_Distal_R", "Armature/Skeleton:Thumb_Proximal_R"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2kmwx"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3u4jb"]
 animation = &"Grip 5"
 
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_4f0uv"]
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_0f1ov"]
 filter_enabled = true
 filters = ["Armature/Skeleton3D:Index_Distal_R", "Armature/Skeleton3D:Index_Intermediate_R", "Armature/Skeleton3D:Index_Metacarpal_R", "Armature/Skeleton3D:Index_Proximal_R", "Armature/Skeleton:Index_Distal_R", "Armature/Skeleton:Index_Intermediate_R", "Armature/Skeleton:Index_Proximal_R"]
 
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ld556"]
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_bunls"]
 graph_offset = Vector2(-552.664, 107.301)
-nodes/ClosedHand1/node = SubResource("AnimationNodeAnimation_nsqcf")
+nodes/ClosedHand1/node = SubResource("AnimationNodeAnimation_v4jgr")
 nodes/ClosedHand1/position = Vector2(-600, 300)
-nodes/ClosedHand2/node = SubResource("AnimationNodeAnimation_7f1y8")
+nodes/ClosedHand2/node = SubResource("AnimationNodeAnimation_xka4a")
 nodes/ClosedHand2/position = Vector2(-360, 300)
-nodes/Grip/node = SubResource("AnimationNodeBlend2_71134")
+nodes/Grip/node = SubResource("AnimationNodeBlend2_d0sqq")
 nodes/Grip/position = Vector2(0, 40)
-nodes/OpenHand/node = SubResource("AnimationNodeAnimation_2kmwx")
+nodes/OpenHand/node = SubResource("AnimationNodeAnimation_3u4jb")
 nodes/OpenHand/position = Vector2(-600, 100)
-nodes/Trigger/node = SubResource("AnimationNodeBlend2_4f0uv")
+nodes/Trigger/node = SubResource("AnimationNodeBlend2_0f1ov")
 nodes/Trigger/position = Vector2(-360, 40)
 node_connections = [&"Grip", 0, &"Trigger", &"Grip", 1, &"ClosedHand2", &"Trigger", 0, &"OpenHand", &"Trigger", 1, &"ClosedHand1", &"output", 0, &"Grip"]
 
@@ -378,34 +378,34 @@ _data = {
 "Thumb": ExtResource("87_ffgka")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yjau4"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qqli0"]
 animation = &"Grip"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_iqqic"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wb0tr"]
 animation = &"Grip"
 
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_c0vvd"]
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_um4xq"]
 filter_enabled = true
 filters = ["Armature/Skeleton3D:Little_Distal_L", "Armature/Skeleton3D:Little_Intermediate_L", "Armature/Skeleton3D:Little_Metacarpal_L", "Armature/Skeleton3D:Little_Proximal_L", "Armature/Skeleton3D:Middle_Distal_L", "Armature/Skeleton3D:Middle_Intermediate_L", "Armature/Skeleton3D:Middle_Metacarpal_L", "Armature/Skeleton3D:Middle_Proximal_L", "Armature/Skeleton3D:Ring_Distal_L", "Armature/Skeleton3D:Ring_Intermediate_L", "Armature/Skeleton3D:Ring_Metacarpal_L", "Armature/Skeleton3D:Ring_Proximal_L", "Armature/Skeleton3D:Thumb_Distal_L", "Armature/Skeleton3D:Thumb_Metacarpal_L", "Armature/Skeleton3D:Thumb_Proximal_L", "Armature/Skeleton:Little_Distal_L", "Armature/Skeleton:Little_Intermediate_L", "Armature/Skeleton:Little_Proximal_L", "Armature/Skeleton:Middle_Distal_L", "Armature/Skeleton:Middle_Intermediate_L", "Armature/Skeleton:Middle_Proximal_L", "Armature/Skeleton:Ring_Distal_L", "Armature/Skeleton:Ring_Intermediate_L", "Armature/Skeleton:Ring_Proximal_L", "Armature/Skeleton:Thumb_Distal_L", "Armature/Skeleton:Thumb_Proximal_L"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ut06d"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qdbdb"]
 animation = &"Grip 5"
 
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_i00hh"]
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_l250h"]
 filter_enabled = true
 filters = ["Armature/Skeleton3D:Index_Distal_L", "Armature/Skeleton3D:Index_Intermediate_L", "Armature/Skeleton3D:Index_Metacarpal_L", "Armature/Skeleton3D:Index_Proximal_L", "Armature/Skeleton:Index_Distal_L", "Armature/Skeleton:Index_Intermediate_L", "Armature/Skeleton:Index_Proximal_L"]
 
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_jikey"]
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ft1yw"]
 graph_offset = Vector2(-536, 11)
-nodes/ClosedHand1/node = SubResource("AnimationNodeAnimation_yjau4")
+nodes/ClosedHand1/node = SubResource("AnimationNodeAnimation_qqli0")
 nodes/ClosedHand1/position = Vector2(-600, 300)
-nodes/ClosedHand2/node = SubResource("AnimationNodeAnimation_iqqic")
+nodes/ClosedHand2/node = SubResource("AnimationNodeAnimation_wb0tr")
 nodes/ClosedHand2/position = Vector2(-360, 300)
-nodes/Grip/node = SubResource("AnimationNodeBlend2_c0vvd")
+nodes/Grip/node = SubResource("AnimationNodeBlend2_um4xq")
 nodes/Grip/position = Vector2(0, 20)
-nodes/OpenHand/node = SubResource("AnimationNodeAnimation_ut06d")
+nodes/OpenHand/node = SubResource("AnimationNodeAnimation_qdbdb")
 nodes/OpenHand/position = Vector2(-600, 100)
-nodes/Trigger/node = SubResource("AnimationNodeBlend2_i00hh")
+nodes/Trigger/node = SubResource("AnimationNodeBlend2_l250h")
 nodes/Trigger/position = Vector2(-360, 20)
 node_connections = [&"Grip", 0, &"Trigger", &"Grip", 1, &"ClosedHand2", &"Trigger", 0, &"OpenHand", &"Trigger", 1, &"ClosedHand1", &"output", 0, &"Grip"]
 
@@ -645,7 +645,7 @@ libraries = {
 
 [node name="AnimationTree" type="AnimationTree" parent="RightHandController/RightPhysicsHand"]
 root_node = NodePath("../Hand_low_R")
-tree_root = SubResource("AnimationNodeBlendTree_ld556")
+tree_root = SubResource("AnimationNodeBlendTree_bunls")
 anim_player = NodePath("../Hand_low_R/AnimationPlayer")
 parameters/Grip/blend_amount = 0.0
 parameters/Trigger/blend_amount = 0.0
@@ -681,7 +681,6 @@ gravity_scale = 0.0
 inertia = Vector3(0.01, 0.01, 0.01)
 continuous_cd = true
 script = ExtResource("5_c0ob8")
-trigger_click_action = null
 grab_joint = NodePath("Generic6DOFJoint3D")
 rumble_event = SubResource("Resource_5sfp4")
 rumble_trackers = Array[StringName]([&"left_hand"])
@@ -893,7 +892,7 @@ libraries = {
 
 [node name="AnimationTree" type="AnimationTree" parent="LeftHandController/LeftPhysicsHand"]
 root_node = NodePath("../Hand_low_L")
-tree_root = SubResource("AnimationNodeBlendTree_jikey")
+tree_root = SubResource("AnimationNodeBlendTree_ft1yw")
 anim_player = NodePath("../Hand_low_L/AnimationPlayer")
 parameters/Grip/blend_amount = 0.0
 parameters/Trigger/blend_amount = 0.0

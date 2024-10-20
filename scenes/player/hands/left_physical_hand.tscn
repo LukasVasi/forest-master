@@ -1,9 +1,6 @@
-[gd_scene load_steps=51 format=3 uid="uid://dl1miotgluu08"]
+[gd_scene load_steps=47 format=3 uid="uid://dl1miotgluu08"]
 
-[ext_resource type="Script" path="res://scripts/player/hands/physical_hand.gd" id="1_3kyhg"]
-[ext_resource type="Script" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="2_ew2ga"]
-[ext_resource type="AnimationNodeBlendTree" uid="uid://dl8yf7ipqotd1" path="res://addons/godot-xr-tools/hands/animations/left/hand_blend_tree.tres" id="3_qjujg"]
-[ext_resource type="Resource" uid="uid://dertgu7k8alls" path="res://addons/godot-xr-tools/hands/poses/pose_default_left.tres" id="4_xagqs"]
+[ext_resource type="Script" path="res://scripts/player/hands/physical_hand.gd" id="1_7aw7j"]
 [ext_resource type="Animation" uid="uid://dgfeikrugfewi" path="res://addons/godot-xr-tools/hands/animations/left/Cup.res" id="5_0rvao"]
 [ext_resource type="ArrayMesh" uid="uid://cp4eo8kb8ui5i" path="res://models/player/hands_Forest_Master_Hand_L.res" id="5_rti0g"]
 [ext_resource type="Animation" uid="uid://dlxa6f6hwurka" path="res://addons/godot-xr-tools/hands/animations/left/Default pose.res" id="6_878np"]
@@ -40,13 +37,6 @@
 [ext_resource type="Animation" uid="uid://4g211my0hoiw" path="res://addons/godot-xr-tools/hands/animations/left/Straight.res" id="37_dqrqb"]
 [ext_resource type="Animation" uid="uid://d06l7hygl4qt3" path="res://addons/godot-xr-tools/hands/animations/left/Surfer.res" id="38_otw80"]
 [ext_resource type="Animation" uid="uid://bxei4oebd4hu3" path="res://addons/godot-xr-tools/hands/animations/left/Thumb.res" id="39_dw3vw"]
-
-[sub_resource type="Resource" id="Resource_wgl78"]
-script = ExtResource("2_ew2ga")
-magnitude = 0.5
-active_during_pause = true
-indefinite = true
-duration_ms = 300
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_42vjk"]
 size = Vector3(0.0799316, 0.147693, 0.199084)
@@ -213,15 +203,8 @@ freeze = true
 continuous_cd = true
 linear_damp = 50.0
 angular_damp = 50.0
-script = ExtResource("1_3kyhg")
-hand_rotation_torque = 6.8
-max_distance_to_controller = 0.8
-rumble_event = SubResource("Resource_wgl78")
+script = ExtResource("1_7aw7j")
 rumble_trackers = Array[StringName]([&"left_hand"])
-hand_blend_tree = ExtResource("3_qjujg")
-default_pose = ExtResource("4_xagqs")
-margin = 0.04
-bone_group = "LeftHand"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0209228, -0.041388, 0.0796814)

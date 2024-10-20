@@ -7,18 +7,61 @@ extends RigidBody3D
 ##
 ## Actual real hand that uses force to try and follow the controller. Can interact with the world.
 
-## ----------------- Custom stuff
+## Signal emitted when the pickup picks something up
+signal has_picked_up(what: PhysicalPickable)
 
-## The force that pushes the hand towards the target.
-@export var hand_movement_force : float = 400.0
+## Signal emitted when the pickup drops something
+signal has_dropped
 
-## The torque that rotates the hand according to the target.
-@export var hand_rotation_torque : float = 200.0
+## Signal emitted when the hand is reset
+signal hand_reset(hand: Node3D)
+
+
+# Default pickup collision mask of 3:pickable and 19:handle
+const DEFAULT_GRAB_MASK := 0b0000_0000_0000_0100_0000_0000_0000_0100
+
+# Constant for worst-case grab distance
+const MAX_GRAB_DISTANCE2: float = 1000000.0
+
+
+## The main properties of the physical hand
 
 ## The max distance that the hand can depart from the controller before being teleported.
-@export var max_distance_to_controller : float = 2.0
+@export var max_distance_to_controller : float = 0.8
 
-@export_category("Rumble feedback")
+## Name of the Trigger action in the OpenXR Action Map. Used for posing.
+@export var trigger_action : String = "trigger"
+
+## Name of the trigger clicking action. Used for actions when picked up.
+@export var trigger_click_action : String = "trigger_click"
+
+## Name of the Grip action in the OpenXR Action Map. Used for picking up and posing.
+@export var grip_action : String = "grip"
+
+@export var grab_joint: Generic6DOFJoint3D # Joint is holding objects
+
+
+## PID controller default values are tuned for subjective feeling of realistic hand physics
+## These values have biggest influence on how hand feels and behaves
+@export_group("PID Controller Linear")
+@export var Kp_linear: float = 800
+@export var Ki_linear: float = 0
+@export var Kd_linear: float = 80
+@export var proportional_limit_linear: float = INF
+@export var integral_limit_linear: float = INF
+@export var derivative_limit_linear: float = INF
+
+
+@export_group("PID Controller Angular")
+@export var Kp_angular: float = 5
+@export var Ki_angular: float = 0
+@export var Kd_angular: float = 1
+@export var proportional_limit_angular: float = INF
+@export var integral_limit_angular: float = INF
+@export var derivative_limit_angular: float = INF
+
+
+@export_group("Rumble feedback")
 
 ## The distance from the controller at which a haptic feedback is provided. 
 @export var distance_to_rumble : float = 0.3
@@ -26,27 +69,43 @@ extends RigidBody3D
 ## The maximum rumble magnitude that will be used at max distance.
 @export_range(0.0, 1.0) var max_rumble_magnitude : float = 0.2
 
-## The rumble event for when the hand gets too far
+## The rumble event used to provide rumble feedback when the hand gets too far.
 @export var rumble_event : XRToolsRumbleEvent
 
+## Rumble trackers that are used to process and emit the feedback (right or left hand).
 @export var rumble_trackers : Array[StringName]
 
-## --------------------------- XR Tools Hand stuff
+
+@export_group("Hand visuals")
 
 ## Blend tree to use
 @export var hand_blend_tree : AnimationNodeBlendTree: set = set_hand_blend_tree
 
-## Override the hand material
-@export var hand_material_override : Material: set = set_hand_material_override
-
 ## Default hand pose
 @export var default_pose : XRToolsHandPoseSettings: set = set_default_pose
 
-## Name of the Grip action in the OpenXR Action Map.
-@export var grip_action : String = "grip"
+## Override the hand material
+@export var hand_material_override : Material: set = set_hand_material_override
 
-## Name of the Trigger action in the OpenXR Action Map.
-@export var trigger_action : String = "trigger"
+
+@export_group("Function pickup")
+
+## Grip threshold (from configuration)
+@onready var _grip_threshold : float = XRTools.get_grip_threshold()
+
+## Grab collision mask. Defines the collision layers used in detecting pickable objects.
+@export_flags_3d_physics \
+		var grab_collision_mask : int = DEFAULT_GRAB_MASK: set = _set_grab_collision_mask
+
+## Grab distance. Defines the radius of the collision sphere which detects pickable objects.
+@export var grab_distance : float = 0.3: set = _set_grab_distance
+
+
+var pid_controller_linear: PIDController
+var pid_controller_angular: PIDController
+
+var previous_controller_position: Vector3
+var controller_velocity: Vector3
 
 var distance_to_controller: float = 0.0
 
@@ -80,70 +139,17 @@ var _target_overrides := []
 # Current target (controller or override)
 var _target : Node3D
 
-var _func_pickup : PhysicalFunctionPickup
-
-var _initial_mass : float
-
-var _initial_gravity_scale : float
-
 var _rumbling : bool = false
 
-## Pose-override class
-class PoseOverride:
-	## Who requested the override
-	var who : Node
 
-	## Pose priority
-	var priority : int
+var grip_pressed : bool = false
+var closest_object : Node3D = null
+var picked_up_object : PhysicalPickable = null
 
-	## Pose settings
-	var settings : XRToolsHandPoseSettings
+var _grab_area : Area3D
+var _grab_collision : CollisionShape3D
 
-	## Pose-override constructor
-	func _init(w : Node, p : int, s : XRToolsHandPoseSettings) -> void:
-		who = w
-		priority = p
-		settings = s
-
-
-## Target-override class
-class TargetOverride:
-	## Target of the override
-	var target : Node3D
-
-	## Target priority
-	var priority : int
-
-	## Target-override constructor
-	func _init(t : Node3D, p : int) -> void:
-		target = t
-		priority = p
-
-## ------------------------------- XR Tools Physics Hand stuff
-
-# Default hand bone layer of 18:player-hand
-#const DEFAULT_LAYER := 0b0000_0000_0000_0010_0000_0000_0000_0000
-
-
-## Collision layer applied to all [XRToolsHandPhysicsBone] children.
-##
-## This is used to set physics collision layers for every bone in a hand.
-## Additionally [XRToolsHandPhysicsBone] nodes can specify additional
-## bone-specific collision layers - for example to give the fore-finger bone
-## additional collision capabilities.
-#@export_flags_3d_physics var collision_layer : int = DEFAULT_LAYER
-
-## Bone collision margin applied to all [XRToolsHandPhysicsBone] children.
-##
-## This is used for fine-tuning the collision margins for all
-## [XRToolsHandPhysicsBone] children in the hand.
-@export var margin : float = 0.004
-
-## Group applied to all [XRToolsHandPhysicsBone] children.
-##
-## This is used to set groups for every bone in the hand. Additionally
-## [XRToolsHandPhysicsBone] nodes can specify additional bone-specific groups.
-@export var bone_group : String = ""
+var _objects_in_grab_area := Array()
 
 
 # Add support for is_xr_class on XRTools classes
@@ -160,94 +166,281 @@ func _ready() -> void:
 		top_level = true
 		process_physics_priority = -70
 	
-	_initial_mass = mass
-	_initial_gravity_scale = gravity_scale
+	# Setup the pid controllers used to simulate smooth physical movement
+	pid_controller_linear = PIDController.new({
+		Kp = Kp_linear,
+		Ki = Ki_linear,
+		Kd = Kd_linear,
+		proportional_limit = proportional_limit_linear,
+		integral_limit = integral_limit_linear,
+		derivative_limit = derivative_limit_linear
+	})
+	pid_controller_angular = PIDController.new({
+		Kp = Kp_angular,
+		Ki = Ki_angular,
+		Kd = Kd_angular,
+		proportional_limit = proportional_limit_angular,
+		integral_limit = integral_limit_angular,
+		derivative_limit = derivative_limit_angular
+	})
+	
+	# Minimal inertia is required for controllable hand rotation
+	set_inertia(Vector3(0.01, 0.01, 0.01))
 	
 	# Find our controller
 	_controller = XRTools.find_xr_ancestor(self, "*", "XRController3D")
 	
-	# Find our pickup
-	_func_pickup = _find_func_pickup(self)
 
 	# Find the relevant hand nodes
 	_hand_mesh = _find_child(self, "MeshInstance3D")
 	_animation_player = _find_child(self, "AnimationPlayer")
 	_animation_tree = _find_child(self, "AnimationTree")
+	
+	# Create the grab collision shape for the grab area
+	_grab_collision = CollisionShape3D.new()
+	_grab_collision.set_name("GrabCollisionShape")
+	_grab_collision.shape = SphereShape3D.new()
+	_grab_collision.shape.radius = grab_distance
 
+	# Create the grab area
+	_grab_area = Area3D.new()
+	_grab_area.set_name("GrabArea")
+	_grab_area.collision_layer = 0
+	_grab_area.collision_mask = grab_collision_mask
+	_grab_area.add_child(_grab_collision)
+	_grab_area.area_entered.connect(_on_grab_entered)
+	_grab_area.body_entered.connect(_on_grab_entered)
+	_grab_area.area_exited.connect(_on_grab_exited)
+	_grab_area.body_exited.connect(_on_grab_exited)
+	add_child(_grab_area)
+	
 	# Apply all updates
+	_update_colliders()
 	_update_hand_blend_tree()
 	_update_hand_material_override()
 	_update_pose()
 	_update_target()
-	
-	if not Engine.is_editor_hint():
-		PauseManager.pause_state_changed.connect(_on_pause_state_changed)
-		# Teleport to controller
-		_teleport_to_target()
+	_reset_hand()
 
 
-func _teleport_to_target() -> void:
+func _reset_hand() -> void:
+	drop_object()
 	freeze = true
-	global_transform = _target.global_transform
+	global_transform = _controller.global_transform
 	freeze = false
+	hand_reset.emit(self)
 
 
 ## This method  reads the grip and trigger action values to animate the hand.
 ## And then it applies the necessary forces to move the hand towards its target.
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	# Do not run physics if in the editor
 	if Engine.is_editor_hint():
 		return
 	
 	# Animate the hand mesh with the controller inputs
 	if _controller:
-		var grip : float = _controller.get_float(grip_action)
-		var trigger : float = _controller.get_float(trigger_action)
-
-		# Allow overriding of grip and trigger
-		if _force_grip >= 0.0: grip = _force_grip
-		if _force_trigger >= 0.0: trigger = _force_trigger
-
-		$AnimationTree.set("parameters/Grip/blend_amount", grip)
-		$AnimationTree.set("parameters/Trigger/blend_amount", trigger)
+		_animate_hand_with_controller_inputs()
 	
-	# TODO: maybe introduce a local variable or just do it differently somehow?
-	if PauseManager.paused:
-		global_transform = _controller.global_transform
-		return
+	_update_closest_object()
+	
+	# Handle our grip
+	var grip_value := _controller.get_float(grip_action)
+	if (grip_pressed and grip_value < (_grip_threshold - 0.1)):
+		grip_pressed = false
+		_on_grip_release()
+	elif (!grip_pressed and grip_value > (_grip_threshold + 0.1)):
+		grip_pressed = true
+		_on_grip_pressed()
 	
 	distance_to_controller = _controller.global_position.distance_to(global_position)
 	
+	_process_rumbling()
+	
+	# Check distance to hand
+	if distance_to_controller > max_distance_to_controller:
+		# Physics hand can be bugged or stuck so it needs to reset itself automatically
+		# when it is too far away from the controller
+		_reset_hand()
+	
+	_move(delta)
+	
+	# Calculate controller hand velocity
+	# NOTE: XR Kit implementation calculated it relative to player but I doubt I need that
+	# because I set the physical hands as a top level child so player's movemnts aren't propagated to them
+	#controller_skeleton_velocity = (controller_skeleton.global_transform.origin - %Origin.global_transform.origin - previous_controller_skeleton_position) / delta
+	#previous_controller_skeleton_position = controller_skeleton.global_transform.origin - %Origin.global_transform.origin
+	controller_velocity = (_controller.global_position - previous_controller_position) / delta
+	previous_controller_position = _controller.global_position
+	
+	# Force the transform update at this moment
+	force_update_transform()
+
+
+func _process_rumbling() -> void:
 	if distance_to_controller > distance_to_rumble:
 		if not _rumbling:
 			_rumbling = true
 			XRToolsRumbleManager.add(self, rumble_event, rumble_trackers)
-		
 		var rumble_magnitude: float = max_rumble_magnitude * (distance_to_controller - distance_to_rumble)  / (max_distance_to_controller - distance_to_rumble) 
 		rumble_event.magnitude = rumble_magnitude
 	elif distance_to_controller < distance_to_rumble and _rumbling:
 		_rumbling = false
 		XRToolsRumbleManager.clear(self, rumble_trackers)
+
+
+func _animate_hand_with_controller_inputs() -> void:
+	var grip : float = _controller.get_float(grip_action)
+	var trigger : float = _controller.get_float(trigger_action)
+
+	# Allow overriding of grip and trigger
+	if _force_grip >= 0.0: grip = _force_grip
+	if _force_trigger >= 0.0: trigger = _force_trigger
+
+	$AnimationTree.set("parameters/Grip/blend_amount", grip)
+	$AnimationTree.set("parameters/Trigger/blend_amount", trigger)
+
+
+func _move(delta: float) -> void:
+	# Target is controller wrist bone
+	var target := _controller.global_transform
 	
-	# Check distance to hand
-	if distance_to_controller > max_distance_to_controller:
-		# Hand's too far away, maybe gotten stuck or holding an object that's too heavy
-		_func_pickup.drop_object()
-		_teleport_to_target()
-	else:
-		# Move to target
-		var movement_delta: Vector3 = _target.global_position - global_position
-		apply_central_force(movement_delta * hand_movement_force)
-		
-		# Rotate to target
-		var quat_target: Quaternion = _target.global_basis.get_rotation_quaternion()
-		var quat_hand: Quaternion = global_basis.get_rotation_quaternion()
-		var quat_delta: Quaternion = quat_target * (quat_hand.inverse())
-		var rotation_delta: Vector3 = Vector3(quat_delta.x, quat_delta.y, quat_delta.z) * quat_delta.w
-		apply_torque(rotation_delta * hand_rotation_torque)
+	var linear_acceleration: Vector3 = pid_controller_linear.calculate(target.origin, global_transform.origin, delta)
+	var angular_acceleration: Vector3 = pid_controller_angular.calculate((target.basis * global_transform.basis.inverse()).get_euler(), Vector3.ZERO, delta)
 	
-	# Force the transform update at this moment
-	force_update_transform()
+	# TODO: use quaternions for rotation calculation 
+	#var quat_target: Quaternion = _target.global_basis.get_rotation_quaternion()
+	#var quat_hand: Quaternion = global_basis.get_rotation_quaternion()
+	#var quat_delta: Quaternion = quat_target * (quat_hand.inverse())
+	#var rotation_delta: Vector3 = Vector3(quat_delta.x, quat_delta.y, quat_delta.z) * quat_delta.w
+	
+	# Desired acceleration needs to be multiplied by mass to get the desired torque
+	apply_central_force(linear_acceleration * mass)
+	
+	# TODO: this should also probably account for inertia, but a certain value is 
+	# always set in stone at the moment, so doesn't really matter
+	apply_torque(angular_acceleration)
+
+
+# TODO: fix the center of mass issue with heavy objects:
+# when the center of mass of a really heavy object is set to the grab point, 
+# they sometimes fall over
+# TODO: change the types to represent actual used types not just Node3D
+func _pick_up_object(target: Node3D) -> void:
+	# Skip if target null or freed
+	if not is_instance_valid(target):
+		return
+	
+	# Skip if target is not pickable
+	var pickable_target : PhysicalPickable = target
+	if not is_instance_valid(pickable_target):
+		return
+	
+	# Check if already holding an object
+	if is_instance_valid(picked_up_object):
+		# Skip if holding the target object
+		if picked_up_object == pickable_target:
+			return
+		# Holding something else? drop it
+		drop_object()
+	
+	
+	
+	# TODO: implement
+	## Handle snap-zone
+	#var snap := target as XRToolsSnapZone
+	#if snap:
+		#target = snap.picked_up_object
+		#snap.drop_object()
+	
+	# TODO: implement
+	# Handle pickable dispenser
+	#var dispenser := target as PickableDispenser
+	#if dispenser:
+		#target = dispenser.pick_up()
+	
+	# Pick up our target. Note, target may do instant drop_and_free
+	picked_up_object = pickable_target
+	var grab : PhysicalGrab = pickable_target.pick_up(self)
+	
+	# Check if succeded in picking up, reset if not
+	if not is_instance_valid(grab):
+		picked_up_object = null
+		return
+	
+	var grab_point := grab.grab_point
+	
+	# TODO: move smoothly
+	# Teleport to grab point
+	freeze = true
+	global_transform = grab_point.global_transform
+	freeze = false
+	
+	grab.set_arrived()
+	
+	# Set joint between hand and grabbed object
+	grab_joint.set_node_a(get_path())
+	grab_joint.set_node_b(picked_up_object.get_path())
+	
+	# If grabbing a static object, we let physical hand rotate freely on the surface of the object
+	#if picked_up_object.is_class("StaticBody3D"):
+	#	grab_joint.set_flag_y(grab_joint.FLAG_ENABLE_ANGULAR_LIMIT, false) # FLAG_ENABLE_ANGULAR_LIMIT = 1
+	
+	grab_joint.set_flag_y(grab_joint.FLAG_ENABLE_ANGULAR_LIMIT, true) # FLAG_ENABLE_ANGULAR_LIMIT = 1
+	
+	# If object picked up then emit signal
+	if is_instance_valid(picked_up_object):
+		picked_up_object.request_highlight(self, false)
+		has_picked_up.emit(picked_up_object)
+
+
+# TODO: Compare objects in grab_area for controller and physics hand and only if they match, grab this object - ???
+# TODO: highlight color based on object mass
+## Drop the currently held object
+func drop_object() -> void:
+	if not is_instance_valid(picked_up_object):
+		return
+	
+	# Let go of the current held object
+	picked_up_object.let_go(self)
+	
+	# Reset the grab joint
+	grab_joint.set_node_a("")
+	grab_joint.set_node_b("")
+	
+	picked_up_object = null
+	has_dropped.emit()
+
+
+## Get the [XRController3D] driving this pickup.
+func get_controller() -> XRController3D:
+	return _controller
+
+
+func _on_grip_pressed() -> void:
+	#if not is_instance_valid(held_object):
+		#grab()
+	if is_instance_valid(picked_up_object) and !picked_up_object.press_to_hold:
+		drop_object()
+	elif is_instance_valid(closest_object):
+		_pick_up_object(closest_object)
+
+
+func _on_grip_release() -> void:
+	if is_instance_valid(picked_up_object) and picked_up_object.press_to_hold:
+		drop_object()
+
+
+func _on_button_pressed(p_button: String) -> void:
+	if p_button == trigger_click_action:
+		if is_instance_valid(picked_up_object) and picked_up_object.has_method("action"):
+			picked_up_object.action()
+
+
+func _on_button_released(p_button: String) -> void:
+	if p_button == trigger_click_action:
+		if is_instance_valid(picked_up_object) and picked_up_object.has_method("action_release"):
+			picked_up_object.action_release()
 
 
 # This method verifies the hand has a valid configuration.
@@ -543,8 +736,9 @@ func _update_target() -> void:
 
 func _on_pause_state_changed(paused: bool) -> void:
 	if paused:
-		_func_pickup.drop_object()
-		_teleport_to_target()
+		#_func_pickup.drop_object()
+		#_teleport_to_target()
+		pass
 
 
 static func _find_child(node : Node, type : String) -> Node:
@@ -570,3 +764,171 @@ static func _find_func_pickup(node: Node) -> PhysicalFunctionPickup:
 
 	# No child found matching type
 	return null
+
+
+## Update the closest object field with the best choice of grab
+func _update_closest_object() -> void:
+	# Find the closest object we can pickup
+	var new_closest_obj: Node3D = null
+	if not picked_up_object:
+		# Find the closest in grab area
+		new_closest_obj = _get_closest_grab()
+	
+	# Skip if no change
+	if closest_object == new_closest_obj:
+		return
+	
+	# remove highlight on old object
+	if is_instance_valid(closest_object):
+		closest_object.request_highlight(self, false)
+	
+	# add highlight to new object
+	closest_object = new_closest_obj
+	if is_instance_valid(closest_object):
+		closest_object.request_highlight(self, true)
+
+
+## Find the pickable object closest to our hand's grab location
+func _get_closest_grab() -> Node3D:
+	var new_closest_obj: Node3D = null
+	var new_closest_distance := MAX_GRAB_DISTANCE2
+	for o : PhysicalPickable in _objects_in_grab_area:
+		# skip objects that can not be picked up
+		if not o.can_pick_up(self):
+			continue
+		
+		# Save if this object is closer than the current best
+		var distance_squared := global_transform.origin.distance_squared_to(
+				o.global_transform.origin)
+		if distance_squared < new_closest_distance:
+			new_closest_obj = o
+			new_closest_distance = distance_squared
+	
+	# Return best object
+	return new_closest_obj
+
+
+## Called when the grab collision mask has been modified
+func _set_grab_collision_mask(new_value: int) -> void:
+	grab_collision_mask = new_value
+	if is_inside_tree() and _grab_collision:
+		_grab_collision.collision_mask = new_value
+
+
+## Called when the grab distance has been modified
+func _set_grab_distance(new_value: float) -> void:
+	grab_distance = new_value
+	if is_inside_tree():
+		_update_colliders()
+
+
+## Update the colliders geometry
+func _update_colliders() -> void:
+	# Update the grab sphere
+	if _grab_collision:
+		_grab_collision.shape.radius = grab_distance
+
+
+## Called when an object enters the grab sphere
+func _on_grab_entered(target: Node3D) -> void:
+	# Reject objects which don't support picking up
+	if not target.has_method('pick_up'):
+		return
+	
+	# TODO: implement for non pickables so any [RigidBody3D] is supported?
+	# TODO: implement for dispensers
+	# Reject objects which aren't physical pickables
+	if not target is PhysicalPickable:
+		return
+	
+	# Ignore objects already known
+	if _objects_in_grab_area.find(target) >= 0:
+		return
+
+	# Add to the list of objects in grab area
+	_objects_in_grab_area.push_back(target)
+
+
+## Called when an object exits the grab sphere
+func _on_grab_exited(target: Node3D) -> void:
+	_objects_in_grab_area.erase(target)
+
+
+## PID controller class used to calculate hand movement forces
+class PIDController:
+	var Kp: float
+	var Ki: float
+	var Kd: float
+	var error: Vector3
+	var proportional: Vector3
+	var proportional_limit: float
+	var previous_error: Vector3
+	var integral: Vector3
+	var integral_limit: float
+	var derivative: Vector3
+	var derivative_limit: float
+	var output: Vector3
+
+	func _init(args: Dictionary) -> void:
+		Kp = args.Kp
+		Ki = args.Ki
+		Kd = args.Kd
+		proportional_limit = args.proportional_limit
+		integral_limit = args.integral_limit
+		derivative_limit = args.derivative_limit
+		previous_error = Vector3(0, 0, 0)
+		integral = Vector3(0, 0, 0)
+
+
+	func update(args: Dictionary) -> void:
+		Kp = args.Kp
+		Ki = args.Ki
+		Kd = args.Kd
+		integral_limit = args.integral_limit
+		derivative_limit = args.derivative_limit
+
+
+	func calculate(target: Vector3, current: Vector3, delta: float) -> Vector3:
+		error = target - current
+		proportional = error
+		proportional = proportional.limit_length(proportional_limit)
+		integral += error * delta
+		integral = integral.limit_length(integral_limit)
+		derivative = (error - previous_error) / delta
+		derivative = derivative.limit_length(derivative_limit)
+		previous_error = error
+		output = Kp * proportional + Ki * integral + Kd * derivative
+
+		return output
+
+
+## Pose-override class
+class PoseOverride:
+	## Who requested the override
+	var who : Node
+
+	## Pose priority
+	var priority : int
+
+	## Pose settings
+	var settings : XRToolsHandPoseSettings
+
+	## Pose-override constructor
+	func _init(w : Node, p : int, s : XRToolsHandPoseSettings) -> void:
+		who = w
+		priority = p
+		settings = s
+
+
+## Target-override class
+class TargetOverride:
+	## Target of the override
+	var target : Node3D
+
+	## Target priority
+	var priority : int
+
+	## Target-override constructor
+	func _init(t : Node3D, p : int) -> void:
+		target = t
+		priority = p
