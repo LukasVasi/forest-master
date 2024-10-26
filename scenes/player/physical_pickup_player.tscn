@@ -19,7 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="18_ohvkj"]
 [ext_resource type="Script" path="res://scripts/player/player_body.gd" id="19_ikctw"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_b0sgk"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_huxi3"]
 render_priority = 0
 shader = ExtResource("4_em0wq")
 shader_parameter/base_color = Color(3.94672e-06, 0.737807, 0.523496, 1)
@@ -28,7 +28,7 @@ shader_parameter/min_alpha = 0.1
 shader_parameter/max_alpha = 0.8
 shader_parameter/fresnel_amount = 3.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_oey56"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1y4by"]
 render_priority = 0
 shader = ExtResource("4_em0wq")
 shader_parameter/base_color = Color(3.94672e-06, 0.737807, 0.523496, 1)
@@ -56,7 +56,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, -0.5)
 tracker = &"right_hand"
 
 [node name="RightGhostHand" parent="RightHandController" instance=ExtResource("3_4m8a8")]
-hand_material_override = SubResource("ShaderMaterial_b0sgk")
+hand_material_override = SubResource("ShaderMaterial_huxi3")
 physical_hand_path = NodePath("../RightPhysicalHand")
 min_visibility_distance = 0.2
 
@@ -83,7 +83,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.5, -0.5)
 tracker = &"left_hand"
 
 [node name="LeftGhostHand" parent="LeftHandController" instance=ExtResource("10_oy5hj")]
-hand_material_override = SubResource("ShaderMaterial_oey56")
+hand_material_override = SubResource("ShaderMaterial_1y4by")
 physical_hand_path = NodePath("../LeftPhysicalHand")
 min_visibility_distance = 0.2
 

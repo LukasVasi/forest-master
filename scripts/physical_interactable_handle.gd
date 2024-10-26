@@ -31,16 +31,18 @@ extends PhysicalPickable
 func _ready() -> void:
 	# In Godot 4 we must now manually call our super class ready function
 	super()
-
-	# Ensure we start at our origin
+	
+	# Ensure we start frozen, not top level and at our origin
+	freeze = true
+	top_level = false
 	transform = Transform3D.IDENTITY
 
 	# Turn off processing - it will be turned on only when held
-	set_process(false)
+	set_physics_process(false)
 
 
 # Called on every frame when the handle is held to check for snapping
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	# Skip if not picked up
 	if not is_picked_up():
 		return
@@ -53,24 +55,34 @@ func _process(_delta: float) -> void:
 
 
 # Called when the handle is picked up
-func pick_up(by: Node3D) -> void:
-	# Call the base-class to perform the pickup
-	super(by)
-
+func pick_up(by: Node3D) -> PhysicalGrab:
 	# Enable the process function while held
-	set_process(true)
+	set_physics_process(true)
+	
+	# Call the base-class to perform the pickup
+	var grab := super(by)
+	
+	if is_instance_valid(grab):
+		# Set as top level and unfreeze if pickup is successful
+		top_level = true
+		freeze = false
+	
+	return grab
+
 
 
 # Called when the handle is dropped
-func let_go(by: Node3D, _p_linear_velocity: Vector3, _p_angular_velocity: Vector3) -> void:
-	# Call the base-class to perform the drop, but with no velocity
-	super(by, Vector3.ZERO, Vector3.ZERO)
+func let_go(by: Node3D) -> void:
+	# Call the base-class to perform the drop
+	super(by)
+	
+	# Reset the handle to the original state
+	freeze = true
+	top_level = false
+	transform = Transform3D.IDENTITY
 
 	# Disable the process function as no-longer held
-	set_process(false)
-
-	# Snap the handle back to the origin
-	transform = Transform3D.IDENTITY
+	set_physics_process(false)
 
 
 # Check handle configurationv

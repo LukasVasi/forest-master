@@ -20,12 +20,16 @@ signal close_highlight_updated(pickable, enable)
 ## Enumeration of snap mode
 enum SnapMode {
 	DROPPED,	## Snap only when the object is dropped
-	RANGE,		## Snap whenever an object is in range
+	# TODO: this is flaky because the snap zone can release a snapped object
+	# and pick it up again before the hand picks it up sometimes leading to a mess
+	#RANGE,		## Snap whenever an object is in range
 }
 
 
 ## Enable or disable snap-zone
 @export var enabled : bool = true: set = _set_enabled
+
+@export var snap_object : PhysicsBody3D
 
 @export var grab_joint: Generic6DOFJoint3D # Joint is holding objects
 
@@ -63,6 +67,10 @@ var picked_up_ranged : bool = true
 # Private fields
 var _objects_in_grab_area = Array()
 
+# Varibles for visual testing TODO: remove
+@onready var _visual : MeshInstance3D = $MeshInstance3D
+
+@onready var _material : StandardMaterial3D = _visual.get_active_material(0)
 
 # Add support for is_xr_class on XRTools classes
 func is_xr_class(name : String) -> bool:
@@ -72,10 +80,10 @@ func is_xr_class(name : String) -> bool:
 func _ready():
 	# Set collision shape radius
 	$CollisionShape3D.shape.radius = grab_distance
-
+	
 	# Perform updates
 	_update_snap_mode()
-
+	
 	# Perform the initial object check when next idle
 	if not Engine.is_editor_hint():
 		_initial_object_check.call_deferred()
@@ -84,26 +92,36 @@ func _ready():
 # Called on each frame to update the pickup
 func _process(_delta):
 	# Skip if in editor or not enabled
-	if Engine.is_editor_hint() or not enabled:
+	if Engine.is_editor_hint(): # TODO: or not enabled:
 		return
 
-	# Skip if we aren't doing range-checking
-	if snap_mode != SnapMode.RANGE:
-		return
+	# TODO: remove
+	if not enabled:
+		_material.albedo_color = Color.BLACK
+	elif _objects_in_grab_area.is_empty() and not is_instance_valid(picked_up_object):
+		_material.albedo_color = Color.RED
+	elif is_instance_valid(picked_up_object):
+		_material.albedo_color = Color.PURPLE
+	else:
+		_material.albedo_color = Color.GREEN
 
-	# Skip if already holding a valid object
-	if is_instance_valid(picked_up_object):
-		return
-
-	# Check for any object in range that can be grabbed
-	for o in _objects_in_grab_area:
-		# skip objects that can not be picked up
-		if not o.can_pick_up(self):
-			continue
-
-		# pick up our target
-		pick_up_object(o)
-		return
+	## Skip if we aren't doing range-checking
+	#if snap_mode != SnapMode.RANGE:
+		#return
+#
+	## Skip if already holding a valid object
+	#if is_instance_valid(picked_up_object):
+		#return
+#
+	## Check for any object in range that can be grabbed
+	#for o in _objects_in_grab_area:
+		## skip objects that can not be picked up
+		#if not o.can_pick_up(self):
+			#continue
+#
+		## pick up our target
+		#pick_up_object(o)
+		#return
 
 
 # Pickable Method: snap-zone can be grabbed if holding object
@@ -169,24 +187,20 @@ func _on_snap_zone_body_entered(target: Node3D) -> void:
 		return
 
 	# Reject objects which don't support picking up
-	if not target.has_method('pick_up'):
+	if target is not PhysicalPickable:
 		return
-
+	
 	# Reject objects not in the required snap group
 	if not snap_require.is_empty() and not target.is_in_group(snap_require):
 		return
-
+	
 	# Reject objects in the excluded snap group
 	if not snap_exclude.is_empty() and target.is_in_group(snap_exclude):
 		return
-
-	# Reject climbable objects
-	if target is XRToolsClimbable:
-		return
-
+	
 	# Add to the list of objects in grab area
 	_objects_in_grab_area.push_back(target)
-
+	
 	# If this snap zone is configured to snap objects that are dropped, then
 	# start listening for the objects dropped signal
 	if snap_mode == SnapMode.DROPPED and target.has_signal("dropped"):
@@ -226,7 +240,7 @@ func pick_up_object(target: Node3D) -> void:
 		# holding something else? drop it
 		drop_object()
 
-	# skip if target null or freed
+	# Skip if target null or freed
 	if not is_instance_valid(target):
 		return
 	
@@ -242,20 +256,21 @@ func pick_up_object(target: Node3D) -> void:
 		return
 	
 	# Pick up our target
-	picked_up_object = target
+	picked_up_object = pickable_target
 	
 	# Snap target to snap zone
 	picked_up_object.freeze = true
-	picked_up_object.global_transform = grab.transform
+	picked_up_object.global_transform = global_transform
 	picked_up_object.freeze = false
 	
-	grab.set_arrived()
 	
 	# Set joint between hand and grabbed object
-	grab_joint.set_node_a(get_path())
+	grab_joint.set_node_a(snap_object.get_path())
 	grab_joint.set_node_b(picked_up_object.get_path())
 	
 	grab_joint.set_flag_y(grab_joint.FLAG_ENABLE_ANGULAR_LIMIT, true) # FLAG_ENABLE_ANGULAR_LIMIT = 1
+	
+	grab.set_arrived()
 	
 	var player = get_node("AudioStreamPlayer3D")
 	if is_instance_valid(player):
@@ -299,19 +314,20 @@ func _update_snap_mode() -> void:
 	match snap_mode:
 		SnapMode.DROPPED:
 			# Disable _process as we aren't using RANGE pickups
-			set_process(false)
+			# TODO: uncomment this
+			#set_process(false)
 
 			# Start monitoring all objects in range for drop
 			for o in _objects_in_grab_area:
 				o.connect("dropped", _on_target_dropped, CONNECT_DEFERRED)
 
-		SnapMode.RANGE:
-			# Enable _process to scan for RANGE pickups
-			set_process(true)
-
-			# Clear any dropped signal hooks
-			for o in _objects_in_grab_area:
-				o.disconnect("dropped", _on_target_dropped)
+		#SnapMode.RANGE:
+			## Enable _process to scan for RANGE pickups
+			#set_process(true)
+#
+			## Clear any dropped signal hooks
+			#for o in _objects_in_grab_area:
+				#o.disconnect("dropped", _on_target_dropped)
 
 
 # Called when a target in our grab area is dropped

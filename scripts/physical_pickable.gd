@@ -34,7 +34,7 @@ signal released(pickable: PhysicalPickable, by: Node3D)
 ## If true, the pickable supports being picked up
 @export var enabled : bool = true
 
-## If true, the grip control must be held to keep the object picked up
+## If true, the grip control must be held to keep the object picked up. Used in physical hand.
 @export var press_to_hold : bool = true
 
 # Remember some state so we can return to it when the user drops the object
@@ -99,6 +99,7 @@ func pick_up(by: Node3D) -> PhysicalGrab:
 		var new_center_of_mass := new_grab.grab_point.global_position - global_position
 		center_of_mass_mode = RigidBody3D.CENTER_OF_MASS_MODE_CUSTOM
 		center_of_mass = new_center_of_mass
+		inertia = Vector3(0.01, 0.01, 0.01) # set inertia to a small value
 	else:
 		# Ignore if either pickup isn't by a hand
 		# This prevents a hand from secondary grabbing a snapped object
@@ -146,6 +147,7 @@ func let_go(by: Node3D) -> void:
 		angular_damp = 0
 		center_of_mass_mode = RigidBody3D.CENTER_OF_MASS_MODE_AUTO
 		center_of_mass = Vector3.ZERO
+		inertia = Vector3.ZERO # reset inertia
 		
 		# Let interested parties know
 		dropped.emit(self)

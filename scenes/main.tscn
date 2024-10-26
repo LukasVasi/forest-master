@@ -413,7 +413,7 @@ transform = Transform3D(-0.113004, 0, 0.0403744, 0, 0.12, 0, -0.0403744, 0, -0.1
 curve = SubResource("Curve3D_i6pi6")
 
 [node name="MockFish1" parent="Fishing/MockFishes/MockFishPath1" instance=ExtResource("14_h3ydf")]
-transform = Transform3D(-0.961927, -0.00266091, 0.273209, 0, 0.999878, 0.00973934, -0.273221, 0.00936824, -0.961885, 17.8061, -1.12253, 13.4726)
+transform = Transform3D(-0.961927, -0.0026609, 0.273209, 0, 0.999877, 0.00973934, -0.273221, 0.00936823, -0.961885, 17.8061, -1.12253, 13.4726)
 progress = 39.4198
 rotation_mode = 2
 use_model_front = true
@@ -1815,7 +1815,7 @@ transform = Transform3D(-0.744137, 0, -0.668027, 0, 1, 0, 0.668027, 0, -0.744137
 mass = 0.8
 
 [node name="Lid" parent="." instance=ExtResource("46_vwkmn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5283, 1.21558, -4.94514)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.83647, 1.55171, -5.20126)
 
 [node name="LightmapGI" type="LightmapGI" parent="."]
 bounces = 4

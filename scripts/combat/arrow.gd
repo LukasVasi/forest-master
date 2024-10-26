@@ -22,6 +22,11 @@ extends PhysicalPickable
 
 
 func _on_arrow_body_entered(body: Node) -> void:
+	# TODO: enable this only after firing
 	if body.has_method("on_hit_by_arrow"):
 		body.on_hit_by_arrow()
 		queue_free()
+	
+	# TODO:
+	## Get stuck when hitting an object
+	#freeze = true

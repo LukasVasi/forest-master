@@ -1,7 +1,9 @@
-[gd_scene load_steps=41 format=3 uid="uid://csddg4xbjp0b6"]
+[gd_scene load_steps=51 format=3 uid="uid://csddg4xbjp0b6"]
 
 [ext_resource type="Script" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_0dk5u"]
+[ext_resource type="Script" path="res://scripts/utils/physical_snap_zone.gd" id="2_rbjre"]
 [ext_resource type="PackedScene" uid="uid://0a3edbceqgym" path="res://scenes/utils/physical_grab_point_right.tscn" id="3_aiss2"]
+[ext_resource type="AudioStream" uid="uid://b8s52coajdbj5" path="res://Audio/gong-92707.mp3" id="3_tuyyp"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="4_h04ms"]
 [ext_resource type="PackedScene" uid="uid://ces1enrushk7a" path="res://scenes/utils/pause_menu_container.tscn" id="4_x2xv0"]
 [ext_resource type="PackedScene" uid="uid://bsvi1o45dttw5" path="res://scenes/utils/physical_grab_point_left.tscn" id="4_xehqh"]
@@ -16,6 +18,9 @@
 [ext_resource type="Script" path="res://scripts/physical_pickable.gd" id="10_qa63k"]
 [ext_resource type="PackedScene" uid="uid://dq64swo20yxkj" path="res://scenes/player/physical_pickup_player.tscn" id="11_isi6p"]
 [ext_resource type="PackedScene" uid="uid://bcoan783pbvdq" path="res://scenes/fishing/fishing_rod.tscn" id="12_fm2xj"]
+[ext_resource type="PackedScene" uid="uid://c6wf68pe71k2a" path="res://scenes/cooking/skillet.tscn" id="17_gngnn"]
+[ext_resource type="PackedScene" uid="uid://bkj6ty5kdth1w" path="res://scenes/combat/quiver.tscn" id="19_dwxfj"]
+[ext_resource type="PackedScene" uid="uid://baqn44ngm0jv1" path="res://scenes/combat/bow.tscn" id="21_0glm4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_s1oei"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -29,6 +34,23 @@ background_mode = 2
 sky = SubResource("Sky_ivimk")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_7pbc6"]
+size = Vector3(1.4, 0.2, 0.9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g3q6s"]
+size = Vector3(1.4, 0.2, 0.9)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_mufq3"]
+resource_local_to_scene = true
+radius = 0.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ctwan"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_txxn2"]
+material = SubResource("StandardMaterial3D_ctwan")
+size = Vector3(0.05, 0.05, 0.05)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kfo7u"]
 margin = 0.02
@@ -130,6 +152,52 @@ size = Vector3(3.91406, 0.224609, 0.508301)
 transform = Transform3D(0.666272, 0.158541, 0.72866, 0, 0.977138, -0.212604, -0.745709, 0.141652, 0.65104, -4.3622, 0.887695, -4.19243)
 use_collision = true
 size = Vector3(1.42474, 0.224609, 0.926514)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0.21303, 0.977045, 0, 0.977045, -0.21303, -1, -9.31185e-09, -4.2708e-08, -4.98009, 0.887695, -2.12663)
+use_collision = true
+size = Vector3(1.42474, 0.224609, 0.926514)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(0.666532, -0.158809, -0.728364, 0, 0.977046, -0.21303, 0.745476, 0.141992, 0.651233, 4.362, 0.888, -4.192)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_7pbc6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_g3q6s")
+
+[node name="SnapZone" type="Area3D" parent="StaticBody3D" node_paths=PackedStringArray("snap_object", "grab_joint")]
+transform = Transform3D(1, -7.45058e-09, 0, -7.45058e-09, 1, 0, 0, 7.45058e-09, 0.999999, 0, 0.127002, -0.0276909)
+collision_layer = 4
+collision_mask = 65540
+script = ExtResource("2_rbjre")
+snap_object = NodePath("..")
+grab_joint = NodePath("Generic6DOFJoint3D")
+stash_sound = ExtResource("3_tuyyp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/SnapZone"]
+shape = SubResource("SphereShape3D_mufq3")
+
+[node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D" parent="StaticBody3D/SnapZone"]
+transform = Transform3D(1, -7.45058e-09, -2.98023e-08, -7.45058e-09, 1, -2.23517e-08, 2.98023e-08, 1.49012e-08, 1, 0, 0, 0)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="StaticBody3D/SnapZone"]
+unit_size = 3.0
+max_db = 1.0
+max_distance = 100.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/SnapZone"]
+mesh = SubResource("BoxMesh_txxn2")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, -0.21303, -0.977046, 0, 0.977046, -0.21303, 1, -9.31186e-09, -4.2708e-08, 4.98, 0.888, -2.127)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
+mesh = SubResource("BoxMesh_7pbc6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+shape = SubResource("BoxShape3D_g3q6s")
 
 [node name="PhysicalPickableCube" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.608724, 1.22904, -4.73465)
@@ -286,3 +354,14 @@ mesh = SubResource("BoxMesh_t3s1h")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 shape = SubResource("BoxShape3D_qhvkc")
+
+[node name="Skillet" parent="." instance=ExtResource("17_gngnn")]
+transform = Transform3D(-4.2222e-08, 0.258819, -0.965926, 1.13133e-08, 0.965926, 0.258819, 1, 0, -4.37114e-08, -4.9478, 1.03423, -2.16212)
+
+[node name="Quiver" parent="." instance=ExtResource("19_dwxfj")]
+transform = Transform3D(0.343053, 0, -0.939316, 0, 1, 0, 0.939316, 0, 0.343053, 4.56364, 0, -3.10331)
+
+[node name="Bow" parent="." instance=ExtResource("21_0glm4")]
+
+[connection signal="body_entered" from="StaticBody3D/SnapZone" to="StaticBody3D/SnapZone" method="_on_snap_zone_body_entered"]
+[connection signal="body_exited" from="StaticBody3D/SnapZone" to="StaticBody3D/SnapZone" method="_on_snap_zone_body_exited"]

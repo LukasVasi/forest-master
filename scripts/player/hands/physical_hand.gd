@@ -347,10 +347,9 @@ func _pick_up_object(target: Node3D) -> void:
 		pickable_target = target
 	elif target is PickableDispenser:
 		pickable_target = target.get_dispensable(self)
-	# TODO: implement
-	#elif target is XRToolsSnapZone:
-		#pickable_target = snap.picked_up_object
-		#target.drop_object()
+	elif target is PhysicalSnapZone:
+		pickable_target = target.picked_up_object
+		target.drop_object()
 	
 	# Check if target was acquired, fail if not
 	if not is_instance_valid(pickable_target):
@@ -782,7 +781,7 @@ func _get_closest_grab() -> Node3D:
 	var new_closest_distance := MAX_GRAB_DISTANCE2
 	for o : Node3D in _objects_in_grab_area:
 		# Skip objects that can not be picked up
-		if not o.can_pick_up(self):
+		if not o.has_method("can_pick_up") or not o.can_pick_up(self):
 			continue
 		
 		# Save if this object is closer than the current best
@@ -820,7 +819,11 @@ func _update_colliders() -> void:
 ## Called when an object enters the grab sphere
 func _on_grab_entered(target: Node3D) -> void:
 	# Reject objects which don't support picking up
-	if target is not PhysicalPickable and target is not PickableDispenser:
+	if (
+		target is not PhysicalPickable 
+		and target is not PickableDispenser
+		and target is not PhysicalSnapZone
+		):
 		return
 	
 	# Ignore objects already known

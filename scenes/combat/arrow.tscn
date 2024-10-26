@@ -69,9 +69,6 @@ script = ExtResource("4_ktfon")
 [node name="GrabPointSnap" parent="." instance=ExtResource("3_c8ewr")]
 visible = true
 script = ExtResource("7_28x6n")
-require_group = ""
-exclude_group = ""
-enabled = true
 
 [node name="XRToolsHighlightVisible" type="Node3D" parent="."]
 script = ExtResource("6_g620s")
