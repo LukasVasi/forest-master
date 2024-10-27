@@ -25,8 +25,8 @@ var _highlighted : bool = false
 
 
 # Add support for is_xr_class on XRTools classes
-func is_xr_class(name : String) -> bool:
-	return name == "PickableDispenser"
+func is_xr_class(p_name : String) -> bool:
+	return p_name == "PickableDispenser"
 
 
 # Called when the node enters the scene tree for the first time.
@@ -43,7 +43,7 @@ func _ready() -> void:
 			push_error("Dispensed scene in null")
 			enabled = false
 			return
-		var instance: XRToolsPickable = dispensed_scene.instantiate()
+		var instance: PhysicalPickable = dispensed_scene.instantiate()
 		if not instance.has_method("pick_up"):
 			push_error("Pickable dispenser needs dispensed scenes to have the pick_up method")
 			enabled = false
@@ -61,7 +61,7 @@ func can_pick_up(_by: Node3D) -> bool:
 ## This method requests highlighting of the [XRToolsPickable].
 ## If [param from] is null then all highlighting requests are cleared,
 ## otherwise the highlight request is associated with the specified node.
-func request_highlight(from: XRToolsFunctionPickup, on: bool = true) -> void:
+func request_highlight(from: PhysicalHand, on: bool = true) -> void:
 	# Save if we are highlighted
 	var old_highlighted := _highlighted
 
@@ -82,16 +82,16 @@ func request_highlight(from: XRToolsFunctionPickup, on: bool = true) -> void:
 
 
 # Called when FunctionPickup requests a pciakble
-func pick_up() -> XRToolsPickable:
-	var dispensed_object: XRToolsPickable = _get_dispensable_instance()
-	if dispensed_object:
+func get_dispensable(by: Node3D) -> PhysicalPickable:
+	var dispensed_object: PhysicalPickable = _get_dispensable_instance()
+	if is_instance_valid(dispensed_object):
 		add_child(dispensed_object)
-		dispensed_object.global_position = global_position
+		dispensed_object.global_position = by.global_position
 		return dispensed_object
 	else:
 		return null
 
 
 ## Instantiate a random scene by default
-func _get_dispensable_instance() -> XRToolsPickable:
+func _get_dispensable_instance() -> PhysicalPickable:
 	return dispensed_scenes.pick_random().instantiate()

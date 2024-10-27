@@ -1,22 +1,19 @@
-[gd_scene load_steps=42 format=3 uid="uid://c6wf68pe71k2a"]
+[gd_scene load_steps=36 format=3 uid="uid://c6wf68pe71k2a"]
 
-[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_boc6t"]
+[ext_resource type="Script" path="res://scripts/object_interaction/physical_pickable.gd" id="1_qimby"]
 [ext_resource type="ArrayMesh" uid="uid://doomqa3c7iyq7" path="res://resources/skillet.mesh" id="2_4alw5"]
 [ext_resource type="ArrayMesh" uid="uid://bktbigbqg7xsi" path="res://resources/skillet2.mesh" id="2_4rx5x"]
 [ext_resource type="Script" path="res://scripts/cooking/skillet.gd" id="3_bml76"]
-[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="3_da5sr"]
-[ext_resource type="Animation" uid="uid://bediglpx0rj7i" path="res://addons/godot-xr-tools/hands/animations/left/Grip 5.res" id="4_4hokl"]
-[ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="5_u2se4"]
-[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="6_e8r4k"]
-[ext_resource type="Animation" uid="uid://s1vqcxyqcvea" path="res://addons/godot-xr-tools/hands/animations/right/Grip 5.res" id="7_1uxhv"]
+[ext_resource type="Script" path="res://scripts/object_interaction/physical_grab_point_hand.gd" id="5_d8f3j"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="8_w88r1"]
+[ext_resource type="PackedScene" uid="uid://b0xwpbwu8s3iy" path="res://scenes/object_interaction/physical_snap_zone.tscn" id="9_dsyqa"]
 [ext_resource type="Material" uid="uid://nuogvh1u6wye" path="res://resources/highlight_material.tres" id="9_uemb4"]
-[ext_resource type="PackedScene" uid="uid://c6m5wp5vleaeb" path="res://scenes/cooking/lid_snap_zone.tscn" id="12_vp2eu"]
 [ext_resource type="AudioStream" uid="uid://bcim0pvvrjih7" path="res://resources/timer_complete.mp3" id="13_hxdty"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_elqjg"]
-height = 0.0642815
-radius = 0.552201
+margin = 0.02
+height = 0.03
+radius = 0.21
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_hxf3w"]
 height = 0.176242
@@ -107,14 +104,6 @@ particles_anim_loop = true
 material = SubResource("StandardMaterial3D_qkmjo")
 size = Vector2(0.4, 0.4)
 
-[sub_resource type="Resource" id="Resource_thcvs"]
-script = ExtResource("5_u2se4")
-closed_pose = ExtResource("4_4hokl")
-
-[sub_resource type="Resource" id="Resource_p45jf"]
-script = ExtResource("5_u2se4")
-closed_pose = ExtResource("7_1uxhv")
-
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wtwmc"]
 points = PackedVector3Array(0.527773, -0.0097746, -0.215074, 0.215041, 0.0098014, -0.547378, 0.215041, 0.0879791, -0.547378, 0.625534, 0.205267, -0.273727, 0.56687, 0.205267, -0.215074, 0.215041, 0.0488902, -0.469141, 0.254178, 0.205267, -0.547378, 0.351939, 0.166157, -0.547378, 0.586438, 0.0879791, -0.273727, 0.469148, -0.0097746, -0.215074, 0.23465, -0.0097746, -0.527794, 0.469148, 0.0488902, -0.215074, 0.215041, -0.0097746, -0.469141, 0.625534, 0.166157, -0.215074, 0.351939, 0.205267, -0.547378, 0.254178, 0.205267, -0.527794, 0.293274, 0.0684241, -0.547378, 0.527773, -0.0097746, -0.234625, 0.625534, 0.166157, -0.273727, 0.586438, 0.0684241, -0.215074, 0.625534, 0.205267, -0.215074, 0.410564, 0.0879791, -0.449622, 0.586438, 0.0684241, -0.254176, 0.332371, 0.127068, -0.547378, 0.605966, 0.107513, -0.215074, 0.215041, 0.0879791, -0.527794)
 
@@ -149,30 +138,37 @@ points = PackedVector3Array(-0.625548, 0.205267, 0.175943, -0.52784, -0.0097746,
 points = PackedVector3Array(-0.254132, 0.048873, -0.566933, 0.0977231, 0.224816, -0.625559, 0.254132, 0.048873, -0.566933, -0.332337, 0.205251, -0.547385, -0.273651, 0.166157, -0.625559, 0.332337, 0.205251, -0.547385, 0.273651, 0.166157, -0.625559, -0.254132, 0.048873, -0.547385, -0.254132, 0.0684375, -0.586472, -0.273651, 0.205251, -0.625559, 0.22669, 0.0583724, -0.551606, 0.254132, 0.107532, -0.606012, 0.273651, 0.205251, -0.625559, -0.332337, 0.166157, -0.566933, 0.332337, 0.166157, -0.566933, -0.0977231, 0.224816, -0.625559, 0.254132, 0.0684375, -0.586472, -0.254132, 0.107532, -0.606012, -0.293234, 0.088002, -0.566933, 0.332337, 0.205251, -0.566933, -0.332337, 0.205251, -0.566933, 0.312753, 0.127097, -0.566933)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nfwds"]
-size = Vector3(0.141541, 0.0854492, 0.469238)
+size = Vector3(0.0982515, 0.067688, 0.259155)
 
-[node name="Skillet" groups=["Skillet"] instance=ExtResource("1_boc6t")]
+[node name="Skillet" type="RigidBody3D" groups=["Skillet"]]
 collision_layer = 7
+collision_mask = 196615
+mass = 0.4
+freeze_mode = 1
+continuous_cd = true
+linear_damp = 1.0
+angular_damp = 1.0
+script = ExtResource("1_qimby")
 
-[node name="CollisionShape3D" parent="." index="0"]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0.0053456, 0.0206645, 0.0254846)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.024, 0.025)
 shape = SubResource("CylinderShape3D_elqjg")
 
-[node name="Skillet" type="MeshInstance3D" parent="." index="1"]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0.00428949, 0.0179965, 0.00512492)
+[node name="Skillet" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0.00428949, 0.0179965, 0.00512492)
 mesh = ExtResource("2_4rx5x")
 skeleton = NodePath("")
 script = ExtResource("3_bml76")
 
-[node name="CookingArea" type="Area3D" parent="Skillet" index="0"]
+[node name="CookingArea" type="Area3D" parent="Skillet"]
 collision_layer = 7
 collision_mask = 7
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skillet/CookingArea" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skillet/CookingArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.123987, 0)
 shape = SubResource("CylinderShape3D_hxf3w")
 
-[node name="Steam" type="GPUParticles3D" parent="Skillet" index="1"]
+[node name="Steam" type="GPUParticles3D" parent="Skillet"]
 transform = Transform3D(1.26068, 0, 0, 0, 1.26068, -0.000352011, 0, 0.000352011, 1.26068, -0.0201379, 0.052687, -0.00422283)
 layers = 256
 emitting = false
@@ -184,7 +180,7 @@ draw_order = 3
 process_material = SubResource("ParticleProcessMaterial_ko3wn")
 draw_pass_1 = SubResource("QuadMesh_a7r2x")
 
-[node name="Smoke" type="GPUParticles3D" parent="Skillet" index="2"]
+[node name="Smoke" type="GPUParticles3D" parent="Skillet"]
 transform = Transform3D(1.26068, 0, 0, 0, 1.26068, -0.000352011, 0, 0.000352011, 1.26068, -0.0201379, 0.052687, -0.00422283)
 visible = false
 layers = 256
@@ -197,7 +193,7 @@ draw_order = 3
 process_material = SubResource("ParticleProcessMaterial_ko3wn")
 draw_pass_1 = SubResource("QuadMesh_jtqy1")
 
-[node name="Fire" type="GPUParticles3D" parent="Skillet" index="3"]
+[node name="Fire" type="GPUParticles3D" parent="Skillet"]
 transform = Transform3D(1.26068, 0, 0, 0, 1.26068, -0.000352011, 0, 0.000352011, 1.26068, -0.0201379, 0.052687, -0.00422283)
 layers = 256
 emitting = false
@@ -209,92 +205,95 @@ draw_order = 3
 process_material = SubResource("ParticleProcessMaterial_bqqqn")
 draw_pass_1 = SubResource("QuadMesh_4ml4n")
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Skillet" index="4"]
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Skillet"]
 transform = Transform3D(1.41498, 0, 0, 0, 1.41498, 0, 0, 0, 1.41498, -0.00606956, 1.11948, -0.00725168)
 stream = ExtResource("13_hxdty")
 volume_db = -24.381
 
-[node name="CookingTimer" type="Timer" parent="Skillet" index="5"]
+[node name="CookingTimer" type="Timer" parent="Skillet"]
 wait_time = 10.0
 one_shot = true
 
-[node name="OutsideTimer" type="Timer" parent="Skillet" index="6"]
+[node name="OutsideTimer" type="Timer" parent="Skillet"]
 wait_time = 5.0
 one_shot = true
 
-[node name="GrabPointHandLeft" parent="." index="2" instance=ExtResource("3_da5sr")]
-transform = Transform3D(-0.997024, 0, -0.0770848, 0, 1, 0, 0.0770848, 0, -0.997024, 0.0548151, 0.155291, -0.68428)
-hand_pose = SubResource("Resource_thcvs")
+[node name="GrabPointHandLeft" type="Marker3D" parent="."]
+transform = Transform3D(-0.997024, 0, -0.0770848, 0, 1, 0, 0.0770848, 0, -0.997024, 0.0548151, 0.126712, -0.304943)
+script = ExtResource("5_d8f3j")
 
-[node name="GrabPointHandRight" parent="." index="3" instance=ExtResource("6_e8r4k")]
-transform = Transform3D(-0.998821, 0, -0.048536, 0, 1, 0, 0.048536, 0, -0.998821, -0.0263673, 0.170179, -0.67455)
-hand_pose = SubResource("Resource_p45jf")
+[node name="GrabPointHandRight" type="Marker3D" parent="."]
+transform = Transform3D(-0.998821, 0, -0.048536, 0, 1, 0, 0.048536, 0, -0.998821, -0.0263673, 0.1416, -0.295213)
+script = ExtResource("5_d8f3j")
+hand = 1
 
-[node name="XRToolsHighlightVisible" type="Node3D" parent="." index="4"]
+[node name="XRToolsHighlightVisible" type="Node3D" parent="."]
 transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0.00428949, 0.0179965, 0.00512492)
 visible = false
 script = ExtResource("8_w88r1")
 
-[node name="HighlightMesh" type="MeshInstance3D" parent="XRToolsHighlightVisible" index="0"]
-transform = Transform3D(1.00988, 0, 0, 0, 1.00988, 0, 0, 0, 1.00988, 0, -1.39773e-05, 0)
+[node name="HighlightMesh" type="MeshInstance3D" parent="XRToolsHighlightVisible"]
+transform = Transform3D(0.58, 0, 0, 0, 0.58, 0, 0, 0, 0.58, 0, -0.00799537, 0)
 mesh = ExtResource("2_4alw5")
 surface_material_override/0 = ExtResource("9_uemb4")
 
-[node name="GPUParticlesCollisionSphere3D" type="GPUParticlesCollisionSphere3D" parent="." index="5"]
-transform = Transform3D(0.882129, 0, 0, 0, 0.37013, 0, 0, 0, 0.882129, 0.0012416, -0.129906, 0.00135993)
+[node name="GPUParticlesCollisionSphere3D" type="GPUParticlesCollisionSphere3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.21, 0, 0, 0, 0.5, 0.0012416, -0.129906, 0.00135993)
 layers = 5
 radius = 0.500714
 
-[node name="_CollisionShape3D_31360" type="CollisionShape3D" parent="." index="6"]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0, 0.0254099, 0)
+[node name="_CollisionShape3D_31360" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.0254099, 0)
 shape = SubResource("ConvexPolygonShape3D_wtwmc")
 
-[node name="_CollisionShape3D_31359" type="CollisionShape3D" parent="." index="7"]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0, 0.0254099, 0)
+[node name="_CollisionShape3D_31359" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.0254099, 0)
 shape = SubResource("ConvexPolygonShape3D_5s5uh")
 
-[node name="_CollisionShape3D_31358" type="CollisionShape3D" parent="." index="8"]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0, 0.0254099, 0)
+[node name="_CollisionShape3D_31358" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.0254099, 0)
 shape = SubResource("ConvexPolygonShape3D_tka03")
 
-[node name="_CollisionShape3D_31357" type="CollisionShape3D" parent="." index="9"]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0, 0.0254099, 0)
+[node name="_CollisionShape3D_31357" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.0254099, 0)
 shape = SubResource("ConvexPolygonShape3D_noyh5")
 
-[node name="_CollisionShape3D_31356" type="CollisionShape3D" parent="." index="10"]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0, 0.0254099, 0)
+[node name="_CollisionShape3D_31356" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.0254099, 0)
 shape = SubResource("ConvexPolygonShape3D_1kqs3")
 
-[node name="_CollisionShape3D_31355" type="CollisionShape3D" parent="." index="11"]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0, 0.0254099, 0)
+[node name="_CollisionShape3D_31355" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.0254099, 0)
 shape = SubResource("ConvexPolygonShape3D_uwfg0")
 
-[node name="_CollisionShape3D_31354" type="CollisionShape3D" parent="." index="12"]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0, 0.0254099, 0)
+[node name="_CollisionShape3D_31354" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.0254099, 0)
 shape = SubResource("ConvexPolygonShape3D_xfteg")
 
-[node name="_CollisionShape3D_31353" type="CollisionShape3D" parent="." index="13"]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0, 0.0254099, 0)
+[node name="_CollisionShape3D_31353" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.0254099, 0)
 shape = SubResource("ConvexPolygonShape3D_vk6y1")
 
-[node name="_CollisionShape3D_31352" type="CollisionShape3D" parent="." index="14"]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0, 0.0254099, 0)
+[node name="_CollisionShape3D_31352" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.0254099, 0)
 shape = SubResource("ConvexPolygonShape3D_j51mo")
 
-[node name="_CollisionShape3D_31351" type="CollisionShape3D" parent="." index="15"]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0, 0.0254099, 0)
+[node name="_CollisionShape3D_31351" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.0254099, 0)
 shape = SubResource("ConvexPolygonShape3D_wsm0c")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="." index="16"]
-transform = Transform3D(0.706722, 0, 0, 0, 0.706722, 0, 0, 0, 0.706722, 0, 0.0254099, 0)
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.0254099, 0)
 shape = SubResource("ConvexPolygonShape3D_713ic")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="." index="17"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00349702, 0.123779, -0.658728)
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00916572, 0.0832822, -0.369854)
 shape = SubResource("BoxShape3D_nfwds")
 
-[node name="LidSnapZone" parent="." index="18" instance=ExtResource("12_vp2eu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.10974e-05, -0.0483693, 0.0165982)
+[node name="LidSnapZone" parent="." node_paths=PackedStringArray("snap_object") instance=ExtResource("9_dsyqa")]
+transform = Transform3D(1, -7.45058e-09, 0, -7.45058e-09, 1, 0, 0, 7.45058e-09, 0.999999, 0, 0.1, 0)
+snap_object = NodePath("..")
+snap_require = "lid"
 
 [connection signal="body_entered" from="Skillet/CookingArea" to="Skillet" method="_on_cooking_area_body_entered"]
 [connection signal="body_exited" from="Skillet/CookingArea" to="Skillet" method="_on_cooking_area_body_exited"]

@@ -44,9 +44,9 @@
 [ext_resource type="PackedScene" uid="uid://c6wf68pe71k2a" path="res://scenes/cooking/skillet.tscn" id="45_6wdpy"]
 [ext_resource type="PackedScene" uid="uid://h4roksm87ytx" path="res://scenes/cooking/lid.tscn" id="46_vwkmn"]
 [ext_resource type="PackedScene" uid="uid://gvyk1si63evv" path="res://scenes/environment/flowers.tscn" id="47_kirqo"]
-[ext_resource type="PackedScene" uid="uid://b0t75hmsf5txv" path="res://scenes/new_player.tscn" id="47_q00my"]
 [ext_resource type="PackedScene" uid="uid://ct2g57qsopix7" path="res://scenes/fishing/fishes/kuoja.tscn" id="47_yw4jv"]
 [ext_resource type="PackedScene" uid="uid://b2wwpdu2ao0np" path="res://scenes/environment/bushes2.tscn" id="48_1ny86"]
+[ext_resource type="PackedScene" uid="uid://bsotifvyxaf5u" path="res://scenes/player/player.tscn" id="48_7y7m1"]
 [ext_resource type="PackedScene" uid="uid://cnno5b20tmn85" path="res://scenes/man_scale_benchmark.tscn" id="48_qih47"]
 
 [sub_resource type="Curve3D" id="Curve3D_i6pi6"]
@@ -365,6 +365,8 @@ points = PackedVector3Array(-1.82644, 0.858512, 0.112288, -0.51602, -0.0786095, 
 process_mode = 1
 script = ExtResource("1_0wkb3")
 
+[node name="XROrigin3D" parent="." instance=ExtResource("48_7y7m1")]
+
 [node name="Utils" type="Node" parent="."]
 
 [node name="PickablePauseMenuViewport" parent="Utils" instance=ExtResource("2_iwn03")]
@@ -384,10 +386,10 @@ transform = Transform3D(-1.21918, 0, -0.443855, 0, 1, 0, 0.490106, 0, -1.10413, 
 [node name="Fishing" type="Node" parent="."]
 
 [node name="holding_stick" parent="Fishing" instance=ExtResource("25_70mbh")]
-transform = Transform3D(-0.634024, 0, 1.35942, 0, 1.5, 0, -1.35942, 0, -0.634024, 18.1742, -0.21678, 8.338)
+transform = Transform3D(-0.634024, 0, 1.35942, 0, 1.5, 0, -1.35942, 0, -0.634024, 16.7188, 0.258324, 7.4573)
 
 [node name="Bucket" parent="Fishing" instance=ExtResource("10_ym32v")]
-transform = Transform3D(0.906684, 0, 0.421811, 0, 1, 0, -0.421811, 0, 0.906684, 18.614, 0.036137, 5.97415)
+transform = Transform3D(0.906684, 0, 0.421811, 0, 1, 0, -0.421811, 0, 0.906684, 16.9442, 0.483129, 5.58276)
 
 [node name="Dragonfly" parent="Fishing" instance=ExtResource("42_lcci2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6287, 4.42691, 11.112)
@@ -405,7 +407,7 @@ transform = Transform3D(0.125091, 0, -0.992145, 0, 1, 0, 0.992145, 0, 0.125091, 
 transform = Transform3D(0.125091, 0, -0.992145, 0, 1, 0, 0.992145, 0, 0.125091, 23.8542, 2.29363, 3.094)
 
 [node name="Dock" parent="Fishing" instance=ExtResource("18_r5c2f")]
-transform = Transform3D(-0.113004, 0, 0.0403744, 0, 0.12, 0, -0.0403744, 0, -0.113004, 16.472, -0.995447, 3.36842)
+transform = Transform3D(-0.113004, 0, 0.0403744, 0, 0.12, 0, -0.0403744, 0, -0.113004, 14.8827, -0.555832, 2.26284)
 
 [node name="MockFishes" type="Node" parent="Fishing"]
 
@@ -413,7 +415,7 @@ transform = Transform3D(-0.113004, 0, 0.0403744, 0, 0.12, 0, -0.0403744, 0, -0.1
 curve = SubResource("Curve3D_i6pi6")
 
 [node name="MockFish1" parent="Fishing/MockFishes/MockFishPath1" instance=ExtResource("14_h3ydf")]
-transform = Transform3D(-0.961927, -0.00266091, 0.273209, 0, 0.999878, 0.00973934, -0.273221, 0.00936824, -0.961885, 17.8061, -1.12253, 13.4726)
+transform = Transform3D(-0.961927, -0.0026609, 0.273209, 0, 0.999877, 0.00973934, -0.273221, 0.00936822, -0.961885, 17.8061, -1.12253, 13.4726)
 progress = 39.4198
 rotation_mode = 2
 use_model_front = true
@@ -440,7 +442,7 @@ use_model_front = true
 movement_speed = 2.4
 
 [node name="FishingRod" parent="." instance=ExtResource("18_ap21l")]
-transform = Transform3D(-0.915531, -0.0327862, -0.400908, 0.208503, 0.813645, -0.542686, 0.343991, -0.580438, -0.738082, 17.8426, 0.35274, 7.73435)
+transform = Transform3D(-0.915531, -0.0327862, -0.400908, 0.208503, 0.813645, -0.542686, 0.343991, -0.580438, -0.738082, 16.3872, 0.827844, 6.85365)
 
 [node name="Water" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.822382, 0, -0.568935, 0, 1, 0, 0.568935, 0, 0.822382, 34.3754, -0.889945, 21.0098)
@@ -1667,11 +1669,10 @@ autoplay = true
 transform = Transform3D(-0.964617, 0, -0.263654, 0, 1, 0, 0.263654, 0, -0.964617, -3.62221, 0.811652, 16.0418)
 
 [node name="Quiver" parent="Combat" instance=ExtResource("44_nghe1")]
-transform = Transform3D(0.472375, -0.129003, 0.871906, 0.354164, 0.933638, -0.0537402, -0.807112, 0.334183, 0.486716, -5.20111, 0.542516, 4.47996)
+transform = Transform3D(0.472375, -0.129003, 0.871906, 0.354164, 0.933638, -0.0537402, -0.807112, 0.334183, 0.486716, -5.03572, 0.532322, 4.57228)
 
 [node name="Bow" parent="Combat" instance=ExtResource("22_6ivd3")]
-transform = Transform3D(0.778921, 0.536711, -0.324378, -2.36044e-08, 0.517251, 0.855834, 0.62712, -0.666628, 0.402898, -4.36068, 1.14276, 5.25058)
-mass = 0.8
+transform = Transform3D(0.779337, -0.480006, 0.402773, 0, -0.642788, -0.766044, 0.626603, 0.597008, -0.500949, -4.098, 1.14276, 5.46178)
 
 [node name="Creatures" type="Node" parent="Combat"]
 script = ExtResource("33_f4c4m")
@@ -1811,10 +1812,10 @@ transform = Transform3D(0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, -5.68596, 0.487846, 
 transform = Transform3D(0.00955997, -0.484197, -0.354206, 0.599924, 0.00758442, 0.00582402, -0.000222549, -0.354254, 0.484256, -3.22135, 0.990693, 6.78666)
 
 [node name="Skillet" parent="." instance=ExtResource("45_6wdpy")]
-transform = Transform3D(-0.214906, 0, -0.976635, 0, 1, 0, 0.976635, 0, -0.214906, -1.20625, 1.39732, -6.01796)
+transform = Transform3D(-0.744137, 0, -0.668027, 0, 1, 0, 0.668027, 0, -0.744137, -1.41708, 1.39732, -5.75559)
 
 [node name="Lid" parent="." instance=ExtResource("46_vwkmn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5283, 1.21558, -4.94514)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.83647, 1.55171, -5.20126)
 
 [node name="LightmapGI" type="LightmapGI" parent="."]
 bounces = 4
@@ -1835,9 +1836,7 @@ shadow_blur = 0.6
 directional_shadow_mode = 0
 
 [node name="Kuoja" parent="." instance=ExtResource("47_yw4jv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35873, 1.59136, -5.64971)
-
-[node name="XROrigin3D" parent="." instance=ExtResource("47_q00my")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.08212, 1.59136, -5.05207)
 
 [node name="man_scale_benchmark" parent="." instance=ExtResource("48_qih47")]
 transform = Transform3D(0.999938, 0, 0.0111699, 0, 1, 0, -0.0111699, 0, 0.999938, -1.43748, 0.725542, -2.43402)
@@ -1846,5 +1845,3 @@ visible = false
 [node name="man_scale_benchmark2" parent="." instance=ExtResource("48_qih47")]
 transform = Transform3D(0.999938, 0, 0.0111699, 0, 1, 0, -0.0111699, 0, 0.999938, 19.6467, -0.186513, 2.40205)
 visible = false
-
-[editable path="Skillet"]

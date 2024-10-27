@@ -1,11 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://ch54hnpbw88c8"]
+[gd_scene load_steps=16 format=3 uid="uid://ch54hnpbw88c8"]
 
 [ext_resource type="ArrayMesh" uid="uid://dk34hw7u8cupp" path="res://models/combat/Arrow.obj" id="2_cbrjt"]
 [ext_resource type="Script" path="res://scripts/combat/arrow.gd" id="2_wvahv"]
 [ext_resource type="PackedScene" uid="uid://dh8grd7s3n8kg" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_snap.tscn" id="3_c8ewr"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="4_1vg0j"]
+[ext_resource type="Script" path="res://scripts/object_interaction/physical_grab_point_hand.gd" id="4_ktfon"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="5_mkmj4"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="6_g620s"]
+[ext_resource type="Script" path="res://scripts/object_interaction/physical_grab_point_snap.gd" id="7_28x6n"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_bo8yq"]
 margin = 0.01
@@ -33,7 +35,7 @@ disable_receive_shadows = true
 radius = 0.2
 height = 0.9
 
-[node name="Arrow" type="RigidBody3D" groups=["Arrow"]]
+[node name="Arrow" type="RigidBody3D" groups=["arrow"]]
 collision_layer = 4
 collision_mask = 196615
 mass = 0.2
@@ -41,7 +43,6 @@ freeze_mode = 1
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("2_wvahv")
-release_mode = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
@@ -58,13 +59,16 @@ surface_material_override/3 = SubResource("StandardMaterial3D_0msr4")
 [node name="GrabPointHandLeft" parent="." instance=ExtResource("4_1vg0j")]
 transform = Transform3D(0.00342085, -0.999989, 0.00331607, -0.999994, -0.00342087, 0, 1.13438e-05, -0.00331605, -0.999995, 0, -0.01, 0.092)
 visible = true
+script = ExtResource("4_ktfon")
 
 [node name="GrabPointHandRight" parent="." instance=ExtResource("5_mkmj4")]
 transform = Transform3D(-0.00232128, -0.999997, 0, 0.999997, -0.00232128, 0, 0, 0, 1, 0, -0.013, -0.098)
 visible = true
+script = ExtResource("4_ktfon")
 
 [node name="GrabPointSnap" parent="." instance=ExtResource("3_c8ewr")]
 visible = true
+script = ExtResource("7_28x6n")
 
 [node name="XRToolsHighlightVisible" type="Node3D" parent="."]
 script = ExtResource("6_g620s")
@@ -77,7 +81,7 @@ surface_material_override/1 = SubResource("StandardMaterial3D_76nxs")
 surface_material_override/2 = SubResource("StandardMaterial3D_76nxs")
 surface_material_override/3 = SubResource("StandardMaterial3D_76nxs")
 
-[node name="Area3D" type="Area3D" parent="." groups=["inf_Arrows"]]
+[node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)

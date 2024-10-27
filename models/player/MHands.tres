@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://shjvcq5slive"]
+
+[ext_resource type="Texture2D" uid="uid://2dklhuqs5e7p" path="res://models/player/hands_HandsAlbedoTextureAtlas.png" id="1_qmwtf"]
+[ext_resource type="Texture2D" uid="uid://i4qt7bacupqv" path="res://models/player/hands_HandsRoughnessTextureAtlas.png" id="2_38lcs"]
+
+[resource]
+resource_name = "MHands"
+cull_mode = 2
+albedo_texture = ExtResource("1_qmwtf")
+metallic_texture = ExtResource("2_38lcs")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_38lcs")
+roughness_texture_channel = 1

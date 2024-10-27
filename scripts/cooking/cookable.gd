@@ -1,6 +1,6 @@
 @tool
 class_name CookableObject
-extends XRToolsPickable
+extends PhysicalPickable
 
 
 @export var max_cooking_level: float = 2.0

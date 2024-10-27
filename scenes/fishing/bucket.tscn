@@ -1,10 +1,8 @@
-[gd_scene load_steps=34 format=4 uid="uid://482xli6khdjt"]
+[gd_scene load_steps=32 format=4 uid="uid://482xli6khdjt"]
 
-[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/pickable.gd" id="1_rnq13"]
-[ext_resource type="Script" path="res://scripts/fishing/bucket.gd" id="2_28oen"]
+[ext_resource type="Script" path="res://scripts/object_interaction/physical_pickable.gd" id="1_6crs3"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="2_tawm8"]
-[ext_resource type="Animation" uid="uid://dqa0h82y3qn1t" path="res://addons/godot-xr-tools/hands/animations/left/Grip 1.res" id="3_hsqe3"]
-[ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="4_b2q5i"]
+[ext_resource type="Script" path="res://scripts/object_interaction/physical_grab_point_hand.gd" id="3_juv6h"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="5_oxjma"]
 [ext_resource type="Material" uid="uid://nuogvh1u6wye" path="res://resources/highlight_material.tres" id="7_8kx1u"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="7_jphvn"]
@@ -14,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://b562tmnadvtpm" path="res://scenes/fishing/fishes/raude.tscn" id="10_ykq3w"]
 [ext_resource type="Script" path="res://scripts/fishing/bucket_dispenser.gd" id="11_m0lc8"]
 [ext_resource type="Texture2D" uid="uid://dhsl6v35xtvtg" path="res://models/fishing/bucket_WaterColor.jpg" id="13_ak2s1"]
+[ext_resource type="PackedScene" uid="uid://bsvi1o45dttw5" path="res://scenes/object_interaction/physical_grab_point_left.tscn" id="14_kmypf"]
+[ext_resource type="PackedScene" uid="uid://0a3edbceqgym" path="res://scenes/object_interaction/physical_grab_point_right.tscn" id="15_6caf3"]
 [ext_resource type="Material" uid="uid://cbrnqu12cdpor" path="res://resources/water_particles.tres" id="15_ktd27"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v43pv"]
@@ -60,13 +60,6 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_62pxd")
-
-[sub_resource type="Resource" id="Resource_egaf3"]
-script = ExtResource("4_b2q5i")
-closed_pose = ExtResource("3_hsqe3")
-
-[sub_resource type="Resource" id="Resource_p45jf"]
-script = ExtResource("4_b2q5i")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_cslsm"]
 _surfaces = [{
@@ -184,11 +177,11 @@ albedo_color = Color(0.898039, 0.772549, 0, 0.588235)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_hyuiw"]
 material = SubResource("StandardMaterial3D_rmj4k")
-top_radius = 0.2
-bottom_radius = 0.2
-height = 0.05
+flip_faces = true
+top_radius = 0.26
+bottom_radius = 0.22
+height = 0.5
 radial_segments = 16
-cap_bottom = false
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ub3g0"]
 shading_mode = 2
@@ -204,10 +197,10 @@ size = Vector3(0.05, 0.05, 0.05)
 
 [node name="Handle" type="RigidBody3D" parent="."]
 collision_layer = 4
-collision_mask = 131079
-mass = 0.4
+collision_mask = 196615
+mass = 0.2
 freeze_mode = 1
-script = ExtResource("1_rnq13")
+script = ExtResource("1_6crs3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Handle"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.565132, 0)
@@ -228,33 +221,27 @@ skeleton = NodePath("")
 
 [node name="GrabPointHandLeft" parent="Handle" instance=ExtResource("2_tawm8")]
 transform = Transform3D(-1, -8.74228e-08, 4.37114e-08, 4.37114e-08, 1.91069e-15, 1, -8.74228e-08, 1, 1.91069e-15, 0, 0.483, 0.05)
-visible = true
-hand_pose = SubResource("Resource_egaf3")
+script = ExtResource("3_juv6h")
 
 [node name="GrabPointHandLeft2" parent="Handle" instance=ExtResource("2_tawm8")]
 transform = Transform3D(-3.66595e-08, -2.38069e-08, -1, -0.544639, 0.838671, 0, 0.838671, 0.544639, -4.37114e-08, 0.075, 0.475, -0.19)
-visible = true
-hand_pose = SubResource("Resource_egaf3")
+script = ExtResource("3_juv6h")
 
 [node name="GrabPointHandLeft3" parent="Handle" instance=ExtResource("2_tawm8")]
 transform = Transform3D(-3.66595e-08, -2.38069e-08, 1, -0.544639, 0.838671, 0, -0.838671, -0.544639, -4.37114e-08, -0.075, 0.475, 0.19)
-visible = true
-hand_pose = SubResource("Resource_egaf3")
+script = ExtResource("3_juv6h")
 
 [node name="GrabPointHandRight" parent="Handle" instance=ExtResource("5_oxjma")]
 transform = Transform3D(-1, -1.50996e-07, -6.60024e-15, 0, -4.37114e-08, 1, -1.50996e-07, 1, 4.37114e-08, 0, 0.483, 0.05)
-visible = true
-hand_pose = SubResource("Resource_p45jf")
+script = ExtResource("3_juv6h")
 
 [node name="GrabPointHandRight2" parent="Handle" instance=ExtResource("5_oxjma")]
 transform = Transform3D(-3.66595e-08, 2.38069e-08, 1, 0.544639, 0.838671, 0, -0.838671, 0.544639, -4.37114e-08, -0.075, 0.475, -0.19)
-visible = true
-hand_pose = SubResource("Resource_p45jf")
+script = ExtResource("3_juv6h")
 
 [node name="GrabPointHandRight3" parent="Handle" instance=ExtResource("5_oxjma")]
 transform = Transform3D(-3.66595e-08, 2.38069e-08, -1, 0.544639, 0.838671, 0, 0.838671, -0.544639, -4.37114e-08, 0.075, 0.475, 0.19)
-visible = true
-hand_pose = SubResource("Resource_p45jf")
+script = ExtResource("3_juv6h")
 
 [node name="XRToolsHighlightVisible" type="Node3D" parent="Handle"]
 script = ExtResource("7_jphvn")
@@ -266,10 +253,10 @@ skeleton = NodePath("")
 
 [node name="Bucket" type="RigidBody3D" parent="."]
 collision_layer = 4
-collision_mask = 131079
-mass = 1.5
+collision_mask = 196615
+mass = 0.5
 freeze_mode = 1
-script = ExtResource("2_28oen")
+script = ExtResource("1_6crs3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bucket"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.121816, 0)
@@ -326,9 +313,41 @@ draw_pass_1 = SubResource("BoxMesh_0ipnb")
 transform = Transform3D(1, 0, 0, 0, -1, -1.50996e-07, 0, 1.50996e-07, -1, 0, 0.236379, 0)
 node_a = NodePath("../../Handle")
 node_b = NodePath("..")
+params/bias = 0.8
 angular_limit/enable = true
 angular_limit/upper = 1.91986
 angular_limit/lower = -1.91986
+
+[node name="XRToolsHighlightVisible" type="Node3D" parent="Bucket"]
+script = ExtResource("7_jphvn")
+
+[node name="HighlightMesh" type="MeshInstance3D" parent="Bucket/XRToolsHighlightVisible"]
+transform = Transform3D(0.996195, 0, 0.0871557, 0, 1, 0, -0.0871557, 0, 0.996195, 0, -0.01, 0)
+mesh = SubResource("CylinderMesh_hyuiw")
+
+[node name="PhysicalGrabPointLeft" parent="Bucket" instance=ExtResource("14_kmypf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.23, 0.1, -0.1)
+
+[node name="PhysicalGrabPointRight" parent="Bucket" instance=ExtResource("15_6caf3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.23, 0.1, -0.1)
+
+[node name="PhysicalGrabPointLeft2" parent="Bucket" instance=ExtResource("14_kmypf")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.229018, 0.1, 0.1)
+
+[node name="PhysicalGrabPointRight2" parent="Bucket" instance=ExtResource("15_6caf3")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.229018, 0.1, 0.1)
+
+[node name="PhysicalGrabPointLeft3" parent="Bucket" instance=ExtResource("14_kmypf")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.1, 0.1, 0.23)
+
+[node name="PhysicalGrabPointRight3" parent="Bucket" instance=ExtResource("15_6caf3")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.1, 0.1, -0.23)
+
+[node name="PhysicalGrabPointLeft4" parent="Bucket" instance=ExtResource("14_kmypf")]
+transform = Transform3D(-1.07284e-07, 0, -1, 0, 1, 0, 1, 0, -1.07284e-07, 0.1, 0.1, -0.229018)
+
+[node name="PhysicalGrabPointRight4" parent="Bucket" instance=ExtResource("15_6caf3")]
+transform = Transform3D(-1.07284e-07, 0, -1, 0, 1, 0, 1, 0, -1.07284e-07, 0.1, 0.1, 0.229018)
 
 [connection signal="body_entered" from="Bucket/FishDispenser" to="Bucket/FishDispenser" method="_on_body_entered"]
 [connection signal="body_exited" from="Bucket/FishDispenser" to="Bucket/FishDispenser" method="_on_body_exited"]

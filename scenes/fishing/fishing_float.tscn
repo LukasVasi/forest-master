@@ -34,7 +34,7 @@ material = SubResource("StandardMaterial3D_kucj1")
 size = Vector3(0.1, 0.1, 0.1)
 
 [node name="FishingFloat" type="RigidBody3D" groups=["FishingFloat"]]
-collision_layer = 2
+collision_layer = 1024
 collision_mask = 519
 mass = 0.05
 contact_monitor = true

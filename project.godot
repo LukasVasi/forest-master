@@ -47,6 +47,7 @@ player="The player XROrigin in the main scene"
 water=""
 puntukas=""
 pause_menu_container=""
+fishing_rod=""
 
 [layer_names]
 
@@ -55,7 +56,9 @@ pause_menu_container=""
 3d_physics/layer_3="Pickable Objects"
 3d_physics/layer_4="Wall Walking"
 3d_physics/layer_5="Grappling Target"
+3d_physics/layer_7="Arrow"
 3d_physics/layer_10="Fishable Water"
+3d_physics/layer_11="Fishing Float"
 3d_physics/layer_17="Held Objects"
 3d_physics/layer_18="Player Hands"
 3d_physics/layer_19="Grab Handles"

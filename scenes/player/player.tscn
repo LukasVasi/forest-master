@@ -1,0 +1,129 @@
+[gd_scene load_steps=21 format=3 uid="uid://bsotifvyxaf5u"]
+
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_j3yl7"]
+[ext_resource type="PackedScene" uid="uid://btknduttnmoxf" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="2_n3ej6"]
+[ext_resource type="PackedScene" uid="uid://cywxx6drva3wo" path="res://scenes/player/hands/right_ghost_hand.tscn" id="3_4m8a8"]
+[ext_resource type="Shader" path="res://shaders/ghost_hand_shader.gdshader" id="4_em0wq"]
+[ext_resource type="PackedScene" uid="uid://difr003pluy10" path="res://scenes/player/hands/right_physical_hand.tscn" id="5_7pet1"]
+[ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="7_ujmcf"]
+[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="8_qcxyg"]
+[ext_resource type="Material" path="res://addons/godot-xr-tools/materials/pointer.tres" id="9_426bj"]
+[ext_resource type="PackedScene" uid="uid://ke308b8xd5wh" path="res://scenes/object_interaction/pause_menu_function_pickup.tscn" id="10_aywuv"]
+[ext_resource type="PackedScene" uid="uid://mx6owhjjvnc8" path="res://scenes/player/hands/left_ghost_hand.tscn" id="10_oy5hj"]
+[ext_resource type="PackedScene" uid="uid://dl1miotgluu08" path="res://scenes/player/hands/left_physical_hand.tscn" id="11_4i34x"]
+[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="13_gelqr"]
+[ext_resource type="PackedScene" uid="uid://fiul51tsyoop" path="res://addons/godot-xr-tools/functions/function_teleport.tscn" id="14_xq22m"]
+[ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="15_7n6ay"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="16_dc5v3"]
+[ext_resource type="PackedScene" uid="uid://dphcujw0jaqld" path="res://scenes/utils/fps_counter.tscn" id="17_8lcfs"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="18_ohvkj"]
+[ext_resource type="Script" path="res://scripts/player/player_body.gd" id="19_ikctw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e8fik"]
+render_priority = 0
+shader = ExtResource("4_em0wq")
+shader_parameter/base_color = Color(3.94672e-06, 0.737807, 0.523496, 1)
+shader_parameter/alpha = 0.4
+shader_parameter/min_alpha = 0.1
+shader_parameter/max_alpha = 0.8
+shader_parameter/fresnel_amount = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_afytt"]
+render_priority = 0
+shader = ExtResource("4_em0wq")
+shader_parameter/base_color = Color(3.94672e-06, 0.737807, 0.523496, 1)
+shader_parameter/alpha = 0.4
+shader_parameter/min_alpha = 0.1
+shader_parameter/max_alpha = 0.8
+shader_parameter/fresnel_amount = 3.0
+
+[node name="XROrigin3D" type="XROrigin3D" groups=["player"]]
+process_mode = 3
+current = true
+script = ExtResource("1_j3yl7")
+
+[node name="XRCamera3D" type="XRCamera3D" parent="."]
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0)
+current = true
+
+[node name="XRToolsShaderCache" parent="XRCamera3D" instance=ExtResource("2_n3ej6")]
+process_mode = 3
+
+[node name="RightHandController" type="XRController3D" parent="." groups=["hand"]]
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, -0.5)
+tracker = &"right_hand"
+
+[node name="RightGhostHand" parent="RightHandController" instance=ExtResource("3_4m8a8")]
+hand_material_override = SubResource("ShaderMaterial_e8fik")
+physical_hand_path = NodePath("../RightPhysicalHand")
+min_visibility_distance = 0.2
+
+[node name="RightPhysicalHand" parent="RightHandController" instance=ExtResource("5_7pet1")]
+
+[node name="MovementTurn" parent="RightHandController" instance=ExtResource("7_ujmcf")]
+process_mode = 1
+step_turn_angle = 45.0
+
+[node name="FunctionPointerRight" parent="RightHandController" instance=ExtResource("8_qcxyg")]
+enabled = false
+distance = 2.0
+show_laser = 0
+laser_length = 1
+laser_material = ExtResource("9_426bj")
+show_target = true
+collision_mask = 5242884
+
+[node name="PauseMenuFunctionPickup" parent="RightHandController" instance=ExtResource("10_aywuv")]
+
+[node name="LeftHandController" type="XRController3D" parent="." groups=["hand"]]
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.5, -0.5)
+tracker = &"left_hand"
+
+[node name="LeftGhostHand" parent="LeftHandController" instance=ExtResource("10_oy5hj")]
+hand_material_override = SubResource("ShaderMaterial_afytt")
+physical_hand_path = NodePath("../LeftPhysicalHand")
+min_visibility_distance = 0.2
+
+[node name="LeftPhysicalHand" parent="LeftHandController" instance=ExtResource("11_4i34x")]
+
+[node name="MovementDirect" parent="LeftHandController" instance=ExtResource("13_gelqr")]
+strafe = true
+
+[node name="FunctionTeleport" parent="LeftHandController" instance=ExtResource("14_xq22m")]
+
+[node name="FunctionPointerLeft" parent="LeftHandController" instance=ExtResource("8_qcxyg")]
+enabled = false
+distance = 2.0
+laser_length = 1
+laser_material = ExtResource("9_426bj")
+show_target = true
+collision_mask = 5242884
+
+[node name="MovementJump" parent="LeftHandController" instance=ExtResource("15_7n6ay")]
+jump_button_action = "by_button"
+
+[node name="FpsCounterViewport" parent="LeftHandController" instance=ExtResource("16_dc5v3")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.15, 0)
+visible = false
+screen_size = Vector2(0.3, 0.1)
+collision_layer = 0
+scene = ExtResource("17_8lcfs")
+viewport_size = Vector2(1152, 648)
+throttle_fps = 3.0
+input_keyboard = false
+scene_properties_keys = PackedStringArray("fps_counter.gd")
+
+[node name="PauseMenuFunctionPickup" parent="LeftHandController" instance=ExtResource("10_aywuv")]
+
+[node name="PlayerBody" parent="." instance=ExtResource("18_ohvkj")]
+process_mode = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+collision_mask = 1019
+script = ExtResource("19_ikctw")
+water_emergence_acceleration = 5.0
+water_max_emergence_velocity = 2.0
+water_bobbing_amplitude = 0.2
+_water_bobbing_frequency = 0.8

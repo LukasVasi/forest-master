@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://ca0ohfqspp2pg"]
 
-[ext_resource type="Script" path="res://scripts/fishing/fishing.gd" id="1_cx5po"]
+[ext_resource type="Script" path="res://scripts/fishing/fishing_water.gd" id="1_cx5po"]
 [ext_resource type="PackedScene" uid="uid://wus354uwp5a2" path="res://scenes/fishing/distractions/distraction_kuoja.tscn" id="2_c7rp6"]
 [ext_resource type="PackedScene" uid="uid://b4grfvgpri7y5" path="res://scenes/fishing/distractions/distraction_wind.tscn" id="3_6f0le"]
 [ext_resource type="PackedScene" uid="uid://c1y8dfahi1fuc" path="res://scenes/fishing/distractions/distraction_raude.tscn" id="3_wl1pp"]
@@ -11,7 +11,7 @@ size = Vector3(40, 8, 40)
 
 [node name="FishingWater" type="Area3D" groups=["water"]]
 collision_layer = 512
-collision_mask = 524290
+collision_mask = 525316
 monitorable = false
 linear_damp_space_override = 1
 linear_damp = 5.0
