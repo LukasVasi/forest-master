@@ -44,7 +44,7 @@
 [sub_resource type="Resource" id="Resource_5sfp4"]
 script = ExtResource("2_jeaoo")
 magnitude = 0.5
-active_during_pause = true
+active_during_pause = false
 indefinite = true
 duration_ms = 300
 

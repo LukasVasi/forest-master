@@ -15,6 +15,9 @@ extends Distraction
 ## The maximum volume the wind audio will reach.
 @export var max_volume_db: float = -8
 
+## The rumble event used to provide rumble feedback when the wind is active.
+@export var rumble_event : XRToolsRumbleEvent
+
 ## The minimum volume - cant hear it or anything lower.
 var min_volume_db: float = -30
 
@@ -27,7 +30,12 @@ func activate(spawn_position: Vector3, fishing_rod: FishingRod):
 	visible = true
 	audio_player.volume_db = -min_volume_db
 	audio_player.play(0.0)
-	fishing_rod.trigger_haptic(middle_duration + fade_out_duration / 2, fade_in_duration / 2)
+	if fishing_rod.is_picked_up():
+		var hand := fishing_rod.get_picked_up_by_hand()
+		if is_instance_valid(hand):
+			var rumble_trackers := hand.rumble_trackers
+			rumble_event.duration_ms = fade_in_duration + middle_duration + fade_out_duration / 2
+			RumbleManager.add(self, rumble_event, rumble_trackers)
 	tween.tween_property(audio_player, "volume_db", max_volume_db, fade_in_duration).set_ease(Tween.EASE_IN) # fade in
 	tween.tween_property(audio_player, "volume_db", -80, fade_out_duration).set_ease(Tween.EASE_OUT).set_delay(middle_duration) # fade out
 	tween.tween_callback(deactivate)

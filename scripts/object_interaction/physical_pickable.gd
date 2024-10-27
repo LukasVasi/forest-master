@@ -220,6 +220,16 @@ func get_picked_up_by_controller() -> XRController3D:
 	return _grabs.front().controller
 
 
+## Get the hand currently holding this object
+func get_picked_up_by_hand() -> PhysicalHand:
+	# Skip if not picked up
+	if not is_picked_up():
+		return null
+
+	# Get the primary pickup controller
+	return _grabs.front().hand
+
+
 ## Find the most suitable grab-point for the grabber
 func _get_grab_point(grabber : Node3D, current : XRToolsGrabPoint) -> XRToolsGrabPoint:
 	# Find the best grab-point

@@ -283,12 +283,12 @@ func _process_rumbling() -> void:
 	if distance_to_controller > distance_to_rumble:
 		if not _rumbling:
 			_rumbling = true
-			XRToolsRumbleManager.add(self, rumble_event, rumble_trackers)
+			RumbleManager.add(self, rumble_event, rumble_trackers)
 		var rumble_magnitude: float = max_rumble_magnitude * (distance_to_controller - distance_to_rumble)  / (max_distance_to_controller - distance_to_rumble) 
 		rumble_event.magnitude = rumble_magnitude
 	elif distance_to_controller < distance_to_rumble and _rumbling:
 		_rumbling = false
-		XRToolsRumbleManager.clear(self, rumble_trackers)
+		RumbleManager.remove(self, rumble_trackers)
 
 
 func _animate_hand_with_controller_inputs() -> void:

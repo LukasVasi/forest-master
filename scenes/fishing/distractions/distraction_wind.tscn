@@ -1,11 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://b4grfvgpri7y5"]
+[gd_scene load_steps=5 format=3 uid="uid://b4grfvgpri7y5"]
 
 [ext_resource type="Script" path="res://scripts/fishing/distractions/distraction_wind.gd" id="1_17vo8"]
 [ext_resource type="AudioStream" uid="uid://d3aqon77k7ceq" path="res://sounds/windv2.mp3" id="2_s7ksk"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="2_xyudh"]
+
+[sub_resource type="Resource" id="Resource_onpc8"]
+script = ExtResource("2_xyudh")
+magnitude = 0.1
+active_during_pause = false
+indefinite = false
+duration_ms = 300
 
 [node name="DistractionWind" type="Node3D"]
 transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
 script = ExtResource("1_17vo8")
+rumble_event = SubResource("Resource_onpc8")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_s7ksk")

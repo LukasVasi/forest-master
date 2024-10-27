@@ -38,6 +38,8 @@ func _on_settings_button_pressed():
 func _on_restart_game_button_pressed():
 	# Unpause the game as it keeps the paused state
 	PauseManager.set_pause(false)
+	# Clear the rumble manager
+	RumbleManager.clear()
 	# Reload the game
 	get_tree().reload_current_scene()
 

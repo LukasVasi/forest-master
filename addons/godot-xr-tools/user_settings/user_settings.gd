@@ -67,7 +67,7 @@ func reset_to_defaults() -> void:
 	player_height = XRTools.get_player_standard_height()
 	webxr_primary = WebXRPrimary.AUTO
 	webxr_auto_primary = 0
-	haptics_scale = XRToolsRumbleManager.get_default_haptics_scale()
+	haptics_scale = RumbleManager.get_default_haptics_scale()
 
 ## Set the player height property
 func set_player_height(new_value : float) -> void:

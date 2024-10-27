@@ -58,9 +58,3 @@ func reset() -> void:
 	#print("Resetting")
 	emit_signal("action_pressed", self) # resets the float
 	_moved = false
-
-
-func trigger_haptic(duration: float, delay: float) -> void:
-	var controller: XRController3D = get_picked_up_by_controller()
-	if controller:
-		controller.trigger_haptic_pulse("haptic", 0.5, 0.2, duration, delay) # vibrate on wind

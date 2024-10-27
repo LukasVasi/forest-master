@@ -143,14 +143,6 @@ func _on_left_controller_button_released(p_button: String) -> void:
 			disable_left_pointer()
 
 
-## Methods for using the controller haptic feedback
-
-func trigger_left_haptic(frequency: float, amplitude: float, duration_sec: float, delay_sec: float) -> void:
-	xr_controller_left.trigger_haptic_pulse("haptic", frequency, amplitude, duration_sec, delay_sec)
-	
-func trigger_right_haptic(frequency: float, amplitude: float, duration_sec: float, delay_sec: float) -> void:
-	xr_controller_right.trigger_haptic_pulse("haptic", frequency, amplitude, duration_sec, delay_sec)
-
 ## Method that handles the pause state change singal from PauseManager
 func _on_pause_state_changed(paused : bool) -> void:
 	if paused:
