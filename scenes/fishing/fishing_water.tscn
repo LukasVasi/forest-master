@@ -11,7 +11,7 @@ size = Vector3(40, 8, 40)
 
 [node name="FishingWater" type="Area3D" groups=["water"]]
 collision_layer = 512
-collision_mask = 524290
+collision_mask = 525316
 monitorable = false
 linear_damp_space_override = 1
 linear_damp = 5.0

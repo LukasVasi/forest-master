@@ -5,16 +5,16 @@ extends Area3D
 # XR Tools snap zone but for physical pickables
 
 ## Signal emitted when the snap-zone picks something up
-signal has_picked_up(what)
+signal has_picked_up(what: Node3D)
 
 ## Signal emitted when the snap-zone drops something
 signal has_dropped
 
 # Signal emitted when the highlight state changes
-signal highlight_updated(pickable, enable)
+signal highlight_updated(pickable: PhysicalPickable, enable: bool)
 
 # Signal emitted when the highlight state changes
-signal close_highlight_updated(pickable, enable)
+signal close_highlight_updated(pickable: PhysicalPickable, enable: bool)
 
 
 ## Enumeration of snap mode
@@ -65,19 +65,15 @@ var picked_up_ranged : bool = true
 
 
 # Private fields
-var _objects_in_grab_area = Array()
+var _objects_in_grab_area := Array()
 
-# Varibles for visual testing TODO: remove
-@onready var _visual : MeshInstance3D = $MeshInstance3D
-
-@onready var _material : StandardMaterial3D = _visual.get_active_material(0)
 
 # Add support for is_xr_class on XRTools classes
-func is_xr_class(name : String) -> bool:
-	return name == "XRToolsSnapZone"
+func is_xr_class(p_name : String) -> bool:
+	return p_name == "XRToolsSnapZone"
 
 
-func _ready():
+func _ready() -> void:
 	# Set collision shape radius
 	$CollisionShape3D.shape.radius = grab_distance
 	
@@ -90,21 +86,12 @@ func _ready():
 
 
 # Called on each frame to update the pickup
-func _process(_delta):
+func _process(_delta: float) -> void:
 	# Skip if in editor or not enabled
-	if Engine.is_editor_hint(): # TODO: or not enabled:
+	if Engine.is_editor_hint() or not enabled:
 		return
-
-	# TODO: remove
-	if not enabled:
-		_material.albedo_color = Color.BLACK
-	elif _objects_in_grab_area.is_empty() and not is_instance_valid(picked_up_object):
-		_material.albedo_color = Color.RED
-	elif is_instance_valid(picked_up_object):
-		_material.albedo_color = Color.PURPLE
-	else:
-		_material.albedo_color = Color.GREEN
-
+	
+	
 	## Skip if we aren't doing range-checking
 	#if snap_mode != SnapMode.RANGE:
 		#return
@@ -272,7 +259,7 @@ func pick_up_object(target: Node3D) -> void:
 	
 	grab.set_arrived()
 	
-	var player = get_node("AudioStreamPlayer3D")
+	var player: AudioStreamPlayer3D = get_node("AudioStreamPlayer3D")
 	if is_instance_valid(player):
 		if player.playing:
 			player.stop()
@@ -314,11 +301,10 @@ func _update_snap_mode() -> void:
 	match snap_mode:
 		SnapMode.DROPPED:
 			# Disable _process as we aren't using RANGE pickups
-			# TODO: uncomment this
-			#set_process(false)
+			set_process(false)
 
 			# Start monitoring all objects in range for drop
-			for o in _objects_in_grab_area:
+			for o : Node3D in _objects_in_grab_area:
 				o.connect("dropped", _on_target_dropped, CONNECT_DEFERRED)
 
 		#SnapMode.RANGE:

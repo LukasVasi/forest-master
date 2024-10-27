@@ -47,6 +47,7 @@ func _init(
 	grab_point = p_point
 
 	# Calculate the grab transform
+	# TODO: check out the grab transform - could be a little off
 	if p_point:
 		transform = p_point.transform
 	else:

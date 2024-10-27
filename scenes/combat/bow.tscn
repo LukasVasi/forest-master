@@ -1,17 +1,17 @@
-[gd_scene load_steps=33 format=4 uid="uid://baqn44ngm0jv1"]
+[gd_scene load_steps=29 format=4 uid="uid://baqn44ngm0jv1"]
 
 [ext_resource type="Script" path="res://scripts/combat/bow.gd" id="2_cgjgp"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="3_ohdt4"]
-[ext_resource type="Script" path="res://scenes/testing/physical_grab_point_hand.gd" id="4_2qnpp"]
+[ext_resource type="Script" path="res://scripts/object_interaction/physical_grab_point_hand.gd" id="4_2qnpp"]
 [ext_resource type="Animation" uid="uid://dqa0h82y3qn1t" path="res://addons/godot-xr-tools/hands/animations/left/Grip 1.res" id="4_bdr5j"]
 [ext_resource type="Texture2D" uid="uid://raydtcfqir2e" path="res://models/combat/Bow.png" id="4_u0ty5"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="5_pfwtn"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="6_v4ojs"]
+[ext_resource type="PackedScene" uid="uid://b0xwpbwu8s3iy" path="res://scenes/object_interaction/physical_snap_zone.tscn" id="7_e1i4c"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="7_m761g"]
-[ext_resource type="Script" path="res://scripts/physical_interactable_handle.gd" id="8_gplit"]
-[ext_resource type="PackedScene" uid="uid://bsvi1o45dttw5" path="res://scenes/utils/physical_grab_point_left.tscn" id="9_jnaem"]
-[ext_resource type="Script" path="res://scripts/utils/physical_snap_zone.gd" id="11_un54c"]
-[ext_resource type="PackedScene" uid="uid://0a3edbceqgym" path="res://scenes/utils/physical_grab_point_right.tscn" id="12_qtto4"]
+[ext_resource type="Script" path="res://scripts/object_interaction/physical_interactable_handle.gd" id="8_gplit"]
+[ext_resource type="PackedScene" uid="uid://bsvi1o45dttw5" path="res://scenes/object_interaction/physical_grab_point_left.tscn" id="9_jnaem"]
+[ext_resource type="PackedScene" uid="uid://0a3edbceqgym" path="res://scenes/object_interaction/physical_grab_point_right.tscn" id="12_qtto4"]
 [ext_resource type="Animation" uid="uid://daqddcrbpam0c" path="res://addons/godot-xr-tools/hands/animations/right/Grip 1.res" id="13_7mts3"]
 [ext_resource type="Material" uid="uid://nuogvh1u6wye" path="res://resources/highlight_material.tres" id="14_ryihr"]
 
@@ -107,17 +107,6 @@ disable_receive_shadows = true
 grow = true
 grow_amount = 0.002
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_k4qmr"]
-resource_local_to_scene = true
-radius = 0.4
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_obdhr"]
-albedo_color = Color(1, 0, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_nu5ce"]
-material = SubResource("StandardMaterial3D_obdhr")
-size = Vector3(0.05, 0.05, 0.05)
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_gy7p7"]
 radius = 0.08
 
@@ -134,11 +123,7 @@ material = ExtResource("14_ryihr")
 flip_faces = true
 size = Vector3(0.01, 0.01, 0.11)
 
-[sub_resource type="BoxMesh" id="BoxMesh_tvxk4"]
-size = Vector3(0.05, 0.05, 0.05)
-
 [node name="Bow" type="RigidBody3D"]
-transform = Transform3D(-4.2222e-08, -0.258819, -0.965926, -1.13133e-08, 0.965926, -0.258819, 1, 0, -4.37114e-08, 4.95426, 1.09611, -2.17607)
 collision_layer = 4
 collision_mask = 196615
 mass = 0.3
@@ -203,30 +188,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_0urnp")
 [node name="PullPivot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0913049, 0, 0)
 
-[node name="ArrowSnapZone" type="Area3D" parent="PullPivot" node_paths=PackedStringArray("snap_object", "grab_joint")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0, 0)
-collision_layer = 2
-collision_mask = 65538
-script = ExtResource("11_un54c")
+[node name="ArrowSnapZone" parent="PullPivot" node_paths=PackedStringArray("snap_object") instance=ExtResource("7_e1i4c")]
+transform = Transform3D(1, -7.45058e-09, 0, -7.45058e-09, 1, 0, 0, 7.45058e-09, 0.999999, -0.15, 0, 0)
 enabled = false
 snap_object = NodePath("../..")
-grab_joint = NodePath("Generic6DOFJoint3D")
 grab_distance = 0.4
 snap_require = "arrow"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PullPivot/ArrowSnapZone"]
-shape = SubResource("SphereShape3D_k4qmr")
-
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="PullPivot/ArrowSnapZone"]
-unit_size = 3.0
-max_db = 1.0
-max_distance = 100.0
-
-[node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D" parent="PullPivot/ArrowSnapZone"]
-transform = Transform3D(0.990099, 0, 0, 0, 0.990099, 0, 0, 0, 0.990099, 0, 0, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PullPivot/ArrowSnapZone"]
-mesh = SubResource("BoxMesh_nu5ce")
 
 [node name="HandleOrigin" type="Node3D" parent="PullPivot"]
 transform = Transform3D(1, 8.88178e-16, 0, 1.69407e-20, 1, 1.49012e-08, -7.10543e-15, -1.49012e-08, 1, 0, 0, 0)
@@ -260,13 +227,8 @@ script = ExtResource("7_m761g")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="PullPivot/HandleOrigin/PullPick/XRToolsHighlightVisible"]
 mesh = SubResource("BoxMesh_d86p8")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PullPivot/HandleOrigin/PullPick"]
-mesh = SubResource("BoxMesh_tvxk4")
-
 [connection signal="dropped" from="." to="." method="_on_bow_dropped"]
 [connection signal="picked_up" from="." to="." method="_on_bow_picked_up"]
-[connection signal="body_entered" from="PullPivot/ArrowSnapZone" to="PullPivot/ArrowSnapZone" method="_on_snap_zone_body_entered"]
-[connection signal="body_exited" from="PullPivot/ArrowSnapZone" to="PullPivot/ArrowSnapZone" method="_on_snap_zone_body_exited"]
 [connection signal="has_picked_up" from="PullPivot/ArrowSnapZone" to="." method="_on_arrow_snap_zone_has_picked_up"]
 [connection signal="dropped" from="PullPivot/HandleOrigin/PullPick" to="." method="_on_pull_pick_dropped"]
 [connection signal="picked_up" from="PullPivot/HandleOrigin/PullPick" to="." method="_on_pull_pick_picked_up"]

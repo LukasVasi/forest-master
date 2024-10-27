@@ -1,8 +1,8 @@
 [gd_scene load_steps=32 format=4 uid="uid://482xli6khdjt"]
 
-[ext_resource type="Script" path="res://scripts/physical_pickable.gd" id="1_6crs3"]
+[ext_resource type="Script" path="res://scripts/object_interaction/physical_pickable.gd" id="1_6crs3"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="2_tawm8"]
-[ext_resource type="Script" path="res://scenes/testing/physical_grab_point_hand.gd" id="3_juv6h"]
+[ext_resource type="Script" path="res://scripts/object_interaction/physical_grab_point_hand.gd" id="3_juv6h"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="5_oxjma"]
 [ext_resource type="Material" uid="uid://nuogvh1u6wye" path="res://resources/highlight_material.tres" id="7_8kx1u"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="7_jphvn"]
@@ -12,8 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://b562tmnadvtpm" path="res://scenes/fishing/fishes/raude.tscn" id="10_ykq3w"]
 [ext_resource type="Script" path="res://scripts/fishing/bucket_dispenser.gd" id="11_m0lc8"]
 [ext_resource type="Texture2D" uid="uid://dhsl6v35xtvtg" path="res://models/fishing/bucket_WaterColor.jpg" id="13_ak2s1"]
-[ext_resource type="PackedScene" uid="uid://bsvi1o45dttw5" path="res://scenes/utils/physical_grab_point_left.tscn" id="14_kmypf"]
-[ext_resource type="PackedScene" uid="uid://0a3edbceqgym" path="res://scenes/utils/physical_grab_point_right.tscn" id="15_6caf3"]
+[ext_resource type="PackedScene" uid="uid://bsvi1o45dttw5" path="res://scenes/object_interaction/physical_grab_point_left.tscn" id="14_kmypf"]
+[ext_resource type="PackedScene" uid="uid://0a3edbceqgym" path="res://scenes/object_interaction/physical_grab_point_right.tscn" id="15_6caf3"]
 [ext_resource type="Material" uid="uid://cbrnqu12cdpor" path="res://resources/water_particles.tres" id="15_ktd27"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v43pv"]
@@ -313,6 +313,7 @@ draw_pass_1 = SubResource("BoxMesh_0ipnb")
 transform = Transform3D(1, 0, 0, 0, -1, -1.50996e-07, 0, 1.50996e-07, -1, 0, 0.236379, 0)
 node_a = NodePath("../../Handle")
 node_b = NodePath("..")
+params/bias = 0.8
 angular_limit/enable = true
 angular_limit/upper = 1.91986
 angular_limit/lower = -1.91986

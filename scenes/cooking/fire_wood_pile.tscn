@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=4 uid="uid://h2oii34vo11w"]
 
-[ext_resource type="PackedScene" uid="uid://ph85krivvsm0" path="res://scenes/utils/pickable_dispenser.tscn" id="1_5fn0l"]
+[ext_resource type="PackedScene" uid="uid://ph85krivvsm0" path="res://scenes/object_interaction/pickable_dispenser.tscn" id="1_5fn0l"]
 [ext_resource type="PackedScene" uid="uid://cyxvc0461fbjf" path="res://scenes/cooking/fire_wood.tscn" id="2_0333m"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5p2ue"]

@@ -46,7 +46,7 @@
 [ext_resource type="PackedScene" uid="uid://gvyk1si63evv" path="res://scenes/environment/flowers.tscn" id="47_kirqo"]
 [ext_resource type="PackedScene" uid="uid://ct2g57qsopix7" path="res://scenes/fishing/fishes/kuoja.tscn" id="47_yw4jv"]
 [ext_resource type="PackedScene" uid="uid://b2wwpdu2ao0np" path="res://scenes/environment/bushes2.tscn" id="48_1ny86"]
-[ext_resource type="PackedScene" uid="uid://dq64swo20yxkj" path="res://scenes/player/physical_pickup_player.tscn" id="48_7y7m1"]
+[ext_resource type="PackedScene" uid="uid://bsotifvyxaf5u" path="res://scenes/player/player.tscn" id="48_7y7m1"]
 [ext_resource type="PackedScene" uid="uid://cnno5b20tmn85" path="res://scenes/man_scale_benchmark.tscn" id="48_qih47"]
 
 [sub_resource type="Curve3D" id="Curve3D_i6pi6"]
@@ -364,6 +364,8 @@ points = PackedVector3Array(-1.82644, 0.858512, 0.112288, -0.51602, -0.0786095, 
 [node name="Main" type="Node3D"]
 process_mode = 1
 script = ExtResource("1_0wkb3")
+
+[node name="XROrigin3D" parent="." instance=ExtResource("48_7y7m1")]
 
 [node name="Utils" type="Node" parent="."]
 
@@ -1843,6 +1845,3 @@ visible = false
 [node name="man_scale_benchmark2" parent="." instance=ExtResource("48_qih47")]
 transform = Transform3D(0.999938, 0, 0.0111699, 0, 1, 0, -0.0111699, 0, 0.999938, 19.6467, -0.186513, 2.40205)
 visible = false
-
-[node name="XROrigin3D" parent="." instance=ExtResource("48_7y7m1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
