@@ -191,7 +191,7 @@ func _ready() -> void:
 	
 	# Find our controller
 	_controller = XRTools.find_xr_ancestor(self, "*", "XRController3D")
-	
+	_controller.button_pressed.connect(_on_button_pressed)
 
 	# Find the relevant hand nodes
 	_hand_mesh = _find_child(self, "MeshInstance3D")
@@ -242,7 +242,6 @@ func _physics_process(delta: float) -> void:
 	
 	# Animate the hand mesh with the controller inputs
 	if _controller:
-		_controller.button_pressed.connect(_on_button_pressed)
 		_animate_hand_with_controller_inputs()
 	
 	_update_closest_object()

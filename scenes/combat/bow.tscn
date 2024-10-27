@@ -141,7 +141,7 @@ size = Vector3(0.05, 0.05, 0.05)
 transform = Transform3D(-4.2222e-08, -0.258819, -0.965926, -1.13133e-08, 0.965926, -0.258819, 1, 0, -4.37114e-08, 4.95426, 1.09611, -2.17607)
 collision_layer = 4
 collision_mask = 196615
-mass = 0.6
+mass = 0.3
 freeze_mode = 1
 script = ExtResource("2_cgjgp")
 
@@ -234,7 +234,7 @@ transform = Transform3D(1, 8.88178e-16, 0, 1.69407e-20, 1, 1.49012e-08, -7.10543
 [node name="PullPick" type="RigidBody3D" parent="PullPivot/HandleOrigin"]
 collision_layer = 262144
 collision_mask = 0
-mass = 0.1
+mass = 0.01
 gravity_scale = 0.0
 freeze = true
 script = ExtResource("8_gplit")

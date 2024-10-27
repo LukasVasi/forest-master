@@ -130,7 +130,7 @@ closed_pose = ExtResource("5_lecea")
 script = ExtResource("6_0ucvv")
 closed_pose = ExtResource("8_3q68x")
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_m0meb"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_ek2q8"]
 material = ExtResource("13_ahgwm")
 top_radius = 0.001
 bottom_radius = 0.001
@@ -264,10 +264,8 @@ shadow_mesh = SubResource("ArrayMesh_vcwkc")
 [node name="FishingRod" type="RigidBody3D" groups=["fishing_rod"]]
 collision_layer = 4
 collision_mask = 196615
-mass = 0.8
-freeze_mode = 1
-linear_damp = 1.0
-angular_damp = 1.0
+mass = 0.1
+continuous_cd = true
 script = ExtResource("2_h6u5q")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -309,7 +307,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0537452, -0.932214)
 [node name="Line" parent="." node_paths=PackedStringArray("start_point", "end_point") instance=ExtResource("12_1hf0y")]
 transform = Transform3D(0.999994, 0, 0, 0, 0.995838, -0.0908983, 0, 0.0908983, 0.995838, 0, -0.101873, -0.936607)
 top_level = true
-mesh = SubResource("CylinderMesh_m0meb")
+mesh = SubResource("CylinderMesh_ek2q8")
 skeleton = NodePath("../..")
 radius = 0.001
 material = ExtResource("13_ahgwm")

@@ -413,7 +413,7 @@ transform = Transform3D(-0.113004, 0, 0.0403744, 0, 0.12, 0, -0.0403744, 0, -0.1
 curve = SubResource("Curve3D_i6pi6")
 
 [node name="MockFish1" parent="Fishing/MockFishes/MockFishPath1" instance=ExtResource("14_h3ydf")]
-transform = Transform3D(-0.961927, -0.0026609, 0.273209, 0, 0.999877, 0.00973934, -0.273221, 0.00936823, -0.961885, 17.8061, -1.12253, 13.4726)
+transform = Transform3D(-0.961927, -0.0026609, 0.273209, 0, 0.999877, 0.00973934, -0.273221, 0.00936822, -0.961885, 17.8061, -1.12253, 13.4726)
 progress = 39.4198
 rotation_mode = 2
 use_model_front = true
@@ -441,7 +441,6 @@ movement_speed = 2.4
 
 [node name="FishingRod" parent="." instance=ExtResource("18_ap21l")]
 transform = Transform3D(-0.915531, -0.0327862, -0.400908, 0.208503, 0.813645, -0.542686, 0.343991, -0.580438, -0.738082, 16.3872, 0.827844, 6.85365)
-mass = 0.7
 
 [node name="Water" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.822382, 0, -0.568935, 0, 1, 0, 0.568935, 0, 0.822382, 34.3754, -0.889945, 21.0098)
@@ -1668,10 +1667,10 @@ autoplay = true
 transform = Transform3D(-0.964617, 0, -0.263654, 0, 1, 0, 0.263654, 0, -0.964617, -3.62221, 0.811652, 16.0418)
 
 [node name="Quiver" parent="Combat" instance=ExtResource("44_nghe1")]
-transform = Transform3D(0.472375, -0.129003, 0.871906, 0.354164, 0.933638, -0.0537402, -0.807112, 0.334183, 0.486716, -5.20111, 0.542516, 4.47996)
+transform = Transform3D(0.472375, -0.129003, 0.871906, 0.354164, 0.933638, -0.0537402, -0.807112, 0.334183, 0.486716, -5.03572, 0.532322, 4.57228)
 
 [node name="Bow" parent="Combat" instance=ExtResource("22_6ivd3")]
-transform = Transform3D(0.779337, -0.480006, 0.402773, 0, -0.642788, -0.766044, 0.626603, 0.597008, -0.500949, -4.36068, 1.14276, 5.25058)
+transform = Transform3D(0.779337, -0.480006, 0.402773, 0, -0.642788, -0.766044, 0.626603, 0.597008, -0.500949, -4.098, 1.14276, 5.46178)
 
 [node name="Creatures" type="Node" parent="Combat"]
 script = ExtResource("33_f4c4m")
@@ -1812,7 +1811,6 @@ transform = Transform3D(0.00955997, -0.484197, -0.354206, 0.599924, 0.00758442, 
 
 [node name="Skillet" parent="." instance=ExtResource("45_6wdpy")]
 transform = Transform3D(-0.744137, 0, -0.668027, 0, 1, 0, 0.668027, 0, -0.744137, -1.41708, 1.39732, -5.75559)
-mass = 0.8
 
 [node name="Lid" parent="." instance=ExtResource("46_vwkmn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.83647, 1.55171, -5.20126)

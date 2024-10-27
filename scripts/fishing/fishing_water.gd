@@ -129,17 +129,27 @@ func _catch_fish() -> void:
 		if fish_instance:
 			# Add the fish and set it up
 			add_child(fish_instance)
-			#fish_instance.set_mesh_scale(Vector3(10, 10, 10))
 			fish_instance.global_position = fish_spawn_position
-
+			
 			# Calculate initial velocity to hit the target with an arched trajectory
 			var displacement := player.global_position - fish_spawn_position
-			var time_to_reach_target := displacement.y / gravity
-			var horizontal_velocity := Vector3(displacement.x / (time_to_reach_target * 10), 0, displacement.z / (time_to_reach_target * 10)) # Slower horizontal velocity
-			var vertical_velocity := Vector3(0, gravity * (time_to_reach_target * 6), 0) # Higher vertical velocity
-			# TODO: the linear velocity should be set in _integrate_forces(), not in a wholy different script
-			fish_instance.linear_velocity = horizontal_velocity + vertical_velocity
-			# TODO: implement a cap on the fish impulse so it wouldn't fly out of the map
+			var gravity := -10.0 # Adjust to match the gravity setting of your physics
+			var time_to_reach_target : float = abs(displacement.y / gravity)
+			
+			# Calculate horizontal and vertical components
+			var horizontal_velocity := Vector3(displacement.x / time_to_reach_target, 0, displacement.z / time_to_reach_target)
+			var vertical_velocity := Vector3(0, gravity * time_to_reach_target / 2, 0) # Adjusted for a higher arc
+			
+			# Combine for the desired initial velocity
+			var desired_velocity := horizontal_velocity + vertical_velocity
+			
+			# Convert velocity to impulse: impulse = velocity * mass
+			var mass := fish_instance.mass
+			var impulse := desired_velocity * mass
+			
+			# Apply the impulse at the initial spawn
+			fish_instance.apply_central_impulse(impulse)
+
 
 
 func _finish_fishing() -> void:
@@ -173,6 +183,7 @@ func _get_time_until_distraction() -> float:
 ## Handles the entry of the fishable water. 
 ## Connected to the body entered signal of this node.
 func _on_water_entered(body: Node3D) -> void:
+	print("water entered")
 	# Check if the body that landed in the water has a func for processing this event
 	if body.has_method("on_water_entered"):
 		# Call it if it does
