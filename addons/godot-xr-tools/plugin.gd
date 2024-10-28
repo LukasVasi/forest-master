@@ -141,9 +141,9 @@ func _enter_tree():
 	add_autoload_singleton(
 			"XRToolsUserSettings",
 			"res://addons/godot-xr-tools/user_settings/user_settings.gd")
-	add_autoload_singleton(
-			"XRToolsRumbleManager",
-			"res://addons/godot-xr-tools/rumble/rumble_manager.gd")
+	#add_autoload_singleton(
+			#"XRToolsRumbleManager",
+			#"res://addons/godot-xr-tools/rumble/rumble_manager.gd")
 
 
 func _exit_tree():
