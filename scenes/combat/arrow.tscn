@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ch54hnpbw88c8"]
+[gd_scene load_steps=15 format=3 uid="uid://ch54hnpbw88c8"]
 
 [ext_resource type="ArrayMesh" uid="uid://dk34hw7u8cupp" path="res://models/combat/Arrow.obj" id="2_cbrjt"]
 [ext_resource type="Script" path="res://scripts/combat/arrow.gd" id="2_wvahv"]
@@ -31,25 +31,25 @@ shading_mode = 0
 albedo_color = Color(1, 1, 0, 1)
 disable_receive_shadows = true
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_novb8"]
-radius = 0.2
-height = 0.9
-
 [node name="Arrow" type="RigidBody3D" groups=["arrow"]]
-collision_layer = 4
-collision_mask = 196615
-mass = 0.2
+collision_layer = 64
+collision_mask = 196679
+mass = 0.1
 freeze_mode = 1
+continuous_cd = true
 contact_monitor = true
 max_contacts_reported = 1
+angular_damp = 0.5
 script = ExtResource("2_wvahv")
+speed_threshold = 0.5
+picked_up_layer = 64
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, 0, -0.35)
 shape = SubResource("CylinderShape3D_bo8yq")
 
 [node name="ArrowMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1.04907e-08, 2.09815e-08, -0.24, 0, -0.24, -2.09815e-08, -0.24, -9.17129e-16, 1.04907e-08, 0.3, 0, 0)
+transform = Transform3D(0.24, -2.09815e-08, -2.09815e-08, -2.09815e-08, -0.24, 0, -2.09815e-08, 1.83426e-15, -0.24, 0, 0, 0)
 mesh = ExtResource("2_cbrjt")
 surface_material_override/0 = SubResource("StandardMaterial3D_ys1e2")
 surface_material_override/1 = SubResource("StandardMaterial3D_r152g")
@@ -57,34 +57,30 @@ surface_material_override/2 = SubResource("StandardMaterial3D_if5bf")
 surface_material_override/3 = SubResource("StandardMaterial3D_0msr4")
 
 [node name="GrabPointHandLeft" parent="." instance=ExtResource("4_1vg0j")]
-transform = Transform3D(0.00342085, -0.999989, 0.00331607, -0.999994, -0.00342087, 0, 1.13438e-05, -0.00331605, -0.999995, 0, -0.01, 0.092)
-visible = true
+transform = Transform3D(1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, -0.08, 0, -0.353734)
 script = ExtResource("4_ktfon")
 
 [node name="GrabPointHandRight" parent="." instance=ExtResource("5_mkmj4")]
-transform = Transform3D(-0.00232128, -0.999997, 0, 0.999997, -0.00232128, 0, 0, 0, 1, 0, -0.013, -0.098)
-visible = true
+transform = Transform3D(1.91068e-15, 4.37114e-08, -1, 1, -4.37114e-08, 0, -4.37114e-08, -1, -4.37114e-08, 0.08, 0, -0.353734)
 script = ExtResource("4_ktfon")
 
 [node name="GrabPointSnap" parent="." instance=ExtResource("3_c8ewr")]
-visible = true
 script = ExtResource("7_28x6n")
 
 [node name="XRToolsHighlightVisible" type="Node3D" parent="."]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+visible = false
 script = ExtResource("6_g620s")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="XRToolsHighlightVisible"]
-transform = Transform3D(-1.06219e-08, 0, -0.243, 0, 0.243, 0, 0.243, 0, -1.06219e-08, 0.3, 0, 0)
+transform = Transform3D(-0.243, 0, -3.6692e-08, 0, 0.243, 0, 3.6692e-08, 0, -0.243, 0, 0, 0)
 mesh = ExtResource("2_cbrjt")
 surface_material_override/0 = SubResource("StandardMaterial3D_76nxs")
 surface_material_override/1 = SubResource("StandardMaterial3D_76nxs")
 surface_material_override/2 = SubResource("StandardMaterial3D_76nxs")
 surface_material_override/3 = SubResource("StandardMaterial3D_76nxs")
 
-[node name="Area3D" type="Area3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-shape = SubResource("CapsuleShape3D_novb8")
+[node name="Fins" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0375698)
 
 [connection signal="body_entered" from="." to="." method="_on_arrow_body_entered"]

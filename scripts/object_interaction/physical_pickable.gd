@@ -66,8 +66,13 @@ func can_pick_up(by: Node3D) -> bool:
 	# Refuse if not enabled
 	if not enabled:
 		return false
+	elif not is_picked_up():
+		return true
 	elif _grabs.any(func(grab: PhysicalGrab) -> bool: return grab.by == by):
 		# The same thing can't grab twice
+		return false
+	elif not _grabs[0].hand or not by is PhysicalHand:
+		# Fail if either pickup isn't by a hand
 		return false
 	else:
 		return _grabs.size() < 2

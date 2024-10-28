@@ -124,28 +124,28 @@ flip_faces = true
 size = Vector3(0.01, 0.01, 0.11)
 
 [node name="Bow" type="RigidBody3D"]
-collision_layer = 4
-collision_mask = 196615
+collision_layer = 32
+collision_mask = 196647
 mass = 0.3
 freeze_mode = 1
 script = ExtResource("2_cgjgp")
+picked_up_layer = 32
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.09, 0, 0, 0, 0.09, 0, 0, 0, 0.09, -0.0546894, 0, 0)
+transform = Transform3D(-3.93403e-09, -0.09, 0, -3.93403e-09, 1.71962e-16, -0.09, 0.09, -3.93403e-09, -3.93403e-09, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_cxhhj")
 
 [node name="Bow" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0546894, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 
 [node name="Armature" type="Node3D" parent="Bow"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Skeleton3D" type="Skeleton3D" parent="Bow/Armature"]
 bones/0/name = "Bone.001"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, -1.50996e-07, 8.77208e-08, -1.50996e-07, -1, 7.54979e-08, 8.77208e-08, -7.54979e-08, -1, 2.46605e-08, -0.00671411, 7.2854e-08)
 bones/0/enabled = true
-bones/0/position = Vector3(2.46605e-08, -0.00671411, 7.2854e-08)
+bones/0/position = Vector3(0.000474975, 0.000474975, 0.000474975)
 bones/0/rotation = Quaternion(1, -7.54979e-08, 4.38604e-08, -3.77489e-08)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "Bone"
@@ -156,7 +156,7 @@ bones/1/position = Vector3(-1.23609e-07, -1.63725, 1.76588e-07)
 bones/1/rotation = Quaternion(1, -1.50996e-07, 7.54979e-08, 7.54979e-08)
 bones/1/scale = Vector3(1, 1, 1)
 
-[node name="Cube" type="MeshInstance3D" parent="Bow/Armature/Skeleton3D"]
+[node name="BowMesh" type="MeshInstance3D" parent="Bow/Armature/Skeleton3D"]
 transform = Transform3D(0.09, 0, 0, 0, 0.09, 0, 0, 0, 0.09, 0, 0, 0)
 mesh = SubResource("ArrayMesh_xlq88")
 skin = SubResource("Skin_3acxy")
@@ -168,15 +168,15 @@ libraries = {
 }
 
 [node name="GrabPointHandLeft" parent="." instance=ExtResource("3_ohdt4")]
-transform = Transform3D(-0.00541045, -0.00684155, 0.999962, -0.999985, 3.70164e-05, -0.00541032, 0, -0.999977, -0.00684165, -0.13834, -0.00585752, 0.0119577)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0989436)
 script = ExtResource("4_2qnpp")
 
 [node name="GrabPointHandRight" parent="." instance=ExtResource("6_v4ojs")]
-transform = Transform3D(-0.0131943, 0, 0.999913, -0.999913, 0.0008551, -0.0131943, -0.000855026, -1, -1.12825e-05, -0.15685, 0.0202121, 0.0100229)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0989436)
 script = ExtResource("4_2qnpp")
 
 [node name="XRToolsHighlightVisible" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0546894, 0, 0)
+transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, 0, 0, 0)
 visible = false
 script = ExtResource("7_m761g")
 
@@ -186,17 +186,17 @@ mesh = SubResource("ArrayMesh_3h55a")
 surface_material_override/0 = SubResource("StandardMaterial3D_0urnp")
 
 [node name="PullPivot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0913049, 0, 0)
 
 [node name="ArrowSnapZone" parent="PullPivot" node_paths=PackedStringArray("snap_object") instance=ExtResource("7_e1i4c")]
-transform = Transform3D(1, -7.45058e-09, 0, -7.45058e-09, 1, 0, 0, 7.45058e-09, 0.999999, -0.15, 0, 0)
+transform = Transform3D(1, -7.45058e-09, 0, -7.45058e-09, 1, 0, 0, 7.45058e-09, 0.999999, 0, 0, 0.145)
+collision_mask = 64
 enabled = false
 snap_object = NodePath("../..")
 grab_distance = 0.4
 snap_require = "arrow"
 
 [node name="HandleOrigin" type="Node3D" parent="PullPivot"]
-transform = Transform3D(1, 8.88178e-16, 0, 1.69407e-20, 1, 1.49012e-08, -7.10543e-15, -1.49012e-08, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.141954)
 
 [node name="PullPick" type="RigidBody3D" parent="PullPivot/HandleOrigin"]
 collision_layer = 262144
@@ -213,14 +213,15 @@ enabled = false
 shape = SubResource("SphereShape3D_gy7p7")
 
 [node name="PhysicalGrabPointLeft" parent="PullPivot/HandleOrigin/PullPick" instance=ExtResource("9_jnaem")]
-transform = Transform3D(-0.00652754, -4.32337e-08, 0.999979, -0.999579, -0.028288, -0.00652493, 0.0282874, -0.9996, 0.000184608, -0.083627, 0, -0.0126123)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, -0.08)
 hand_pose = SubResource("Resource_gjjlt")
 
 [node name="PhysicalGrabPointRight" parent="PullPivot/HandleOrigin/PullPick" instance=ExtResource("12_qtto4")]
-transform = Transform3D(-0.00652754, -4.31901e-08, 0.999979, -0.999579, -0.028288, -0.00652493, 0.0282874, -0.9996, 0.000184608, -0.083627, 0, -0.0126123)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, -0.08)
 hand_pose = SubResource("Resource_60i3c")
 
 [node name="XRToolsHighlightVisible" type="Node3D" parent="PullPivot/HandleOrigin/PullPick"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.003)
 visible = false
 script = ExtResource("7_m761g")
 

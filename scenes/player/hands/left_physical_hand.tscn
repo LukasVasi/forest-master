@@ -206,7 +206,7 @@ node_connections = [&"Grip", 0, &"Trigger", &"Grip", 1, &"ClosedHand2", &"Trigge
 [node name="LeftPhysicalHand" type="RigidBody3D" node_paths=PackedStringArray("grab_joint")]
 process_mode = 3
 collision_layer = 131072
-collision_mask = 131079
+collision_mask = 196711
 gravity_scale = 0.0
 inertia = Vector3(0.01, 0.01, 0.01)
 continuous_cd = true
@@ -216,7 +216,7 @@ rumble_event = SubResource("Resource_5sfp4")
 rumble_trackers = Array[StringName]([&"left_hand"])
 hand_blend_tree = ExtResource("3_y0666")
 default_pose = ExtResource("4_rbkdq")
-grab_collision_mask = 327684
+grab_collision_mask = 327780
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0209228, -0.041388, 0.0796814)

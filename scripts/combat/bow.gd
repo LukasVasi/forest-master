@@ -30,17 +30,16 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if _pull_pick.is_picked_up():
-		var curr_pull_pivot_position: Vector3 = _pull_pivot.position
 		var pull_position: Vector3 = _pull_pick.global_position * global_transform
 		
-		# Move our pull pivot (the snap zone and handle origin) along the x axis
-		_pull_pivot.position.x = clamp(pull_position.x,_pull_pivot_org_position.x,0.5)
+		# Move our pull pivot (the snap zone and handle origin) along the z axis
+		_pull_pivot.position.z = clamp(pull_position.z, _pull_pivot_org_position.z, 0.5)
 		
 		# Adjust our bone poses
-		var pulled_back: float = _pull_pivot.position.x - _pull_pivot_org_position.x
+		var pulled_back: float = _pull_pivot.position.z - _pull_pivot_org_position.z
 		var pose_transform : Transform3D = Transform3D()
 		pose_transform.origin.y = pulled_back * 20.0
-		_bow_skeleton.set_bone_pose_position(1,Vector3(0,-1*pose_transform.origin.y,0))
+		_bow_skeleton.set_bone_pose_position(1, Vector3(0, -1 * pose_transform.origin.y, 0))
 
 
 func _on_bow_picked_up(_pickable: Variant) -> void:
@@ -57,7 +56,6 @@ func _on_bow_dropped(_pickable: Variant) -> void:
 
 
 func _on_pull_pick_picked_up(_pickable: Variant) -> void:
-
 	_pull_pick.position = _pull_pick_org_pos
 	_pull_pick_colision.position = _pull_pick_org_pos
 	_pickable.position = _pull_pick_org_pos
@@ -66,22 +64,22 @@ func _on_pull_pick_picked_up(_pickable: Variant) -> void:
 
 func _on_pull_pick_dropped(_pickable: Variant) -> void:
 	set_process(false)
-	_bow_skeleton.set_bone_pose_position(1,Vector3(-1,0,0))
+	_bow_skeleton.set_bone_pose_position(1, Vector3(0, -1.638, 0))
 	
 	# Fire our arrow
 	var arrow : PhysicalPickable = _arrow_snap_zone.picked_up_object
 	if is_instance_valid(arrow):
-		var pulled_back: float = _pull_pivot.position.x - _pull_pivot_org_position.x
+		var pulled_back: float = _pull_pivot.position.z - _pull_pivot_org_position.z
 		
 		# Drop our arrow
 		_arrow_snap_zone.drop_object()
 		
 		# Give it a linear velocity
-		arrow.linear_velocity = transform.basis * Vector3(-1 * pulled_back,0.0,0.0) * FIRE_FACTOR
+		arrow.linear_velocity = transform.basis * Vector3(0.0, 0.0, -1 * pulled_back) * FIRE_FACTOR
 		
 	# Move our pivot back
 	_pull_pivot.position = _pull_pivot_org_position
-	_bow_skeleton.set_bone_pose_position(1,Vector3(0,-1,0))
+	_bow_skeleton.set_bone_pose_position(1, Vector3(0,-1,0))
 	
 	# Reenable the snap zone
 	_arrow_snap_zone.enabled = true
@@ -89,4 +87,3 @@ func _on_pull_pick_dropped(_pickable: Variant) -> void:
 
 func _on_arrow_snap_zone_has_picked_up(what: Variant) -> void:
 	_arrow_snap_zone.enabled = false
-	what.collision_layer=0

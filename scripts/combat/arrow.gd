@@ -2,31 +2,33 @@
 class_name Arrow
 extends PhysicalPickable
 
-#const FORCE_FACTOR = 1.0
+@export var drag_force: float = 0.2
+@export var speed_threshold: float = 0.8
 
-# TODO: fix this
-#func _physics_process(delta: float) -> void:
-	#if freeze == false:
-		#var forward_direction: Vector3 = -global_transform.basis.z
-		#var forward_motion = linear_velocity
-	#
-		#var speed: float = forward_motion.length()
-		#if speed > 0.5:
-			#forward_motion = forward_motion.normalized()
-			#var dot = 1.0 - max(0.0,forward_motion.dot(forward_direction))
-			#var sideways = forward_motion.cross(forward_direction).normalized()
-			#var force_vector = sideways.cross(forward_direction).normalized()
-			#
-			#var impulse_position: Vector3 = global_transform.basis * $ArrowMesh.position
-			#apply_impulse(impulse_position, force_vector * dot * FORCE_FACTOR * speed)
+@onready var fins: Node3D = get_node("Fins")
+
+
+func _physics_process(_delta: float) -> void:
+	if not is_picked_up() and freeze == false:
+		var movement := linear_velocity
+		if movement.length() > speed_threshold:
+			var forward_direction: Vector3 = -global_basis.z.normalized()
+			var movement_direction := movement.normalized()
+			# The dot product is 0.0 if perpendcular and 1.0 or -1.0 if parallel
+			var dot: float = forward_direction.dot(movement_direction)
+			var dot_inv: float = 1.0 - abs(dot)
+			var force := -movement * dot_inv * drag_force
+			
+			apply_force(force, fins.global_position - global_position)
 
 
 func _on_arrow_body_entered(body: Node) -> void:
-	# TODO: enable this only after firing
+	# Check if fired and travelling fast enough
+	if linear_velocity.length() < speed_threshold:
+		return
+	
+	# Call method and queue free when hitting speicific objects
 	if body.has_method("on_hit_by_arrow"):
 		body.on_hit_by_arrow()
 		queue_free()
-	
-	# TODO:
-	## Get stuck when hitting an object
-	#freeze = true
+		return
