@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://csddg4xbjp0b6"]
+[gd_scene load_steps=49 format=3 uid="uid://csddg4xbjp0b6"]
 
 [ext_resource type="Script" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_0dk5u"]
 [ext_resource type="Script" path="res://scripts/object_interaction/physical_snap_zone.gd" id="2_rbjre"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://scripts/object_interaction/physical_pickable.gd" id="10_qa63k"]
 [ext_resource type="PackedScene" uid="uid://bsotifvyxaf5u" path="res://scenes/player/player.tscn" id="11_isi6p"]
 [ext_resource type="PackedScene" uid="uid://bcoan783pbvdq" path="res://scenes/fishing/fishing_rod.tscn" id="12_fm2xj"]
+[ext_resource type="PackedScene" uid="uid://cfdglxxc6feb" path="res://scenes/testing/heavy_test_cube.tscn" id="14_byjwy"]
 [ext_resource type="PackedScene" uid="uid://c6wf68pe71k2a" path="res://scenes/cooking/skillet.tscn" id="17_gngnn"]
 [ext_resource type="PackedScene" uid="uid://bkj6ty5kdth1w" path="res://scenes/combat/quiver.tscn" id="19_dwxfj"]
 [ext_resource type="PackedScene" uid="uid://baqn44ngm0jv1" path="res://scenes/combat/bow.tscn" id="21_0glm4"]
@@ -95,17 +96,6 @@ closed_pose = ExtResource("10_b0deb")
 [sub_resource type="BoxMesh" id="BoxMesh_ql83l"]
 flip_faces = true
 size = Vector3(0.11, 0.11, 0.11)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_blrnn"]
-albedo_color = Color(0.844594, 0.400326, 0, 1)
-
-[sub_resource type="Resource" id="Resource_qgh35"]
-script = ExtResource("9_5ud6g")
-closed_pose = ExtResource("8_mmj6a")
-
-[sub_resource type="Resource" id="Resource_1ckfd"]
-script = ExtResource("9_5ud6g")
-closed_pose = ExtResource("10_b0deb")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_clcv2"]
 margin = 0.02
@@ -269,38 +259,7 @@ script = ExtResource("9_yd8bi")
 mesh = SubResource("BoxMesh_ql83l")
 surface_material_override/0 = ExtResource("10_cu8np")
 
-[node name="PhysicalPickableCube4" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.491991, 1.22904, -4.73465)
-collision_layer = 4
-collision_mask = 196615
-mass = 10.0
-freeze_mode = 1
-script = ExtResource("10_qa63k")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PhysicalPickableCube4"]
-shape = SubResource("BoxShape3D_jkkg6")
-
-[node name="CubeMesh" type="MeshInstance3D" parent="PhysicalPickableCube4"]
-mesh = SubResource("BoxMesh_cm5kt")
-surface_material_override/0 = SubResource("StandardMaterial3D_blrnn")
-
-[node name="GrabPointHandLeft" type="Marker3D" parent="PhysicalPickableCube4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0476867, 0.0399558, -0.0607535)
-script = ExtResource("5_4xwpe")
-hand_pose = SubResource("Resource_qgh35")
-
-[node name="GrabPointHandRight" type="Marker3D" parent="PhysicalPickableCube4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0488848, 0.0401451, -0.0620916)
-script = ExtResource("5_4xwpe")
-hand = 1
-hand_pose = SubResource("Resource_1ckfd")
-
-[node name="XRToolsHighlightVisible" type="Node3D" parent="PhysicalPickableCube4"]
-script = ExtResource("9_yd8bi")
-
-[node name="HighlightMesh" type="MeshInstance3D" parent="PhysicalPickableCube4/XRToolsHighlightVisible"]
-mesh = SubResource("BoxMesh_ql83l")
-surface_material_override/0 = ExtResource("10_cu8np")
+[node name="HeavyTestCube" parent="." instance=ExtResource("14_byjwy")]
 
 [node name="PhysicalPickableCube3" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.71764, 1.22904, -4.73465)

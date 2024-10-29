@@ -211,12 +211,14 @@ gravity_scale = 0.0
 inertia = Vector3(0.01, 0.01, 0.01)
 continuous_cd = true
 script = ExtResource("1_dcgmw")
+max_distance_to_controller = 0.6
 grab_joint = NodePath("Generic6DOFJoint3D")
 rumble_event = SubResource("Resource_5sfp4")
 rumble_trackers = Array[StringName]([&"left_hand"])
 hand_blend_tree = ExtResource("3_y0666")
 default_pose = ExtResource("4_rbkdq")
 grab_collision_mask = 327780
+grab_distance = 0.2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0209228, -0.041388, 0.0796814)
