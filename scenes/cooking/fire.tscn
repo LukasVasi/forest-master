@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://c1fnaq8oijhrw"]
+[gd_scene load_steps=12 format=3 uid="uid://c1fnaq8oijhrw"]
 
 [ext_resource type="Script" path="res://scripts/cooking/fire.gd" id="1_06p7d"]
+[ext_resource type="AudioStream" uid="uid://dmgmim828cyrk" path="res://Audio/testFire.mp3" id="2_sahwu"]
 
 [sub_resource type="Gradient" id="Gradient_feqqt"]
 offsets = PackedFloat32Array(0, 0.0799256, 0.267658, 0.460967, 0.552045, 0.693309, 1)
@@ -67,3 +68,11 @@ draw_pass_1 = SubResource("QuadMesh_al4w5")
 light_color = Color(0.988235, 0.501961, 0.172549, 1)
 light_energy = 2.5
 omni_range = 15.0
+
+[node name="FireSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_sahwu")
+attenuation_model = 2
+volume_db = 3.0
+unit_size = 15.0
+max_distance = 7.0
+panning_strength = 2.5

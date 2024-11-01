@@ -6,6 +6,7 @@ extends Node3D
 
 @onready var _fire_particles: GPUParticles3D = $FireParticles
 @onready var _fire_light: OmniLight3D = $FireLight
+@onready var _fire_sound: AudioStreamPlayer3D = $FireSound
 
 var _fire_particle_process_material: ParticleProcessMaterial
 var _original_scale_min: float = 0.0
@@ -16,6 +17,7 @@ func _ready() -> void:
 	if fire_ratio <= 0.0:
 		_fire_particles.emitting = false
 		_fire_light.visible = false
+		_fire_sound.playing = false
 	
 	_fire_particle_process_material = _fire_particles.get_process_material().duplicate()
 	_fire_particles.set_process_material(_fire_particle_process_material)
@@ -27,6 +29,7 @@ func _process(_delta: float) -> void:
 	if fire_ratio <= 0.0:
 		_fire_particles.emitting = false
 		_fire_light.visible = false
+		_fire_sound.playing = false
 	else:
 		_fire_particles.emitting = true
 		_fire_particle_process_material.set_param_min(ParticleProcessMaterial.PARAM_SCALE, _original_scale_min * fire_ratio) 
@@ -34,3 +37,6 @@ func _process(_delta: float) -> void:
 		
 		_fire_light.visible = true
 		_fire_light.light_energy = _original_light_energy * fire_ratio
+		
+		if not _fire_sound.playing:
+			_fire_sound.play()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=4 uid="uid://dqmlp2hfmrh7m"]
+[gd_scene load_steps=81 format=4 uid="uid://dqmlp2hfmrh7m"]
 
 [ext_resource type="Script" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_0wkb3"]
 [ext_resource type="PackedScene" uid="uid://ces1enrushk7a" path="res://scenes/utils/pause_menu_container.tscn" id="2_iwn03"]
@@ -31,7 +31,6 @@
 [ext_resource type="PackedScene" uid="uid://bg5ho2o5jcc5d" path="res://scenes/combat/bezdukas.tscn" id="39_bk6hs"]
 [ext_resource type="PackedScene" uid="uid://dl0cfseyaqjnb" path="res://models/nature/rocks/Rock_table.glb" id="39_waqj3"]
 [ext_resource type="PackedScene" uid="uid://cesfxm8jarcjs" path="res://scenes/combat/kipsas.tscn" id="40_wa0sj"]
-[ext_resource type="AudioStream" uid="uid://dmgmim828cyrk" path="res://Audio/testFire.mp3" id="41_36ag6"]
 [ext_resource type="PackedScene" uid="uid://bch51o1gs3sqe" path="res://scenes/environment/rock_small_v_1.tscn" id="41_j1t3h"]
 [ext_resource type="PackedScene" uid="uid://bic326xn55aws" path="res://models/nature/rocks/small/Rock_small_v2.glb" id="42_aju2i"]
 [ext_resource type="PackedScene" uid="uid://gcllbgl1kvjo" path="res://scenes/combat/puntukas.tscn" id="42_e20bc"]
@@ -1617,16 +1616,6 @@ lod_bias = 0.02
 mesh = ExtResource("34_4gx3r")
 
 [node name="Sounds" type="Node" parent="."]
-
-[node name="FireSound" type="AudioStreamPlayer3D" parent="Sounds"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.921321, 1.02295, -1.28601)
-stream = ExtResource("41_36ag6")
-attenuation_model = 2
-volume_db = 3.048
-unit_size = 15.0
-autoplay = true
-max_distance = 7.0
-panning_strength = 2.23
 
 [node name="BackgroundMusic" type="AudioStreamPlayer3D" parent="Sounds"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7205, 0.988377, 7.17808)
