@@ -16,26 +16,26 @@ extends Node
 ## Activate the event
 func rumble() -> void:
 	if is_instance_valid(target):
-		XRToolsRumbleManager.add(self, event, [target.tracker])
+		RumbleManager.add(self, event, [target.tracker])
 
 
 ## Cancel the event
 func cancel() -> void:
-	XRToolsRumbleManager.clear(self)
+	RumbleManager.remove(self)
 
 
 ## Rumble on the hand which owns the node
 func rumble_hand(hand_child: Node3D) -> void:
 	var hand: XRNode3D = XRHelpers.get_xr_controller(hand_child)
 	if is_instance_valid(hand):
-		XRToolsRumbleManager.add(self, event, [hand.tracker])
+		RumbleManager.add(self, event, [hand.tracker])
 
 
 ## Cancel rumble for the hand which owns the node
 func cancel_hand(hand_child: Node3D) -> void:
 	var hand: XRNode3D = XRHelpers.get_xr_controller(hand_child)
 	if is_instance_valid(hand):
-		XRToolsRumbleManager.clear(self, [hand.tracker])
+		RumbleManager.remove(self, [hand.tracker])
 
 
 ## Activate the event, if provided the XR player body
