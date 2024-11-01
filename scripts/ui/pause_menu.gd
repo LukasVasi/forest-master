@@ -8,6 +8,9 @@ extends Control
 ## The player's camera. Only retrieves and works with the camera in main.
 @onready var player_camera: XRCamera3D = get_tree().get_first_node_in_group("player").get_node("XRCamera3D")
 
+## The player's body.
+@onready var player_body: PlayerBody = get_tree().get_first_node_in_group("player").get_node("PlayerBody")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Hide all the UIs
@@ -51,3 +54,7 @@ func _on_exit_game_button_pressed():
 func _on_back_to_menu_button_pressed():
 	settings_ui.visible = false
 	pause_menu_ui.visible = true
+
+
+func _player_height_changed(new_height: float) -> void:
+	player_body.calibrate_player_height()

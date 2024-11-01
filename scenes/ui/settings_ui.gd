@@ -1,8 +1,8 @@
 class_name SettingsUI
 extends MarginContainer
 
-## I've not figured out what this is used for yet
-signal player_height_changed(new_height)
+## Used to notify the pause menu about a change to player height
+signal player_height_changed(new_height: float)
 
 @onready var snap_turning_button = get_node("SettingsVBox/SnapTurning/SnapTurningCB")
 @onready var movement_direct_button = get_node("SettingsVBox/DirectMovement/DirectMovementCB")
