@@ -129,25 +129,15 @@ func _catch_fish() -> void:
 		if fish_instance:
 			# Add the fish and set it up
 			add_child(fish_instance)
+			fish_instance.freeze = true
 			fish_instance.global_position = fish_spawn_position
 			
-			# Calculate initial velocity to hit the target with an arched trajectory
-			var displacement := player.global_position - fish_spawn_position
-			var gravity := -10.0 # Adjust to match the gravity setting of your physics
-			var time_to_reach_target : float = abs(displacement.y / gravity)
-			
-			# Calculate horizontal and vertical components
-			var horizontal_velocity := Vector3(displacement.x / time_to_reach_target, 0, displacement.z / time_to_reach_target)
-			var vertical_velocity := Vector3(0, gravity * time_to_reach_target / 2, 0) # Adjusted for a higher arc
-			
-			# Combine for the desired initial velocity
-			var desired_velocity := horizontal_velocity + vertical_velocity
-			
-			# Convert velocity to impulse: impulse = velocity * mass
-			var mass := fish_instance.mass
-			var impulse := desired_velocity * mass
+			var g : float = ProjectSettings.get_setting("physics/3d/default_gravity")
+			var delta_to_player := player.global_position - fish_instance.global_position
+			var impulse = Vector3(delta_to_player.x, delta_to_player.y + g + 8, delta_to_player.z) * fish_instance.mass
 			
 			# Apply the impulse at the initial spawn
+			fish_instance.freeze = false
 			fish_instance.apply_central_impulse(impulse)
 
 
@@ -183,7 +173,6 @@ func _get_time_until_distraction() -> float:
 ## Handles the entry of the fishable water. 
 ## Connected to the body entered signal of this node.
 func _on_water_entered(body: Node3D) -> void:
-	print("water entered")
 	# Check if the body that landed in the water has a func for processing this event
 	if body.has_method("on_water_entered"):
 		# Call it if it does
@@ -191,8 +180,7 @@ func _on_water_entered(body: Node3D) -> void:
 		if body == fishing_float:
 			_start_fishing()
 	else:
-		pass
-		print("An unrecognised body has entered the water: " + str(body))
+		print_verbose("An unrecognised body has entered the water: " + str(body))
 
 
 ## Handles the exit of the fishable water. 

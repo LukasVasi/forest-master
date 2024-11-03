@@ -224,7 +224,7 @@ func _on_body_entered(body: Node) -> void:
 ## Func that handles the entry into water - sets bools and maxes out the mesh scale.
 ## Called by the water.
 func on_water_entered(_water_height: float) -> void:
-	print("Fishing float entered water")
+	print_verbose("Fishing float entered water at: ", global_position)
 	_in_water = true
 	_plunging = true
 	mesh.scale = Vector3.ONE * max_mesh_scale # increase the scale of the float mesh to max
