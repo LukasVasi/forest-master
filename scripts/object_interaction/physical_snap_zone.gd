@@ -247,16 +247,15 @@ func pick_up_object(target: Node3D) -> void:
 	
 	# Snap target to snap zone
 	picked_up_object.freeze = true
-	picked_up_object.global_transform = global_transform
-	picked_up_object.freeze = false
-	
+	picked_up_object.global_transform = global_transform.orthonormalized()
 	
 	# Set joint between hand and grabbed object
 	grab_joint.set_node_a(snap_object.get_path())
 	grab_joint.set_node_b(picked_up_object.get_path())
-	
 	grab_joint.set_flag_y(grab_joint.FLAG_ENABLE_ANGULAR_LIMIT, true) # FLAG_ENABLE_ANGULAR_LIMIT = 1
 	
+	# Unfreeze object
+	picked_up_object.freeze = false
 	grab.set_arrived()
 	
 	var player: AudioStreamPlayer3D = get_node("AudioStreamPlayer3D")

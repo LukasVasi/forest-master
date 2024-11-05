@@ -19,6 +19,8 @@ signal tugged
 ## The float target.
 @onready var float_target: FishingFloatTarget = get_node("FloatTarget")
 
+@onready var holding_stick_snap: PhysicalSnapZone = get_tree().get_first_node_in_group("holding_stick").get_node("PhysicalSnapZone")
+
 var player_body: XRToolsPlayerBody
 
 var _moved: bool = false
@@ -55,6 +57,11 @@ func handle_tug() -> void:
 
 
 func reset() -> void:
-	#print("Resetting")
-	emit_signal("action_pressed", self) # resets the float
+	if not fishing_float.connected:
+		emit_signal("action_pressed", self) # resets the float
+	holding_stick_snap.pick_up_object(self)
 	_moved = false
+
+
+func on_water_entered(_water_height: float) -> void:
+	reset()

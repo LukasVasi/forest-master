@@ -7,6 +7,7 @@
 [ext_resource type="Shader" path="res://shaders/Low_poly_water.gdshader" id="6_65b7g"]
 [ext_resource type="PackedScene" uid="uid://cfdglxxc6feb" path="res://scenes/testing/heavy_test_cube.tscn" id="7_fx2ti"]
 [ext_resource type="PackedScene" uid="uid://ca0ohfqspp2pg" path="res://scenes/fishing/fishing_water.tscn" id="8_mty1l"]
+[ext_resource type="PackedScene" uid="uid://cxbr4wga38fm1" path="res://scenes/fishing/holding_stick.tscn" id="8_pm0sp"]
 [ext_resource type="PackedScene" uid="uid://qat0jalvcswc" path="res://scenes/environment/tent.tscn" id="8_tg55q"]
 [ext_resource type="PackedScene" uid="uid://0rctt4pnv5n2" path="res://scenes/tutorial.tscn" id="10_rt4mo"]
 [ext_resource type="PackedScene" uid="uid://482xli6khdjt" path="res://scenes/fishing/bucket.tscn" id="10_ym32v"]
@@ -15,7 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://bcoan783pbvdq" path="res://scenes/fishing/fishing_rod.tscn" id="18_ap21l"]
 [ext_resource type="PackedScene" uid="uid://d1df0epcleg23" path="res://scenes/fishing/dock.tscn" id="18_r5c2f"]
 [ext_resource type="PackedScene" uid="uid://baqn44ngm0jv1" path="res://scenes/combat/bow.tscn" id="22_6ivd3"]
-[ext_resource type="PackedScene" uid="uid://y3a42o7ap8gf" path="res://models/fishing/holding_stick.glb" id="25_70mbh"]
 [ext_resource type="ArrayMesh" uid="uid://b6yqjvidi8vai" path="res://resources/fir_3_LOD0.mesh" id="30_4omla"]
 [ext_resource type="PackedScene" uid="uid://bp5tb8du3d72d" path="res://scenes/cooking/campfire.tscn" id="30_8ne4e"]
 [ext_resource type="PackedScene" uid="uid://cirviy7nnojqm" path="res://models/nature/bushes/bush_small.glb" id="32_1c0df"]
@@ -388,8 +388,8 @@ transform = Transform3D(0.957637, 0, 0.287979, 0, 1, 0, -0.287979, 0, 0.957637, 
 
 [node name="Fishing" type="Node" parent="."]
 
-[node name="holding_stick" parent="Fishing" instance=ExtResource("25_70mbh")]
-transform = Transform3D(-0.634024, 0, 1.35942, 0, 1.5, 0, -1.35942, 0, -0.634024, 16.7188, 0.258324, 7.4573)
+[node name="HoldingStick" parent="Fishing" instance=ExtResource("8_pm0sp")]
+transform = Transform3D(-0.906307, 0, -0.422618, 0, 1, 0, 0.422618, 0, -0.906307, 16.6591, 0.240074, 7.4561)
 
 [node name="Bucket" parent="Fishing" instance=ExtResource("10_ym32v")]
 transform = Transform3D(0.906684, 0, 0.421811, 0, 1, 0, -0.421811, 0, 0.906684, 16.9442, 0.483129, 5.58276)
@@ -418,7 +418,7 @@ transform = Transform3D(-0.113004, 0, 0.0403744, 0, 0.12, 0, -0.0403744, 0, -0.1
 curve = SubResource("Curve3D_i6pi6")
 
 [node name="MockFish1" parent="Fishing/MockFishes/MockFishPath1" instance=ExtResource("14_h3ydf")]
-transform = Transform3D(-0.961927, -0.0026609, 0.273209, 0, 0.999877, 0.00973934, -0.273221, 0.00936822, -0.961885, 17.8061, -1.12253, 13.4726)
+transform = Transform3D(-0.961927, -0.0026609, 0.273209, 0, 0.999875, 0.00973934, -0.273221, 0.0093682, -0.961885, 17.8061, -1.12253, 13.4726)
 progress = 39.4198
 rotation_mode = 2
 use_model_front = true
@@ -445,7 +445,7 @@ use_model_front = true
 movement_speed = 2.4
 
 [node name="FishingRod" parent="." instance=ExtResource("18_ap21l")]
-transform = Transform3D(-0.915531, -0.0327862, -0.400908, 0.208503, 0.813645, -0.542686, 0.343991, -0.580438, -0.738082, 16.3872, 0.827844, 6.85365)
+transform = Transform3D(-0.904946, 0, -0.425527, 0, 1, 0, 0.425527, 0, -0.904946, 16.6939, 1.259, 7.09957)
 
 [node name="Water" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.822382, 0, -0.568935, 0, 1, 0, 0.568935, 0, 0.822382, 34.3754, -0.889945, 21.0098)

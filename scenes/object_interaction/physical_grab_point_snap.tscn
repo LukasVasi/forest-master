@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://7adcm63eh1yv"]
+
+[ext_resource type="Script" path="res://scripts/object_interaction/physical_grab_point_snap.gd" id="1_alkyh"]
+
+[node name="GrabPointSnap" type="Marker3D"]
+visible = false
+script = ExtResource("1_alkyh")

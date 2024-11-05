@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://bcoan783pbvdq"]
+[gd_scene load_steps=30 format=4 uid="uid://bcoan783pbvdq"]
 
 [ext_resource type="Script" path="res://scripts/fishing/fishing_rod.gd" id="2_h6u5q"]
 [ext_resource type="PackedScene" uid="uid://bsvi1o45dttw5" path="res://scenes/object_interaction/physical_grab_point_left.tscn" id="3_bkh4n"]
@@ -9,6 +9,7 @@
 [ext_resource type="Animation" uid="uid://daqddcrbpam0c" path="res://addons/godot-xr-tools/hands/animations/right/Grip 1.res" id="8_3q68x"]
 [ext_resource type="Script" path="res://scripts/fishing/fishing_float_target.gd" id="10_bvdsn"]
 [ext_resource type="PackedScene" uid="uid://dil16xqh8spna" path="res://scenes/fishing/fishing_float.tscn" id="11_apdnu"]
+[ext_resource type="PackedScene" uid="uid://7adcm63eh1yv" path="res://scenes/object_interaction/physical_grab_point_snap.tscn" id="12_0fugb"]
 [ext_resource type="PackedScene" uid="uid://csdvq8wulxb4g" path="res://scenes/utils/line.tscn" id="12_1hf0y"]
 [ext_resource type="Material" uid="uid://b6dy24oasdds8" path="res://resources/M_String.tres" id="13_ahgwm"]
 
@@ -130,7 +131,7 @@ closed_pose = ExtResource("5_lecea")
 script = ExtResource("6_0ucvv")
 closed_pose = ExtResource("8_3q68x")
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_vcstk"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_ltvpp"]
 material = ExtResource("13_ahgwm")
 top_radius = 0.001
 bottom_radius = 0.001
@@ -295,6 +296,9 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.
 mode = 1
 hand_pose = SubResource("Resource_errwh")
 
+[node name="GrabPointSnap" parent="." instance=ExtResource("12_0fugb")]
+transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, -0.665633)
+
 [node name="FloatTarget" type="Node3D" parent="."]
 editor_description = "This node represents the position that the fishing float will be at when connected to the fishing rod."
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, -0.941)
@@ -307,7 +311,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0537452, -0.932214)
 [node name="Line" parent="." node_paths=PackedStringArray("start_point", "end_point") instance=ExtResource("12_1hf0y")]
 transform = Transform3D(0.999994, 0, 0, 0, 0.995838, -0.0908983, 0, 0.0908983, 0.995838, 0, -0.101873, -0.936607)
 top_level = true
-mesh = SubResource("CylinderMesh_vcstk")
+mesh = SubResource("CylinderMesh_ltvpp")
 skeleton = NodePath("../..")
 radius = 0.001
 material = ExtResource("13_ahgwm")

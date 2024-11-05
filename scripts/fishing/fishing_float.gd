@@ -42,7 +42,7 @@ extends RigidBody3D
 @export var max_mesh_scale: float = 0.6
 
 ## Determines if the float is connected to the fishing rod
-var _connected: bool = true
+var connected: bool = true
 
 ## Determines if the float is in water.
 var _in_water: bool = false
@@ -100,16 +100,16 @@ func _ready() -> void:
 
 # Called every frame
 func _process(_delta: float) -> void:
-	if not _connected and not _in_water:
+	if not connected and not _in_water:
 		_adjust_mesh_scale()
 
 
 # Called every physics frame
 func _physics_process(_delta: float) -> void:
-	if _connected:
+	if connected:
 		set_position_at_target()
 	
-	if not _connected:
+	if not connected:
 		_update_distance_to_rod()
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
@@ -175,7 +175,7 @@ func _adjust_mesh_scale() -> void:
 ## Resets the float back to the fishing rod.
 func _reset() -> void:
 	freeze = true
-	_connected = true
+	connected = true
 	# Reset the mesh scale
 	mesh.scale = Vector3.ONE * min_mesh_scale
 	global_rotation = Vector3.ZERO
@@ -183,7 +183,7 @@ func _reset() -> void:
 
 ## Releases the float from the fishing rod.
 func _release() -> void:
-	_connected = false
+	connected = false
 	freeze = false
 	linear_velocity = target.estimated_velocity
 
@@ -208,7 +208,7 @@ func emit_particles() -> void:
 
 ## Handles the interaction signal from the fishing rod.
 func _on_action_pressed(_pickable: Variant) -> void:	
-	if not _connected:
+	if not connected:
 		_reset()
 	else:
 		_release()
