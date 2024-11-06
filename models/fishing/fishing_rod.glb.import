@@ -33,9 +33,45 @@ animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
 "materials": {
-"M_String": {
+"@MATERIAL:2": {
+"use_external/path": "res://resources/highlight_material.tres"
+},
+"MFishingRod": {
 "use_external/enabled": true,
-"use_external/path": "res://resources/M_String.tres"
+"use_external/path": "res://models/fishing/MFishingRod.tres"
+},
+"MString": {
+"use_external/enabled": true,
+"use_external/path": "res://models/fishing/MString.tres"
+}
+},
+"meshes": {
+"fishing_rod_FishingRod": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://models/fishing/fishing_rod_FishingRod.res"
+},
+"fishing_rod_FishingRodHighlight": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://models/fishing/fishing_rod_FishingRodHighlight.res"
+},
+"fishing_rod_NurbsPath": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://models/fishing/fishing_rod_NurbsPath.res"
 }
 }
 }
