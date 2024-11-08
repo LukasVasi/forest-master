@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ceed75q5yogxe"
-path.s3tc="res://.godot/imported/fishing_rod_FishingRodMetallic-FishingRodRoughness.png-5e3de0f9134aa5ce416d62c78854ef74.s3tc.ctex"
-path.etc2="res://.godot/imported/fishing_rod_FishingRodMetallic-FishingRodRoughness.png-5e3de0f9134aa5ce416d62c78854ef74.etc2.ctex"
+path.s3tc="res://.godot/imported/fishing_rod_FishingRodMetallic-FishingRodRoughness.png-7adf78d4c2e58af758c8e4aa7521d893.s3tc.ctex"
+path.etc2="res://.godot/imported/fishing_rod_FishingRodMetallic-FishingRodRoughness.png-7adf78d4c2e58af758c8e4aa7521d893.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -15,8 +15,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://models/fishing/fishing_rod_FishingRodMetallic-FishingRodRoughness.png"
-dest_files=["res://.godot/imported/fishing_rod_FishingRodMetallic-FishingRodRoughness.png-5e3de0f9134aa5ce416d62c78854ef74.s3tc.ctex", "res://.godot/imported/fishing_rod_FishingRodMetallic-FishingRodRoughness.png-5e3de0f9134aa5ce416d62c78854ef74.etc2.ctex"]
+source_file="res://models/fishing/fishing_rod/fishing_rod_FishingRodMetallic-FishingRodRoughness.png"
+dest_files=["res://.godot/imported/fishing_rod_FishingRodMetallic-FishingRodRoughness.png-7adf78d4c2e58af758c8e4aa7521d893.s3tc.ctex", "res://.godot/imported/fishing_rod_FishingRodMetallic-FishingRodRoughness.png-7adf78d4c2e58af758c8e4aa7521d893.etc2.ctex"]
 
 [params]
 

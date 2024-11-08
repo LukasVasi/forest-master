@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://s1y3byegwvw7"
-path="res://.godot/imported/fishing_rod.glb-fb8dc202b528f77e6ccbc125e08c55f3.scn"
+path="res://.godot/imported/fishing_rod.glb-dae3521301e97b9c0c85816aa7a3f12d.scn"
 
 [deps]
 
-source_file="res://models/fishing/fishing_rod.glb"
-dest_files=["res://.godot/imported/fishing_rod.glb-fb8dc202b528f77e6ccbc125e08c55f3.scn"]
+source_file="res://models/fishing/fishing_rod/fishing_rod.glb"
+dest_files=["res://.godot/imported/fishing_rod.glb-dae3521301e97b9c0c85816aa7a3f12d.scn"]
 
 [params]
 
@@ -53,7 +53,7 @@ _subresources={
 "lods/normal_merge_angle": 60.0,
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": true,
-"save_to_file/path": "res://models/fishing/fishing_rod_FishingRod.res"
+"save_to_file/path": "res://models/fishing/fishing_rod/fishing_rod_FishingRod.res"
 },
 "fishing_rod_FishingRodHighlight": {
 "generate/lightmap_uv": 0,
@@ -62,7 +62,7 @@ _subresources={
 "lods/normal_merge_angle": 60.0,
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": true,
-"save_to_file/path": "res://models/fishing/fishing_rod_FishingRodHighlight.res"
+"save_to_file/path": "res://models/fishing/fishing_rod/fishing_rod_FishingRodHighlight.res"
 },
 "fishing_rod_NurbsPath": {
 "generate/lightmap_uv": 0,
@@ -71,7 +71,16 @@ _subresources={
 "lods/normal_merge_angle": 60.0,
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": true,
-"save_to_file/path": "res://models/fishing/fishing_rod_NurbsPath.res"
+"save_to_file/path": "res://models/fishing/fishing_rod/fishing_rod_NurbsPath.res"
+},
+"fishing_rod_SpinnerHandleHighlight": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://models/fishing/fishing_rod/fishing_rod_SpinnerHandleHighlight.res"
 }
 }
 }

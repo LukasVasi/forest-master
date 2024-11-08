@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://3miqnqbjnyp6"
-path.s3tc="res://.godot/imported/fishing_rod_FishingRodAlbedo.png-f0fc10b724889a7db76a16deb1101285.s3tc.ctex"
-path.etc2="res://.godot/imported/fishing_rod_FishingRodAlbedo.png-f0fc10b724889a7db76a16deb1101285.etc2.ctex"
+path.s3tc="res://.godot/imported/fishing_rod_FishingRodAlbedo.png-bad021457d457593eb1bf74776990823.s3tc.ctex"
+path.etc2="res://.godot/imported/fishing_rod_FishingRodAlbedo.png-bad021457d457593eb1bf74776990823.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -15,8 +15,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://models/fishing/fishing_rod_FishingRodAlbedo.png"
-dest_files=["res://.godot/imported/fishing_rod_FishingRodAlbedo.png-f0fc10b724889a7db76a16deb1101285.s3tc.ctex", "res://.godot/imported/fishing_rod_FishingRodAlbedo.png-f0fc10b724889a7db76a16deb1101285.etc2.ctex"]
+source_file="res://models/fishing/fishing_rod/fishing_rod_FishingRodAlbedo.png"
+dest_files=["res://.godot/imported/fishing_rod_FishingRodAlbedo.png-bad021457d457593eb1bf74776990823.s3tc.ctex", "res://.godot/imported/fishing_rod_FishingRodAlbedo.png-bad021457d457593eb1bf74776990823.etc2.ctex"]
 
 [params]
 
