@@ -66,7 +66,7 @@ closed_pose = ExtResource("5_lecea")
 script = ExtResource("6_0ucvv")
 closed_pose = ExtResource("8_3q68x")
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_linx7"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_3dl1q"]
 material = ExtResource("13_ahgwm")
 top_radius = 0.001
 bottom_radius = 0.001
@@ -84,12 +84,13 @@ script = ExtResource("6_0ucvv")
 script = ExtResource("6_0ucvv")
 
 [node name="FishingRod" type="RigidBody3D" groups=["fishing_rod"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 collision_layer = 4
 collision_mask = 196615
 mass = 0.1
 continuous_cd = true
 script = ExtResource("2_h6u5q")
+reel_in_amount = null
+float_reset_distance = null
 
 [node name="XRToolsHighlightVisible" type="Node3D" parent="."]
 visible = false
@@ -122,7 +123,7 @@ bones/1/parent = 0
 bones/1/rest = Transform3D(1, -1.86239e-09, 3.06625e-11, 1.66533e-16, -0.0164617, -0.999864, 1.86265e-09, 0.999864, -0.0164617, 1.05602e-10, 0.162891, -0.0566946)
 bones/1/enabled = true
 bones/1/position = Vector3(1.05602e-10, 0.162891, -0.0566946)
-bones/1/rotation = Quaternion(0.0942494, 0, 0, 0.995549)
+bones/1/rotation = Quaternion(0.0942497, 0, 0, 0.995549)
 bones/1/scale = Vector3(1, 1, 1)
 
 [node name="FishingRod" type="MeshInstance3D" parent="FishingRodArmature/Skeleton3D"]
@@ -160,9 +161,9 @@ editor_description = "This node displays the position that the fishing rod strin
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0265145, -0.932214)
 
 [node name="Line" parent="." node_paths=PackedStringArray("start_point", "end_point") instance=ExtResource("12_1hf0y")]
-transform = Transform3D(0.999982, 0, 0, 0, 0.997452, -0.0709685, 0, 0.0709685, 0.997452, 0, -0.0882573, -0.936607)
+transform = Transform3D(0.999982, 0, 0, 0, 0.997452, -0.0709686, 0, 0.0709686, 0.997452, 0, -0.0882573, -0.936607)
 top_level = true
-mesh = SubResource("CylinderMesh_linx7")
+mesh = SubResource("CylinderMesh_3dl1q")
 skeleton = NodePath("../..")
 radius = 0.001
 material = ExtResource("13_ahgwm")
@@ -172,6 +173,8 @@ end_point = NodePath("../FishingFloat")
 [node name="FishingFloat" parent="." instance=ExtResource("11_apdnu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, -0.941)
 max_contacts_reported = 1
+max_distance = 16.0
+max_fishing_distance = 18.0
 
 [node name="FishingRod" type="Node3D" parent="."]
 
@@ -179,10 +182,9 @@ max_contacts_reported = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0360048, 0.425891)
 
 [node name="HandleOrigin" type="Node3D" parent="CenterOfSpinner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.165, 0.00562979, -0.029467)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.165, 0.00562981, -0.029467)
 
 [node name="SpinnerHandle" type="RigidBody3D" parent="CenterOfSpinner/HandleOrigin"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 collision_layer = 262144
 collision_mask = 0
 mass = 0.01

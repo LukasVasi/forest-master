@@ -45,7 +45,7 @@ extends RigidBody3D
 var connected: bool = true
 
 ## Determines if the float is in water.
-var _in_water: bool = false
+var in_water: bool = false
 
 ## Determines if the float is plunging into water and enables float force.
 var _plunging: bool = false
@@ -100,7 +100,7 @@ func _ready() -> void:
 
 # Called every frame
 func _process(_delta: float) -> void:
-	if not connected and not _in_water:
+	if not connected and not in_water:
 		_adjust_mesh_scale()
 
 
@@ -113,7 +113,7 @@ func _physics_process(_delta: float) -> void:
 		_update_distance_to_rod()
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	if _in_water:
+	if in_water:
 		if _plunging:
 			_control_plunging(state)
 			return
@@ -161,9 +161,9 @@ func _control_plunging(state: PhysicsDirectBodyState3D) -> void:
 ## Updates the current distance from the float to the fishing rod.
 func _update_distance_to_rod() -> void:
 	_distance = global_position.distance_to(target.global_position)
-	if not _in_water and _distance > max_distance:
+	if not in_water and _distance > max_distance:
 		_reset()
-	if _in_water and _distance > max_fishing_distance:
+	if in_water and _distance > max_fishing_distance:
 		_reset()
 
 
@@ -225,7 +225,7 @@ func _on_body_entered(body: Node) -> void:
 ## Called by the water.
 func on_water_entered(_water_height: float) -> void:
 	print_verbose("Fishing float entered water at: ", global_position)
-	_in_water = true
+	in_water = true
 	_plunging = true
 	mesh.scale = Vector3.ONE * max_mesh_scale # increase the scale of the float mesh to max
 	splash_particles.set_emitting(true)
@@ -234,7 +234,7 @@ func on_water_entered(_water_height: float) -> void:
 ## Handles the exit from water - resets all bools and variables related to water.
 ## Called by the water.
 func on_water_exited() -> void:
-	_in_water = false
+	in_water = false
 	_plunging = false
 	_bobbing = false
 	_bobbing_time = 0.0
