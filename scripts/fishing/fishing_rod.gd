@@ -17,7 +17,7 @@ signal tugged
 @export var reel_in_amount: float = 0.6
 
 ## The distance at which the float is reset when reeling in
-@export var float_reset_distance: float = 1.0
+@export var float_reset_distance: float = 2
 
 ## The fishing float.
 @onready var fishing_float: FishingFloat = get_node("FishingFloat")
@@ -34,6 +34,8 @@ signal tugged
 @onready var handle: PhysicalInteractableHandle = get_node("CenterOfSpinner/HandleOrigin/SpinnerHandle")
 
 @onready var holding_stick_snap: PhysicalSnapZone = get_tree().get_first_node_in_group("holding_stick").get_node("PhysicalSnapZone")
+
+@onready var fishing_water: FishingWater = get_tree().get_first_node_in_group("water")
 
 var player_body: XRToolsPlayerBody
 
@@ -52,6 +54,7 @@ func _ready() -> void:
 	
 	player_body = get_tree().get_first_node_in_group("player").get_node("PlayerBody")
 
+
 func _process(delta: float) -> void:
 	if is_picked_up():
 		_update_spinner_bone_rotation(delta)
@@ -65,16 +68,18 @@ func _process(delta: float) -> void:
 
 func pick_up(by: Node3D) -> PhysicalGrab:
 	_moved = true
-	float_target.set_picked_up(true) # Tell the target to start calculating velocity
 	handle.enabled = true
-	return super.pick_up(by) # Run the parent pick up function
+	var grab := super.pick_up(by) # Run the parent pick up function
+	if grab.hand: # enable velocity estimation if picked up by player
+		float_target.set_physics_process(true)
+	return grab
 
 
 func let_go(by: Node3D) -> void:
 	super.let_go(by) # Run the parent function
-	float_target.set_picked_up(false) # Tell the target to stop calculating velocity
 	handle.drop()
 	handle.enabled = false
+	float_target.set_physics_process(false)
 
 
 func handle_tug() -> void:
@@ -82,13 +87,19 @@ func handle_tug() -> void:
 
 
 func reset() -> void:
-	if not fishing_float.connected:
-		emit_signal("action_pressed", self) # resets the float
+	fishing_float.reset()
 	holding_stick_snap.pick_up_object(self)
 	_moved = false
 
 
-func _update_spinner_bone_rotation(delta: float) -> void:
+func _update_spinner_bone_rotation(_delta: float) -> void:
+	# If we reeled the float close enough, exit early (locks the handle from rotating)
+	if (
+		fishing_water and fishing_water.current_state == FishingWater.FishingState.Reeling
+		and fishing_float.distance_to_target < float_reset_distance
+	):
+		return 
+	
 	# Get the direction to the handle
 	var current_direction_to_handle := _get_direction_to_handle()
 	
@@ -113,10 +124,8 @@ func _update_spinner_bone_rotation(delta: float) -> void:
 			float_direction_to_target = float_direction_to_target.normalized()
 			# Move the float
 			fishing_float.translate(float_direction_to_target * reel_in_delta)
-			# Reset the float if it gets close enough (ignore vertical distance)
-			var delta_to_rod := fishing_float.global_position - float_target.global_position
-			delta_to_rod.y = 0
-			if delta_to_rod.length() < float_reset_distance:
+			# Reset the float if it gets close enough when not reeling in
+			if fishing_float.distance_to_target < float_reset_distance:
 				emit_signal("action_pressed", self)
 	
 	previous_direction_to_handle = current_direction_to_handle

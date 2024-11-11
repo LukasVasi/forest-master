@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dil16xqh8spna"]
+[gd_scene load_steps=14 format=3 uid="uid://dil16xqh8spna"]
 
 [ext_resource type="Script" path="res://scripts/fishing/fishing_float.gd" id="1_5cgpm"]
 [ext_resource type="ArrayMesh" uid="uid://b5ptwvx7ticus" path="res://resources/fishing_float_mesh.tres" id="2_e3h5b"]
@@ -9,11 +9,11 @@
 margin = 0.02
 radius = 0.1
 
-[sub_resource type="Gradient" id="Gradient_yt024"]
-colors = PackedColorArray(0.863403, 0.650399, 0, 1, 0.861761, 0.410186, 0, 1)
+[sub_resource type="Gradient" id="Gradient_7rsu0"]
+colors = PackedColorArray(0.500402, 0.460891, 0.44689, 1, 0.0580361, 0.0326438, 0.018329, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_w17s7"]
-gradient = SubResource("Gradient_yt024")
+gradient = SubResource("Gradient_7rsu0")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0m2d4"]
 lifetime_randomness = 0.2
@@ -24,6 +24,24 @@ initial_velocity_max = 8.0
 scale_min = 0.6
 scale_max = 0.8
 color_initial_ramp = SubResource("GradientTexture1D_w17s7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_af4rr"]
+lifetime_randomness = 0.2
+direction = Vector3(0, 1, 0)
+spread = 20.0
+initial_velocity_min = 6.0
+initial_velocity_max = 8.0
+scale_min = 0.6
+scale_max = 1.2
+color_initial_ramp = SubResource("GradientTexture1D_w17s7")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5pwsf"]
+shading_mode = 2
+vertex_color_use_as_albedo = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_6k128"]
+material = SubResource("StandardMaterial3D_5pwsf")
+size = Vector3(0.2, 0.2, 0.2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kucj1"]
 shading_mode = 2
@@ -57,6 +75,14 @@ one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_0m2d4")
 draw_pass_1 = ExtResource("3_q7fu4")
+
+[node name="FailParticles" type="GPUParticles3D" parent="."]
+emitting = false
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_af4rr")
+draw_pass_1 = SubResource("BoxMesh_6k128")
 
 [node name="SplashParticles" type="GPUParticles3D" parent="."]
 emitting = false

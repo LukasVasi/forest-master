@@ -59,8 +59,11 @@ var _bobbing_time: float = 0.0
 ## Variable that keeps track of the rotation oscillation time.
 var _rotation_time: float = 0.0
 
+## BUG: This is currently needed because transform isn't set properly after setting top level to false
+var _reset_pending: bool = false 
+
 ## The current distance from the rod to the float.
-var _distance: float = 0.0
+var distance_to_target: float = 0.0
 
 ## The mesh of the float, used for changing the visual scale.
 @onready var mesh: MeshInstance3D = get_node("FloatMesh")
@@ -69,10 +72,13 @@ var _distance: float = 0.0
 @onready var fishing_rod: FishingRod = get_node("../")
 
 ## The float target that the float is attached to when connected.
-@onready var target: Node3D = fishing_rod.get_node("FloatTarget") if fishing_rod else null
+@onready var target: FishingFloatTarget = fishing_rod.get_node("FloatTarget") if fishing_rod else null
 
 ## The particle system of the float, used for emitting success particles.
-@onready var particles: GPUParticles3D = get_node("SuccessParticles")
+@onready var success_particles: GPUParticles3D = get_node("SuccessParticles")
+
+## The particle system of the float, used for emitting fail particles.
+@onready var fail_particles: GPUParticles3D = get_node("FailParticles")
 
 @onready var splash_particles: GPUParticles3D = get_node("SplashParticles")
 
@@ -89,26 +95,25 @@ func _ready() -> void:
 		set_physics_process(false)
 		return
 	
-	# Set the top level in code for better editor representation
-	top_level = true
-	
 	fishing_rod.action_pressed.connect(_on_action_pressed)
 	
 	# Make sure the float is reset
-	_reset()
+	reset()
 
 
 # Called every frame
 func _process(_delta: float) -> void:
+	# BUG: this is needed because of transform setting bug
+	if _reset_pending:
+		global_transform = target.global_transform
+		_reset_pending = false
+	
 	if not connected and not in_water:
 		_adjust_mesh_scale()
 
 
 # Called every physics frame
 func _physics_process(_delta: float) -> void:
-	if connected:
-		set_position_at_target()
-	
 	if not connected:
 		_update_distance_to_rod()
 
@@ -158,39 +163,39 @@ func _control_plunging(state: PhysicsDirectBodyState3D) -> void:
 		_bobbing = true
 
 
-## Updates the current distance from the float to the fishing rod.
+## Updates the horizontal distance from the float to the float target.
 func _update_distance_to_rod() -> void:
-	_distance = global_position.distance_to(target.global_position)
-	if not in_water and _distance > max_distance:
-		_reset()
-	if in_water and _distance > max_fishing_distance:
-		_reset()
+	var delta_to_target := global_position - target.global_position
+	delta_to_target.y = 0 # ingore the height difference
+	distance_to_target = delta_to_target.length()
+	if not in_water and distance_to_target > max_distance:
+		reset()
+	if in_water and distance_to_target > max_fishing_distance:
+		reset()
 
 
 ## Used to calculate the scale the float mesh should be at the current distance.
 func _adjust_mesh_scale() -> void:
-	mesh.scale = Vector3.ONE * (_distance / max_distance * (max_mesh_scale - min_mesh_scale) + min_mesh_scale)
+	mesh.scale = Vector3.ONE * (distance_to_target / max_distance * (max_mesh_scale - min_mesh_scale) + min_mesh_scale)
 
 
+# BUG: this doesn't work properly only when resetting on action pressed - the transform isn't set
 ## Resets the float back to the fishing rod.
-func _reset() -> void:
+func reset() -> void:
 	freeze = true
+	top_level = false
 	connected = true
-	# Reset the mesh scale
 	mesh.scale = Vector3.ONE * min_mesh_scale
-	global_rotation = Vector3.ZERO
+	_reset_pending = true
+	global_transform = target.global_transform
 
 
 ## Releases the float from the fishing rod.
 func _release() -> void:
 	connected = false
+	top_level = true
 	freeze = false
 	linear_velocity = target.estimated_velocity
-
-
-## Sets the position of the float at the position of the float target
-func set_position_at_target() -> void:
-	global_position = target.global_position
 
 
 ## Called by water on fishing trial to plunge float.
@@ -202,14 +207,19 @@ func plunge() -> void:
 
 
 ## Called by water upon successful fishing trial.
-func emit_particles() -> void:
-	particles.set_emitting(true)
+func emit_success_particles() -> void:
+	success_particles.set_emitting(true)
+
+
+## Called by water upon failed fishing trial.
+func emit_fail_particles() -> void:
+	fail_particles.set_emitting(true)
 
 
 ## Handles the interaction signal from the fishing rod.
-func _on_action_pressed(_pickable: Variant) -> void:	
+func _on_action_pressed(_pickable: Variant) -> void:
 	if not connected:
-		_reset()
+		reset()
 	else:
 		_release()
 
@@ -218,7 +228,7 @@ func _on_action_pressed(_pickable: Variant) -> void:
 func _on_body_entered(body: Node) -> void:
 	var layer: int = body.get_collision_layer()
 	if layer and layer != pow(2,9): 
-		_reset()
+		reset()
 
 
 ## Func that handles the entry into water - sets bools and maxes out the mesh scale.
