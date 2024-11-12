@@ -125,5 +125,5 @@ collision_mask = 907
 script = ExtResource("19_ikctw")
 water_emergence_acceleration = 5.0
 water_max_emergence_velocity = 2.0
-water_bobbing_amplitude = 0.2
-_water_bobbing_frequency = 0.8
+water_bobbing_amplitude = 0.15
+_water_bobbing_frequency = 0.5
