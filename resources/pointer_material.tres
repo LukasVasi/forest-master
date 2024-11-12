@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bimaj4q2n44vt"]
+
+[resource]
+no_depth_test = true
+shading_mode = 0
+diffuse_mode = 1
+albedo_color = Color(1.10701e-06, 0.661699, 0.301857, 0.740314)

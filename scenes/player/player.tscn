@@ -6,8 +6,8 @@
 [ext_resource type="Shader" path="res://shaders/ghost_hand_shader.gdshader" id="4_em0wq"]
 [ext_resource type="PackedScene" uid="uid://difr003pluy10" path="res://scenes/player/hands/right_physical_hand.tscn" id="5_7pet1"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="7_ujmcf"]
+[ext_resource type="Material" uid="uid://bimaj4q2n44vt" path="res://resources/pointer_material.tres" id="8_3gkwq"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="8_qcxyg"]
-[ext_resource type="Material" path="res://addons/godot-xr-tools/materials/pointer.tres" id="9_426bj"]
 [ext_resource type="PackedScene" uid="uid://ke308b8xd5wh" path="res://scenes/object_interaction/pause_menu_function_pickup.tscn" id="10_aywuv"]
 [ext_resource type="PackedScene" uid="uid://mx6owhjjvnc8" path="res://scenes/player/hands/left_ghost_hand.tscn" id="10_oy5hj"]
 [ext_resource type="PackedScene" uid="uid://dl1miotgluu08" path="res://scenes/player/hands/left_physical_hand.tscn" id="11_4i34x"]
@@ -19,7 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="18_ohvkj"]
 [ext_resource type="Script" path="res://scripts/player/player_body.gd" id="19_ikctw"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4r7cj"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rwpac"]
 render_priority = 0
 shader = ExtResource("4_em0wq")
 shader_parameter/base_color = Color(3.94672e-06, 0.737807, 0.523496, 1)
@@ -28,7 +28,7 @@ shader_parameter/min_alpha = 0.1
 shader_parameter/max_alpha = 0.8
 shader_parameter/fresnel_amount = 3.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yf0br"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_061dm"]
 render_priority = 0
 shader = ExtResource("4_em0wq")
 shader_parameter/base_color = Color(3.94672e-06, 0.737807, 0.523496, 1)
@@ -56,7 +56,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, -0.5)
 tracker = &"right_hand"
 
 [node name="RightGhostHand" parent="RightHandController" instance=ExtResource("3_4m8a8")]
-hand_material_override = SubResource("ShaderMaterial_4r7cj")
+hand_material_override = SubResource("ShaderMaterial_rwpac")
 physical_hand_path = NodePath("../RightPhysicalHand")
 
 [node name="RightPhysicalHand" parent="RightHandController" instance=ExtResource("5_7pet1")]
@@ -67,12 +67,13 @@ step_turn_angle = 45.0
 
 [node name="FunctionPointerRight" parent="RightHandController" instance=ExtResource("8_qcxyg")]
 enabled = false
-distance = 2.0
+distance = 3.0
 show_laser = 0
 laser_length = 1
-laser_material = ExtResource("9_426bj")
+laser_material = ExtResource("8_3gkwq")
 show_target = true
-collision_mask = 5242884
+target_radius = 0.02
+target_material = ExtResource("8_3gkwq")
 
 [node name="PauseMenuFunctionPickup" parent="RightHandController" instance=ExtResource("10_aywuv")]
 
@@ -82,7 +83,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.5, -0.5)
 tracker = &"left_hand"
 
 [node name="LeftGhostHand" parent="LeftHandController" instance=ExtResource("10_oy5hj")]
-hand_material_override = SubResource("ShaderMaterial_yf0br")
+hand_material_override = SubResource("ShaderMaterial_061dm")
 physical_hand_path = NodePath("../LeftPhysicalHand")
 
 [node name="LeftPhysicalHand" parent="LeftHandController" instance=ExtResource("11_4i34x")]
@@ -94,11 +95,12 @@ strafe = true
 
 [node name="FunctionPointerLeft" parent="LeftHandController" instance=ExtResource("8_qcxyg")]
 enabled = false
-distance = 2.0
+distance = 3.0
 laser_length = 1
-laser_material = ExtResource("9_426bj")
+laser_material = ExtResource("8_3gkwq")
 show_target = true
-collision_mask = 5242884
+target_radius = 0.02
+target_material = ExtResource("8_3gkwq")
 
 [node name="MovementJump" parent="LeftHandController" instance=ExtResource("15_7n6ay")]
 jump_button_action = "by_button"
