@@ -14,7 +14,7 @@ extends PhysicalPickable
 signal tugged
 
 ## The amount of meters that the fishing float is reeled in per full turn of the spinner
-@export var reel_in_amount: float = 0.6
+@export var reel_in_amount: float = 4
 
 ## The distance at which the float is reset when reeling in
 @export var float_reset_distance: float = 2
@@ -55,15 +55,17 @@ func _ready() -> void:
 	player_body = get_tree().get_first_node_in_group("player").get_node("PlayerBody")
 
 
-func _process(delta: float) -> void:
-	if is_picked_up():
-		_update_spinner_bone_rotation(delta)
-	
+func _process(_delta: float) -> void:
 	if (
 			_moved and not is_picked_up() and player_body 
 			and global_position.distance_to(player_body.global_position) > 10.0
 	):
 		reset()
+
+
+func _physics_process(delta: float) -> void:
+	if is_picked_up():
+		_update_spinner_bone_rotation(delta)
 
 
 func pick_up(by: Node3D) -> PhysicalGrab:
@@ -123,7 +125,7 @@ func _update_spinner_bone_rotation(_delta: float) -> void:
 			float_direction_to_target.y = 0
 			float_direction_to_target = float_direction_to_target.normalized()
 			# Move the float
-			fishing_float.translate(float_direction_to_target * reel_in_delta)
+			fishing_float.apply_central_force(float_direction_to_target * reel_in_delta)
 			# Reset the float if it gets close enough when not reeling in
 			if fishing_float.distance_to_target < float_reset_distance:
 				emit_signal("action_pressed", self)

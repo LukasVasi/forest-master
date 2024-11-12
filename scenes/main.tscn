@@ -456,7 +456,6 @@ surface_material_override/0 = SubResource("ShaderMaterial_frkp2")
 
 [node name="FishingWater" parent="Water" instance=ExtResource("8_mty1l")]
 transform = Transform3D(0.280918, 0, -0.959732, 0, 1, 0, 0.959732, 0, 0.280918, -8.87534, -0.193142, -3.86797)
-number_of_trials = 1
 
 [node name="Tent" parent="." instance=ExtResource("8_tg55q")]
 transform = Transform3D(0.985911, -0.0637983, -0.154625, 0.0668801, 0.997651, 0.0148054, 0.153317, -0.0249382, 0.987862, -5.69546, 0.727935, -2.02315)

@@ -1,5 +1,6 @@
-[gd_scene load_steps=29 format=4 uid="uid://bcoan783pbvdq"]
+[gd_scene load_steps=31 format=4 uid="uid://bcoan783pbvdq"]
 
+[ext_resource type="Script" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="2_11l6d"]
 [ext_resource type="Script" path="res://scripts/fishing/fishing_rod.gd" id="2_h6u5q"]
 [ext_resource type="PackedScene" uid="uid://bsvi1o45dttw5" path="res://scenes/object_interaction/physical_grab_point_left.tscn" id="3_bkh4n"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="3_f4qqc"]
@@ -18,6 +19,13 @@
 [ext_resource type="Script" path="res://scripts/object_interaction/physical_interactable_handle.gd" id="17_mqpg4"]
 [ext_resource type="ArrayMesh" uid="uid://d0u76u5lsrupe" path="res://models/fishing/fishing_rod/fishing_rod_SpinnerHandleHighlight.res" id="17_r7vcp"]
 [ext_resource type="Material" uid="uid://nuogvh1u6wye" path="res://resources/highlight_material.tres" id="18_v7fg2"]
+
+[sub_resource type="Resource" id="Resource_3ny5k"]
+script = ExtResource("2_11l6d")
+magnitude = 0.2
+active_during_pause = false
+indefinite = true
+duration_ms = 300
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_bah3p"]
 resource_name = "fishing_rod_FishingRod"
@@ -66,7 +74,7 @@ closed_pose = ExtResource("5_lecea")
 script = ExtResource("6_0ucvv")
 closed_pose = ExtResource("8_3q68x")
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_unapu"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_ihakb"]
 material = ExtResource("13_ahgwm")
 top_radius = 0.001
 bottom_radius = 0.001
@@ -89,6 +97,7 @@ collision_mask = 196615
 mass = 0.1
 continuous_cd = true
 script = ExtResource("2_h6u5q")
+rumble_event = SubResource("Resource_3ny5k")
 
 [node name="XRToolsHighlightVisible" type="Node3D" parent="."]
 visible = false
@@ -161,7 +170,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0265145, -0.932214)
 [node name="Line" parent="." node_paths=PackedStringArray("start_point", "end_point") instance=ExtResource("12_1hf0y")]
 transform = Transform3D(0.999982, 0, 0, 0, 0.997452, -0.0709686, 0, 0.0709686, 0.997452, 0, -0.0882573, -0.936607)
 top_level = true
-mesh = SubResource("CylinderMesh_unapu")
+mesh = SubResource("CylinderMesh_ihakb")
 skeleton = NodePath("../..")
 radius = 0.001
 material = ExtResource("13_ahgwm")

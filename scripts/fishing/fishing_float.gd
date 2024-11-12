@@ -11,6 +11,9 @@ extends RigidBody3D
 ## The force that pushes the float upwards when plunging under water.
 @export var float_force: float = 1
 
+## The torque that rotates the float upwards when in water.
+@export var float_torque: float = 0.2
+
 ## The force that is applied downwards during a fishing trial.
 @export var plunge_force: float = 0.4
 
@@ -116,51 +119,64 @@ func _process(_delta: float) -> void:
 func _physics_process(_delta: float) -> void:
 	if not connected:
 		_update_distance_to_rod()
-
-func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if in_water:
-		if _plunging:
-			_control_plunging(state)
-			return
-		
-		if _bobbing:
-			_bob_in_water(state)
+		_float()
 
 
-## Controls the float's bobbing when it is on the water surface.
-func _bob_in_water(state: PhysicsDirectBodyState3D) -> void:
-	# Increment time variables by the physics frame duration
-	_bobbing_time += state.step  
-	_rotation_time += state.step
+func _float() -> void:
+	if global_position.y < water.global_position.y:
+		apply_central_force(Vector3.UP * (mass * gravity + float_force))
 	
-	var target_y := water.global_position.y + bobbing_amplitude * sin(TAU / bobbing_period * _bobbing_time)  # Calculate the target y using a sine wave
-	
-	# Calculate the angles for rotation based on sine and cosine waves
-	var angle_x := rotation_amplitude * cos(TAU / rotation_period * _rotation_time)
-	var angle_z := rotation_amplitude * sin(TAU / rotation_period * _rotation_time)
-	
-	# Create quaternions for rotations around X and Z axes
-	var quat_x := Quaternion(Vector3(1, 0, 0), angle_x)
-	var quat_z := Quaternion(Vector3(0, 0, 1), angle_z)
-	
-	# Combine the two quaternions
-	var combined_quat := quat_x * quat_z
-	
-	# Apply the new position and combined quaternion to the rigid body's transform
-	var current_transform := state.transform
-	current_transform.origin.y = target_y
-	current_transform.basis = Basis(combined_quat)
-	state.set_transform(current_transform)
+	# TODO: ignore spin
+	var quat_delta: Quaternion = Quaternion.IDENTITY * (global_basis.get_rotation_quaternion().inverse())
+	var rotation_delta: Vector3 = Vector3(quat_delta.x, quat_delta.y, quat_delta.z) * quat_delta.w
+	apply_torque(rotation_delta * 0.2)	
 
 
-## Controls the plunging into water - applies float force until float reaches surface.
-func _control_plunging(state: PhysicsDirectBodyState3D) -> void:
-	if state.linear_velocity.y < 0 or global_position.y < water.global_position.y:
-		apply_force(Vector3.UP * (mass * gravity + float_force))
-	else:
-		_plunging = false
-		_bobbing_time = 0.0
-		_bobbing = true
+#func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	#if in_water:
+		#if _plunging:
+			#_control_plunging(state)
+			#return
+		#
+		#if _bobbing:
+			#_bob_in_water(state)
+#
+#
+### Controls the float's bobbing when it is on the water surface.
+#func _bob_in_water(state: PhysicsDirectBodyState3D) -> void:
+	## Increment time variables by the physics frame duration
+	#_bobbing_time += state.step  
+	#_rotation_time += state.step
+	#
+	#var target_y := water.global_position.y + bobbing_amplitude * sin(TAU / bobbing_period * _bobbing_time)  # Calculate the target y using a sine wave
+	#
+	## Calculate the angles for rotation based on sine and cosine waves
+	#var angle_x := rotation_amplitude * cos(TAU / rotation_period * _rotation_time)
+	#var angle_z := rotation_amplitude * sin(TAU / rotation_period * _rotation_time)
+	#
+	## Create quaternions for rotations around X and Z axes
+	#var quat_x := Quaternion(Vector3(1, 0, 0), angle_x)
+	#var quat_z := Quaternion(Vector3(0, 0, 1), angle_z)
+	#
+	## Combine the two quaternions
+	#var combined_quat := quat_x * quat_z
+	#
+	## Apply the new position and combined quaternion to the rigid body's transform
+	#var current_transform := state.transform
+	#current_transform.origin.y = target_y
+	#current_transform.basis = Basis(combined_quat)
+	#state.set_transform(current_transform)
+#
+#
+### Controls the plunging into water - applies float force until float reaches surface.
+#func _control_plunging(state: PhysicsDirectBodyState3D) -> void:
+	#if state.linear_velocity.y < 0 or global_position.y < water.global_position.y:
+		#apply_force(Vector3.UP * (mass * gravity + float_force))
+	#else:
+		#_plunging = false
+		#_bobbing_time = 0.0
+		#_bobbing = true
 
 
 ## Updates the horizontal distance from the float to the float target.
