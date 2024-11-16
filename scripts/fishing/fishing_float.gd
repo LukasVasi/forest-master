@@ -99,6 +99,7 @@ func _ready() -> void:
 		return
 	
 	fishing_rod.action_pressed.connect(_on_action_pressed)
+	fishing_rod.tugged.connect(_on_fishing_rod_tugged)
 	
 	# Make sure the float is reset
 	reset()
@@ -245,6 +246,11 @@ func _on_body_entered(body: Node) -> void:
 	var layer: int = body.get_collision_layer()
 	if layer and layer != pow(2,9): 
 		reset()
+
+
+func _on_fishing_rod_tugged() -> void:
+	# Apply a small impulse towards the target
+	apply_central_impulse(global_position.direction_to(target.global_position) * 0.05)
 
 
 ## Func that handles the entry into water - sets bools and maxes out the mesh scale.
