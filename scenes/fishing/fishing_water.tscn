@@ -1,13 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://ca0ohfqspp2pg"]
+[gd_scene load_steps=11 format=3 uid="uid://ca0ohfqspp2pg"]
 
 [ext_resource type="Script" path="res://scripts/fishing/fishing_water.gd" id="1_cx5po"]
 [ext_resource type="PackedScene" uid="uid://wus354uwp5a2" path="res://scenes/fishing/distractions/distraction_kuoja.tscn" id="2_c7rp6"]
 [ext_resource type="PackedScene" uid="uid://b4grfvgpri7y5" path="res://scenes/fishing/distractions/distraction_wind.tscn" id="3_6f0le"]
 [ext_resource type="PackedScene" uid="uid://c1y8dfahi1fuc" path="res://scenes/fishing/distractions/distraction_raude.tscn" id="3_wl1pp"]
 [ext_resource type="PackedScene" uid="uid://bbla6hg7d0ct1" path="res://scenes/fishing/distractions/distraction_lynas.tscn" id="4_pwytj"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="6_3k1yy"]
+[ext_resource type="PackedScene" uid="uid://cjb2f6jx81grv" path="res://scenes/ui/fishing_float_ui.tscn" id="7_b4vv4"]
+[ext_resource type="Script" path="res://scripts/utils/fishing_float_ui_viewport.gd" id="7_q0vge"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vewt5"]
 size = Vector3(40, 8, 40)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_on377"]
+transparency = 2
+alpha_scissor_threshold = 0.25
+alpha_antialiasing_mode = 0
+cull_mode = 2
+shading_mode = 0
 
 [node name="FishingWater" type="Area3D" groups=["water"]]
 collision_layer = 512
@@ -49,6 +59,17 @@ visible = false
 
 [node name="DistractionWind" parent="." instance=ExtResource("3_6f0le")]
 visible = false
+
+[node name="FishingFloatUIViewport" parent="." instance=ExtResource("6_3k1yy")]
+script = ExtResource("7_q0vge")
+screen_size = Vector2(0.53, 0.3)
+enabled = false
+scene = ExtResource("7_b4vv4")
+viewport_size = Vector2(1152, 648)
+input_keyboard = false
+material = SubResource("StandardMaterial3D_on377")
+scene_properties_keys = PackedStringArray("fishing_float_ui.gd", "state")
+state = 0
 
 [connection signal="body_entered" from="." to="." method="_on_water_entered"]
 [connection signal="body_exited" from="." to="." method="_on_water_exited"]

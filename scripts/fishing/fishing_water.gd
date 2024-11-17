@@ -84,6 +84,8 @@ var trial_number: int = 0
 
 @onready var distraction_wind: DistractionWind = get_node("DistractionWind")
 
+@onready var float_ui_viewport: FishingFloatUIViewport = get_node("FishingFloatUIViewport")
+
 var wind_distraction: bool = false
 var wind_transition_speed: float = 0.2
 var wind_transition_time: float = 0.0
@@ -107,6 +109,7 @@ enum FishingState
 
 func _ready() -> void:
 	fishing_rod.tugged.connect(_on_fishing_rod_tugged)
+	float_ui_viewport.visible = false
 	
 	if water_mesh:
 		water_shader = water_mesh.get_surface_override_material(0)
@@ -136,6 +139,7 @@ func _start_fishing() -> void:
 
 
 func _complete_trial() -> void:
+	float_ui_viewport.visible = false
 	_current_fish_interest += interest_gain_on_complete
 	fishing_float.emit_success_particles()
 	trial_number += 1
@@ -143,6 +147,7 @@ func _complete_trial() -> void:
 
 
 func _fail_trial() -> void:
+	float_ui_viewport.visible = false
 	_current_fish_interest -= interest_loss_on_fail
 	fishing_float.emit_fail_particles()
 	_reset_timers()
@@ -287,6 +292,12 @@ func _on_fishing_rod_tugged() -> void:
 
 ## Connected to the timeout of the trial timer - when the moment to catch comes.
 func _on_trial_timer_timeout() -> void:
+	var random := randi_range(0, 1)
+	if random == 0:
+		float_ui_viewport.scene_node.state = FishingFloatUI.State.DirectionArrowRight
+	else:
+		float_ui_viewport.scene_node.state = FishingFloatUI.State.DirectionArrowLeft
+	float_ui_viewport.visible = true
 	fishing_float.plunge()
 	can_catch = true
 	catch_timer.start()
