@@ -45,6 +45,9 @@ one_shot = true
 [node name="DistractionTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="ReelTimer" type="Timer" parent="."]
+wait_time = 3.0
+
 [node name="DistractionKuoja" parent="." instance=ExtResource("2_c7rp6")]
 transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, -15.2739)
 visible = false
@@ -76,3 +79,4 @@ state = 0
 [connection signal="timeout" from="TrialTimer" to="." method="_on_trial_timer_timeout"]
 [connection signal="timeout" from="CatchTimer" to="." method="_on_catch_timer_timeout"]
 [connection signal="timeout" from="DistractionTimer" to="." method="_on_distraction_timer_timeout"]
+[connection signal="timeout" from="ReelTimer" to="." method="_on_reel_timer_timeout"]

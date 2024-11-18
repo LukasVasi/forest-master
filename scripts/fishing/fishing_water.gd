@@ -61,6 +61,8 @@ var trial_number: int = 0
 
 @onready var catch_timer: Timer = get_node("CatchTimer")
 
+@onready var reel_timer: Timer = get_node("ReelTimer")
+
 @onready var distraction_timer: Timer = get_node("DistractionTimer");
 
 ## The fishing rod.
@@ -98,12 +100,22 @@ var fish_scenes: Array[PackedScene] = []
 
 var current_state: FishingState = FishingState.Sleeping
 
+var _current_reeling_direction: ReelingDirection = ReelingDirection.Forward
+
 
 enum FishingState 
 {
 	Sleeping, # not currently fishing
 	Baiting,
 	Reeling
+}
+
+# The direction (from the player's perspective) that the fish is pushing the float
+enum ReelingDirection
+{
+	Forward,
+	Left,
+	Right,
 }
 
 
@@ -126,6 +138,24 @@ func _ready() -> void:
 	fish_scenes.append(RaudeScene)
 	fish_scenes.append(KuojaScene)
 	fish_scenes.append(LynasScene)
+
+
+func _physics_process(_delta: float) -> void:
+	if current_state == FishingState.Reeling:
+		# Move the float away from the player
+		var float_direction_to_target := fishing_float.global_position.direction_to(player.global_position)
+		float_direction_to_target.y = 0
+		float_direction_to_target = float_direction_to_target.normalized()
+		
+		match _current_reeling_direction:
+			ReelingDirection.Forward:
+				fishing_float.apply_central_force(-float_direction_to_target * 0.1)
+			ReelingDirection.Right:
+				var right_direction := float_direction_to_target.cross(Vector3.UP).normalized()
+				fishing_float.apply_central_force(right_direction * 0.1)
+			ReelingDirection.Left:
+				var left_direction := -float_direction_to_target.cross(Vector3.UP).normalized()
+				fishing_float.apply_central_force(left_direction * 0.1)
 
 
 # NOTE: maybe passively ticking fish interest rate when baiting?
@@ -204,9 +234,11 @@ func _get_fish_launch_impulse(fish: Fish) -> Vector3:
 
 
 func _finish_fishing() -> void:
+	float_ui_viewport.visible = false
 	trial_number = 0
 	trial_timer.stop()
 	catch_timer.stop()
+	reel_timer.stop()
 	distraction_timer.stop()
 	current_state = FishingState.Sleeping
 	on_state_changed.emit(current_state)
@@ -285,6 +317,7 @@ func _on_fishing_rod_tugged() -> void:
 				fishing_float.emit_success_particles()
 				current_state = FishingState.Reeling
 				on_state_changed.emit(current_state)
+				reel_timer.start()
 		else:
 			_current_fish_interest -= interest_loss_on_miss
 			fishing_float.emit_fail_particles()
@@ -316,6 +349,18 @@ func _on_distraction_timer_timeout() -> void:
 		if available_distractions.size() > 0:
 			var available_distraction: Distraction = available_distractions.pick_random()
 			available_distraction.activate(_random_position_for_distraction(), fishing_rod)
+
+
+func _on_reel_timer_timeout() -> void:
+	# Change the reeling direction
+	var random := randi_range(0, 2)
+	match random:
+		0:
+			_current_reeling_direction = ReelingDirection.Forward
+		1:
+			_current_reeling_direction = ReelingDirection.Right
+		2:
+			_current_reeling_direction = ReelingDirection.Left
 
 
 func _random_position_for_distraction() -> Vector3:
