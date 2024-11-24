@@ -48,6 +48,7 @@ water=""
 puntukas=""
 pause_menu_container=""
 fishing_rod=""
+fishing=""
 
 [layer_names]
 
