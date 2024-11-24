@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=3 uid="uid://cjb2f6jx81grv"]
+
+[ext_resource type="Script" path="res://scripts/ui/fishing_float_ui.gd" id="1_wbioe"]
+[ext_resource type="Texture2D" uid="uid://c2diaperxmt34" path="res://ui/tension_bar_under.png" id="2_ohd21"]
+[ext_resource type="Texture2D" uid="uid://c5b713jli01tn" path="res://ui/tension_bar_progress.png" id="3_bn88w"]
+[ext_resource type="Texture2D" uid="uid://c20fyqqx27f7u" path="res://ui/fish_direction.png" id="4_78ksv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tddv0"]
+
+[node name="FishingFloatUI" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 152.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_tddv0")
+script = ExtResource("1_wbioe")
+tension_ratio = -1.0
+
+[node name="TensionBar" type="TextureProgressBar" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 0.5
+fill_mode = 4
+radial_initial_angle = 270.0
+radial_fill_degrees = 180.0
+texture_under = ExtResource("2_ohd21")
+texture_progress = ExtResource("3_bn88w")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="FishDirectionTexture" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -400.0
+offset_right = 400.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(400, 400)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_78ksv")
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 207.0
+offset_top = 127.0
+offset_right = 547.0
+offset_bottom = 215.0
+theme_override_font_sizes/font_size = 64
+text = "DIRECTION"

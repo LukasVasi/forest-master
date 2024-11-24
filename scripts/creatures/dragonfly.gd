@@ -1,13 +1,13 @@
 class_name Dragonfly
 extends Node3D
 
-@export var speed = 6
-@export var maxDistance = 6.0
-@export var minDepth = 0.22
-var direction = Vector3(1, 0, 0)
-var traveledDistance = 0.0
+@export var speed: float = 6
+@export var maxDistance: float = 6.0
+@export var minDepth: float = 0.22
+var direction: Vector3 = Vector3(1, 0, 0)
+var traveledDistance: float = 0.0
 
-func _process(delta):
+func _process(delta: float) -> void:
 	translate(direction * speed * delta)
 
 	traveledDistance += abs(speed) * delta

@@ -21,11 +21,10 @@ extends Distraction
 ## The minimum volume - cant hear it or anything lower.
 var min_volume_db: float = -30
 
-func activate(spawn_position: Vector3, fishing_rod: FishingRod):
-	print("Wind distraction activated")
+func activate(spawn_position: Vector3, fishing_rod: FishingRod) -> void:
 	active = true
 	global_position = spawn_position
-	var tween = create_tween()
+	var tween := create_tween()
 	set_process(true)
 	visible = true
 	audio_player.volume_db = -min_volume_db
@@ -34,12 +33,12 @@ func activate(spawn_position: Vector3, fishing_rod: FishingRod):
 		var hand := fishing_rod.get_picked_up_by_hand()
 		if is_instance_valid(hand):
 			var rumble_trackers := hand.rumble_trackers
-			rumble_event.duration_ms = fade_in_duration + middle_duration + fade_out_duration / 2
+			rumble_event.duration_ms = roundi(fade_in_duration + middle_duration + fade_out_duration / 2)
 			RumbleManager.add(self, rumble_event, rumble_trackers)
 	tween.tween_property(audio_player, "volume_db", max_volume_db, fade_in_duration).set_ease(Tween.EASE_IN) # fade in
 	tween.tween_property(audio_player, "volume_db", -80, fade_out_duration).set_ease(Tween.EASE_OUT).set_delay(middle_duration) # fade out
 	tween.tween_callback(deactivate)
 
-func deactivate():
+func deactivate() -> void:
 	audio_player.stop()
 	super.deactivate()

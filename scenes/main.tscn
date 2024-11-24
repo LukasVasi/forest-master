@@ -1,12 +1,12 @@
-[gd_scene load_steps=80 format=4 uid="uid://dqmlp2hfmrh7m"]
+[gd_scene load_steps=78 format=4 uid="uid://dqmlp2hfmrh7m"]
 
 [ext_resource type="Script" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_0wkb3"]
 [ext_resource type="PackedScene" uid="uid://ces1enrushk7a" path="res://scenes/utils/pause_menu_container.tscn" id="2_iwn03"]
 [ext_resource type="Environment" uid="uid://edotw462mqao" path="res://resources/environment.tres" id="3_uue1d"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="3_x6jvw"]
-[ext_resource type="Shader" path="res://shaders/Low_poly_water.gdshader" id="6_65b7g"]
 [ext_resource type="PackedScene" uid="uid://cfdglxxc6feb" path="res://scenes/testing/heavy_test_cube.tscn" id="7_fx2ti"]
-[ext_resource type="PackedScene" uid="uid://ca0ohfqspp2pg" path="res://scenes/fishing/fishing_water.tscn" id="8_mty1l"]
+[ext_resource type="PackedScene" uid="uid://xgtyhnl6lct2" path="res://scenes/fishing/fishing.tscn" id="8_emfhn"]
+[ext_resource type="PackedScene" uid="uid://ca0ohfqspp2pg" path="res://scenes/fishing/water.tscn" id="8_mty1l"]
 [ext_resource type="PackedScene" uid="uid://cxbr4wga38fm1" path="res://scenes/fishing/holding_stick.tscn" id="8_pm0sp"]
 [ext_resource type="PackedScene" uid="uid://qat0jalvcswc" path="res://scenes/environment/tent.tscn" id="8_tg55q"]
 [ext_resource type="PackedScene" uid="uid://0rctt4pnv5n2" path="res://scenes/tutorial.tscn" id="10_rt4mo"]
@@ -68,33 +68,6 @@ _data = {
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 7
-
-[sub_resource type="QuadMesh" id="QuadMesh_tmkjx"]
-size = Vector2(66, 55)
-subdivide_width = 50
-subdivide_depth = 50
-orientation = 1
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_frkp2"]
-render_priority = 0
-shader = ExtResource("6_65b7g")
-shader_parameter/triangleHeight = 0.5
-shader_parameter/triangleSpeed = 0.5
-shader_parameter/primaryColor = Color(3.27289e-06, 0.676622, 0.529454, 1)
-shader_parameter/secondaryColor = Color(0.0493971, 0.494221, 0.670911, 1)
-shader_parameter/metallic = 0.0
-shader_parameter/roughness = 0.612
-shader_parameter/waveDirection1 = Vector2(2, 0)
-shader_parameter/waveDirection2 = Vector2(0, 1)
-shader_parameter/timeScale = 0.025
-shader_parameter/deepWaterColor = Color(0.285704, 0.777533, 0.523833, 1)
-shader_parameter/shallowWaterColor = Color(0.166632, 0.377332, 0.365186, 1)
-shader_parameter/attenuationCoefficient = 3.0
-shader_parameter/depthOffset = -1.0
-shader_parameter/edgeScale = 1.0
-shader_parameter/nearPlane = 1.0
-shader_parameter/farPlane = 100.0
-shader_parameter/edgeColor = Color(0.258824, 0.823529, 0.721569, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0t752"]
 resource_name = "grass"
@@ -386,7 +359,7 @@ transform = Transform3D(-1.21918, 0, -0.443855, 0, 1, 0, 0.490106, 0, -1.10413, 
 [node name="HeavyTestCube" parent="Tutorial" instance=ExtResource("7_fx2ti")]
 transform = Transform3D(0.957637, 0, 0.287979, 0, 1, 0, -0.287979, 0, 0.957637, -3.43544, 1.49057, -4.68047)
 
-[node name="Fishing" type="Node" parent="."]
+[node name="Fishing" parent="." instance=ExtResource("8_emfhn")]
 
 [node name="HoldingStick" parent="Fishing" instance=ExtResource("8_pm0sp")]
 transform = Transform3D(-0.906307, 0, -0.422618, 0, 1, 0, 0.422618, 0, -0.906307, 16.6591, 0.240074, 7.4561)
@@ -418,7 +391,7 @@ transform = Transform3D(-0.113004, 0, 0.0403744, 0, 0.12, 0, -0.0403744, 0, -0.1
 curve = SubResource("Curve3D_i6pi6")
 
 [node name="MockFish1" parent="Fishing/MockFishes/MockFishPath1" instance=ExtResource("14_h3ydf")]
-transform = Transform3D(-0.961927, -0.0026609, 0.273209, 0, 0.999875, 0.00973934, -0.273221, 0.0093682, -0.961885, 17.8061, -1.12253, 13.4726)
+transform = Transform3D(-0.961927, -0.0026609, 0.273209, 0, 0.999875, 0.00973934, -0.273221, 0.00936821, -0.961885, 17.8061, -1.12253, 13.4726)
 progress = 39.4198
 rotation_mode = 2
 use_model_front = true
@@ -444,18 +417,11 @@ rotation_mode = 2
 use_model_front = true
 movement_speed = 2.4
 
-[node name="FishingRod" parent="." instance=ExtResource("18_ap21l")]
+[node name="FishingRod" parent="Fishing" instance=ExtResource("18_ap21l")]
 transform = Transform3D(-0.904946, 0, -0.425527, 0, 1, 0, 0.425527, 0, -0.904946, 16.6939, 1.259, 7.09957)
 
-[node name="Water" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.822382, 0, -0.568935, 0, 1, 0, 0.568935, 0, 0.822382, 34.3754, -0.889945, 21.0098)
-layers = 3
-lod_bias = 128.0
-mesh = SubResource("QuadMesh_tmkjx")
-surface_material_override/0 = SubResource("ShaderMaterial_frkp2")
-
-[node name="FishingWater" parent="Water" instance=ExtResource("8_mty1l")]
-transform = Transform3D(0.280918, 0, -0.959732, 0, 1, 0, 0.959732, 0, 0.280918, -8.87534, -0.193142, -3.86797)
+[node name="Water" parent="Fishing" instance=ExtResource("8_mty1l")]
+transform = Transform3D(-0.315003, 0, -0.94909, 0, 1, 0, 0.94909, 0, -0.315003, 29.2771, -1.08309, 12.7794)
 
 [node name="Tent" parent="." instance=ExtResource("8_tg55q")]
 transform = Transform3D(0.985911, -0.0637983, -0.154625, 0.0668801, 0.997651, 0.0148054, 0.153317, -0.0249382, 0.987862, -5.69546, 0.727935, -2.02315)

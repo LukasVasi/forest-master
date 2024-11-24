@@ -2,28 +2,32 @@ class_name FishingFloatTarget
 extends Node3D
 
 ## The fishing float target is used for estimating the velocity 
-## of the fishing rod's tip. Used for tugging and the float.
+## of the fishing rod's tip. Used for yanking and the float.
+
+
+signal yanked(yank_velocity: Vector3)
+
 
 @export_category("Tugging logic")
 
-## Velocity threshold for detecting a tug.
-@export var tug_velocity_threshold: float = 5.0
+## Velocity threshold for detecting a yank.
+@export var yank_velocity_threshold: float = 2.0
 
-## Tug detection cooldown in seconds used to prevent unintentional spamming.
-@export var tug_cooldown: float = 0.8
-
-
-## The fishing rod (needed to handle a tug).
-@onready var fishing_rod: FishingRod = get_node("../")
+## Yank detection cooldown in seconds used to prevent unintentional spamming.
+@export var yank_cooldown: float = 0.8
 
 
+## Flag for velocity estiamtion state. Enabled when rod is picked up.
+var enabled: bool = false: set = _set_enabled
+
+## The estimated velocity of the target - the tip of the fishing rod.
 var estimated_velocity: Vector3 = Vector3.ZERO
 
 
-## Remaining tug cooldown time.
-var _tug_cooldown_remaining: float = 0.0
+@onready var _current_position: Vector3 = global_position
 
-var _current_position: Vector3 = Vector3.ZERO
+## Remaining yank cooldown time.
+var _yank_cooldown_remaining: float = 0.0
 
 var _previous_position: Vector3 = Vector3.ZERO
 
@@ -34,19 +38,18 @@ var _velocity_buffer: Array[Vector3] = []  # Buffer to store recent velocity est
 var _buffer_size: int = 5  # Number of samples for averaging
 
 
-func _ready() -> void:
-	set_physics_process(false)
-	_current_position = global_position
-
-
-## Updates the estimated velocity. Enabled and disabled by fishing rod.
+## Updates the estimated velocity.
 func _physics_process(delta: float) -> void:
+	if not enabled:
+		set_physics_process(false)
+		return
+	
 	_update_velocity(delta)
 	
-	if _tug_cooldown_remaining > 0: # apply the tug check cooldown
-		_tug_cooldown_remaining -= delta
+	if _yank_cooldown_remaining > 0: # apply the yank check cooldown
+		_yank_cooldown_remaining -= delta
 	else:
-		_check_for_tug()
+		_check_for_yank()
 
 
 func _update_velocity(delta: float) -> void:
@@ -63,16 +66,22 @@ func _update_velocity(delta: float) -> void:
 	_velocity_buffer.append(_instant_velocity)
 	
 	# Calculate the average velocity
-	estimated_velocity = _velocity_buffer.reduce(sum, Vector3.ZERO) / _velocity_buffer.size()
+	estimated_velocity = _velocity_buffer.reduce(_sum, Vector3.ZERO) / _velocity_buffer.size()
 
 
-## Check if the player is tugging the fishing rod. 
-func _check_for_tug() -> void:
-	if estimated_velocity.y > tug_velocity_threshold:
-		_tug_cooldown_remaining = tug_cooldown
-		fishing_rod.handle_tug()
+## Check if the player is yanking the fishing rod. 
+func _check_for_yank() -> void:
+	# TODO: register yank in any direction except downwards
+	if estimated_velocity.y > yank_velocity_threshold:
+		_yank_cooldown_remaining = yank_cooldown
+		yanked.emit(estimated_velocity)
 
 
 ## Summator, used for getting the sum of the velocity buffer.
-func sum(accum: Vector3, velocity: Vector3) -> Vector3:
+func _sum(accum: Vector3, velocity: Vector3) -> Vector3:
 	return accum + velocity
+
+
+func _set_enabled(new_value: bool) -> void:
+	enabled = new_value
+	set_physics_process(enabled)

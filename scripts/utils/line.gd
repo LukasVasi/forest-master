@@ -21,12 +21,12 @@ extends MeshInstance3D
 @export var end_point: Node3D : set = _set_end_point
 
 
-func _ready():
+func _ready() -> void:
 	if start_point and end_point:
 		_initialize_line()
 
 
-func _set_start_point(p: Node3D):
+func _set_start_point(p: Node3D) -> void:
 	if not start_point and end_point:
 		start_point = p
 		_initialize_line()
@@ -34,7 +34,7 @@ func _set_start_point(p: Node3D):
 		start_point = p
 
 
-func _set_end_point(p: Node3D):
+func _set_end_point(p: Node3D) -> void:
 	if not end_point and start_point:
 		end_point = p
 		_initialize_line()
@@ -42,11 +42,11 @@ func _set_end_point(p: Node3D):
 		end_point = p
 
 
-func _initialize_line():
+func _initialize_line() -> void:
 	if not start_point or not end_point:
 		return
 
-	var cylinder_mesh = CylinderMesh.new()
+	var cylinder_mesh := CylinderMesh.new()
 	cylinder_mesh.top_radius = radius
 	cylinder_mesh.bottom_radius = radius
 	cylinder_mesh.height = 1.0  # Initial height, adjusted dynamically
@@ -55,16 +55,16 @@ func _initialize_line():
 	if material:
 		mesh.surface_set_material(0, material)
 
-func _process(_delta):
+func _process(_delta: float) -> void:
 	update_line()
 
-func update_line():
+func update_line() -> void:
 	if not start_point or not end_point:
 		return
 
-	var start_pos = start_point.global_position
-	var end_pos = end_point.global_position
-	var dir = end_pos - start_pos
+	var start_pos := start_point.global_position
+	var end_pos := end_point.global_position
+	var dir := end_pos - start_pos
 	
 	if dir.length() > 0.05:
 		if mesh.top_radius == 0:
@@ -85,7 +85,8 @@ func update_line():
 		mesh.top_radius = 0
 		mesh.bottom_radius = 0
 
-func _set_material(new_material: Material):
+
+func _set_material(new_material: Material) -> void:
 	material = new_material
 	if mesh:
 		mesh.surface_set_material(0, material)

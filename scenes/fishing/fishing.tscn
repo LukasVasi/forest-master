@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://xgtyhnl6lct2"]
+
+[ext_resource type="Script" path="res://scripts/fishing/fishing_manager.gd" id="1_ujxnu"]
+[ext_resource type="PackedScene" uid="uid://wus354uwp5a2" path="res://scenes/fishing/distractions/distraction_kuoja.tscn" id="2_1muwk"]
+[ext_resource type="PackedScene" uid="uid://c1y8dfahi1fuc" path="res://scenes/fishing/distractions/distraction_raude.tscn" id="3_7nvx7"]
+[ext_resource type="PackedScene" uid="uid://bbla6hg7d0ct1" path="res://scenes/fishing/distractions/distraction_lynas.tscn" id="4_opj7l"]
+[ext_resource type="PackedScene" uid="uid://b4grfvgpri7y5" path="res://scenes/fishing/distractions/distraction_wind.tscn" id="5_4kbod"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="6_sqfoc"]
+[ext_resource type="Script" path="res://scripts/utils/fishing_float_ui_viewport.gd" id="7_mri7h"]
+[ext_resource type="PackedScene" uid="uid://cjb2f6jx81grv" path="res://scenes/ui/fishing_float_ui.tscn" id="8_q4fkn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qq1v6"]
+transparency = 2
+alpha_scissor_threshold = 0.25
+alpha_antialiasing_mode = 0
+cull_mode = 2
+shading_mode = 0
+
+[node name="Fishing" type="Node" groups=["fishing"]]
+script = ExtResource("1_ujxnu")
+
+[node name="TrialTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CatchTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DistractionTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ReelTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="FishingFloatUIViewport" parent="." instance=ExtResource("6_sqfoc")]
+script = ExtResource("7_mri7h")
+screen_size = Vector2(1.6, 0.9)
+enabled = false
+collision_layer = 0
+scene = ExtResource("8_q4fkn")
+viewport_size = Vector2(1152, 648)
+input_keyboard = false
+material = SubResource("StandardMaterial3D_qq1v6")
+scene_properties_keys = PackedStringArray("fishing_float_ui.gd", "direction", "tension_ratio")
+direction = 0
+tension_ratio = -1.0
+
+[node name="DistractionContainer" type="Node" parent="."]
+
+[node name="DistractionKuoja" parent="DistractionContainer" instance=ExtResource("2_1muwk")]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, -15.2739)
+visible = false
+
+[node name="DistractionRaude" parent="DistractionContainer" instance=ExtResource("3_7nvx7")]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, -13.2512)
+visible = false
+
+[node name="DistractionLynas" parent="DistractionContainer" instance=ExtResource("4_opj7l")]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, -15.2951)
+visible = false
+
+[node name="DistractionWind" parent="DistractionContainer" instance=ExtResource("5_4kbod")]
+visible = false
+
+[connection signal="timeout" from="TrialTimer" to="." method="_on_trial_timer_timeout"]
+[connection signal="timeout" from="CatchTimer" to="." method="_on_catch_timer_timeout"]
+[connection signal="timeout" from="DistractionTimer" to="." method="_on_distraction_timer_timeout"]
+[connection signal="timeout" from="ReelTimer" to="." method="_randomize_fish_direction"]
