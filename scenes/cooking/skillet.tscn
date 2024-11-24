@@ -209,6 +209,7 @@ draw_pass_1 = SubResource("QuadMesh_4ml4n")
 transform = Transform3D(1.41498, 0, 0, 0, 1.41498, 0, 0, 0, 1.41498, -0.00606956, 1.11948, -0.00725168)
 stream = ExtResource("13_hxdty")
 volume_db = -24.381
+bus = &"SFX"
 
 [node name="CookingTimer" type="Timer" parent="Skillet"]
 wait_time = 10.0

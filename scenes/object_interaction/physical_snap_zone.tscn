@@ -23,6 +23,7 @@ transform = Transform3D(1, -7.45058e-09, -2.98023e-08, -7.45058e-09, 1, -2.23517
 unit_size = 3.0
 max_db = 1.0
 max_distance = 100.0
+bus = &"SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_snap_zone_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_snap_zone_body_exited"]

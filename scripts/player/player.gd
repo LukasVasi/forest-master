@@ -68,7 +68,7 @@ func init_controllers() -> void:
 		function_teleport_left = XRTools.find_xr_child(xr_controller_left, "*", "XRToolsFunctionTeleport", true)
 		
 		# Enable one based on user settings
-		if XRToolsUserSettings.movement_direct:
+		if UserSettings.movement_direct:
 			movement_direct_left.enabled = true
 			function_teleport_left.enabled = false
 		else:
@@ -153,7 +153,7 @@ func _on_pause_state_changed(paused : bool) -> void:
 	else:
 		movement_jump_left.enabled = true
 		# Enable one based on user settings
-		if XRToolsUserSettings.movement_direct:
+		if UserSettings.movement_direct:
 			movement_direct_left.enabled = true
 		else:
 			function_teleport_left.enabled = true

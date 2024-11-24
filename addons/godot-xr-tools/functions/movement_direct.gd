@@ -41,7 +41,7 @@ func physics_movement(_delta: float, player_body: XRToolsPlayerBody, _disabled: 
 		return
 
 	## get input action with deadzone correction applied
-	var dz_input_action = XRToolsUserSettings.get_adjusted_vector2(_controller, input_action)
+	var dz_input_action = UserSettings.get_adjusted_vector2(_controller, input_action)
 
 	player_body.ground_control_velocity.y += dz_input_action.y * max_speed
 	if strafe:

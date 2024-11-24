@@ -19,3 +19,4 @@ skeleton = NodePath("")
 stream = SubResource("AudioStreamMP3_vo8ch")
 autoplay = true
 max_distance = 100.0
+bus = &"SFX"

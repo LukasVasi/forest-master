@@ -450,7 +450,7 @@ func slew_up(up: Vector3, slew: float) -> void:
 ## the player is in rest position
 func calibrate_player_height():
 	var base_height = camera_node.transform.origin.y + (player_head_height * XRServer.world_scale)
-	var player_height = XRToolsUserSettings.player_height * XRServer.world_scale
+	var player_height = UserSettings.player_height * XRServer.world_scale
 	player_height_offset = (player_height - base_height) / XRServer.world_scale
 
 ## This method sets or clears a named height override

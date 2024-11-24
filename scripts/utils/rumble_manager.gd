@@ -15,7 +15,7 @@ extends Node
 const HAPTIC_ACTION := &"haptic" # TODO: Migrate
 
 # Shorthand for all trackers, in use to be substituted with _queues.keys()
-const ALL_TRACKERS := [&"all"]
+const ALL_TRACKERS : Array[StringName] = [&"all"]
 
 
 # A Queue Per Haptic device (Dictionary<StringName, XRToolsRumbleManagerQueue>)
@@ -97,7 +97,7 @@ func _process(delta: float) -> void:
 				magnitude = event.magnitude
 
 		# scale the final magnitude
-		magnitude *= XRToolsUserSettings.haptics_scale
+		magnitude *= UserSettings.haptics_scale
 
 		# Make that tracker rumble
 		if magnitude > 0:

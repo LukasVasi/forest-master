@@ -1,7 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://b5gug5ecibfou"]
+[gd_scene load_steps=4 format=3 uid="uid://b5gug5ecibfou"]
 
 [ext_resource type="Script" path="res://scripts/ui/pause_menu.gd" id="1_xagxo"]
 [ext_resource type="Script" path="res://scenes/ui/settings_ui.gd" id="2_tscx0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3fww5"]
+bg_color = Color(0.427493, 0.427493, 0.427493, 0.705882)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 16.0
+expand_margin_top = 16.0
+expand_margin_right = 16.0
+expand_margin_bottom = 16.0
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -13,43 +25,36 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xagxo")
 
-[node name="Background" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.533333, 0.533333, 0.533333, 0.47451)
-
-[node name="PauseMenuUI" type="MarginContainer" parent="Background"]
+[node name="PauseMenuUI" type="PanelContainer" parent="."]
 visible = false
+custom_minimum_size = Vector2(600, 500)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -181.0
-offset_top = -132.0
-offset_right = 181.0
-offset_bottom = 132.0
+offset_left = -250.0
+offset_top = -206.0
+offset_right = 250.0
+offset_bottom = 206.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3fww5")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Background/PauseMenuUI"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenuUI"]
 layout_mode = 2
 size_flags_horizontal = 4
 alignment = 1
 
-[node name="ResumeButton" type="Button" parent="Background/PauseMenuUI/VBoxContainer"]
+[node name="ResumeButton" type="Button" parent="PauseMenuUI/VBoxContainer"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 40
 text = "Resume"
 
-[node name="SettingsButton" type="Button" parent="Background/PauseMenuUI/VBoxContainer"]
+[node name="SettingsButton" type="Button" parent="PauseMenuUI/VBoxContainer"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
 focus_mode = 0
@@ -57,118 +62,114 @@ theme_override_font_sizes/font_size = 40
 text = "Settings
 "
 
-[node name="RestartGameButton" type="Button" parent="Background/PauseMenuUI/VBoxContainer"]
+[node name="RestartGameButton" type="Button" parent="PauseMenuUI/VBoxContainer"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 40
 text = "Restart game"
 
-[node name="ExitGameButton" type="Button" parent="Background/PauseMenuUI/VBoxContainer"]
+[node name="ExitGameButton" type="Button" parent="PauseMenuUI/VBoxContainer"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 40
 text = "Exit Game"
 
-[node name="SettingsUI" type="MarginContainer" parent="Background"]
+[node name="SettingsUI" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(600, 500)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -238.0
+offset_top = -173.5
+offset_right = 238.0
+offset_bottom = 173.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+theme_override_styles/panel = SubResource("StyleBoxFlat_3fww5")
 script = ExtResource("2_tscx0")
 
-[node name="SettingsVBox" type="VBoxContainer" parent="Background/SettingsUI"]
+[node name="SettingsVBox" type="VBoxContainer" parent="SettingsUI"]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Background/SettingsUI/SettingsVBox"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingsUI/SettingsVBox"]
 layout_mode = 2
 
-[node name="Settings Label" type="Label" parent="Background/SettingsUI/SettingsVBox/HBoxContainer"]
+[node name="Settings Label" type="Label" parent="SettingsUI/SettingsVBox/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 36
 text = "Settings"
 
-[node name="BackButton" type="Button" parent="Background/SettingsUI/SettingsVBox/HBoxContainer"]
+[node name="BackButton" type="Button" parent="SettingsUI/SettingsVBox/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Back"
 
-[node name="HSeparator" type="HSeparator" parent="Background/SettingsUI/SettingsVBox"]
+[node name="TabContainer" type="TabContainer" parent="SettingsUI/SettingsVBox"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
+current_tab = 2
 
-[node name="MovementLabel" type="Label" parent="Background/SettingsUI/SettingsVBox"]
+[node name="Movement" type="VBoxContainer" parent="SettingsUI/SettingsVBox/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="MovementLabel" type="Label" parent="SettingsUI/SettingsVBox/TabContainer/Movement"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Movement settings"
 
-[node name="SnapTurning" type="HBoxContainer" parent="Background/SettingsUI/SettingsVBox"]
+[node name="SnapTurning" type="HBoxContainer" parent="SettingsUI/SettingsVBox/TabContainer/Movement"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Background/SettingsUI/SettingsVBox/SnapTurning"]
+[node name="Label" type="Label" parent="SettingsUI/SettingsVBox/TabContainer/Movement/SnapTurning"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Snap turning:"
 
-[node name="SnapTurningCB" type="CheckBox" parent="Background/SettingsUI/SettingsVBox/SnapTurning"]
+[node name="SnapTurningCB" type="CheckBox" parent="SettingsUI/SettingsVBox/TabContainer/Movement/SnapTurning"]
 layout_mode = 2
 
-[node name="DirectMovement" type="HBoxContainer" parent="Background/SettingsUI/SettingsVBox"]
+[node name="DirectMovement" type="HBoxContainer" parent="SettingsUI/SettingsVBox/TabContainer/Movement"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Background/SettingsUI/SettingsVBox/DirectMovement"]
+[node name="Label" type="Label" parent="SettingsUI/SettingsVBox/TabContainer/Movement/DirectMovement"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Direct movement:"
 
-[node name="DirectMovementCB" type="CheckBox" parent="Background/SettingsUI/SettingsVBox/DirectMovement"]
+[node name="DirectMovementCB" type="CheckBox" parent="SettingsUI/SettingsVBox/TabContainer/Movement/DirectMovement"]
 layout_mode = 2
 
-[node name="HSeparator4" type="HSeparator" parent="Background/SettingsUI/SettingsVBox"]
+[node name="Input" type="VBoxContainer" parent="SettingsUI/SettingsVBox/TabContainer"]
+visible = false
 layout_mode = 2
+metadata/_tab_index = 1
 
-[node name="InputLabel" type="Label" parent="Background/SettingsUI/SettingsVBox"]
+[node name="InputLabel" type="Label" parent="SettingsUI/SettingsVBox/TabContainer/Input"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Input settings"
 
-[node name="yAxisDeadZone" type="HBoxContainer" parent="Background/SettingsUI/SettingsVBox"]
+[node name="xAxisDeadZone" type="HBoxContainer" parent="SettingsUI/SettingsVBox/TabContainer/Input"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Background/SettingsUI/SettingsVBox/yAxisDeadZone"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Y axis dead zone"
-
-[node name="yAxisDeadZoneSlider" type="HSlider" parent="Background/SettingsUI/SettingsVBox/yAxisDeadZone"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-max_value = 0.5
-step = 0.01
-value = 0.1
-
-[node name="xAxisDeadZone" type="HBoxContainer" parent="Background/SettingsUI/SettingsVBox"]
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Background/SettingsUI/SettingsVBox/xAxisDeadZone"]
+[node name="Label" type="Label" parent="SettingsUI/SettingsVBox/TabContainer/Input/xAxisDeadZone"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "X axis dead zone"
 
-[node name="xAxisDeadZoneSlider" type="HSlider" parent="Background/SettingsUI/SettingsVBox/xAxisDeadZone"]
+[node name="xAxisDeadZoneSlider" type="HSlider" parent="SettingsUI/SettingsVBox/TabContainer/Input/xAxisDeadZone"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -176,25 +177,89 @@ max_value = 0.5
 step = 0.01
 value = 0.2
 
-[node name="HSeparator2" type="HSeparator" parent="Background/SettingsUI/SettingsVBox"]
+[node name="yAxisDeadZone" type="HBoxContainer" parent="SettingsUI/SettingsVBox/TabContainer/Input"]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 
-[node name="AdditionalLabel" type="Label" parent="Background/SettingsUI/SettingsVBox"]
+[node name="Label" type="Label" parent="SettingsUI/SettingsVBox/TabContainer/Input/yAxisDeadZone"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "Additional settings"
+text = "Y axis dead zone"
 
-[node name="PlayerHeight" type="HBoxContainer" parent="Background/SettingsUI/SettingsVBox"]
+[node name="yAxisDeadZoneSlider" type="HSlider" parent="SettingsUI/SettingsVBox/TabContainer/Input/yAxisDeadZone"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 0.5
+step = 0.01
+value = 0.1
+
+[node name="Volume" type="VBoxContainer" parent="SettingsUI/SettingsVBox/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="VolumeLabel" type="Label" parent="SettingsUI/SettingsVBox/TabContainer/Volume"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Volume settings"
+
+[node name="SFXVolume" type="HBoxContainer" parent="SettingsUI/SettingsVBox/TabContainer/Volume"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="Background/SettingsUI/SettingsVBox/PlayerHeight"]
+[node name="Label" type="Label" parent="SettingsUI/SettingsVBox/TabContainer/Volume/SFXVolume"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Sound volume:"
+
+[node name="SFXVolumeSlider" type="HSlider" parent="SettingsUI/SettingsVBox/TabContainer/Volume/SFXVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="MusicVolume" type="HBoxContainer" parent="SettingsUI/SettingsVBox/TabContainer/Volume"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="SettingsUI/SettingsVBox/TabContainer/Volume/MusicVolume"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Music volume:"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="SettingsUI/SettingsVBox/TabContainer/Volume/MusicVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Additional" type="VBoxContainer" parent="SettingsUI/SettingsVBox/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="AdditionalLabel" type="Label" parent="SettingsUI/SettingsVBox/TabContainer/Additional"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Additional settings"
+
+[node name="PlayerHeight" type="HBoxContainer" parent="SettingsUI/SettingsVBox/TabContainer/Additional"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="SettingsUI/SettingsVBox/TabContainer/Additional/PlayerHeight"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Height adjust:"
 
-[node name="PlayerHeightSlider" type="HSlider" parent="Background/SettingsUI/SettingsVBox/PlayerHeight"]
+[node name="PlayerHeightSlider" type="HSlider" parent="SettingsUI/SettingsVBox/TabContainer/Additional/PlayerHeight"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -203,36 +268,37 @@ max_value = 2.5
 step = 0.05
 value = 1.0
 
-[node name="HSeparator3" type="HSeparator" parent="Background/SettingsUI/SettingsVBox"]
-layout_mode = 2
-
-[node name="Buttons" type="HBoxContainer" parent="Background/SettingsUI/SettingsVBox"]
+[node name="Buttons" type="HBoxContainer" parent="SettingsUI/SettingsVBox"]
 layout_mode = 2
 theme_override_constants/separation = 72
 alignment = 1
 
-[node name="Save" type="Button" parent="Background/SettingsUI/SettingsVBox/Buttons"]
+[node name="Save" type="Button" parent="SettingsUI/SettingsVBox/Buttons"]
 custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 36
 text = "Save"
 
-[node name="Reset" type="Button" parent="Background/SettingsUI/SettingsVBox/Buttons"]
+[node name="Reset" type="Button" parent="SettingsUI/SettingsVBox/Buttons"]
 custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 36
 text = "Reset"
 
-[connection signal="pressed" from="Background/PauseMenuUI/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
-[connection signal="pressed" from="Background/PauseMenuUI/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="Background/PauseMenuUI/VBoxContainer/RestartGameButton" to="." method="_on_restart_game_button_pressed"]
-[connection signal="pressed" from="Background/PauseMenuUI/VBoxContainer/ExitGameButton" to="." method="_on_exit_game_button_pressed"]
-[connection signal="player_height_changed" from="Background/SettingsUI" to="." method="_player_height_changed"]
-[connection signal="pressed" from="Background/SettingsUI/SettingsVBox/HBoxContainer/BackButton" to="." method="_on_back_to_menu_button_pressed"]
-[connection signal="pressed" from="Background/SettingsUI/SettingsVBox/SnapTurning/SnapTurningCB" to="Background/SettingsUI" method="_on_SnapTurningCB_pressed"]
-[connection signal="pressed" from="Background/SettingsUI/SettingsVBox/DirectMovement/DirectMovementCB" to="Background/SettingsUI" method="_on_MovementDirectCB_pressed"]
-[connection signal="value_changed" from="Background/SettingsUI/SettingsVBox/yAxisDeadZone/yAxisDeadZoneSlider" to="Background/SettingsUI" method="_on_y_axis_dead_zone_slider_value_changed"]
-[connection signal="value_changed" from="Background/SettingsUI/SettingsVBox/xAxisDeadZone/xAxisDeadZoneSlider" to="Background/SettingsUI" method="_on_x_axis_dead_zone_slider_value_changed"]
-[connection signal="drag_ended" from="Background/SettingsUI/SettingsVBox/PlayerHeight/PlayerHeightSlider" to="Background/SettingsUI" method="_on_PlayerHeightSlider_drag_ended"]
-[connection signal="pressed" from="Background/SettingsUI/SettingsVBox/Buttons/Save" to="Background/SettingsUI" method="_on_Save_pressed"]
-[connection signal="pressed" from="Background/SettingsUI/SettingsVBox/Buttons/Reset" to="Background/SettingsUI" method="_on_Reset_pressed"]
+[connection signal="pressed" from="PauseMenuUI/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="PauseMenuUI/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="PauseMenuUI/VBoxContainer/RestartGameButton" to="." method="_on_restart_game_button_pressed"]
+[connection signal="pressed" from="PauseMenuUI/VBoxContainer/ExitGameButton" to="." method="_on_exit_game_button_pressed"]
+[connection signal="player_height_changed" from="SettingsUI" to="." method="_player_height_changed"]
+[connection signal="pressed" from="SettingsUI/SettingsVBox/HBoxContainer/BackButton" to="." method="_on_back_to_menu_button_pressed"]
+[connection signal="pressed" from="SettingsUI/SettingsVBox/TabContainer/Movement/SnapTurning/SnapTurningCB" to="SettingsUI" method="_on_SnapTurningCB_pressed"]
+[connection signal="pressed" from="SettingsUI/SettingsVBox/TabContainer/Movement/DirectMovement/DirectMovementCB" to="SettingsUI" method="_on_MovementDirectCB_pressed"]
+[connection signal="value_changed" from="SettingsUI/SettingsVBox/TabContainer/Input/xAxisDeadZone/xAxisDeadZoneSlider" to="SettingsUI" method="_on_x_axis_dead_zone_slider_value_changed"]
+[connection signal="value_changed" from="SettingsUI/SettingsVBox/TabContainer/Input/yAxisDeadZone/yAxisDeadZoneSlider" to="SettingsUI" method="_on_y_axis_dead_zone_slider_value_changed"]
+[connection signal="value_changed" from="SettingsUI/SettingsVBox/TabContainer/Volume/SFXVolume/SFXVolumeSlider" to="SettingsUI" method="_on_sfx_volume_slider_value_changed"]
+[connection signal="value_changed" from="SettingsUI/SettingsVBox/TabContainer/Volume/MusicVolume/MusicVolumeSlider" to="SettingsUI" method="_on_music_volume_slider_value_changed"]
+[connection signal="drag_ended" from="SettingsUI/SettingsVBox/TabContainer/Additional/PlayerHeight/PlayerHeightSlider" to="SettingsUI" method="_on_PlayerHeightSlider_drag_ended"]
+[connection signal="pressed" from="SettingsUI/SettingsVBox/Buttons/Save" to="SettingsUI" method="_on_Save_pressed"]
+[connection signal="pressed" from="SettingsUI/SettingsVBox/Buttons/Reset" to="SettingsUI" method="_on_Reset_pressed"]

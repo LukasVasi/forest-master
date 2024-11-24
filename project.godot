@@ -17,9 +17,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-XRToolsUserSettings="*res://addons/godot-xr-tools/user_settings/user_settings.gd"
 RumbleManager="*res://scripts/utils/rumble_manager.gd"
 PauseManager="*res://scripts/utils/pause_manager.gd"
+UserSettings="*res://scripts/utils/user_settings.gd"
 
 [debug]
 
