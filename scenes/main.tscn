@@ -391,7 +391,7 @@ transform = Transform3D(-0.113004, 0, 0.0403744, 0, 0.12, 0, -0.0403744, 0, -0.1
 curve = SubResource("Curve3D_i6pi6")
 
 [node name="MockFish1" parent="Fishing/MockFishes/MockFishPath1" instance=ExtResource("14_h3ydf")]
-transform = Transform3D(-0.961927, -0.0026609, 0.273209, 0, 0.999874, 0.00973934, -0.273221, 0.0093682, -0.961885, 17.8061, -1.12253, 13.4726)
+transform = Transform3D(-0.961927, -0.00266089, 0.273209, 0, 0.999874, 0.00973934, -0.273221, 0.0093682, -0.961885, 17.8061, -1.12253, 13.4726)
 progress = 39.4198
 rotation_mode = 2
 use_model_front = true

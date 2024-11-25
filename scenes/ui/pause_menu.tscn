@@ -1,7 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://b5gug5ecibfou"]
+[gd_scene load_steps=6 format=3 uid="uid://b5gug5ecibfou"]
 
 [ext_resource type="Script" path="res://scripts/ui/pause_menu.gd" id="1_xagxo"]
+[ext_resource type="Script" path="res://scenes/ui/statistics_ui.gd" id="2_aeqc0"]
 [ext_resource type="Script" path="res://scenes/ui/settings_ui.gd" id="2_tscx0"]
+
+[sub_resource type="Theme" id="Theme_vmdlp"]
+default_font_size = 24
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3fww5"]
 bg_color = Color(0.427493, 0.427493, 0.427493, 0.705882)
@@ -23,6 +27,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_vmdlp")
 script = ExtResource("1_xagxo")
 
 [node name="PauseMenuUI" type="PanelContainer" parent="."]
@@ -54,6 +59,13 @@ focus_mode = 0
 theme_override_font_sizes/font_size = 40
 text = "Resume"
 
+[node name="StatisticsButton" type="Button" parent="PauseMenuUI/VBoxContainer"]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 40
+text = "Statistics"
+
 [node name="SettingsButton" type="Button" parent="PauseMenuUI/VBoxContainer"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
@@ -62,13 +74,6 @@ theme_override_font_sizes/font_size = 40
 text = "Settings
 "
 
-[node name="RestartGameButton" type="Button" parent="PauseMenuUI/VBoxContainer"]
-custom_minimum_size = Vector2(500, 100)
-layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 40
-text = "Restart game"
-
 [node name="ExitGameButton" type="Button" parent="PauseMenuUI/VBoxContainer"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
@@ -76,7 +81,134 @@ focus_mode = 0
 theme_override_font_sizes/font_size = 40
 text = "Exit Game"
 
+[node name="StatisticsUI" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(600, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -250.0
+offset_right = 300.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3fww5")
+script = ExtResource("2_aeqc0")
+
+[node name="StatisticsVBox" type="VBoxContainer" parent="StatisticsUI"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="StatisticsUI/StatisticsVBox"]
+layout_mode = 2
+
+[node name="StatisticsLabel" type="Label" parent="StatisticsUI/StatisticsVBox/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 36
+text = "Statistics"
+
+[node name="BackButton" type="Button" parent="StatisticsUI/StatisticsVBox/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Back"
+
+[node name="TotalPlayTimeHBox" type="HBoxContainer" parent="StatisticsUI/StatisticsVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StatisticsUI/StatisticsVBox/TotalPlayTimeHBox"]
+layout_mode = 2
+text = "Total session play time: "
+
+[node name="TimeLabel" type="Label" parent="StatisticsUI/StatisticsVBox/TotalPlayTimeHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 2
+
+[node name="CurrentPlayTimeHBox" type="HBoxContainer" parent="StatisticsUI/StatisticsVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StatisticsUI/StatisticsVBox/CurrentPlayTimeHBox"]
+layout_mode = 2
+text = "Current session play time: "
+
+[node name="TimeLabel" type="Label" parent="StatisticsUI/StatisticsVBox/CurrentPlayTimeHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 2
+
+[node name="HSeparator" type="HSeparator" parent="StatisticsUI/StatisticsVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StatisticsUI/StatisticsVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Fishing"
+
+[node name="TotalFishingSessionsHBox" type="HBoxContainer" parent="StatisticsUI/StatisticsVBox"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="StatisticsUI/StatisticsVBox/TotalFishingSessionsHBox"]
+layout_mode = 2
+text = "Total fishing sessions: "
+
+[node name="ValueLabel" type="Label" parent="StatisticsUI/StatisticsVBox/TotalFishingSessionsHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 2
+
+[node name="FishCaughtHBox" type="HBoxContainer" parent="StatisticsUI/StatisticsVBox"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="StatisticsUI/StatisticsVBox/FishCaughtHBox"]
+layout_mode = 2
+text = "Fish caught: "
+
+[node name="ValueLabel" type="Label" parent="StatisticsUI/StatisticsVBox/FishCaughtHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 2
+
+[node name="TimesRodSnappedHBox" type="HBoxContainer" parent="StatisticsUI/StatisticsVBox"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="StatisticsUI/StatisticsVBox/TimesRodSnappedHBox"]
+layout_mode = 2
+text = "Times rod snapped:"
+
+[node name="ValueLabel" type="Label" parent="StatisticsUI/StatisticsVBox/TimesRodSnappedHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 2
+
+[node name="TotalTrialsHBox" type="HBoxContainer" parent="StatisticsUI/StatisticsVBox"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="StatisticsUI/StatisticsVBox/TotalTrialsHBox"]
+layout_mode = 2
+text = "Total trials:"
+
+[node name="ValueLabel" type="Label" parent="StatisticsUI/StatisticsVBox/TotalTrialsHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 2
+
+[node name="CompletedTrialsHBox" type="HBoxContainer" parent="StatisticsUI/StatisticsVBox"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="StatisticsUI/StatisticsVBox/CompletedTrialsHBox"]
+layout_mode = 2
+text = "Completed trials:"
+
+[node name="ValueLabel" type="Label" parent="StatisticsUI/StatisticsVBox/CompletedTrialsHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 2
+
 [node name="SettingsUI" type="PanelContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(600, 500)
 layout_mode = 1
 anchors_preset = 8
@@ -100,7 +232,7 @@ theme_override_constants/separation = 6
 [node name="HBoxContainer" type="HBoxContainer" parent="SettingsUI/SettingsVBox"]
 layout_mode = 2
 
-[node name="Settings Label" type="Label" parent="SettingsUI/SettingsVBox/HBoxContainer"]
+[node name="SettingsLabel" type="Label" parent="SettingsUI/SettingsVBox/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 36
@@ -288,9 +420,11 @@ theme_override_font_sizes/font_size = 36
 text = "Reset"
 
 [connection signal="pressed" from="PauseMenuUI/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="PauseMenuUI/VBoxContainer/StatisticsButton" to="." method="_on_statistics_button_pressed"]
 [connection signal="pressed" from="PauseMenuUI/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="PauseMenuUI/VBoxContainer/RestartGameButton" to="." method="_on_restart_game_button_pressed"]
 [connection signal="pressed" from="PauseMenuUI/VBoxContainer/ExitGameButton" to="." method="_on_exit_game_button_pressed"]
+[connection signal="visibility_changed" from="StatisticsUI" to="StatisticsUI" method="_on_visibility_changed"]
+[connection signal="pressed" from="StatisticsUI/StatisticsVBox/HBoxContainer/BackButton" to="." method="_on_back_to_menu_button_pressed"]
 [connection signal="player_height_changed" from="SettingsUI" to="." method="_player_height_changed"]
 [connection signal="pressed" from="SettingsUI/SettingsVBox/HBoxContainer/BackButton" to="." method="_on_back_to_menu_button_pressed"]
 [connection signal="pressed" from="SettingsUI/SettingsVBox/TabContainer/Movement/SnapTurning/SnapTurningCB" to="SettingsUI" method="_on_SnapTurningCB_pressed"]

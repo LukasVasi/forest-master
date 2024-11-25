@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 RumbleManager="*res://scripts/utils/rumble_manager.gd"
 PauseManager="*res://scripts/utils/pause_manager.gd"
 UserSettings="*res://scripts/utils/user_settings.gd"
+StatisticsManager="*res://scripts/statistics/statistics_manager.gd"
 
 [debug]
 

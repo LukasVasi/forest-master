@@ -16,6 +16,22 @@ const LynasScene = preload("res://scenes/fishing/fishes/lynas.tscn")
 signal on_state_changed(new_state: State)
 
 
+enum State 
+{
+	Sleeping, # not currently fishing
+	Baiting,
+	Reeling
+}
+
+# The direction (from the player's perspective) that the fish is pushing the float
+enum FishDirection
+{
+	Forward,
+	Left,
+	Right,
+}
+
+
 @export_category("Fishing")
 
 ## The threshold of interest for the fish to bite on trial.
@@ -89,28 +105,12 @@ var wind_transition_time: float = 0.0
 var _current_fish_interest: float = 0
 
 var distractions: Array[Distraction] = []
-
 var fish_scenes: Array[PackedScene] = []
 
 var state: State = State.Sleeping
 
 var _fish_direction: FishDirection = FishDirection.Forward
-
-
-enum State 
-{
-	Sleeping, # not currently fishing
-	Baiting,
-	Reeling
-}
-
-# The direction (from the player's perspective) that the fish is pushing the float
-enum FishDirection
-{
-	Forward,
-	Left,
-	Right,
-}
+var _current_session: FishingSession = null
 
 
 func _ready() -> void:
@@ -155,6 +155,7 @@ func _physics_process(_delta: float) -> void:
 # NOTE: maybe passively ticking fish interest rate when baiting?
 func _start_fishing() -> void:
 	print("Started fishing")
+	_current_session = FishingSession.new()
 	_current_fish_interest = 0
 	state = State.Baiting
 	on_state_changed.emit(state)
@@ -165,6 +166,8 @@ func _start_fishing() -> void:
 
 func _complete_trial() -> void:
 	print("Trial completed")
+	_current_session.total_trials += 1
+	_current_session.complete_trials += 1
 	_float_ui_viewport.visible = false
 	_current_fish_interest += interest_gain_on_complete
 	_fishing_rod.fishing_float.emit_success_particles()
@@ -174,6 +177,7 @@ func _complete_trial() -> void:
 
 func _fail_trial() -> void:
 	print("Trial failed")
+	_current_session.total_trials += 1
 	_float_ui_viewport.visible = false
 	_current_fish_interest -= interest_loss_on_fail
 	_fishing_rod.fishing_float.emit_fail_particles()
@@ -247,6 +251,13 @@ func _finish_fishing() -> void:
 	state = State.Sleeping
 	_fishing_rod.tension = 0.0
 	on_state_changed.emit(state)
+	StatisticsManager.user_statistics.add_fishing_session(
+		_current_session.fish_caught,
+		_current_session.rod_snapped,
+		_current_session.total_trials,
+		_current_session.complete_trials
+	)
+	_current_session = null
 
 
 func _reset_distraction_timer() -> void:
@@ -275,6 +286,7 @@ func _get_time_until_distraction() -> float:
 
 
 func _on_fishing_rod_snapped() -> void:
+	_current_session.rod_snapped = true
 	_finish_fishing()
 
 
@@ -283,6 +295,7 @@ func _on_fishing_rod_yanked(yank_velocity: Vector3) -> void:
 		State.Reeling:
 			# TODO: match this with the lock distance
 			if _fishing_rod.fishing_float.distance_to_target < _fishing_rod.float_reset_distance + 0.2:
+				_current_session.fish_caught = true
 				_catch_fish()
 				_finish_fishing()
 				_fishing_rod.fishing_float.reset()
@@ -379,3 +392,10 @@ func _random_position_for_distraction() -> Vector3:
 	var pos_z := float_position.z + sin(angle) * radius
 	var pos_y := 0 # global_position.y
 	return Vector3(pos_x, pos_y, pos_z)
+
+
+class FishingSession:
+	var fish_caught: bool = false
+	var rod_snapped: bool = false
+	var total_trials: int = 0
+	var complete_trials: int = 0
