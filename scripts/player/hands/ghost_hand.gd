@@ -1,7 +1,7 @@
 @tool
 @icon("res://addons/godot-xr-tools/editor/icons/hand.svg")
 class_name GhostHand
-extends Node3D
+extends Area3D
 
 
 ## Ghost Hand Script
@@ -114,7 +114,8 @@ func _ready() -> void:
 	_controller = XRTools.find_xr_ancestor(self, "*", "XRController3D")
 	
 	# Find our physical hand
-	_physical_hand = get_node(physical_hand_path)
+	if physical_hand_path and not physical_hand_path.is_empty():
+		_physical_hand = get_node(physical_hand_path)
 
 	# Find the relevant hand nodes
 	_hand_mesh = _find_child(self, "MeshInstance3D")
@@ -397,3 +398,7 @@ static func _find_child(node : Node, type : String) -> Node:
 
 	# No child found matching type
 	return null
+
+
+func can_teleport_to() -> bool:
+	return has_overlapping_bodies()

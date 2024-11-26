@@ -26,6 +26,8 @@ const MAX_GRAB_DISTANCE2: float = 1000000.0
 
 ## The main properties of the physical hand
 
+@export var ghost_hand : GhostHand
+
 ## The max distance that the hand can depart from the controller before being teleported.
 @export var max_distance_to_controller : float = 0.8
 
@@ -262,8 +264,12 @@ func _physics_process(delta: float) -> void:
 	# Check distance to hand
 	if distance_to_controller > max_distance_to_controller:
 		# Physics hand can be bugged or stuck so it needs to reset itself automatically
-		# when it is too far away from the controller
-		_reset_hand()
+		# when it is too far away from the controller but only when controller isn't in an object.
+		if is_instance_valid(ghost_hand):
+			if ghost_hand.can_teleport_to():
+				_reset_hand() # if we have ghost hand, reset only when able
+		else:
+			_reset_hand()
 	
 	_move(delta)
 	
