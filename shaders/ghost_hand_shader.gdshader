@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode unshaded, blend_mix;
+render_mode unshaded, blend_mix, depth_draw_always, depth_test_disabled, cull_disabled;
 
 // Uniforms to control the base color and alpha threshold
 uniform vec3 base_color : source_color = vec3(1.0, 1.0, 1.0);

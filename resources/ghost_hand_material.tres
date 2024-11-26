@@ -6,7 +6,7 @@
 render_priority = 0
 shader = ExtResource("1_iu143")
 shader_parameter/base_color = Color(3.94672e-06, 0.737807, 0.523496, 1)
-shader_parameter/alpha = 0.0
+shader_parameter/alpha = 0.4
 shader_parameter/min_alpha = 0.0
-shader_parameter/max_alpha = 0.5
+shader_parameter/max_alpha = 0.8
 shader_parameter/fresnel_amount = 3.0

@@ -69,6 +69,8 @@ var _force_trigger := -1.0
 
 var _physical_hand : PhysicalHand
 
+var _hand_material_override_duplicate : ShaderMaterial
+
 ## Pose-override class
 class PoseOverride:
 	## Who requested the override
@@ -153,7 +155,7 @@ func _process(_delta: float) -> void:
 			if not visible : visible = true
 			var alpha_ratio: float = clampf((distance_to_hand - min_visibility_distance) / (max_visibility_distance - min_visibility_distance), 0.0, 1.0)
 			var alpha_value: float = _min_shader_alpha + (_max_shader_alpha - _min_shader_alpha) * alpha_ratio
-			hand_material_override.set_shader_parameter("alpha", alpha_value)
+			_hand_material_override_duplicate.set_shader_parameter("alpha", alpha_value)
 
 # This method verifies the hand has a valid configuration.
 func _get_configuration_warnings() -> PackedStringArray:
@@ -224,11 +226,9 @@ func set_hand_material_override(material : ShaderMaterial) -> void:
 	):
 		push_error("The passed material is not supported. Shader must have alpha, min_alpha and max_alpha params")
 	else:
-		# Duplicate so as not to change the og resource's alpha
-		hand_material_override = material.duplicate()
-		_min_shader_alpha = hand_material_override.get_shader_parameter("min_alpha")
-		_max_shader_alpha = hand_material_override.get_shader_parameter("max_alpha")
-		if is_inside_tree():
+		# Set the material override
+		hand_material_override = material
+		if is_node_ready():
 			_update_hand_material_override()
 
 
@@ -284,8 +284,14 @@ func _update_hand_blend_tree() -> void:
 
 
 func _update_hand_material_override() -> void:
-	if _hand_mesh:
-		_hand_mesh.material_override = hand_material_override
+	if not is_node_ready():
+		return
+	
+	# Duplicate so as not to change the og resource's alpha
+	_hand_material_override_duplicate = hand_material_override.duplicate()
+	_min_shader_alpha = _hand_material_override_duplicate.get_shader_parameter("min_alpha")
+	_max_shader_alpha = _hand_material_override_duplicate.get_shader_parameter("max_alpha")
+	_hand_mesh.material_override = _hand_material_override_duplicate
 
 
 func _update_pose() -> void:
