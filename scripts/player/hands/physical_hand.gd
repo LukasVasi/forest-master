@@ -112,6 +112,9 @@ const MAX_GRAB_DISTANCE2: float = 1000000.0
 @export var player_body : PlayerBody
 
 
+@onready var _collision_area : HandCollisionArea = get_node("CollisionArea")
+
+
 var pid_controller_linear: PIDController
 var pid_controller_angular: PIDController
 
@@ -435,6 +438,9 @@ func drop_object() -> void:
 	# Reset the grab joint
 	grab_joint.set_node_a("")
 	grab_joint.set_node_b("")
+	
+	# Preserve the collision exception if object is colliding with hand
+	_collision_area.preserve_collision_exception_with(picked_up_object)
 	
 	picked_up_object = null
 	has_dropped.emit()
