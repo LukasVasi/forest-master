@@ -18,6 +18,10 @@ extends XRToolsPlayerBody
 ## The frequency of the bobbing in water.
 @export var _water_bobbing_frequency := 0.8
 
+
+var current_player_height : float : get = _get_player_height
+
+
 # In water mode
 var _in_water : bool = false
 
@@ -31,7 +35,7 @@ var _water_bobbing_time : float  = 0.0
 var _water_global_height : float = 0.0
 
 
-func _physics_process(delta: float):
+func _physics_process(delta: float) -> void:
 	# Do not run physics if in the editor
 	if Engine.is_editor_hint():
 		return
@@ -53,7 +57,7 @@ func _physics_process(delta: float):
 
 	# Allow the movement providers a chance to perform pre-movement updates. The providers can:
 	# - Adjust the gravity direction
-	for p in _movement_providers:
+	for p : XRToolsMovementProvider in _movement_providers:
 		if p.enabled:
 			p.physics_pre_movement(delta, self)
 
@@ -81,7 +85,7 @@ func _physics_process(delta: float):
 	# - Modify gravity direction
 	ground_control_velocity = Vector2.ZERO
 	var exclusive := false
-	for p in _movement_providers:
+	for p : XRToolsMovementProvider in _movement_providers:
 		if p.is_active or (p.enabled and not exclusive):
 			if p.physics_movement(delta, self, exclusive):
 				exclusive = true
@@ -169,7 +173,7 @@ func _update_ground_information(delta: float) -> void:
 
 
 # This method applies the player velocity and ground-control velocity to the physical body
-func _apply_velocity_and_control(delta: float):
+func _apply_velocity_and_control(delta: float) -> void:
 	# Calculate local velocity
 	var local_velocity := velocity - ground_velocity
 
@@ -238,7 +242,7 @@ func _apply_velocity_and_control(delta: float):
 				collision_node.get_node_or_null("GroundPhysics") as XRToolsGroundPhysics
 
 		# Get the collision physics associated with the collider
-		var collision_physics = XRToolsGroundPhysics.get_physics(
+		var collision_physics := XRToolsGroundPhysics.get_physics(
 				collision_physics_node, default_physics)
 
 		# Get the bounce parameters associated with the collider
@@ -255,12 +259,12 @@ func _apply_velocity_and_control(delta: float):
 			emit_signal("player_bounced", collision_node, magnitude)
 
 
-func on_water_entered(water_height: float):
+func on_water_entered(water_height: float) -> void:
 	_water_global_height = water_height # set the water height for floating logic
 	_in_water = true
 	#gravity_scale = 0  # This will make the player ignore gravity
 
-func on_water_exited():
+func on_water_exited() -> void:
 	_in_water = false
 	_bobbing = false
 	_water_bobbing_time = 0.0
@@ -269,8 +273,12 @@ func on_water_exited():
 	#bobbing_time = 0  # Reset bobbing time
 
 func _get_bob_velocity(time: float) -> float:
-	var omega = TAU * _water_bobbing_frequency
+	var omega := TAU * _water_bobbing_frequency
 	# Calculate the velocity as the derivative of the sine function
-	var velocity = water_bobbing_amplitude * omega * cos(omega * time)
+	var bob_velocity := water_bobbing_amplitude * omega * cos(omega * time)
 
-	return velocity
+	return bob_velocity
+
+
+func _get_player_height() -> float:
+	return _collision_node.shape.height if is_instance_valid(_collision_node) else 0.0

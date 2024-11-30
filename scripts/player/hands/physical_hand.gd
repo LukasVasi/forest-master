@@ -99,8 +99,17 @@ const MAX_GRAB_DISTANCE2: float = 1000000.0
 @export_flags_3d_physics \
 		var grab_collision_mask : int = DEFAULT_GRAB_MASK: set = _set_grab_collision_mask
 
-## Grab distance. Defines the radius of the collision sphere which detects pickable objects.
-@export var grab_distance : float = 0.3: set = _set_grab_distance
+## The minimum grab distance. Defines the radius of the collision sphere 
+## which detects pickable objects when the hand at normal height.
+@export var min_grab_distance : float = 0.2: set = _set_min_grab_distance
+
+## The maximum grab distance. Defines the radius of the collision sphere 
+## which detects pickable objects when the hand is near the floor.
+@export var max_grab_distance : float = 0.4: set = _set_max_grab_distance
+
+## The player body that this hand is attached to. Used to alter the grab distance
+## based on the hands position relative to the player body's origin.
+@export var player_body : PlayerBody
 
 
 var pid_controller_linear: PIDController
@@ -204,7 +213,7 @@ func _ready() -> void:
 	_grab_collision = CollisionShape3D.new()
 	_grab_collision.set_name("GrabCollisionShape")
 	_grab_collision.shape = SphereShape3D.new()
-	_grab_collision.shape.radius = grab_distance
+	_grab_collision.shape.radius = min_grab_distance
 
 	# Create the grab area
 	_grab_area = Area3D.new()
@@ -283,6 +292,8 @@ func _physics_process(delta: float) -> void:
 	
 	# Force the transform update at this moment
 	force_update_transform()
+	
+	_update_colliders()
 
 
 func _process_rumbling() -> void:
@@ -809,8 +820,15 @@ func _set_grab_collision_mask(new_value: int) -> void:
 
 
 ## Called when the grab distance has been modified
-func _set_grab_distance(new_value: float) -> void:
-	grab_distance = new_value
+func _set_min_grab_distance(new_value: float) -> void:
+	min_grab_distance = new_value
+	if is_inside_tree():
+		_update_colliders()
+
+
+## Called when the grab distance has been modified
+func _set_max_grab_distance(new_value: float) -> void:
+	max_grab_distance = new_value
 	if is_inside_tree():
 		_update_colliders()
 
@@ -819,7 +837,14 @@ func _set_grab_distance(new_value: float) -> void:
 func _update_colliders() -> void:
 	# Update the grab sphere
 	if _grab_collision:
-		_grab_collision.shape.radius = grab_distance
+		if not is_instance_valid(player_body):
+			# Player body not set, just use min distance
+			_grab_collision.shape.radius = min_grab_distance
+		else:
+			var relative_hand_y := global_position.y - player_body.global_position.y
+			var min_height := player_body.current_player_height * 0.3
+			var weight := clampf((relative_hand_y - min_height) / min_height, 0.0, 1.0)
+			_grab_collision.shape.radius = lerpf(max_grab_distance, min_grab_distance, weight)
 
 
 ## Called when an object enters the grab sphere
