@@ -1,10 +1,11 @@
-[gd_scene load_steps=51 format=3 uid="uid://difr003pluy10"]
+[gd_scene load_steps=53 format=3 uid="uid://difr003pluy10"]
 
 [ext_resource type="Script" path="res://scripts/player/hands/physical_hand.gd" id="1_lm2g5"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="2_jeaoo"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://m85b1gogdums" path="res://addons/godot-xr-tools/hands/animations/right/hand_blend_tree.tres" id="3_fm4ei"]
 [ext_resource type="Resource" uid="uid://dmpjtk0l8vh6v" path="res://addons/godot-xr-tools/hands/poses/pose_default_right.tres" id="4_cttgb"]
 [ext_resource type="ArrayMesh" uid="uid://ccnr0r5c3ybxh" path="res://models/player/hands_Forest_Master_Hand_R.res" id="5_cqq35"]
+[ext_resource type="Script" path="res://scenes/player/hands/collision_area.gd" id="5_wvbhw"]
 [ext_resource type="Animation" uid="uid://do01jton6rk42" path="res://addons/godot-xr-tools/hands/animations/right/Cup.res" id="6_yvk0l"]
 [ext_resource type="Animation" uid="uid://ky28birj4su6" path="res://addons/godot-xr-tools/hands/animations/right/Default pose.res" id="7_irlqb"]
 [ext_resource type="Animation" uid="uid://ccds2u22gbxn7" path="res://addons/godot-xr-tools/hands/animations/right/Grip.res" id="8_ufqua"]
@@ -47,6 +48,9 @@ magnitude = 0.5
 active_during_pause = false
 indefinite = true
 duration_ms = 300
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pvfp7"]
+size = Vector3(0.062, 0.15, 0.21)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_42vjk"]
 size = Vector3(0.0600403, 0.147693, 0.199084)
@@ -219,7 +223,16 @@ rumble_trackers = Array[StringName]([&"right_hand"])
 hand_blend_tree = ExtResource("3_fm4ei")
 default_pose = ExtResource("4_cttgb")
 grab_collision_mask = 327780
-grab_distance = 0.2
+
+[node name="CollisionArea" type="Area3D" parent="."]
+collision_layer = 131072
+collision_mask = 65636
+monitorable = false
+script = ExtResource("5_wvbhw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0295358, -0.041, 0.08)
+shape = SubResource("BoxShape3D_pvfp7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0295358, -0.041, 0.08)

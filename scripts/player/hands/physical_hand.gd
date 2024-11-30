@@ -99,8 +99,20 @@ const MAX_GRAB_DISTANCE2: float = 1000000.0
 @export_flags_3d_physics \
 		var grab_collision_mask : int = DEFAULT_GRAB_MASK: set = _set_grab_collision_mask
 
-## Grab distance. Defines the radius of the collision sphere which detects pickable objects.
-@export var grab_distance : float = 0.3: set = _set_grab_distance
+## The minimum grab distance. Defines the radius of the collision sphere 
+## which detects pickable objects when the hand at normal height.
+@export var min_grab_distance : float = 0.2: set = _set_min_grab_distance
+
+## The maximum grab distance. Defines the radius of the collision sphere 
+## which detects pickable objects when the hand is near the floor.
+@export var max_grab_distance : float = 0.4: set = _set_max_grab_distance
+
+## The player body that this hand is attached to. Used to alter the grab distance
+## based on the hands position relative to the player body's origin.
+@export var player_body : PlayerBody
+
+
+@onready var _collision_area : HandCollisionArea = get_node("CollisionArea")
 
 
 var pid_controller_linear: PIDController
@@ -204,7 +216,7 @@ func _ready() -> void:
 	_grab_collision = CollisionShape3D.new()
 	_grab_collision.set_name("GrabCollisionShape")
 	_grab_collision.shape = SphereShape3D.new()
-	_grab_collision.shape.radius = grab_distance
+	_grab_collision.shape.radius = min_grab_distance
 
 	# Create the grab area
 	_grab_area = Area3D.new()
@@ -232,6 +244,7 @@ func _reset_hand() -> void:
 	freeze = true
 	global_transform = _controller.global_transform
 	freeze = false
+	_reset_pid_controllers()
 	hand_reset.emit(self)
 
 
@@ -271,6 +284,9 @@ func _physics_process(delta: float) -> void:
 		else:
 			_reset_hand()
 	
+	if get_tree().paused and is_instance_valid(picked_up_object):
+		drop_object()
+	
 	_move(delta)
 	
 	# Calculate controller hand velocity
@@ -283,6 +299,8 @@ func _physics_process(delta: float) -> void:
 	
 	# Force the transform update at this moment
 	force_update_transform()
+	
+	_update_colliders()
 
 
 func _process_rumbling() -> void:
@@ -310,24 +328,35 @@ func _animate_hand_with_controller_inputs() -> void:
 
 
 func _move(delta: float) -> void:
-	# Target is controller wrist bone
+	# Target is the controller
 	var target := _controller.global_transform
 	
-	var linear_acceleration: Vector3 = pid_controller_linear.calculate(target.origin, global_transform.origin, delta)
-	var angular_acceleration: Vector3 = pid_controller_angular.calculate((target.basis * global_transform.basis.inverse()).get_euler(), Vector3.ZERO, delta)
-	
-	# TODO: use quaternions for rotation calculation 
-	#var quat_target: Quaternion = _target.global_basis.get_rotation_quaternion()
-	#var quat_hand: Quaternion = global_basis.get_rotation_quaternion()
-	#var quat_delta: Quaternion = quat_target * (quat_hand.inverse())
-	#var rotation_delta: Vector3 = Vector3(quat_delta.x, quat_delta.y, quat_delta.z) * quat_delta.w
-	
-	# Desired acceleration needs to be multiplied by mass to get the desired torque
-	apply_central_force(linear_acceleration * mass)
-	
-	# TODO: this should also probably account for inertia, but a certain value is 
-	# always set in stone at the moment, so doesn't really matter
-	apply_torque(angular_acceleration)
+	if not get_tree().paused:
+		var linear_acceleration: Vector3 = pid_controller_linear.calculate(target.origin, global_transform.origin, delta)
+		var angular_acceleration: Vector3 = pid_controller_angular.calculate((target.basis * global_transform.basis.inverse()).get_euler(), Vector3.ZERO, delta)
+		
+		# TODO: use quaternions for rotation calculation 
+		#var quat_target: Quaternion = _target.global_basis.get_rotation_quaternion()
+		#var quat_hand: Quaternion = global_basis.get_rotation_quaternion()
+		#var quat_delta: Quaternion = quat_target * (quat_hand.inverse())
+		#var rotation_delta: Vector3 = Vector3(quat_delta.x, quat_delta.y, quat_delta.z) * quat_delta.w
+		
+		# Desired acceleration needs to be multiplied by mass to get the desired torque
+		apply_central_force(linear_acceleration * mass)
+		
+		# TODO: this should also probably account for inertia, but a certain value is 
+		# always set in stone at the moment, so doesn't really matter
+		apply_torque(angular_acceleration)
+	else:
+		global_transform = target
+		_reset_pid_controllers()
+
+
+func _reset_pid_controllers() -> void:
+	pid_controller_linear.integral = Vector3.ZERO
+	pid_controller_linear.previous_error = Vector3.ZERO
+	pid_controller_angular.integral = Vector3.ZERO
+	pid_controller_angular.previous_error = Vector3.ZERO
 
 
 # TODO: fix the center of mass issue with heavy objects:
@@ -409,6 +438,9 @@ func drop_object() -> void:
 	# Reset the grab joint
 	grab_joint.set_node_a("")
 	grab_joint.set_node_b("")
+	
+	# Preserve the collision exception if object is colliding with hand
+	_collision_area.preserve_collision_exception_with(picked_up_object)
 	
 	picked_up_object = null
 	has_dropped.emit()
@@ -809,8 +841,15 @@ func _set_grab_collision_mask(new_value: int) -> void:
 
 
 ## Called when the grab distance has been modified
-func _set_grab_distance(new_value: float) -> void:
-	grab_distance = new_value
+func _set_min_grab_distance(new_value: float) -> void:
+	min_grab_distance = new_value
+	if is_inside_tree():
+		_update_colliders()
+
+
+## Called when the grab distance has been modified
+func _set_max_grab_distance(new_value: float) -> void:
+	max_grab_distance = new_value
 	if is_inside_tree():
 		_update_colliders()
 
@@ -819,7 +858,14 @@ func _set_grab_distance(new_value: float) -> void:
 func _update_colliders() -> void:
 	# Update the grab sphere
 	if _grab_collision:
-		_grab_collision.shape.radius = grab_distance
+		if not is_instance_valid(player_body):
+			# Player body not set, just use min distance
+			_grab_collision.shape.radius = min_grab_distance
+		else:
+			var relative_hand_y := global_position.y - player_body.global_position.y
+			var min_height := player_body.current_player_height * 0.3
+			var weight := clampf((relative_hand_y - min_height) / min_height, 0.0, 1.0)
+			_grab_collision.shape.radius = lerpf(max_grab_distance, min_grab_distance, weight)
 
 
 ## Called when an object enters the grab sphere

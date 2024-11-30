@@ -59,8 +59,10 @@ tracker = &"right_hand"
 hand_material_override = SubResource("ShaderMaterial_1lec5")
 physical_hand_path = NodePath("../RightPhysicalHand")
 
-[node name="RightPhysicalHand" parent="RightHandController" node_paths=PackedStringArray("ghost_hand") instance=ExtResource("5_7pet1")]
+[node name="RightPhysicalHand" parent="RightHandController" node_paths=PackedStringArray("ghost_hand", "player_body") instance=ExtResource("5_7pet1")]
+max_contacts_reported = 4
 ghost_hand = NodePath("../RightGhostHand")
+player_body = NodePath("../../PlayerBody")
 
 [node name="MovementTurn" parent="RightHandController" instance=ExtResource("7_ujmcf")]
 process_mode = 1
@@ -87,8 +89,10 @@ tracker = &"left_hand"
 hand_material_override = SubResource("ShaderMaterial_0v3e3")
 physical_hand_path = NodePath("../LeftPhysicalHand")
 
-[node name="LeftPhysicalHand" parent="LeftHandController" node_paths=PackedStringArray("ghost_hand") instance=ExtResource("11_4i34x")]
+[node name="LeftPhysicalHand" parent="LeftHandController" node_paths=PackedStringArray("ghost_hand", "player_body") instance=ExtResource("11_4i34x")]
+max_contacts_reported = 4
 ghost_hand = NodePath("../LeftGhostHand")
+player_body = NodePath("../../PlayerBody")
 
 [node name="MovementDirect" parent="LeftHandController" instance=ExtResource("13_gelqr")]
 strafe = true
