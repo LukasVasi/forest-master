@@ -241,6 +241,7 @@ func _reset_hand() -> void:
 	freeze = true
 	global_transform = _controller.global_transform
 	freeze = false
+	_reset_pid_controllers()
 	hand_reset.emit(self)
 
 
@@ -279,6 +280,9 @@ func _physics_process(delta: float) -> void:
 				_reset_hand() # if we have ghost hand, reset only when able
 		else:
 			_reset_hand()
+	
+	if get_tree().paused and is_instance_valid(picked_up_object):
+		drop_object()
 	
 	_move(delta)
 	
@@ -321,24 +325,35 @@ func _animate_hand_with_controller_inputs() -> void:
 
 
 func _move(delta: float) -> void:
-	# Target is controller wrist bone
+	# Target is the controller
 	var target := _controller.global_transform
 	
-	var linear_acceleration: Vector3 = pid_controller_linear.calculate(target.origin, global_transform.origin, delta)
-	var angular_acceleration: Vector3 = pid_controller_angular.calculate((target.basis * global_transform.basis.inverse()).get_euler(), Vector3.ZERO, delta)
-	
-	# TODO: use quaternions for rotation calculation 
-	#var quat_target: Quaternion = _target.global_basis.get_rotation_quaternion()
-	#var quat_hand: Quaternion = global_basis.get_rotation_quaternion()
-	#var quat_delta: Quaternion = quat_target * (quat_hand.inverse())
-	#var rotation_delta: Vector3 = Vector3(quat_delta.x, quat_delta.y, quat_delta.z) * quat_delta.w
-	
-	# Desired acceleration needs to be multiplied by mass to get the desired torque
-	apply_central_force(linear_acceleration * mass)
-	
-	# TODO: this should also probably account for inertia, but a certain value is 
-	# always set in stone at the moment, so doesn't really matter
-	apply_torque(angular_acceleration)
+	if not get_tree().paused:
+		var linear_acceleration: Vector3 = pid_controller_linear.calculate(target.origin, global_transform.origin, delta)
+		var angular_acceleration: Vector3 = pid_controller_angular.calculate((target.basis * global_transform.basis.inverse()).get_euler(), Vector3.ZERO, delta)
+		
+		# TODO: use quaternions for rotation calculation 
+		#var quat_target: Quaternion = _target.global_basis.get_rotation_quaternion()
+		#var quat_hand: Quaternion = global_basis.get_rotation_quaternion()
+		#var quat_delta: Quaternion = quat_target * (quat_hand.inverse())
+		#var rotation_delta: Vector3 = Vector3(quat_delta.x, quat_delta.y, quat_delta.z) * quat_delta.w
+		
+		# Desired acceleration needs to be multiplied by mass to get the desired torque
+		apply_central_force(linear_acceleration * mass)
+		
+		# TODO: this should also probably account for inertia, but a certain value is 
+		# always set in stone at the moment, so doesn't really matter
+		apply_torque(angular_acceleration)
+	else:
+		global_transform = target
+		_reset_pid_controllers()
+
+
+func _reset_pid_controllers() -> void:
+	pid_controller_linear.integral = Vector3.ZERO
+	pid_controller_linear.previous_error = Vector3.ZERO
+	pid_controller_angular.integral = Vector3.ZERO
+	pid_controller_angular.previous_error = Vector3.ZERO
 
 
 # TODO: fix the center of mass issue with heavy objects:
