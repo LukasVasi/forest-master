@@ -31,7 +31,6 @@ theme = SubResource("Theme_vmdlp")
 script = ExtResource("1_xagxo")
 
 [node name="PauseMenuUI" type="PanelContainer" parent="."]
-visible = false
 custom_minimum_size = Vector2(600, 500)
 layout_mode = 1
 anchors_preset = 8
@@ -74,6 +73,13 @@ theme_override_font_sizes/font_size = 40
 text = "Settings
 "
 
+[node name="ExitToMenuButton" type="Button" parent="PauseMenuUI/VBoxContainer"]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 40
+text = "Exit To Main Menu"
+
 [node name="ExitGameButton" type="Button" parent="PauseMenuUI/VBoxContainer"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
@@ -82,6 +88,7 @@ theme_override_font_sizes/font_size = 40
 text = "Exit Game"
 
 [node name="StatisticsUI" type="PanelContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(600, 500)
 layout_mode = 1
 anchors_preset = 8
@@ -422,6 +429,7 @@ text = "Reset"
 [connection signal="pressed" from="PauseMenuUI/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="PauseMenuUI/VBoxContainer/StatisticsButton" to="." method="_on_statistics_button_pressed"]
 [connection signal="pressed" from="PauseMenuUI/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="PauseMenuUI/VBoxContainer/ExitToMenuButton" to="." method="_on_exit_to_main_menu_button_pressed"]
 [connection signal="pressed" from="PauseMenuUI/VBoxContainer/ExitGameButton" to="." method="_on_exit_game_button_pressed"]
 [connection signal="visibility_changed" from="StatisticsUI" to="StatisticsUI" method="_on_visibility_changed"]
 [connection signal="pressed" from="StatisticsUI/StatisticsVBox/HBoxContainer/BackButton" to="." method="_on_back_to_menu_button_pressed"]

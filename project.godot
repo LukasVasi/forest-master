@@ -50,6 +50,7 @@ puntukas=""
 pause_menu_container=""
 fishing_rod=""
 fishing=""
+scene_base=""
 
 [layer_names]
 

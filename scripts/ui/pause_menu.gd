@@ -13,6 +13,9 @@ extends Control
 ## The player's body.
 @onready var player_body: PlayerBody = get_tree().get_first_node_in_group("player").get_node("PlayerBody")
 
+## Get the base of the current scene.
+@onready var scene_base : SceneBase = get_tree().get_first_node_in_group("scene_base")
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Hide all the UIs
@@ -43,8 +46,12 @@ func _on_settings_button_pressed() -> void:
 	_settings_ui.visible = true
 
 
+func _on_exit_to_main_menu_button_pressed() -> void:
+	scene_base.exit_to_main_menu()
+
+
 func _on_exit_game_button_pressed() -> void:
-	StatisticsManager.save()
+	scene_base.handle_close_request()
 	get_tree().quit()
 
 

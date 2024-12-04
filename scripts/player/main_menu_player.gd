@@ -1,4 +1,3 @@
-class_name Player
 extends XROrigin3D
 
 # Right controller variables
@@ -8,17 +7,11 @@ var function_pointer_right: XRToolsFunctionPointer
 
 # Left controller variables
 var xr_controller_left: XRController3D
-var movement_jump_left: XRToolsMovementJump
-var movement_direct_left: XRToolsMovementDirect
-var function_teleport_left: XRToolsFunctionTeleport
 var function_pointer_left: XRToolsFunctionPointer
 
 
 func _ready() -> void:
 	init_controllers()
-	
-	if PauseManager:
-		PauseManager.pause_state_changed.connect(_on_pause_state_changed)
 
 
 func init_controllers() -> void:
@@ -44,18 +37,6 @@ func init_controllers() -> void:
 	else:
 		xr_controller_left.button_pressed.connect(_on_left_controller_button_pressed)
 		xr_controller_left.button_released.connect(_on_left_controller_button_released)
-		
-		movement_jump_left = XRTools.find_xr_child(xr_controller_left, "*", "XRToolsMovementJump", true)
-		movement_direct_left = XRTools.find_xr_child(xr_controller_left, "*", "XRToolsMovementDirect", true)
-		function_teleport_left = XRTools.find_xr_child(xr_controller_left, "*", "XRToolsFunctionTeleport", true)
-		
-		# Enable one based on user settings
-		if UserSettings.movement_direct:
-			movement_direct_left.enabled = true
-			function_teleport_left.enabled = false
-		else:
-			movement_direct_left.enabled = false
-			function_teleport_left.enabled = true
 		
 		function_pointer_left = XRTools.find_xr_child(xr_controller_left, "*", "XRToolsFunctionPointer", true)
 		
@@ -122,19 +103,3 @@ func _on_left_controller_button_released(p_button: String) -> void:
 	match p_button:
 		"ax_button":
 			disable_left_pointer()
-
-
-## Method that handles the pause state change singal from PauseManager
-func _on_pause_state_changed(paused : bool) -> void:
-	if paused:
-		# Disable all movement
-		movement_jump_left.enabled = false
-		movement_direct_left.enabled = false
-		function_teleport_left.enabled = false
-	else:
-		movement_jump_left.enabled = true
-		# Enable one based on user settings
-		if UserSettings.movement_direct:
-			movement_direct_left.enabled = true
-		else:
-			function_teleport_left.enabled = true

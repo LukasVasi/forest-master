@@ -1,5 +1,5 @@
 @tool
-class_name XRToolsStaging
+class_name Staging
 extends Node3D
 
 
@@ -62,17 +62,19 @@ signal xr_ended
 
 
 ## Main scene file
-@export_file('*.tscn') var main_scene : String
+@export_file('*.tscn') var main_menu_scene : String
 
 ## If true, the player is prompted to continue
 @export var prompt_for_continue : bool = true
 
 
 ## The current scene
-var current_scene : XRToolsSceneBase
+var current_scene : SceneBase
 
 ## The current scene path
 var current_scene_path : String
+
+var xr_interface : XRInterface
 
 # Tween for fading
 var _tween : Tween
@@ -84,17 +86,17 @@ var _tween : Tween
 @onready var xr_camera : XRCamera3D = XRHelpers.get_xr_camera(self)
 
 
-func _ready():
+func _ready() -> void:
 	# Do not initialise if in the editor
 	if Engine.is_editor_hint():
 		return
-
+	
 	# Specify the camera to track
 	if xr_camera:
 		$LoadingScreen.set_camera(xr_camera)
-
-	# We start by loading our main level scene
-	load_scene(main_scene)
+	
+	# Start loading the main menu scene
+	load_scene(main_menu_scene)
 
 
 # Verifies our staging has a valid configuration.
@@ -112,15 +114,25 @@ func _get_configuration_warnings() -> PackedStringArray:
 		warnings.append("No XRCamera3D node found, please add one to your XROrigin3D node")
 
 	# Report main scene not specified
-	if main_scene == "":
+	if main_menu_scene == "":
 		warnings.append("No main scene selected")
 
 	# Report main scene invalid
-	if !FileAccess.file_exists(main_scene):
+	if !FileAccess.file_exists(main_menu_scene):
 		warnings.append("Main scene doesn't exist")
 
 	# Return warnings
 	return warnings
+
+
+func _notification(what: int) -> void:
+	# Mark close requests to be handled explicitly
+	if (
+		what == NOTIFICATION_WM_CLOSE_REQUEST or
+		what == NOTIFICATION_APPLICATION_PAUSED
+	):
+		if is_instance_valid(current_scene):
+			current_scene.handle_close_request()
 
 
 # Add support for is_xr_class on XRTools classes
@@ -159,7 +171,7 @@ func load_scene(p_scene_path : String, user_data = null) -> void:
 		# Fade to black
 		if _tween:
 			_tween.kill()
-		_tween = get_tree().create_tween()
+		_tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 		_tween.tween_method(set_fade, 0.0, 1.0, 1.0)
 		await _tween.finished
 
@@ -169,7 +181,6 @@ func load_scene(p_scene_path : String, user_data = null) -> void:
 		$Scene.remove_child(current_scene)
 		current_scene.queue_free()
 		current_scene = null
-		PauseManager.paused = false
 
 	# If a continue-prompt is desired or the new scene has not finished
 	# loading, then switch to the loading screen.
@@ -189,7 +200,7 @@ func load_scene(p_scene_path : String, user_data = null) -> void:
 		# Fade to visible
 		if _tween:
 			_tween.kill()
-		_tween = get_tree().create_tween()
+		_tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 		_tween.tween_method(set_fade, 1.0, 0.0, 1.0)
 		await _tween.finished
 
@@ -227,7 +238,7 @@ func load_scene(p_scene_path : String, user_data = null) -> void:
 		# Fade to black
 		if _tween:
 			_tween.kill()
-		_tween = get_tree().create_tween()
+		_tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 		_tween.tween_method(set_fade, 0.0, 1.0, 1.0)
 		await _tween.finished
 
@@ -253,7 +264,7 @@ func load_scene(p_scene_path : String, user_data = null) -> void:
 	# Fade to visible
 	if _tween:
 		_tween.kill()
-	_tween = get_tree().create_tween()
+	_tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	_tween.tween_method(set_fade, 1.0, 0.0, 1.0)
 	await _tween.finished
 
@@ -268,37 +279,38 @@ func load_scene(p_scene_path : String, user_data = null) -> void:
 ## Our fade object allows us to black out the screen for transitions.
 ## Note that our AABB is set to HUGE so it should always be rendered
 ## unless hidden.
-func set_fade(p_value : float):
+func set_fade(p_value : float) -> void:
 	XRToolsFade.set_fade("staging", Color(0, 0, 0, p_value))
 
 
-func _add_signals(p_scene : XRToolsSceneBase):
-	p_scene.connect("request_exit_to_main_menu", _on_exit_to_main_menu)
-	p_scene.connect("request_load_scene", _on_load_scene)
-	p_scene.connect("request_reset_scene", _on_reset_scene)
+func _add_signals(p_scene : SceneBase) -> void:
+	p_scene.request_exit_to_main_menu.connect(_on_exit_to_main_menu)
+	p_scene.request_load_scene.connect(_on_load_scene)
+	p_scene.request_reset_scene.connect(_on_reset_scene)
 
 
-func _remove_signals(p_scene : XRToolsSceneBase):
-	p_scene.disconnect("request_exit_to_main_menu", _on_exit_to_main_menu)
-	p_scene.disconnect("request_load_scene", _on_load_scene)
-	p_scene.disconnect("request_reset_scene", _on_reset_scene)
+func _remove_signals(p_scene : SceneBase) -> void:
+	p_scene.request_exit_to_main_menu.disconnect(_on_exit_to_main_menu)
+	p_scene.request_load_scene.disconnect(_on_load_scene)
+	p_scene.request_reset_scene.disconnect(_on_reset_scene)
 
 
-func _on_exit_to_main_menu():
-	load_scene(main_scene)
+func _on_exit_to_main_menu() -> void:
+	print("This called")
+	load_scene(main_menu_scene)
 
 
-func _on_load_scene(p_scene_path : String, user_data):
+func _on_load_scene(p_scene_path : String, user_data) -> void:
 	load_scene(p_scene_path, user_data)
 
 
-func _on_reset_scene(user_data):
+func _on_reset_scene(user_data) -> void:
 	load_scene(current_scene_path, user_data)
 
 
-func _on_StartXR_xr_started():
-	emit_signal("xr_started")
+func _on_StartXR_xr_started() -> void:
+	xr_started.emit()
 
 
-func _on_StartXR_xr_ended():
-	emit_signal("xr_ended")
+func _on_StartXR_xr_ended() -> void:
+	xr_ended.emit()
