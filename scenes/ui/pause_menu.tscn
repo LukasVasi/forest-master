@@ -61,6 +61,14 @@ theme_override_font_sizes/font_size = 40
 text = "Settings
 "
 
+[node name="TutorialButton" type="Button" parent="PauseMenuUI/VBoxContainer"]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 40
+text = "Tutorial
+"
+
 [node name="ExitToMenuButton" type="Button" parent="PauseMenuUI/VBoxContainer"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
@@ -200,6 +208,7 @@ size_flags_horizontal = 3
 horizontal_alignment = 2
 
 [node name="SettingsUI" type="PanelContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(600, 500)
 layout_mode = 1
 anchors_preset = 8
@@ -236,10 +245,9 @@ text = "Back"
 [node name="TabContainer" type="TabContainer" parent="SettingsUI/SettingsVBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-current_tab = 2
+current_tab = 0
 
 [node name="Movement" type="VBoxContainer" parent="SettingsUI/SettingsVBox/TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -317,6 +325,7 @@ step = 0.01
 value = 0.1
 
 [node name="Volume" type="VBoxContainer" parent="SettingsUI/SettingsVBox/TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
@@ -409,9 +418,73 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 36
 text = "Reset"
 
+[node name="TutorialUI" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -196.5
+offset_right = 260.0
+offset_bottom = 196.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TutorialVBox" type="VBoxContainer" parent="TutorialUI"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TutorialUI/TutorialVBox"]
+layout_mode = 2
+
+[node name="TutorialLabel" type="Label" parent="TutorialUI/TutorialVBox/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 36
+text = "Tutorial"
+
+[node name="BackButton" type="Button" parent="TutorialUI/TutorialVBox/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Back"
+
+[node name="TabContainer" type="TabContainer" parent="TutorialUI/TutorialVBox"]
+layout_mode = 2
+current_tab = 0
+
+[node name="Movement" type="VBoxContainer" parent="TutorialUI/TutorialVBox/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TutorialUI/TutorialVBox/TabContainer/Movement"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/normal_font_size = 24
+text = "You can move using the left controller's thumbstick and turn using the right controller's thumbstick.
+You grab items using the grip buttons on your controllers. Once you've grabbed an item, you can interact with it using the trigger buttons."
+fit_content = true
+
+[node name="Fishing" type="VBoxContainer" parent="TutorialUI/TutorialVBox/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TutorialUI/TutorialVBox/TabContainer/Fishing"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 24
+text = "You can fish in the lake using the fishing rod found on the dock.
+First you will need to cast the fishing float by pressing the trigger on the controller that you've grabbed the fishing rod with.
+Once it the water, the fishing float will bob and sometimes plunge. When it plunges, a direction will be displayed above the float. You need to yank the fishing rod in that direction during that moment.
+When you've succeeded in enough trials, the fish will bite and then you can reel the float (and fish) in. Beware that reeling in builds tension. Reach the max and the fish will break away.
+Once you've reeled the fish in close enough (the handle will lock), you can yank the fishing rod one last time to get the fish out of the water."
+fit_content = true
+
 [connection signal="pressed" from="PauseMenuUI/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="PauseMenuUI/VBoxContainer/StatisticsButton" to="." method="_on_statistics_button_pressed"]
 [connection signal="pressed" from="PauseMenuUI/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="PauseMenuUI/VBoxContainer/TutorialButton" to="." method="_on_tutorial_button_pressed"]
 [connection signal="pressed" from="PauseMenuUI/VBoxContainer/ExitToMenuButton" to="." method="_on_exit_to_main_menu_button_pressed"]
 [connection signal="pressed" from="PauseMenuUI/VBoxContainer/ExitGameButton" to="." method="_on_exit_game_button_pressed"]
 [connection signal="visibility_changed" from="StatisticsUI" to="StatisticsUI" method="_on_visibility_changed"]
@@ -427,3 +500,4 @@ text = "Reset"
 [connection signal="drag_ended" from="SettingsUI/SettingsVBox/TabContainer/Additional/PlayerHeight/PlayerHeightSlider" to="SettingsUI" method="_on_PlayerHeightSlider_drag_ended"]
 [connection signal="pressed" from="SettingsUI/SettingsVBox/Buttons/Save" to="SettingsUI" method="_on_Save_pressed"]
 [connection signal="pressed" from="SettingsUI/SettingsVBox/Buttons/Reset" to="SettingsUI" method="_on_Reset_pressed"]
+[connection signal="pressed" from="TutorialUI/TutorialVBox/HBoxContainer/BackButton" to="." method="_on_back_to_menu_button_pressed"]
