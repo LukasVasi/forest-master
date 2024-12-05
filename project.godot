@@ -28,6 +28,8 @@ gdscript/warnings/untyped_declaration=1
 
 [display]
 
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/vsync/vsync_mode=0
 
 [dotnet]
@@ -51,6 +53,10 @@ pause_menu_container=""
 fishing_rod=""
 fishing=""
 scene_base=""
+
+[gui]
+
+theme/default_font_antialiasing=0
 
 [layer_names]
 
@@ -80,6 +86,7 @@ common/physics_ticks_per_second=90
 
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
+anti_aliasing/screen_space_roughness_limiter/enabled=false
 occlusion_culling/use_occlusion_culling=true
 
 [xr]

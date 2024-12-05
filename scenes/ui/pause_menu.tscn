@@ -1,23 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://b5gug5ecibfou"]
+[gd_scene load_steps=5 format=3 uid="uid://b5gug5ecibfou"]
 
+[ext_resource type="Theme" uid="uid://vq7t843uek2d" path="res://ui/ui_theme.tres" id="1_5fn35"]
 [ext_resource type="Script" path="res://scripts/ui/pause_menu.gd" id="1_xagxo"]
 [ext_resource type="Script" path="res://scenes/ui/statistics_ui.gd" id="2_aeqc0"]
 [ext_resource type="Script" path="res://scenes/ui/settings_ui.gd" id="2_tscx0"]
-
-[sub_resource type="Theme" id="Theme_vmdlp"]
-default_font_size = 24
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3fww5"]
-bg_color = Color(0.427493, 0.427493, 0.427493, 0.705882)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-expand_margin_left = 16.0
-expand_margin_top = 16.0
-expand_margin_right = 16.0
-expand_margin_bottom = 16.0
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -27,10 +13,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_vmdlp")
+theme = ExtResource("1_5fn35")
 script = ExtResource("1_xagxo")
 
 [node name="PauseMenuUI" type="PanelContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(600, 500)
 layout_mode = 1
 anchors_preset = 8
@@ -44,18 +31,19 @@ offset_right = 250.0
 offset_bottom = 206.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_3fww5")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseMenuUI"]
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 4
 alignment = 1
 
 [node name="ResumeButton" type="Button" parent="PauseMenuUI/VBoxContainer"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 focus_mode = 0
-theme_override_font_sizes/font_size = 40
 text = "Resume"
 
 [node name="StatisticsButton" type="Button" parent="PauseMenuUI/VBoxContainer"]
@@ -102,7 +90,6 @@ offset_right = 300.0
 offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_3fww5")
 script = ExtResource("2_aeqc0")
 
 [node name="StatisticsVBox" type="VBoxContainer" parent="StatisticsUI"]
@@ -114,12 +101,10 @@ layout_mode = 2
 [node name="StatisticsLabel" type="Label" parent="StatisticsUI/StatisticsVBox/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 36
 text = "Statistics"
 
 [node name="BackButton" type="Button" parent="StatisticsUI/StatisticsVBox/HBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 36
 text = "Back"
 
 [node name="TotalPlayTimeHBox" type="HBoxContainer" parent="StatisticsUI/StatisticsVBox"]
@@ -215,7 +200,6 @@ size_flags_horizontal = 3
 horizontal_alignment = 2
 
 [node name="SettingsUI" type="PanelContainer" parent="."]
-visible = false
 custom_minimum_size = Vector2(600, 500)
 layout_mode = 1
 anchors_preset = 8
@@ -229,7 +213,6 @@ offset_right = 238.0
 offset_bottom = 173.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_3fww5")
 script = ExtResource("2_tscx0")
 
 [node name="SettingsVBox" type="VBoxContainer" parent="SettingsUI"]

@@ -13,12 +13,12 @@ uniform vec3 cooked_color : source_color = vec3(0.4, 0.28, 0.15); // the color w
 // Roughness control
 uniform sampler2D base_roughness_texture: source_color; // note this is actually the roughness-metallic texture, roughness is in the g channel
 uniform float base_roughness = 0.5;
-uniform float cooked_roughness = 0.8; // the roughness when fully cooked 
+uniform float cooked_roughness = 0.8; // the roughness when fully cooked
 
 void fragment() {
 	// Ensure cooking level control
 	float curr_cooking_level = clamp(cooking_level, 0.0, max_cooking_level);
-	
+
     // Apply cooked color
     vec4 initial_color = texture(base_albedo_texture, UV) * base_albedo;
     ALBEDO = mix(initial_color.rgb, cooked_color, curr_cooking_level / max_cooking_level);
