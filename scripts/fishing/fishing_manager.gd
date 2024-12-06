@@ -298,7 +298,7 @@ func _on_fishing_rod_yanked(yank_velocity: Vector3) -> void:
 				_current_session.fish_caught = true
 				_catch_fish()
 				_finish_fishing()
-				_fishing_rod.fishing_float.reset()
+				_fishing_rod.fishing_float.state = FishingFloat.State.Attached
 		State.Baiting:
 			if can_catch:
 				print("Processing a correctly timed yank")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=4 uid="uid://dqmlp2hfmrh7m"]
+[gd_scene load_steps=80 format=4 uid="uid://dqmlp2hfmrh7m"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_f856c"]
 [ext_resource type="PackedScene" uid="uid://ces1enrushk7a" path="res://scenes/utils/pause_menu_container.tscn" id="2_iwn03"]
@@ -48,6 +48,7 @@
 [ext_resource type="PackedScene" uid="uid://b2wwpdu2ao0np" path="res://scenes/environment/bushes2.tscn" id="48_1ny86"]
 [ext_resource type="PackedScene" uid="uid://bsotifvyxaf5u" path="res://scenes/player/player.tscn" id="48_7y7m1"]
 [ext_resource type="PackedScene" uid="uid://cnno5b20tmn85" path="res://scenes/man_scale_benchmark.tscn" id="48_qih47"]
+[ext_resource type="PackedScene" uid="uid://b2jji68mjbl3h" path="res://addons/xr-kit/cinematic-view/scenes/cinematic_view.tscn" id="49_y4lgh"]
 
 [sub_resource type="Curve3D" id="Curve3D_i6pi6"]
 _data = {
@@ -1808,3 +1809,9 @@ visible = false
 [node name="man_scale_benchmark2" parent="." instance=ExtResource("48_qih47")]
 transform = Transform3D(0.999938, 0, 0.0111699, 0, 1, 0, -0.0111699, 0, 0.999938, 19.6467, -0.186513, 2.40205)
 visible = false
+
+[node name="CinematicView" parent="." node_paths=PackedStringArray("xr_camera") instance=ExtResource("49_y4lgh")]
+process_mode = 3
+xr_camera = NodePath("../XROrigin3D/XRCamera3D")
+
+[editable path="XROrigin3D"]
