@@ -4,11 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://bat7rftfj22pg" path="res://scenes/player/main_menu_player.tscn" id="2_5cl65"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="4_acim3"]
 [ext_resource type="PackedScene" uid="uid://bs23kspg6yeoj" path="res://scenes/ui/main_menu_ui.tscn" id="4_oyrsc"]
+[ext_resource type="LightmapGIData" uid="uid://bi3jrxi24r52i" path="res://baking/main_menu.lmbake" id="5_kn1kj"]
 [ext_resource type="ArrayMesh" uid="uid://t06hiu7wl7pj" path="res://models/nature/main_menu_terrain_main_menu_terrain_mesh.res" id="8_1j85p"]
 [ext_resource type="Material" uid="uid://cibd62ah7mbek" path="res://models/nature/trees/M_Fir_1.tres" id="9_6tag0"]
 [ext_resource type="Material" uid="uid://xv0p7q8ut151" path="res://models/nature/trees/M_Fir_3.tres" id="11_lhatq"]
 [ext_resource type="Material" uid="uid://dkdqj0ocnjvg1" path="res://models/nature/trees/M_Fir_2.tres" id="12_27vdw"]
-[ext_resource type="LightmapGIData" uid="uid://dnqt8gneyb7xw" path="res://baking/main.lmbake" id="45_wnklr"]
 [ext_resource type="Environment" uid="uid://edotw462mqao" path="res://resources/environment.tres" id="46_yo4s3"]
 [ext_resource type="PackedScene" uid="uid://cnno5b20tmn85" path="res://scenes/man_scale_benchmark.tscn" id="48_gp8jy"]
 
@@ -266,7 +266,7 @@ world_scene_path = ""
 bounces = 4
 use_denoiser = false
 generate_probes_subdiv = 3
-light_data = ExtResource("45_wnklr")
+light_data = ExtResource("5_kn1kj")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("46_yo4s3")

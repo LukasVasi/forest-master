@@ -1,0 +1,67 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvh5j2oqb2fj8"]
+
+[ext_resource type="Theme" uid="uid://vq7t843uek2d" path="res://ui/ui_theme.tres" id="1_gx88u"]
+[ext_resource type="Script" path="res://scripts/ui/tutorial/archery_tutorial_ui.gd" id="2_mhkxj"]
+
+[node name="ArcheryTutorialUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_gx88u")
+script = ExtResource("2_mhkxj")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.5
+offset_top = -209.0
+offset_right = 24.5
+offset_bottom = 209.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Archery tutorial"
+
+[node name="HideButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Hide"
+
+[node name="TutorialContentLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 24
+text = "Welcome to the archery tutorial!"
+fit_content = true
+
+[node name="ShowButton" type="Button" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -32.0
+offset_right = 64.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Show"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/HideButton" to="." method="_on_hide_button_pressed"]
+[connection signal="pressed" from="ShowButton" to="." method="_on_show_button_pressed"]

@@ -1,6 +1,15 @@
 class_name CreatureManager
 extends Node
 
+
+signal all_kipsas_dead
+
+
+@export_category("Behaviour")
+
+## Determines if manager should automatically respawn all creatures after all kipsai are dead.
+@export var automatic_respawn : bool = true
+
 @export_category("Creatures")
 
 ## The generic scene used as any the creature
@@ -53,10 +62,10 @@ func _ready() -> void:
 		set_process(false)
 		return
 		
-	_respawn_creatures()
+	respawn_creatures()
 
 
-func _respawn_creatures() -> void:
+func respawn_creatures() -> void:
 	# Remove existing children
 	for child in get_children():
 		child.queue_free()
@@ -89,7 +98,9 @@ func on_death() -> void:
 	_dead_kipsas_count += 1
 	if _dead_kipsas_count >= kipsas_count:
 		_dead_kipsas_count = 0
-		_respawn_creatures()
+		all_kipsas_dead.emit()
+		if automatic_respawn:
+			respawn_creatures()
 
 
 func _get_random_object_scale() -> Vector3:

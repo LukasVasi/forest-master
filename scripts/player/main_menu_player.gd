@@ -1,14 +1,4 @@
-extends XROrigin3D
-
-# Right controller variables
-var xr_controller_right: XRController3D
-var movement_turn_right: XRToolsMovementTurn
-var function_pointer_right: XRToolsFunctionPointer
-
-# Left controller variables
-var xr_controller_left: XRController3D
-var function_pointer_left: XRToolsFunctionPointer
-
+extends Player
 
 func _ready() -> void:
 	init_controllers()

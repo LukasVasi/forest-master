@@ -27,8 +27,8 @@
 [ext_resource type="PackedScene" uid="uid://gvyk1si63evv" path="res://scenes/environment/flowers.tscn" id="22_h2t48"]
 [ext_resource type="PackedScene" uid="uid://b2wwpdu2ao0np" path="res://scenes/environment/bushes2.tscn" id="23_vgbsa"]
 [ext_resource type="PackedScene" uid="uid://wt3xvamdtofe" path="res://scenes/environment/log.tscn" id="24_5x1q1"]
-[ext_resource type="LightmapGIData" uid="uid://dnqt8gneyb7xw" path="res://baking/main.lmbake" id="25_ad5ki"]
 [ext_resource type="Environment" uid="uid://edotw462mqao" path="res://resources/environment.tres" id="26_6l0xf"]
+[ext_resource type="LightmapGIData" uid="uid://c8ejcasq0u8q1" path="res://baking/fishing_tutorial.lmbake" id="27_8qmt2"]
 [ext_resource type="PackedScene" uid="uid://cnno5b20tmn85" path="res://scenes/man_scale_benchmark.tscn" id="27_w0vtl"]
 [ext_resource type="PackedScene" uid="uid://b2jji68mjbl3h" path="res://addons/xr-kit/cinematic-view/scenes/cinematic_view.tscn" id="28_avgix"]
 
@@ -1693,7 +1693,7 @@ transform = Transform3D(0.00955997, -0.484197, -0.354206, 0.599924, 0.00758442, 
 bounces = 4
 use_denoiser = false
 generate_probes_subdiv = 3
-light_data = ExtResource("25_ad5ki")
+light_data = ExtResource("27_8qmt2")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("26_6l0xf")

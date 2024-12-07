@@ -81,6 +81,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 script = ExtResource("4_ue21y")
 fishing_tutorial_scene_path = "res://scenes/tutorials/fishing_tutorial.tscn"
+archery_tutorial_scene_path = "res://scenes/tutorials/archery_tutorial.tscn"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/TutorialUI"]
 layout_mode = 2
@@ -115,7 +116,6 @@ text = "Fishing"
 
 [node name="CombatTutorialButton" type="Button" parent="PanelContainer/TutorialUI"]
 layout_mode = 2
-disabled = true
 text = "Archery"
 
 [node name="CookingTutorialButton" type="Button" parent="PanelContainer/TutorialUI"]

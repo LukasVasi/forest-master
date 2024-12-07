@@ -1,0 +1,26 @@
+[remap]
+
+importer="2d_array_texture"
+type="CompressedTexture2DArray"
+uid="uid://3rw0y84vnluc"
+path="res://.godot/imported/archery_tutorial.exr-79f2912d22d4117c0a2549ccdba64375.ctexarray"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://baking/archery_tutorial.exr"
+dest_files=["res://.godot/imported/archery_tutorial.exr-79f2912d22d4117c0a2549ccdba64375.ctexarray"]
+
+[params]
+
+compress/mode=3
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/channel_pack=1
+mipmaps/generate=false
+mipmaps/limit=-1
+slices/horizontal=1
+slices/vertical=2

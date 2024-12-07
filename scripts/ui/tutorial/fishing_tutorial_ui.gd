@@ -11,6 +11,7 @@ var _contents : TutorialContent = ResourceLoader.load("res://scripts/tutorial_co
 
 var _fish : Fish
 
+
 func _ready() -> void:
 	_tutorial_content_label.text = _contents.contents["pick_up_fishing_rod"]
 	_fishing.on_state_changed.connect(_on_fishing_state_changed)
