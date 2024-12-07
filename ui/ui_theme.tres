@@ -71,3 +71,4 @@ Button/styles/hover = SubResource("StyleBoxTexture_s6p3o")
 Button/styles/normal = SubResource("StyleBoxTexture_jr0r4")
 Button/styles/pressed = SubResource("StyleBoxTexture_un8ij")
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_oy1nb")
+VBoxContainer/constants/separation = 8

@@ -24,6 +24,7 @@ StatisticsManager="*res://scripts/statistics/statistics_manager.gd"
 
 [debug]
 
+settings/stdout/verbose_stdout=true
 gdscript/warnings/untyped_declaration=1
 
 [display]

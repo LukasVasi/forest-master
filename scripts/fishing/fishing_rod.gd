@@ -49,6 +49,9 @@ signal snapped
 ## The fishing float.
 @onready var fishing_float: FishingFloat = get_node("FishingFloat")
 
+## The physical snap zone used to snap fish upon catching.
+@onready var fish_snap_zone : PhysicalSnapZone = get_node("FloatTarget/FishSnapZone")
+
 var tension: float = 0.0 : set = _set_tension
 #region endregion
 

@@ -7,6 +7,9 @@ extends RigidBody3D
 ## resetting back to it and its behaviour in water.
 
 
+## Signal used by tutorial
+signal water_entered
+
 enum State {
 	Attached,
 	Detached,
@@ -171,4 +174,5 @@ func _set_position_to_target() -> void:
 
 ## Function that handles the entry into water. Called by the water.
 func on_water_entered(_todo: float) -> void:
+	water_entered.emit()
 	state = State.Floating
