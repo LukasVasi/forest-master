@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TutorialContent" load_steps=2 format=3 uid="uid://dqne15727esmf"]
+
+[ext_resource type="Script" path="res://scripts/tutorial_content/tutorial_content.gd" id="1_id76a"]
+
+[resource]
+script = ExtResource("1_id76a")
+contents = {
+"carrying": "Nice! You can carry an object with your hand and let go by releasing the GRIP button. Try putting the object at the highlighted spot.",
+"finished": "Amazing! You've learned all of the basics. You can now open the pause menu using the MENU button and navigate to the main menu where you will be able to play the main game or play the other tutorials that will teach you how to play the activities in the game.",
+"movement": "Great job! Now that you know how to interact with ui elements, let's learn to interact with the world. Firstly - the movement. To move you need to use the left controller's THUMBSTICK. To rotate you use the right controller's THUMBSTICK. If direct movement or snap turning is not acceptable. you can open the pause menu using the MENU button on the left controller and going into settings. Try moving to the highlighted area.",
+"picking_up": "Great job! Now let's figure out interaction with objects. You can pick up objects with your hands by using teh GRIP button on either of your controllers. Try picking up the cube.",
+"pointer": "Welcome to the basics tutorial! Here you will learn all the basic interactions in the game. First let's figure out how to interact with ui elements like me. To continue the tutorial you will need to press the button below. To do that you need to press and hold the A or X button on your controllers. This will enable a pointer for the corresponding hand. Pressing the TRIGGER button while pointing at a ui element will allow you to interact with it."
+}

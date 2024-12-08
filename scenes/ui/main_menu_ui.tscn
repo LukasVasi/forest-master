@@ -95,7 +95,6 @@ text = "Back"
 [node name="BasicsTutorialButton" type="Button" parent="PanelContainer/TutorialUI"]
 layout_mode = 2
 size_flags_vertical = 6
-disabled = true
 text = "Basics"
 
 [node name="FishingTutorialButton" type="Button" parent="PanelContainer/TutorialUI"]

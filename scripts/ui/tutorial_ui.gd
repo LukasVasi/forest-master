@@ -6,7 +6,7 @@ extends VBoxContainer
 
 
 func _on_basics_tutorial_button_pressed() -> void:
-	pass # Replace with function body.
+	_main_menu_ui.scene_base.load_scene("res://scenes/tutorials/basics_tutorial.tscn")
 
 
 func _on_fishing_tutorial_button_pressed() -> void:

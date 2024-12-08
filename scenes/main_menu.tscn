@@ -61,6 +61,7 @@ directional_shadow_mode = 0
 
 [node name="man_scale_benchmark" parent="." instance=ExtResource("48_gp8jy")]
 transform = Transform3D(0.999938, 0, 0.0111699, 0, 1, 0, -0.0111699, 0, 0.999938, 0, 0, 0)
+visible = false
 
 [node name="Terrain" type="MeshInstance3D" parent="."]
 mesh = ExtResource("8_4e4by")
