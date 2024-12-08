@@ -1,13 +1,11 @@
 class_name PauseMenu
 extends Control
 
-@onready var _settings_ui : SettingsUI = get_node("SettingsUI")
+@onready var _pause_menu_ui : VBoxContainer = get_node("PanelContainer/PauseMenuUI")
+@onready var _statistics_ui : VBoxContainer = get_node("PanelContainer/StatisticsUI")
+@onready var _settings_ui : SettingsUI = get_node("PanelContainer/SettingsUI")
+@onready var _tutorial_ui : VBoxContainer =get_node("PanelContainer/TutorialUI")
 
-@onready var _pause_menu_ui : PanelContainer = get_node("PauseMenuUI")
-
-@onready var _statistics_ui : PanelContainer = get_node("StatisticsUI")
-
-@onready var _tutorial_ui : PanelContainer =get_node("TutorialUI")
 
 ## The player's camera. Only retrieves and works with the camera in main.
 @onready var player_camera: XRCamera3D = get_tree().get_first_node_in_group("player").get_node("XRCamera3D")
@@ -62,10 +60,6 @@ func _on_exit_game_button_pressed() -> void:
 func _on_back_to_menu_button_pressed() -> void:
 	_hide_all()
 	_pause_menu_ui.visible = true
-
-
-func _player_height_changed(_new_height: float) -> void:
-	player_body.calibrate_player_height()
 
 
 func _on_statistics_button_pressed() -> void:

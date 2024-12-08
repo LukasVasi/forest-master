@@ -2,7 +2,10 @@ extends Node
 
 
 ## Emitted when the WebXR primary is changed (either by the user or auto detected).
-signal webxr_primary_changed(value: WebXRPrimary)
+signal webxr_primary_changed(value : WebXRPrimary)
+
+## Emitted when the player height is changed. Player body should recalibrate upon this signal.
+signal player_height_changed
 
 
 enum WebXRPrimary {
@@ -82,6 +85,7 @@ func reset_to_defaults() -> void:
 ## Set the player height property.
 func set_player_height(new_value : float) -> void:
 	player_height = clamp(new_value, 1.0, 2.5)
+	player_height_changed.emit()
 
 
 ## Set the WebXR primary.

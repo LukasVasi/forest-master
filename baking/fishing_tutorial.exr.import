@@ -3,15 +3,15 @@
 importer="2d_array_texture"
 type="CompressedTexture2DArray"
 uid="uid://8mbo760twkda"
-path="res://.godot/imported/fishing_tutorial.exr-67b2bb1b6fa44e38ba40a65585b455ab.ctexarray"
+path="res://.godot/imported/fishing_tutorial.exr-9c78e65997ec4aadfc9e96324cc0ae6b.ctexarray"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/tutorials/fishing_tutorial.exr"
-dest_files=["res://.godot/imported/fishing_tutorial.exr-67b2bb1b6fa44e38ba40a65585b455ab.ctexarray"]
+source_file="res://baking/fishing_tutorial.exr"
+dest_files=["res://.godot/imported/fishing_tutorial.exr-9c78e65997ec4aadfc9e96324cc0ae6b.ctexarray"]
 
 [params]
 

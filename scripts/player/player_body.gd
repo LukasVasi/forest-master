@@ -35,6 +35,11 @@ var _water_bobbing_time : float  = 0.0
 var _water_global_height : float = 0.0
 
 
+func _ready() -> void:
+	super()
+	UserSettings.player_height_changed.connect(calibrate_player_height)
+
+
 func _physics_process(delta: float) -> void:
 	# Do not run physics if in the editor
 	if Engine.is_editor_hint():

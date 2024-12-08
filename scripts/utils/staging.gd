@@ -181,6 +181,7 @@ func load_scene(p_scene_path : String, user_data = null) -> void:
 		$Scene.remove_child(current_scene)
 		current_scene.queue_free()
 		current_scene = null
+		PauseManager.paused = false # make sure we unpause
 
 	# If a continue-prompt is desired or the new scene has not finished
 	# loading, then switch to the loading screen.

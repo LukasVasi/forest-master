@@ -1,5 +1,5 @@
 class_name StatisticsUI
-extends PanelContainer
+extends VBoxContainer
 
 
 @onready var _total_time : Label = get_node("StatisticsVBox/TotalPlayTimeHBox/TimeLabel")
