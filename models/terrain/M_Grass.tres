@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://wpog4fmxcbh1"]
+
+[resource]
+resource_name = "M_Grass"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.0745091, 0.439214, 0.0862733, 1)
