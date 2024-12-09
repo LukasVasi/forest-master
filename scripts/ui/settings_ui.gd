@@ -8,7 +8,7 @@ extends VBoxContainer
 @onready var _y_deadzone_slider: HSlider = get_node("TabContainer/Input/yAxisDeadZone/yAxisDeadZoneSlider")
 @onready var _sfx_volume: HSlider = get_node("TabContainer/Volume/SFXVolume/SFXVolumeSlider")
 @onready var _music_volume: HSlider = get_node("TabContainer/Volume/MusicVolume/MusicVolumeSlider")
-@onready var _player_height_slider: HSlider = get_node("TabContainer/Additional/PlayerHeight/PlayerHeightSlider")
+@onready var _player_height_slider: HSlider = get_node("TabContainer/Movement/PlayerHeight/PlayerHeightSlider")
 
 
 # Called when the node enters the scene tree for the first time.

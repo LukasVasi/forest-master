@@ -1,17 +1,22 @@
-[gd_resource type="Theme" load_steps=12 format=3 uid="uid://vq7t843uek2d"]
+[gd_resource type="Theme" load_steps=21 format=3 uid="uid://vq7t843uek2d"]
 
 [ext_resource type="Texture2D" uid="uid://8b4m0k5h371r" path="res://ui/button_hover.png" id="1_8p6wf"]
 [ext_resource type="Texture2D" uid="uid://ctdwt8kg4ahf3" path="res://ui/button_normal.png" id="1_og0cs"]
 [ext_resource type="Texture2D" uid="uid://c1rqksnxwskc5" path="res://ui/button_disabled.png" id="1_syyro"]
 [ext_resource type="FontFile" uid="uid://bmr6p8eit2ep0" path="res://ui/novem___.ttf" id="1_vb0hs"]
 [ext_resource type="Texture2D" uid="uid://bug2aj4t7ttx" path="res://ui/button_pressed.png" id="3_i4bd4"]
+[ext_resource type="Texture2D" uid="uid://dxn3j8yoypsar" path="res://ui/checkbox_checked.png" id="5_p7kpi"]
 [ext_resource type="Texture2D" uid="uid://bfpi70m6lfxpq" path="res://ui/panel-container.png" id="5_qtc5h"]
+[ext_resource type="Texture2D" uid="uid://cab34ion4b6mt" path="res://ui/tab-container.png" id="6_btbwi"]
+[ext_resource type="Texture2D" uid="uid://bwyd1anwjtf1g" path="res://ui/checkbox_normal.png" id="6_l62yp"]
+[ext_resource type="Texture2D" uid="uid://dmxmxj37qcc1b" path="res://ui/tab_selected.png" id="7_c0msl"]
+[ext_resource type="Texture2D" uid="uid://bl77lyuuakq4x" path="res://ui/tab_normal.png" id="8_55r25"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lets5"]
-content_margin_left = 32.0
-content_margin_top = 16.0
-content_margin_right = 32.0
-content_margin_bottom = 16.0
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
 texture = ExtResource("1_syyro")
 texture_margin_left = 8.0
 texture_margin_top = 8.0
@@ -20,10 +25,10 @@ texture_margin_bottom = 8.0
 region_rect = Rect2(15, 15, 66, 66)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s6p3o"]
-content_margin_left = 32.0
-content_margin_top = 16.0
-content_margin_right = 32.0
-content_margin_bottom = 16.0
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
 texture = ExtResource("1_8p6wf")
 texture_margin_left = 8.0
 texture_margin_top = 8.0
@@ -32,10 +37,10 @@ texture_margin_bottom = 8.0
 region_rect = Rect2(15, 15, 66, 66)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jr0r4"]
-content_margin_left = 32.0
-content_margin_top = 16.0
-content_margin_right = 32.0
-content_margin_bottom = 16.0
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
 texture = ExtResource("1_og0cs")
 texture_margin_left = 8.0
 texture_margin_top = 8.0
@@ -44,10 +49,10 @@ texture_margin_bottom = 8.0
 region_rect = Rect2(15, 15, 66, 66)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_un8ij"]
-content_margin_left = 32.0
-content_margin_top = 16.0
-content_margin_right = 32.0
-content_margin_bottom = 16.0
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
 texture = ExtResource("3_i4bd4")
 texture_margin_left = 8.0
 texture_margin_top = 8.0
@@ -63,12 +68,49 @@ texture_margin_right = 24.0
 texture_margin_bottom = 24.0
 region_rect = Rect2(29, 16, 198, 224)
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e41or"]
+texture = ExtResource("6_btbwi")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h3ih4"]
+texture = ExtResource("7_c0msl")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4chvl"]
+texture = ExtResource("7_c0msl")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6gufl"]
+texture = ExtResource("8_55r25")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+
 [resource]
 default_font = ExtResource("1_vb0hs")
 default_font_size = 36
+Button/font_sizes/font_size = 24
 Button/styles/disabled = SubResource("StyleBoxTexture_lets5")
 Button/styles/hover = SubResource("StyleBoxTexture_s6p3o")
 Button/styles/normal = SubResource("StyleBoxTexture_jr0r4")
 Button/styles/pressed = SubResource("StyleBoxTexture_un8ij")
+CheckBox/icons/checked = ExtResource("5_p7kpi")
+CheckBox/icons/checked_disabled = ExtResource("5_p7kpi")
+CheckBox/icons/unchecked = ExtResource("6_l62yp")
+CheckBox/icons/unchecked_disabled = ExtResource("6_l62yp")
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_oy1nb")
-VBoxContainer/constants/separation = 8
+TabContainer/font_sizes/font_size = 24
+TabContainer/styles/panel = SubResource("StyleBoxTexture_e41or")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxTexture_h3ih4")
+TabContainer/styles/tab_selected = SubResource("StyleBoxTexture_4chvl")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxTexture_6gufl")
+VBoxContainer/constants/separation = 4
