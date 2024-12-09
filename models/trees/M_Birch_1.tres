@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://xyay37uobk4v"]
+
+[ext_resource type="Texture2D" uid="uid://p5wbwj088xy7" path="res://models/trees/trees_tree_albedo_texture.png" id="1_n5xps"]
+
+[resource]
+resource_name = "M_Birch_1"
+cull_mode = 2
+albedo_texture = ExtResource("1_n5xps")

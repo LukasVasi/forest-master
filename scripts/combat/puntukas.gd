@@ -3,6 +3,9 @@ extends Node3D
 
 signal toggle_creature_movement
 
+## The creatures are always active if not enabled. Used in the tutorial.
+@export var enabled : bool = true
+
 ## The maximum distance to player at which the mini game is active
 @export var _max_distance_to_player: float = 15
 
@@ -19,6 +22,14 @@ var _time_accumulator: float = 0.0
 
 
 func _process(delta: float) -> void:
+	if not enabled:
+		if _on_fire:
+			_on_fire = false
+			set_eyes_emitting(false)
+			sound_player.stop()
+			toggle_creature_movement.emit() # reenable the creatures
+		return
+	
 	_curr_distance_to_player = global_position.distance_to(_player.global_position)
 	if _curr_distance_to_player > _max_distance_to_player and _active:
 		_active = false

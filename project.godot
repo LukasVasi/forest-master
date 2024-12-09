@@ -24,10 +24,14 @@ StatisticsManager="*res://scripts/statistics/statistics_manager.gd"
 
 [debug]
 
+settings/stdout/verbose_stdout=true
 gdscript/warnings/untyped_declaration=1
 
 [display]
 
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/subwindows/embed_subwindows=false
 window/vsync/vsync_mode=0
 
 [dotnet]
@@ -50,6 +54,11 @@ puntukas=""
 pause_menu_container=""
 fishing_rod=""
 fishing=""
+scene_base=""
+
+[gui]
+
+theme/default_font_antialiasing=0
 
 [layer_names]
 

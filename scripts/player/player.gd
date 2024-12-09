@@ -1,8 +1,6 @@
 class_name Player
 extends XROrigin3D
 
-var xr_interface: XRInterface
-
 # Right controller variables
 var xr_controller_right: XRController3D
 var movement_turn_right: XRToolsMovementTurn
@@ -14,29 +12,13 @@ var movement_jump_left: XRToolsMovementJump
 var movement_direct_left: XRToolsMovementDirect
 var function_teleport_left: XRToolsFunctionTeleport
 var function_pointer_left: XRToolsFunctionPointer
-var function_pointer_collision_left: CollisionShape3D
 
 
 func _ready() -> void:
-	init_xr_interface()
 	init_controllers()
 	
 	if PauseManager:
 		PauseManager.pause_state_changed.connect(_on_pause_state_changed)
-
-
-func init_xr_interface() -> void:
-	xr_interface = XRServer.find_interface("OpenXR")
-	if xr_interface and xr_interface.is_initialized():
-		print("OpenXR initialized successfully")
-
-		# Turn off v-sync
-		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
-
-		# Change our main viewport to output to the HMD
-		get_viewport().use_xr = true
-	else:
-		print("OpenXR failed to initialize, please check if your headset is connected")
 
 
 func init_controllers() -> void:
@@ -92,9 +74,8 @@ func enable_right_pointer() -> void:
 func disable_right_pointer() -> void:
 	function_pointer_right.set_enabled(false)
 	function_pointer_right.set_show_laser(XRToolsFunctionPointer.LaserShow.HIDE)
-	#function_pickup_right.ranged_enable = false
-	
-	
+
+
 func enable_left_pointer() -> void:
 	function_pointer_left.set_enabled(true)
 	function_pointer_left.set_show_laser(XRToolsFunctionPointer.LaserShow.SHOW)
@@ -105,8 +86,8 @@ func disable_left_pointer() -> void:
 	function_pointer_left.set_enabled(false)
 	function_pointer_left.set_show_laser(XRToolsFunctionPointer.LaserShow.HIDE)
 	#function_pickup_left.ranged_enable = false
-	
-	
+
+
 ## Controller input handling
 ## All methods handling input signals should be here
 ## Internal functionality should be realised in other methods

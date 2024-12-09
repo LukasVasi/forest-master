@@ -1,30 +1,19 @@
-[gd_scene load_steps=10 format=3 uid="uid://8ff3fs2p2g87"]
+[gd_scene load_steps=8 format=3 uid="uid://8ff3fs2p2g87"]
 
-[ext_resource type="Script" path="res://addons/godot-xr-tools/staging/staging.gd" id="1_a2wxa"]
-[ext_resource type="Shader" path="res://addons/godot-xr-tools/staging/fade.gdshader" id="2_54esd"]
+[ext_resource type="Script" path="res://scripts/utils/staging.gd" id="1_mfp3y"]
+[ext_resource type="PackedScene" uid="uid://wtpox7m5vu2b" path="res://addons/godot-xr-tools/effects/fade.tscn" id="2_qxpur"]
 [ext_resource type="Environment" uid="uid://ckiwtcdsam7ed" path="res://addons/godot-xr-tools/staging/staging_env.tres" id="3_qsis7"]
 [ext_resource type="PackedScene" uid="uid://btknduttnmoxf" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="4_f0vd6"]
 [ext_resource type="PackedScene" uid="uid://bqumugyvkct4r" path="res://addons/godot-xr-tools/staging/loading_screen.tscn" id="5_ytbc2"]
 [ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="6_arenq"]
 [ext_resource type="Texture2D" uid="uid://deqv67ba72qxl" path="res://textures/loading_screen.png" id="6_k0kml"]
 
-[sub_resource type="QuadMesh" id="4"]
-custom_aabb = AABB(-5000, -5000, -5000, 10000, 10000, 10000)
-size = Vector2(2, 2)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_snlak"]
-render_priority = 0
-shader = ExtResource("2_54esd")
-shader_parameter/alpha = 0.0
-
 [node name="Staging" type="Node3D"]
 process_mode = 3
-script = ExtResource("1_a2wxa")
-main_scene = "res://scenes/main.tscn"
+script = ExtResource("1_mfp3y")
+main_menu_scene = "res://scenes/main_menu.tscn"
 
-[node name="Fade" type="MeshInstance3D" parent="."]
-mesh = SubResource("4")
-surface_material_override/0 = SubResource("ShaderMaterial_snlak")
+[node name="Fade" parent="." instance=ExtResource("2_qxpur")]
 
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
 

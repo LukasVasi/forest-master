@@ -223,16 +223,19 @@ func pick_up_object(target: Node3D) -> void:
 	if is_instance_valid(picked_up_object):
 		# skip if holding the target object
 		if picked_up_object == target:
+			print_verbose("Physical snap zone ", self, " tried picking up object it already holds ", target)
 			return
 		# holding something else? drop it
 		drop_object()
 
 	# Skip if target null or freed
 	if not is_instance_valid(target):
+		print_verbose("Physical snap zone ", self, " tried picking up a non valid instance ", target)
 		return
 	
 	# Skip if not pickable
 	if target is not PhysicalPickable:
+		print_verbose("Physical snap zone ", self, " tried picking up non PhysicalPickable object ", target)
 		return
 	
 	var pickable_target : PhysicalPickable = target
@@ -240,6 +243,7 @@ func pick_up_object(target: Node3D) -> void:
 	
 	# Check if succeded in picking up, fail if not
 	if not is_instance_valid(grab):
+		print_verbose("Physical snap zone ", self, " failed to pick up ", target)
 		return
 	
 	# Pick up our target
@@ -268,6 +272,7 @@ func pick_up_object(target: Node3D) -> void:
 
 	# If object picked up then emit signal
 	if is_instance_valid(picked_up_object):
+		print_verbose("Physical snap zone ", self, " picked up ", target)
 		has_picked_up.emit(picked_up_object)
 		highlight_updated.emit(self, false)
 

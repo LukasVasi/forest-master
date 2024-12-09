@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="TutorialContent" load_steps=2 format=3 uid="uid://c54xeuvhy0a5o"]
+
+[ext_resource type="Script" path="res://scripts/tutorial_content/tutorial_content.gd" id="1_wr8px"]
+
+[resource]
+script = ExtResource("1_wr8px")
+contents = {
+"arrow": "Good job! Now before you can shoot you need to nock the arrow. You can pick up an arrow from the quiver using the GRIP button of your free hand. Once you have picked up an arrow you can move it to the bow and release it. If it is close enough, it should nock the arrow.",
+"final": "Terrific! Now the last part of the puzzle is the green light, red light excercise: at regular intervals Puntukas gets angry, promting all the creatures to hide - turn into rocks. At this tme you cannot shoot any of the enemies and you need to remember where the bad enemies were so you could dispatch them as quickly as possible when they reapear. Try it out!",
+"finished": "Congratulations, you have finished the archery tutorial! You can stay and practice or you can return to the main menu through the pause menu.",
+"pick_up_bow": "Welcome to the archery tutorial! To start the archery activity you need to first pick up the bow using the GRIP button.",
+"shooting_at_different": "Awesome! But the actual archery activity is a bit more complex than that. Let's now practice at distinguishing between the good and evil creatures. Shooting at a good creature (green eyes) will do nothing and will count as a miss. Try to distnguish and shoot at the evil creatures (red eyes).",
+"shooting_at_moving": "Great work! There are only a couple mechanics left to master. Firstly, practice at shooting the evil creatures when they are moving.",
+"shooting_at_stationary": "Great! Now that you know how to pick up the bow and arrow, let's try shooting at an enemy. You need to grab the bowstring and pull it back. When you release it, it will fire the arrow. If you miss, don't worry, you can always pick up another arrow and try again."
+}

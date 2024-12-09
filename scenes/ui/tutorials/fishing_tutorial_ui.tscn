@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3fehxu0naanp"]
+
+[ext_resource type="Theme" uid="uid://vq7t843uek2d" path="res://ui/ui_theme.tres" id="1_iraoh"]
+[ext_resource type="Script" path="res://scripts/ui/tutorial/fishing_tutorial_ui.gd" id="2_f6m44"]
+
+[node name="FishingTutorialUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_iraoh")
+script = ExtResource("2_f6m44")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.5
+offset_top = -209.0
+offset_right = 24.5
+offset_bottom = 209.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Fishing tutorial"
+
+[node name="TutorialContentLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 24
+text = "Welcome to the fishing tutorial!
+To start fishing, you need to first pick cast the fishing float. You can cast it by clicking the TRIGGER button on the controller that corresponds to the hand that has picked up the fishing rod."
+fit_content = true

@@ -1,0 +1,197 @@
+[gd_scene load_steps=14 format=3 uid="uid://hoheqhr8sw5h"]
+
+[ext_resource type="Script" path="res://scripts/utils/scene_base.gd" id="1_4p0s6"]
+[ext_resource type="PackedScene" uid="uid://bat7rftfj22pg" path="res://scenes/player/main_menu_player.tscn" id="2_5cl65"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="4_acim3"]
+[ext_resource type="PackedScene" uid="uid://bs23kspg6yeoj" path="res://scenes/ui/main_menu_ui.tscn" id="4_oyrsc"]
+[ext_resource type="LightmapGIData" uid="uid://bi3jrxi24r52i" path="res://baking/main_menu.lmbake" id="5_kn1kj"]
+[ext_resource type="ArrayMesh" uid="uid://btfth7ng5ixc3" path="res://models/terrain/terrain_main_menu_mesh.res" id="8_4e4by"]
+[ext_resource type="ArrayMesh" uid="uid://dtna8j8hrdej7" path="res://models/trees/trees_fir_mesh_1.res" id="9_6rqfg"]
+[ext_resource type="ArrayMesh" uid="uid://silyyilwa7m" path="res://models/trees/trees_fir_mesh_2.res" id="10_0ksvo"]
+[ext_resource type="ArrayMesh" uid="uid://c0eiilb1mclam" path="res://models/trees/trees_fir_mesh_3.res" id="11_ileig"]
+[ext_resource type="Environment" uid="uid://edotw462mqao" path="res://resources/environment.tres" id="46_yo4s3"]
+[ext_resource type="PackedScene" uid="uid://cnno5b20tmn85" path="res://scenes/man_scale_benchmark.tscn" id="48_gp8jy"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pcrri"]
+size = Vector3(2, 1, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_46jcl"]
+transparency = 1
+shading_mode = 0
+
+[node name="MainMenu" type="Node3D" groups=["scene_base"]]
+process_mode = 1
+script = ExtResource("1_4p0s6")
+
+[node name="XROrigin3D" parent="." instance=ExtResource("2_5cl65")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_pcrri")
+
+[node name="Viewport2Din3D" parent="." instance=ExtResource("4_acim3")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.61903, 2)
+screen_size = Vector2(4, 2.25)
+collision_layer = 5242880
+scene = ExtResource("4_oyrsc")
+viewport_size = Vector2(1024, 576)
+input_keyboard = false
+material = SubResource("StandardMaterial3D_46jcl")
+scene_properties_keys = PackedStringArray("main_menu_ui.gd", "world_scene_path")
+world_scene_path = ""
+
+[node name="LightmapGI" type="LightmapGI" parent="."]
+bounces = 16
+light_data = ExtResource("5_kn1kj")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("46_yo4s3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.694658, -0.50865, 0.50865, 0, 0.707107, 0.707107, -0.71934, -0.491198, 0.491198, 0, 0, 0)
+light_color = Color(0.952766, 0.886963, 0.577845, 1)
+light_bake_mode = 1
+shadow_enabled = true
+shadow_opacity = 0.8
+shadow_blur = 0.6
+directional_shadow_mode = 0
+
+[node name="man_scale_benchmark" parent="." instance=ExtResource("48_gp8jy")]
+transform = Transform3D(0.999938, 0, 0.0111699, 0, 1, 0, -0.0111699, 0, 0.999938, 0, 0, 0)
+visible = false
+
+[node name="Terrain" type="MeshInstance3D" parent="."]
+mesh = ExtResource("8_4e4by")
+
+[node name="Trees" type="Node" parent="."]
+
+[node name="Fir1" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.859182, 0.0364693, 0.510368, -0.195199, 0.945383, 0.261054, -0.472973, -0.323916, 0.819375, -2.79391, 0.557683, 3.84875)
+mesh = ExtResource("9_6rqfg")
+
+[node name="Fir2" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.926219, -0.0235122, 0.376251, 0.0607076, 0.99433, -0.087308, -0.372065, 0.103708, 0.922395, 2.98514, 0.60626, 3.84875)
+mesh = ExtResource("9_6rqfg")
+
+[node name="Fir3" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.978781, 0.204689, 0.00952897, -0.204379, 0.971837, 0.117307, 0.0147509, -0.116765, 0.99305, -1.69033, 2.74146, 9.75042)
+mesh = ExtResource("9_6rqfg")
+
+[node name="Fir4" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.901703, 0.182137, -0.392119, -0.153839, 0.982742, 0.102717, 0.40406, -0.032297, 0.914162, -2.38518, 0.0563129, 1.84113)
+mesh = ExtResource("9_6rqfg")
+
+[node name="Fir5" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.994726, 0.10226, 0.00800318, -0.10058, 0.987732, -0.119453, -0.0201202, 0.118018, 0.992808, 2.84099, 1.01391, 6.12471)
+mesh = ExtResource("9_6rqfg")
+
+[node name="Fir6" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.976029, -0.112634, -0.18623, 0.0547349, 0.955201, -0.290851, 0.210647, 0.273686, 0.938469, 5.13314, 2.5328, -4.03967)
+mesh = ExtResource("9_6rqfg")
+
+[node name="Fir7" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.995297, 0.0968707, 0, -0.0968707, 0.995297, 0, 0, 0, 1, -2.57765, 0.179767, -3.94469)
+mesh = ExtResource("9_6rqfg")
+
+[node name="Fir31" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.666734, -0.144606, -0.731133, 0.151367, 0.986825, -0.0571433, 0.729763, -0.0725699, 0.679838, 0.523527, 0.383852, -3.64992)
+mesh = ExtResource("9_6rqfg")
+
+[node name="Fir8" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.957626, 0.0933926, 0.272453, -0.181157, 0.930726, 0.317697, -0.223909, -0.353592, 0.908206, -1.96771, 1.84434, 5.41664)
+mesh = ExtResource("10_0ksvo")
+
+[node name="Fir28" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.613969, 0.100252, -0.782938, -0.244688, 0.967212, -0.0680331, 0.750447, 0.233346, 0.618369, 2.59051, 0.248355, 2.09776)
+mesh = ExtResource("10_0ksvo")
+
+[node name="Fir9" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.888338, 0.231656, -0.396473, -0.266598, 0.963188, -0.0345556, 0.373873, 0.136396, 0.917396, -2.75107, 0.355318, 0.295081)
+mesh = ExtResource("10_0ksvo")
+
+[node name="Fir10" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.93884, -0.079338, -0.335089, 0.146554, 0.972628, 0.180324, 0.31161, -0.218404, 0.92477, 3.52518, 1.29262, 8.80842)
+mesh = ExtResource("10_0ksvo")
+
+[node name="Fir11" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.893542, 0.271818, -0.357348, -0.225464, 0.959934, 0.166409, 0.388263, -0.0681242, 0.919027, -3.59124, 0.45139, -0.374844)
+mesh = ExtResource("10_0ksvo")
+
+[node name="Fir15" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.93884, -0.181599, -0.292576, 0.223567, 0.967668, 0.116777, 0.26191, -0.175046, 0.949085, 5.45195, 2.81736, 0.745354)
+mesh = ExtResource("11_ileig")
+
+[node name="Fir30" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.891052, 0.0662075, -0.449046, -0.107838, 0.991858, -0.0677462, 0.440904, 0.10879, 0.890937, -2.72143, 0.18561, -5.32905)
+mesh = ExtResource("10_0ksvo")
+
+[node name="Fir12" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.93884, -0.11775, -0.323595, 0.146554, 0.986995, 0.0660459, 0.31161, -0.109431, 0.943888, 3.37483, -0.0195531, 0.0239368)
+mesh = ExtResource("11_ileig")
+
+[node name="Fir29" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.928156, -0.2299, -0.292697, 0.145919, 0.948231, -0.282075, 0.342393, 0.2191, 0.913653, 2.05304, 0.723392, -2.24321)
+mesh = ExtResource("11_ileig")
+
+[node name="Fir13" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.93884, -0.11775, -0.323595, 0.0832376, 0.989453, -0.118547, 0.334141, 0.0843617, 0.93874, 4.88478, 2.11322, -6.18433)
+mesh = ExtResource("11_ileig")
+
+[node name="Fir14" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.93884, -0.181599, -0.292576, 0.115317, 0.966385, -0.229789, 0.32447, 0.181996, 0.928222, 6.41002, 2.10831, -3.41573)
+mesh = ExtResource("11_ileig")
+
+[node name="Fir16" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.334498, -0.259969, -0.905829, 0.265583, 0.948243, -0.174069, 0.904199, -0.182347, 0.386229, 3.09392, 1.24777, -6.41465)
+mesh = ExtResource("11_ileig")
+
+[node name="Fir17" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.93884, -0.181599, -0.292576, 0.146554, 0.979567, -0.137734, 0.31161, 0.0864316, 0.946271, 5.05835, 2.9063, 4.32655)
+mesh = ExtResource("11_ileig")
+
+[node name="Fir18" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.921934, 0.288649, -0.258302, -0.23008, 0.944544, 0.234308, 0.31161, -0.156587, 0.937219, -4.68354, 1.98749, 4.86803)
+mesh = ExtResource("11_ileig")
+
+[node name="Fir19" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.915172, 0.252163, -0.314442, -0.263568, 0.964619, 0.00645897, 0.304946, 0.0769658, 0.949255, -3.45033, 0.65463, 2.19176)
+mesh = ExtResource("11_ileig")
+
+[node name="Fir20" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.93884, -0.101388, -0.329089, 0.146554, 0.982446, 0.115416, 0.31161, -0.156587, 0.937219, -3.15382, 0.00357878, -2.7115)
+mesh = ExtResource("11_ileig")
+
+[node name="Fir21" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.945155, 0.152682, -0.288739, -0.0978835, 0.975792, 0.195576, 0.31161, -0.156587, 0.937219, -1.95969, -0.126888, -5.14092)
+mesh = ExtResource("11_ileig")
+
+[node name="Fir32" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.835787, -0.140744, -0.530709, 0.162919, 0.986627, -0.00508076, 0.524327, -0.082216, 0.847539, 2.27174, -0.126888, -7.3574)
+mesh = ExtResource("11_ileig")
+
+[node name="Fir22" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.910732, 0.330565, -0.247574, -0.271046, 0.930703, 0.245616, 0.31161, -0.156587, 0.937219, -0.919318, 2.78604, 7.55428)
+mesh = ExtResource("11_ileig")
+
+[node name="Fir23" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.93884, -0.101388, -0.329089, 0.0969148, 0.99484, -0.0300155, 0.330434, -0.00371376, 0.943822, -2.45615, 0.275889, -1.33731)
+mesh = ExtResource("11_ileig")
+
+[node name="Fir24" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.9012, 0.282027, -0.329089, -0.258037, 0.959216, 0.115416, 0.348218, -0.019096, 0.937219, -0.853707, 2.54387, 11.5102)
+mesh = ExtResource("11_ileig")
+
+[node name="Fir25" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.897656, -0.290226, -0.331636, 0.276397, 0.956889, -0.0892679, 0.343246, -0.0115314, 0.939174, 6.4024, 2.4106, 8.06423)
+mesh = ExtResource("11_ileig")
+
+[node name="Fir26" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.91961, -0.214519, -0.329089, 0.26464, 0.957416, 0.115416, 0.290316, -0.193228, 0.937219, 2.79938, 1.21774, 10.3451)
+mesh = ExtResource("11_ileig")
+
+[node name="Fir27" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.991498, -0.118358, -0.0540666, 0.114776, 0.991253, -0.0651526, 0.061305, 0.0583932, 0.99641, 4.67815, 3.18871, 2.53899)
+mesh = ExtResource("9_6rqfg")

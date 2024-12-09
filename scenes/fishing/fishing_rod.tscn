@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://bcoan783pbvdq"]
+[gd_scene load_steps=32 format=4 uid="uid://bcoan783pbvdq"]
 
 [ext_resource type="Script" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="2_43vlq"]
 [ext_resource type="Script" path="res://scripts/fishing/fishing_rod.gd" id="2_h6u5q"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://7adcm63eh1yv" path="res://scenes/object_interaction/physical_grab_point_snap.tscn" id="12_0fugb"]
 [ext_resource type="PackedScene" uid="uid://csdvq8wulxb4g" path="res://scenes/utils/line.tscn" id="12_1hf0y"]
 [ext_resource type="Material" uid="uid://b6dy24oasdds8" path="res://resources/M_String.tres" id="13_ahgwm"]
+[ext_resource type="PackedScene" uid="uid://b0xwpbwu8s3iy" path="res://scenes/object_interaction/physical_snap_zone.tscn" id="15_068g7"]
 [ext_resource type="Script" path="res://scripts/object_interaction/physical_interactable_handle.gd" id="17_mqpg4"]
 [ext_resource type="ArrayMesh" uid="uid://d0u76u5lsrupe" path="res://models/fishing/fishing_rod/fishing_rod_SpinnerHandleHighlight.res" id="17_r7vcp"]
 [ext_resource type="Material" uid="uid://nuogvh1u6wye" path="res://resources/highlight_material.tres" id="18_v7fg2"]
@@ -74,7 +75,7 @@ closed_pose = ExtResource("5_lecea")
 script = ExtResource("6_0ucvv")
 closed_pose = ExtResource("8_3q68x")
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_62x6b"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_r3e1d"]
 material = ExtResource("13_ahgwm")
 top_radius = 0.001
 bottom_radius = 0.001
@@ -167,6 +168,11 @@ editor_description = "This node represents the position that the fishing float w
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, -0.941)
 script = ExtResource("10_bvdsn")
 
+[node name="FishSnapZone" parent="FloatTarget" node_paths=PackedStringArray("snap_object") instance=ExtResource("15_068g7")]
+transform = Transform3D(1, -7.45058e-09, 0, -7.45058e-09, 1, 0, 0, 7.45058e-09, 0.999999, -1.44451e-10, -0.0806121, 1.44451e-10)
+snap_object = NodePath("../..")
+snap_require = "Fish"
+
 [node name="StringStart" type="Node3D" parent="."]
 editor_description = "This node displays the position that the fishing rod string starts at (it ends at the fishing float)."
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0265145, -0.932214)
@@ -174,7 +180,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0265145, -0.932214)
 [node name="Line" parent="." node_paths=PackedStringArray("start_point", "end_point") instance=ExtResource("12_1hf0y")]
 transform = Transform3D(0.999982, 0, 0, 0, 0.997452, -0.0709686, 0, 0.0709686, 0.997452, 0, -0.0882573, -0.936607)
 top_level = true
-mesh = SubResource("CylinderMesh_62x6b")
+mesh = SubResource("CylinderMesh_r3e1d")
 skeleton = NodePath("../..")
 radius = 0.001
 material = ExtResource("13_ahgwm")

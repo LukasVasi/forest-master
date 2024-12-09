@@ -20,7 +20,7 @@ func _process(_delta: float) -> void:
 		if _fish.is_raw:
 			_enable_glow()
 			_fish_queue.append(_fish.type)
-			_fish.queue_free()
+			_fish.store()
 			splash_particles.emitting = true
 		else:
 			_fish.apply_impulse(global_transform.basis.y * 0.1)

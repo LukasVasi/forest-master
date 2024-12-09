@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="TutorialContent" load_steps=2 format=3 uid="uid://crpbd78wwrdi"]
+
+[ext_resource type="Script" path="res://scripts/tutorial_content/tutorial_content.gd" id="1_mfodv"]
+
+[resource]
+script = ExtResource("1_mfodv")
+contents = {
+"cast_fishing_rod": "Great job! You can now cast the fishing rod by pressing the TRIGGER button on the controller that corresponds to the hand that is holding the fishing rod.",
+"catch_fish": "Nice! You've caught the fish. Now you can pick it up from the hook and drop it into the bucket. It will allow you to carry around as many fish as you want in an easy way. Don't worry - the bucket is magical, so it can store any amount of fish.",
+"finished": "Wonderful! You have now finished the fishing tutorial. You can keep fishing or return to the main menu.",
+"pass_trials": "Nice! Now you have to pass fishing trials. A trial happens when the fishing float plunges into the water. At that moment the direction of the trial is shown above the float. You need to yank the fishing rod up and towards the direction that is shown. So if the direction is left you yank the fishing rod up and to the left, if the direction is right - up and to the right and if the direction is forward - straight up.",
+"pick_up_fishing_rod": "Welcome to the fishing tutorial! To begin fishing, you first need to pick up the fishing rod. You can do this with either hand by pressing the GRIP button of the corresponding controller.",
+"pick_up_fishing_rod_again": "Oops! It seems you have dropped the fishing rod. Try picking it up again.",
+"reeling": "Great work! Now that you have passed enough trails, the fish is hooked and will start moving the float in the direction displayed above. But now you can grab the reel handle using the GRIP button of your free hand and rotate it counter-clockwise to reel the fish in. Just be careful - reeling the fish builds tension in the fishing line. Reaching the max will snap it and the fish will escape, resetting the fishing session. Once you have reeled the fish close enough, the reel handle will lock and you will be able to catch the fish by yanking the fishing rod."
+}

@@ -15,6 +15,8 @@ const LynasScene = preload("res://scenes/fishing/fishes/lynas.tscn")
 
 signal on_state_changed(new_state: State)
 
+signal fish_caught(fish : Fish)
+
 
 enum State 
 {
@@ -191,7 +193,6 @@ func _miss_trial() -> void:
 
 
 func _catch_fish() -> void:
-	var fish_spawn_position := _fishing_rod.fishing_float.global_position
 	var fish_scene: PackedScene = fish_scenes.pick_random()
 	
 	if fish_scene:
@@ -199,45 +200,12 @@ func _catch_fish() -> void:
 		var fish_instance: Fish = fish_scene.instantiate()
 		
 		if fish_instance:
-			# Add the fish and set it up
-			fish_instance.visible = false
-			fish_instance.freeze = true
+			# Add the fish and snap it to the fish snap zone
 			add_child(fish_instance)
-			fish_instance.global_position = fish_spawn_position
+			fish_instance.global_position = _fishing_rod.fish_snap_zone.global_position
+			_fishing_rod.fish_snap_zone.pick_up_object(fish_instance)
 			
-			# Apply the impulse at the initial spawn
-			var impulse := _get_fish_launch_impulse(fish_instance)
-			fish_instance.freeze = false
-			fish_instance.visible = true
-			fish_instance.apply_central_impulse(impulse)
-
-
-func _get_fish_launch_impulse(fish: Fish) -> Vector3:
-	# TODO: move launch variables to export
-	var launch_angle: float = PI / 3
-	var time_to_target: float = 2
-	var g: float = ProjectSettings.get_setting("physics/3d/default_gravity")
-	
-	var offset_to_player := _player.global_position - fish.global_position
-	
-	# Calculate the horizontal distance in the XZ-plane
-	var horizontal_displacement := Vector3(offset_to_player.x, 0, offset_to_player.z)
-	var horizontal_distance := horizontal_displacement.length()
-	
-	# Calculate horizontal velocity component using the target time and launch angle
-	var horizontal_velocity := horizontal_distance / (cos(launch_angle) * time_to_target)
-	
-	# Direction vector for horizontal motion in the XZ plane
-	var horizontal_direction := horizontal_displacement.normalized()
-	
-	# Calculate vertical velocity to ensure the projectile reaches the target height and position in time_to_target
-	var vertical_velocity := (offset_to_player.y + 1.0 + 0.5 * g * pow(time_to_target, 2)) / time_to_target
-	
-	# Combine horizontal and vertical components to form the initial velocity vector
-	var initial_velocity := horizontal_direction * horizontal_velocity
-	initial_velocity.y = vertical_velocity * 1.4 # TODO: ammend formula so I don't need this weird multiplier
-	
-	return initial_velocity * fish.mass
+			fish_caught.emit(fish_instance)
 
 
 func _finish_fishing() -> void:
@@ -257,7 +225,6 @@ func _finish_fishing() -> void:
 		_current_session.total_trials,
 		_current_session.complete_trials
 	)
-	_current_session = null
 
 
 func _reset_distraction_timer() -> void:
@@ -298,7 +265,7 @@ func _on_fishing_rod_yanked(yank_velocity: Vector3) -> void:
 				_current_session.fish_caught = true
 				_catch_fish()
 				_finish_fishing()
-				_fishing_rod.fishing_float.reset()
+				_fishing_rod.fishing_float.state = FishingFloat.State.Attached
 		State.Baiting:
 			if can_catch:
 				print("Processing a correctly timed yank")

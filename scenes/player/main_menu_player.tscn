@@ -1,0 +1,106 @@
+[gd_scene load_steps=15 format=3 uid="uid://bat7rftfj22pg"]
+
+[ext_resource type="Script" path="res://scripts/player/main_menu_player.gd" id="1_hi1gq"]
+[ext_resource type="PackedScene" uid="uid://btknduttnmoxf" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="2_vdjxa"]
+[ext_resource type="PackedScene" uid="uid://cywxx6drva3wo" path="res://scenes/player/hands/right_ghost_hand.tscn" id="3_pqkmt"]
+[ext_resource type="Shader" path="res://shaders/ghost_hand_shader.gdshader" id="4_dkp67"]
+[ext_resource type="PackedScene" uid="uid://difr003pluy10" path="res://scenes/player/hands/right_physical_hand.tscn" id="5_1bcp8"]
+[ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="6_csyh5"]
+[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="7_gytbq"]
+[ext_resource type="Material" uid="uid://bimaj4q2n44vt" path="res://resources/pointer_material.tres" id="8_kaqq2"]
+[ext_resource type="PackedScene" uid="uid://mx6owhjjvnc8" path="res://scenes/player/hands/left_ghost_hand.tscn" id="10_ox3hw"]
+[ext_resource type="PackedScene" uid="uid://dl1miotgluu08" path="res://scenes/player/hands/left_physical_hand.tscn" id="11_vkttx"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="17_w5gtj"]
+[ext_resource type="Script" path="res://scripts/player/player_body.gd" id="18_4y6ld"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1lec5"]
+render_priority = 0
+shader = ExtResource("4_dkp67")
+shader_parameter/base_color = Color(3.94672e-06, 0.737807, 0.523496, 1)
+shader_parameter/alpha = 0.4
+shader_parameter/min_alpha = 0.1
+shader_parameter/max_alpha = 0.8
+shader_parameter/fresnel_amount = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0v3e3"]
+render_priority = 0
+shader = ExtResource("4_dkp67")
+shader_parameter/base_color = Color(3.94672e-06, 0.737807, 0.523496, 1)
+shader_parameter/alpha = 0.4
+shader_parameter/min_alpha = 0.1
+shader_parameter/max_alpha = 0.8
+shader_parameter/fresnel_amount = 3.0
+
+[node name="XROrigin3D" type="XROrigin3D" groups=["player"]]
+process_mode = 3
+current = true
+script = ExtResource("1_hi1gq")
+
+[node name="XRCamera3D" type="XRCamera3D" parent="."]
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0)
+current = true
+
+[node name="XRToolsShaderCache" parent="XRCamera3D" instance=ExtResource("2_vdjxa")]
+process_mode = 3
+
+[node name="RightHandController" type="XRController3D" parent="." groups=["hand"]]
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, -0.5)
+tracker = &"right_hand"
+
+[node name="RightGhostHand" parent="RightHandController" instance=ExtResource("3_pqkmt")]
+hand_material_override = SubResource("ShaderMaterial_1lec5")
+physical_hand_path = NodePath("../RightPhysicalHand")
+
+[node name="RightPhysicalHand" parent="RightHandController" node_paths=PackedStringArray("ghost_hand", "player_body") instance=ExtResource("5_1bcp8")]
+max_contacts_reported = 4
+ghost_hand = NodePath("../RightGhostHand")
+player_body = NodePath("../../PlayerBody")
+
+[node name="FunctionPointerRight" parent="RightHandController" instance=ExtResource("7_gytbq")]
+enabled = false
+distance = 3.0
+show_laser = 0
+laser_length = 1
+laser_material = ExtResource("8_kaqq2")
+show_target = true
+target_radius = 0.02
+target_material = ExtResource("8_kaqq2")
+
+[node name="MovementTurn" parent="RightHandController" instance=ExtResource("6_csyh5")]
+process_mode = 1
+step_turn_angle = 45.0
+
+[node name="LeftHandController" type="XRController3D" parent="." groups=["hand"]]
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.5, -0.5)
+tracker = &"left_hand"
+
+[node name="LeftGhostHand" parent="LeftHandController" instance=ExtResource("10_ox3hw")]
+hand_material_override = SubResource("ShaderMaterial_0v3e3")
+physical_hand_path = NodePath("../LeftPhysicalHand")
+
+[node name="LeftPhysicalHand" parent="LeftHandController" node_paths=PackedStringArray("ghost_hand", "player_body") instance=ExtResource("11_vkttx")]
+max_contacts_reported = 4
+ghost_hand = NodePath("../LeftGhostHand")
+player_body = NodePath("../../PlayerBody")
+
+[node name="FunctionPointerLeft" parent="LeftHandController" instance=ExtResource("7_gytbq")]
+enabled = false
+distance = 3.0
+laser_length = 1
+laser_material = ExtResource("8_kaqq2")
+show_target = true
+target_radius = 0.02
+target_material = ExtResource("8_kaqq2")
+
+[node name="PlayerBody" parent="." instance=ExtResource("17_w5gtj")]
+process_mode = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+collision_mask = 907
+script = ExtResource("18_4y6ld")
+water_emergence_acceleration = 5.0
+water_max_emergence_velocity = 2.0
+water_bobbing_amplitude = 0.15
+_water_bobbing_frequency = 0.5
