@@ -1,16 +1,12 @@
-[gd_scene load_steps=80 format=4 uid="uid://dqmlp2hfmrh7m"]
+[gd_scene load_steps=75 format=4 uid="uid://dqmlp2hfmrh7m"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_f856c"]
 [ext_resource type="PackedScene" uid="uid://ces1enrushk7a" path="res://scenes/utils/pause_menu_container.tscn" id="2_iwn03"]
 [ext_resource type="Environment" uid="uid://edotw462mqao" path="res://resources/environment.tres" id="3_uue1d"]
-[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="3_x6jvw"]
-[ext_resource type="PackedScene" uid="uid://cfdglxxc6feb" path="res://scenes/testing/heavy_test_cube.tscn" id="7_fx2ti"]
 [ext_resource type="PackedScene" uid="uid://xgtyhnl6lct2" path="res://scenes/fishing/fishing.tscn" id="8_emfhn"]
-[ext_resource type="PackedScene" uid="uid://df1msj88r2p24" path="res://scenes/testing/overlap_test_cube.tscn" id="8_mshml"]
 [ext_resource type="PackedScene" uid="uid://ca0ohfqspp2pg" path="res://scenes/fishing/water.tscn" id="8_mty1l"]
 [ext_resource type="PackedScene" uid="uid://cxbr4wga38fm1" path="res://scenes/fishing/holding_stick.tscn" id="8_pm0sp"]
 [ext_resource type="PackedScene" uid="uid://qat0jalvcswc" path="res://scenes/environment/tent.tscn" id="8_tg55q"]
-[ext_resource type="PackedScene" uid="uid://0rctt4pnv5n2" path="res://scenes/tutorial.tscn" id="10_rt4mo"]
 [ext_resource type="PackedScene" uid="uid://482xli6khdjt" path="res://scenes/fishing/bucket.tscn" id="10_ym32v"]
 [ext_resource type="PackedScene" uid="uid://coi25buc88g6d" path="res://scenes/creatures/mock_fish.tscn" id="14_h3ydf"]
 [ext_resource type="PackedScene" uid="uid://h2oii34vo11w" path="res://scenes/cooking/fire_wood_pile.tscn" id="16_20otq"]
@@ -44,7 +40,6 @@
 [ext_resource type="PackedScene" uid="uid://c6wf68pe71k2a" path="res://scenes/cooking/skillet.tscn" id="45_6wdpy"]
 [ext_resource type="PackedScene" uid="uid://h4roksm87ytx" path="res://scenes/cooking/lid.tscn" id="46_vwkmn"]
 [ext_resource type="PackedScene" uid="uid://gvyk1si63evv" path="res://scenes/environment/flowers.tscn" id="47_kirqo"]
-[ext_resource type="PackedScene" uid="uid://ct2g57qsopix7" path="res://scenes/fishing/fishes/kuoja.tscn" id="47_yw4jv"]
 [ext_resource type="PackedScene" uid="uid://b2wwpdu2ao0np" path="res://scenes/environment/bushes2.tscn" id="48_1ny86"]
 [ext_resource type="PackedScene" uid="uid://bsotifvyxaf5u" path="res://scenes/player/player.tscn" id="48_7y7m1"]
 [ext_resource type="PackedScene" uid="uid://cnno5b20tmn85" path="res://scenes/man_scale_benchmark.tscn" id="48_qih47"]
@@ -348,21 +343,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
 
 [node name="Tutorial" type="Node" parent="."]
 
-[node name="TutorialViewport" parent="Tutorial" instance=ExtResource("3_x6jvw")]
-transform = Transform3D(0.939615, 0, 0.342234, 0, 1, 0, -0.342234, 0, 0.939615, -2.37178, 2.76162, -5.86571)
-screen_size = Vector2(4, 2)
-enabled = false
-scene = ExtResource("10_rt4mo")
-viewport_size = Vector2(1152, 648)
-
 [node name="Rock_table" parent="Tutorial" instance=ExtResource("39_waqj3")]
 transform = Transform3D(-1.21918, 0, -0.443855, 0, 1, 0, 0.490106, 0, -1.10413, -2.435, 0.492, -5.525)
-
-[node name="HeavyTestCube" parent="Tutorial" instance=ExtResource("7_fx2ti")]
-transform = Transform3D(0.957637, 0, 0.287979, 0, 1, 0, -0.287979, 0, 0.957637, -3.43544, 1.49057, -4.68047)
-
-[node name="HeavyTestCube2" parent="Tutorial" instance=ExtResource("8_mshml")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.20926, 1.51717, -4.78492)
 
 [node name="Fishing" parent="." instance=ExtResource("8_emfhn")]
 
@@ -396,7 +378,7 @@ transform = Transform3D(-0.113004, 0, 0.0403744, 0, 0.12, 0, -0.0403744, 0, -0.1
 curve = SubResource("Curve3D_i6pi6")
 
 [node name="MockFish1" parent="Fishing/MockFishes/MockFishPath1" instance=ExtResource("14_h3ydf")]
-transform = Transform3D(-0.961927, -0.0026609, 0.273209, 0, 0.999874, 0.00973934, -0.273221, 0.0093682, -0.961885, 17.8061, -1.12253, 13.4726)
+transform = Transform3D(-0.961927, -0.00266089, 0.273209, 0, 0.999874, 0.00973934, -0.273221, 0.0093682, -0.961885, 17.8061, -1.12253, 13.4726)
 progress = 39.4198
 rotation_mode = 2
 use_model_front = true
@@ -1798,9 +1780,6 @@ shadow_enabled = true
 shadow_opacity = 0.8
 shadow_blur = 0.6
 directional_shadow_mode = 0
-
-[node name="Kuoja" parent="." instance=ExtResource("47_yw4jv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.08212, 1.59136, -5.05207)
 
 [node name="man_scale_benchmark" parent="." instance=ExtResource("48_qih47")]
 transform = Transform3D(0.999938, 0, 0.0111699, 0, 1, 0, -0.0111699, 0, 0.999938, -1.43748, 0.725542, -2.43402)

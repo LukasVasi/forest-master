@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/ui/statistics_ui.gd" id="1_pfh15"]
 [ext_resource type="Theme" uid="uid://vq7t843uek2d" path="res://ui/ui_theme.tres" id="1_ylxyt"]
 
-[node name="StatisticsUI" type="VBoxContainer" node_paths=PackedStringArray("_current_archery_sessions", "_current_archery_shots", "_current_archery_misses", "_current_archery_hits", "_current_archery_friendly_fire")]
+[node name="StatisticsUI" type="VBoxContainer" node_paths=PackedStringArray("_current_fishing_goal", "_current_cooking_goal", "_current_archery_goal", "_current_archery_sessions", "_current_archery_shots", "_current_archery_misses", "_current_archery_hits", "_current_archery_friendly_fire")]
 custom_minimum_size = Vector2(580, 660)
 anchors_preset = 8
 anchor_left = 0.5
@@ -20,6 +20,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("1_ylxyt")
 script = ExtResource("1_pfh15")
+_current_fishing_goal = NodePath("TabContainer/Current session/TabContainer/General/FishingGoalHBox/CheckBox")
+_current_cooking_goal = NodePath("TabContainer/Current session/TabContainer/General/CookingGoalHBox/CheckBox")
+_current_archery_goal = NodePath("TabContainer/Current session/TabContainer/General/ArcheryGoalHBox/CheckBox")
 _current_archery_sessions = NodePath("TabContainer/Current session/TabContainer/Archery/TotalArcherySessionsHBox/ValueLabel")
 _current_archery_shots = NodePath("TabContainer/Current session/TabContainer/Archery/TotalShotsFiredHBox/ValueLabel")
 _current_archery_misses = NodePath("TabContainer/Current session/TabContainer/Archery/ShotsMissedHBox/ValueLabel")

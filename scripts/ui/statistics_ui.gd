@@ -54,7 +54,7 @@ func _on_visibility_changed() -> void:
 	if visible and is_node_ready():
 		
 		var fishing_statistics: FishingStatistics = StatisticsManager.user_statistics.get_current_fishing_statistics()
-		_current_fishing_goal.toggle_mode = fishing_statistics.total_fishing_sessions > 0
+		_current_fishing_goal.button_pressed = fishing_statistics.total_fishing_sessions > 0
 		_current_fishing_sessions.text = str(fishing_statistics.total_fishing_sessions)
 		_fish_caught.text = str(fishing_statistics.fish_caught)
 		_snaps.text = str(fishing_statistics.snaps)
@@ -62,7 +62,7 @@ func _on_visibility_changed() -> void:
 		_completed_trials.text = str(fishing_statistics.completed_trials)
 		
 		var archery_statistics : ArcheryStatistics = StatisticsManager.user_statistics.get_current_archery_statistics()
-		_current_archery_goal.toggle_mode = archery_statistics.total_archery_sessions > 0
+		_current_archery_goal.button_pressed = archery_statistics.total_archery_sessions > 0
 		_current_archery_sessions.text = str(archery_statistics.total_archery_sessions)
 		_current_archery_shots.text = str(archery_statistics.shots)
 		_current_archery_misses.text = str(archery_statistics.misses)

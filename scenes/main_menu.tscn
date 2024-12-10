@@ -198,6 +198,7 @@ transform = Transform3D(0.991498, -0.118358, -0.0540666, 0.114776, 0.991253, -0.
 mesh = ExtResource("9_6rqfg")
 
 [node name="CinematicView" parent="." node_paths=PackedStringArray("xr_camera") instance=ExtResource("12_ihire")]
+enabled = false
 xr_camera = NodePath("../XROrigin3D/XRCamera3D")
 rotation_smoothing = 0.0
 
