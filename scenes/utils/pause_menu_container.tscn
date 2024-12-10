@@ -7,25 +7,23 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7l7ql"]
 transparency = 1
-no_depth_test = true
 shading_mode = 0
 
 [sub_resource type="QuadMesh" id="QuadMesh_pghbf"]
 resource_local_to_scene = true
-size = Vector2(0.8, 0.7)
+size = Vector2(0.64, 0.72)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_nsuys"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_sms3l"]
 viewport_path = NodePath("Viewport2Din3D/Viewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_47edp"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qb7k0"]
 transparency = 1
-no_depth_test = true
 shading_mode = 0
-albedo_texture = SubResource("ViewportTexture_nsuys")
+albedo_texture = SubResource("ViewportTexture_sms3l")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3c1oq"]
 resource_local_to_scene = true
-size = Vector3(0.8, 0.7, 0.02)
+size = Vector3(0.64, 0.72, 0.02)
 
 [node name="PauseMenuContainer" type="Node3D" groups=["pause_menu_container"]]
 process_mode = 3
@@ -34,10 +32,10 @@ script = ExtResource("1_8ntur")
 [node name="Viewport2Din3D" type="Node3D" parent="."]
 process_mode = 3
 script = ExtResource("2_bt2os")
-screen_size = Vector2(0.8, 0.7)
+screen_size = Vector2(0.64, 0.72)
 collision_layer = 5242880
 scene = ExtResource("3_0tqcl")
-viewport_size = Vector2(800, 700)
+viewport_size = Vector2(640, 720)
 material = SubResource("StandardMaterial3D_7l7ql")
 alpha_scissor_threshold = 0.25
 unshaded = true
@@ -48,19 +46,19 @@ scene_properties_keys = PackedStringArray("pause_menu.gd")
 disable_3d = true
 transparent_bg = true
 gui_embed_subwindows = true
-size = Vector2i(800, 700)
+size = Vector2i(640, 720)
 render_target_update_mode = 1
 
 [node name="Screen" type="MeshInstance3D" parent="Viewport2Din3D"]
 mesh = SubResource("QuadMesh_pghbf")
-surface_material_override/0 = SubResource("StandardMaterial3D_47edp")
+surface_material_override/0 = SubResource("StandardMaterial3D_qb7k0")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Viewport2Din3D"]
 collision_layer = 5242880
 collision_mask = 0
 script = ExtResource("4_frv6f")
-screen_size = Vector2(0.8, 0.7)
-viewport_size = Vector2(800, 700)
+screen_size = Vector2(0.64, 0.72)
+viewport_size = Vector2(640, 720)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Viewport2Din3D/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)

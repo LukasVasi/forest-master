@@ -1,0 +1,335 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpfonc3ph07al"]
+
+[ext_resource type="Script" path="res://scripts/ui/statistics_ui.gd" id="1_pfh15"]
+[ext_resource type="Theme" uid="uid://vq7t843uek2d" path="res://ui/ui_theme.tres" id="1_ylxyt"]
+
+[node name="StatisticsUI" type="VBoxContainer" node_paths=PackedStringArray("_current_archery_sessions", "_current_archery_shots", "_current_archery_misses", "_current_archery_hits", "_current_archery_friendly_fire")]
+custom_minimum_size = Vector2(580, 660)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -290.0
+offset_top = -330.0
+offset_right = 290.0
+offset_bottom = 330.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_ylxyt")
+script = ExtResource("1_pfh15")
+_current_archery_sessions = NodePath("TabContainer/Current session/TabContainer/Archery/TotalArcherySessionsHBox/ValueLabel")
+_current_archery_shots = NodePath("TabContainer/Current session/TabContainer/Archery/TotalShotsFiredHBox/ValueLabel")
+_current_archery_misses = NodePath("TabContainer/Current session/TabContainer/Archery/ShotsMissedHBox/ValueLabel")
+_current_archery_hits = NodePath("TabContainer/Current session/TabContainer/Archery/ShotsHitHBox/ValueLabel")
+_current_archery_friendly_fire = NodePath("TabContainer/Current session/TabContainer/Archery/FriendlyFireHBox/ValueLabel")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="StatisticsLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 36
+text = "Statistics"
+
+[node name="BackButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 0
+
+[node name="Current session" type="VBoxContainer" parent="TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="TabContainer" type="TabContainer" parent="TabContainer/Current session"]
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 0
+
+[node name="General" type="VBoxContainer" parent="TabContainer/Current session/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="CurrentPlayTimeHBox" type="HBoxContainer" parent="TabContainer/Current session/TabContainer/General"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Current session/TabContainer/General/CurrentPlayTimeHBox"]
+layout_mode = 2
+text = "Current session play time: "
+
+[node name="TimeLabel" type="Label" parent="TabContainer/Current session/TabContainer/General/CurrentPlayTimeHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 2
+
+[node name="HSeparator" type="HSeparator" parent="TabContainer/Current session/TabContainer/General"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Current session/TabContainer/General"]
+layout_mode = 2
+text = "Session goals:"
+
+[node name="FishingGoalHBox" type="HBoxContainer" parent="TabContainer/Current session/TabContainer/General"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Current session/TabContainer/General/FishingGoalHBox"]
+layout_mode = 2
+text = "Fishing"
+
+[node name="CheckBox" type="CheckBox" parent="TabContainer/Current session/TabContainer/General/FishingGoalHBox"]
+layout_mode = 2
+disabled = true
+flat = true
+
+[node name="CookingGoalHBox" type="HBoxContainer" parent="TabContainer/Current session/TabContainer/General"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Current session/TabContainer/General/CookingGoalHBox"]
+layout_mode = 2
+text = "Cooking
+"
+
+[node name="CheckBox" type="CheckBox" parent="TabContainer/Current session/TabContainer/General/CookingGoalHBox"]
+layout_mode = 2
+disabled = true
+flat = true
+
+[node name="ArcheryGoalHBox" type="HBoxContainer" parent="TabContainer/Current session/TabContainer/General"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Current session/TabContainer/General/ArcheryGoalHBox"]
+layout_mode = 2
+text = "Archery"
+
+[node name="CheckBox" type="CheckBox" parent="TabContainer/Current session/TabContainer/General/ArcheryGoalHBox"]
+layout_mode = 2
+disabled = true
+flat = true
+
+[node name="Fishing" type="VBoxContainer" parent="TabContainer/Current session/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="TotalFishingSessionsHBox" type="HBoxContainer" parent="TabContainer/Current session/TabContainer/Fishing"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="TabContainer/Current session/TabContainer/Fishing/TotalFishingSessionsHBox"]
+layout_mode = 2
+text = "Total fishing sessions: "
+
+[node name="ValueLabel" type="Label" parent="TabContainer/Current session/TabContainer/Fishing/TotalFishingSessionsHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="FishCaughtHBox" type="HBoxContainer" parent="TabContainer/Current session/TabContainer/Fishing"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="TabContainer/Current session/TabContainer/Fishing/FishCaughtHBox"]
+layout_mode = 2
+text = "Fish caught: "
+
+[node name="ValueLabel" type="Label" parent="TabContainer/Current session/TabContainer/Fishing/FishCaughtHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="TimesRodSnappedHBox" type="HBoxContainer" parent="TabContainer/Current session/TabContainer/Fishing"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="TabContainer/Current session/TabContainer/Fishing/TimesRodSnappedHBox"]
+layout_mode = 2
+text = "Times rod snapped:"
+
+[node name="ValueLabel" type="Label" parent="TabContainer/Current session/TabContainer/Fishing/TimesRodSnappedHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="TotalTrialsHBox" type="HBoxContainer" parent="TabContainer/Current session/TabContainer/Fishing"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="TabContainer/Current session/TabContainer/Fishing/TotalTrialsHBox"]
+layout_mode = 2
+text = "Total trials:"
+
+[node name="ValueLabel" type="Label" parent="TabContainer/Current session/TabContainer/Fishing/TotalTrialsHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="CompletedTrialsHBox" type="HBoxContainer" parent="TabContainer/Current session/TabContainer/Fishing"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="TabContainer/Current session/TabContainer/Fishing/CompletedTrialsHBox"]
+layout_mode = 2
+text = "Completed trials:"
+
+[node name="ValueLabel" type="Label" parent="TabContainer/Current session/TabContainer/Fishing/CompletedTrialsHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="Cooking" type="VBoxContainer" parent="TabContainer/Current session/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="TotalCookingSessionsHBox" type="HBoxContainer" parent="TabContainer/Current session/TabContainer/Cooking"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="TabContainer/Current session/TabContainer/Cooking/TotalCookingSessionsHBox"]
+layout_mode = 2
+text = "Total cooking sessions: "
+
+[node name="ValueLabel" type="Label" parent="TabContainer/Current session/TabContainer/Cooking/TotalCookingSessionsHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="Archery" type="VBoxContainer" parent="TabContainer/Current session/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="TotalArcherySessionsHBox" type="HBoxContainer" parent="TabContainer/Current session/TabContainer/Archery"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="TabContainer/Current session/TabContainer/Archery/TotalArcherySessionsHBox"]
+layout_mode = 2
+text = "Total archery sessions: "
+
+[node name="ValueLabel" type="Label" parent="TabContainer/Current session/TabContainer/Archery/TotalArcherySessionsHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="TotalShotsFiredHBox" type="HBoxContainer" parent="TabContainer/Current session/TabContainer/Archery"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="TabContainer/Current session/TabContainer/Archery/TotalShotsFiredHBox"]
+layout_mode = 2
+text = "Total shots fired: "
+
+[node name="ValueLabel" type="Label" parent="TabContainer/Current session/TabContainer/Archery/TotalShotsFiredHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="ShotsHitHBox" type="HBoxContainer" parent="TabContainer/Current session/TabContainer/Archery"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="TabContainer/Current session/TabContainer/Archery/ShotsHitHBox"]
+layout_mode = 2
+text = "Shots hit: "
+
+[node name="ValueLabel" type="Label" parent="TabContainer/Current session/TabContainer/Archery/ShotsHitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="ShotsMissedHBox" type="HBoxContainer" parent="TabContainer/Current session/TabContainer/Archery"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="TabContainer/Current session/TabContainer/Archery/ShotsMissedHBox"]
+layout_mode = 2
+text = "Shots missed: "
+
+[node name="ValueLabel" type="Label" parent="TabContainer/Current session/TabContainer/Archery/ShotsMissedHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="FriendlyFireHBox" type="HBoxContainer" parent="TabContainer/Current session/TabContainer/Archery"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="TabContainer/Current session/TabContainer/Archery/FriendlyFireHBox"]
+layout_mode = 2
+text = "Good spirits hit: "
+
+[node name="ValueLabel" type="Label" parent="TabContainer/Current session/TabContainer/Archery/FriendlyFireHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="All time" type="VBoxContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="TotalPlayTimeHBox" type="HBoxContainer" parent="TabContainer/All time"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/All time/TotalPlayTimeHBox"]
+layout_mode = 2
+text = "Total session play time: "
+
+[node name="TimeLabel" type="Label" parent="TabContainer/All time/TotalPlayTimeHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="HSeparator" type="HSeparator" parent="TabContainer/All time"]
+layout_mode = 2
+
+[node name="TotalFishingSessionsHBox" type="HBoxContainer" parent="TabContainer/All time"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/All time/TotalFishingSessionsHBox"]
+layout_mode = 2
+text = "Total fishing sessions: "
+
+[node name="ValueLabel" type="Label" parent="TabContainer/All time/TotalFishingSessionsHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="TotalCookingSessionsHBox" type="HBoxContainer" parent="TabContainer/All time"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/All time/TotalCookingSessionsHBox"]
+layout_mode = 2
+text = "Total cooking sessions: "
+
+[node name="ValueLabel" type="Label" parent="TabContainer/All time/TotalCookingSessionsHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="TotalArcherySessionsHBox" type="HBoxContainer" parent="TabContainer/All time"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/All time/TotalArcherySessionsHBox"]
+layout_mode = 2
+text = "Total archery sessions: "
+
+[node name="ValueLabel" type="Label" parent="TabContainer/All time/TotalArcherySessionsHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="HBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

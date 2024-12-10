@@ -283,7 +283,7 @@ func _on_fishing_rod_yanked(yank_velocity: Vector3) -> void:
 						fish_direction = _fishing_rod.fishing_float.global_basis.x
 				var alignment : float = yank_direction.dot(fish_direction)
 				print("Alignment was ", alignment)
-				var correct_direction : bool = alignment > 0.4
+				var correct_direction : bool = alignment > 0.2
 				
 				if correct_direction:
 					print("Direction was correct")

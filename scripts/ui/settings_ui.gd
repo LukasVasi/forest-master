@@ -2,6 +2,9 @@ class_name SettingsUI
 extends VBoxContainer
 
 
+signal back_button_pressed
+
+
 @onready var _snap_turning_button: CheckBox = get_node("TabContainer/Movement/SnapTurning/SnapTurningCB")
 @onready var _movement_direct_button: CheckBox = get_node("TabContainer/Movement/DirectMovement/DirectMovementCB")
 @onready var _x_deadzone_slider: HSlider = get_node("TabContainer/Input/xAxisDeadZone/xAxisDeadZoneSlider")
@@ -76,3 +79,7 @@ func _on_sfx_volume_slider_value_changed(value: float) -> void:
 
 func _on_music_volume_slider_value_changed(value: float) -> void:
 	UserSettings.music_volume = value
+
+
+func _on_back_button_pressed() -> void:
+	back_button_pressed.emit()

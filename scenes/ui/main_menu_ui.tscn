@@ -12,23 +12,17 @@ content_margin_top = 64.0
 content_margin_right = 52.0
 content_margin_bottom = 48.0
 texture = ExtResource("2_y1n8a")
-texture_margin_left = 41.0
-texture_margin_top = 59.0
-texture_margin_right = 40.0
+texture_margin_left = 39.0
+texture_margin_top = 58.0
+texture_margin_right = 39.0
 texture_margin_bottom = 16.0
-region_rect = Rect2(15, 0, 225, 256)
+region_rect = Rect2(16, 0, 224, 256)
 
 [node name="MainMenuUI" type="Control"]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -256.0
-offset_top = -256.0
-offset_right = 256.0
-offset_bottom = 256.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -38,43 +32,63 @@ script = ExtResource("1_7ltjx")
 world_scene_path = "res://scenes/main.tscn"
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(512, 0)
+custom_minimum_size = Vector2(690, 780)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -176.0
+offset_right = 256.0
+offset_bottom = 176.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_g0vee")
 
 [node name="MainMenuUI" type="VBoxContainer" parent="PanelContainer"]
-visible = false
 layout_mode = 2
+theme_override_constants/separation = 16
 alignment = 1
+
+[node name="TitleLabel" type="Label" parent="PanelContainer/MainMenuUI"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 64
+text = "Forest Master"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PlayButton" type="Button" parent="PanelContainer/MainMenuUI"]
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 36
 text = "Play"
 
 [node name="TutorialButton" type="Button" parent="PanelContainer/MainMenuUI"]
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 36
 text = "Tutorial"
 
 [node name="SettingsButton" type="Button" parent="PanelContainer/MainMenuUI"]
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 36
 text = "Settings"
 
 [node name="QuitButton" type="Button" parent="PanelContainer/MainMenuUI"]
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 36
 text = "Exit"
 
 [node name="TutorialUI" type="VBoxContainer" parent="PanelContainer"]
 visible = false
 layout_mode = 2
+theme_override_constants/separation = 16
 alignment = 1
 script = ExtResource("4_ue21y")
 
@@ -85,6 +99,7 @@ size_flags_vertical = 6
 [node name="TitleLabel" type="Label" parent="PanelContainer/TutorialUI/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 36
 text = "Tutorials"
 
 [node name="BackButton" type="Button" parent="PanelContainer/TutorialUI/HBoxContainer"]
@@ -94,42 +109,32 @@ text = "Back"
 
 [node name="BasicsTutorialButton" type="Button" parent="PanelContainer/TutorialUI"]
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 36
 text = "Basics"
 
 [node name="FishingTutorialButton" type="Button" parent="PanelContainer/TutorialUI"]
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 36
 text = "Fishing"
 
 [node name="ArcheryTutorialButton" type="Button" parent="PanelContainer/TutorialUI"]
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 36
 text = "Archery"
 
 [node name="CookingTutorialButton" type="Button" parent="PanelContainer/TutorialUI"]
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 36
 disabled = true
 text = "Cooking"
 
 [node name="SettingsUI" parent="PanelContainer" instance=ExtResource("5_567dd")]
+visible = false
 layout_mode = 2
-
-[node name="TitleLabel" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -117.0
-offset_top = 8.0
-offset_right = 117.0
-offset_bottom = 45.0
-grow_horizontal = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-text = "Forest Master"
-horizontal_alignment = 1
 
 [connection signal="pressed" from="PanelContainer/MainMenuUI/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="PanelContainer/MainMenuUI/TutorialButton" to="." method="_on_tutorial_button_pressed"]
@@ -140,6 +145,4 @@ horizontal_alignment = 1
 [connection signal="pressed" from="PanelContainer/TutorialUI/FishingTutorialButton" to="PanelContainer/TutorialUI" method="_on_fishing_tutorial_button_pressed"]
 [connection signal="pressed" from="PanelContainer/TutorialUI/ArcheryTutorialButton" to="PanelContainer/TutorialUI" method="_on_archery_tutorial_button_pressed"]
 [connection signal="pressed" from="PanelContainer/TutorialUI/CookingTutorialButton" to="PanelContainer/TutorialUI" method="_on_cooking_tutorial_button_pressed"]
-[connection signal="pressed" from="PanelContainer/SettingsUI/HBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
-
-[editable path="PanelContainer/SettingsUI"]
+[connection signal="back_button_pressed" from="PanelContainer/SettingsUI" to="." method="_on_back_button_pressed"]

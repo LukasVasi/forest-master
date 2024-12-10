@@ -43,7 +43,8 @@ func _process(delta: float) -> void:
 		var dot_product = q1.dot(q2)
 		var rotated_basis = $Window/Camera3D.global_transform.basis.slerp(xr_camera.global_transform.basis, 1 / dot_product - rotation_smoothing)
 
-		$Window/Camera3D.set_global_transform(Transform3D(rotated_basis, Vector3(x, y, z)))
+		#$Window/Camera3D.set_global_transform(Transform3D(rotated_basis, Vector3(x, y, z)))
+		$Window/Camera3D.set_global_transform(xr_camera.global_transform)
 
 func _on_close_requested() -> void:
 	self.queue_free()

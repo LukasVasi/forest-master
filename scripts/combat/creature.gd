@@ -137,7 +137,10 @@ func _set_animation_playback_speed(new_value : float) -> void:
 
 
 func _on_hit() -> void:
-	# Just despawn everythig when hit
+	if not creature.visible:
+		return
+	
+	# Just despawn everything when hit
 	particles.emitting = true
 	is_dead = true
 	creature.queue_free()

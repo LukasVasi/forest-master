@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://hoheqhr8sw5h"]
+[gd_scene load_steps=15 format=3 uid="uid://hoheqhr8sw5h"]
 
 [ext_resource type="Script" path="res://scripts/utils/scene_base.gd" id="1_4p0s6"]
 [ext_resource type="PackedScene" uid="uid://bat7rftfj22pg" path="res://scenes/player/main_menu_player.tscn" id="2_5cl65"]
@@ -9,6 +9,7 @@
 [ext_resource type="ArrayMesh" uid="uid://dtna8j8hrdej7" path="res://models/trees/trees_fir_mesh_1.res" id="9_6rqfg"]
 [ext_resource type="ArrayMesh" uid="uid://silyyilwa7m" path="res://models/trees/trees_fir_mesh_2.res" id="10_0ksvo"]
 [ext_resource type="ArrayMesh" uid="uid://c0eiilb1mclam" path="res://models/trees/trees_fir_mesh_3.res" id="11_ileig"]
+[ext_resource type="PackedScene" uid="uid://b2jji68mjbl3h" path="res://addons/xr-kit/cinematic-view/scenes/cinematic_view.tscn" id="12_ihire"]
 [ext_resource type="Environment" uid="uid://edotw462mqao" path="res://resources/environment.tres" id="46_yo4s3"]
 [ext_resource type="PackedScene" uid="uid://cnno5b20tmn85" path="res://scenes/man_scale_benchmark.tscn" id="48_gp8jy"]
 
@@ -34,10 +35,10 @@ shape = SubResource("BoxShape3D_pcrri")
 
 [node name="Viewport2Din3D" parent="." instance=ExtResource("4_acim3")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.61903, 2)
-screen_size = Vector2(4, 2.25)
+screen_size = Vector2(1.38, 1.56)
 collision_layer = 5242880
 scene = ExtResource("4_oyrsc")
-viewport_size = Vector2(1024, 576)
+viewport_size = Vector2(690, 780)
 input_keyboard = false
 material = SubResource("StandardMaterial3D_46jcl")
 scene_properties_keys = PackedStringArray("main_menu_ui.gd", "world_scene_path")
@@ -195,3 +196,9 @@ mesh = ExtResource("11_ileig")
 [node name="Fir27" type="MeshInstance3D" parent="Trees"]
 transform = Transform3D(0.991498, -0.118358, -0.0540666, 0.114776, 0.991253, -0.0651526, 0.061305, 0.0583932, 0.99641, 4.67815, 3.18871, 2.53899)
 mesh = ExtResource("9_6rqfg")
+
+[node name="CinematicView" parent="." node_paths=PackedStringArray("xr_camera") instance=ExtResource("12_ihire")]
+xr_camera = NodePath("../XROrigin3D/XRCamera3D")
+rotation_smoothing = 0.0
+
+[editable path="XROrigin3D"]

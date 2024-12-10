@@ -79,6 +79,7 @@ func respawn_creatures() -> void:
 		bezdukas.move_speed = move_speed
 		bezdukas.object_scene = object_scenes.pick_random()
 		bezdukas.object_scale = _get_random_object_scale()
+		bezdukas.died.connect(on_bezdukas_death)
 		add_child(bezdukas)
 		
 	for i in kipsas_count:
@@ -90,17 +91,22 @@ func respawn_creatures() -> void:
 		kipsas.move_speed = move_speed
 		kipsas.object_scene = object_scenes.pick_random()
 		kipsas.object_scale = _get_random_object_scale()
-		kipsas.died.connect(on_death)
+		kipsas.died.connect(on_kipsas_death)
 		add_child(kipsas)
 
 
-func on_death() -> void:
+func on_kipsas_death() -> void:
+	StatisticsManager.report_archery_hit()
 	_dead_kipsas_count += 1
 	if _dead_kipsas_count >= kipsas_count:
 		_dead_kipsas_count = 0
 		all_kipsas_dead.emit()
 		if automatic_respawn:
 			respawn_creatures()
+
+
+func on_bezdukas_death() -> void:
+	StatisticsManager.report_archery_friendly_fire()
 
 
 func _get_random_object_scale() -> Vector3:

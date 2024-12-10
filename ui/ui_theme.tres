@@ -97,7 +97,7 @@ texture_margin_right = 8.0
 
 [resource]
 default_font = ExtResource("1_vb0hs")
-default_font_size = 36
+default_font_size = 24
 Button/font_sizes/font_size = 24
 Button/styles/disabled = SubResource("StyleBoxTexture_lets5")
 Button/styles/hover = SubResource("StyleBoxTexture_s6p3o")

@@ -24,11 +24,6 @@ func _physics_process(_delta: float) -> void:
 
 func _on_arrow_body_entered(body: Node) -> void:
 	# Check if fired and travelling fast enough
-	if linear_velocity.length() < speed_threshold:
-		return
-	
-	# Call method and queue free when hitting speicific objects
-	if body.has_method("on_hit_by_arrow"):
+	if linear_velocity.length() > speed_threshold and body.has_method("on_hit_by_arrow"):
 		body.on_hit_by_arrow()
 		queue_free()
-		return

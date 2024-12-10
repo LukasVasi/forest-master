@@ -1621,18 +1621,18 @@ pitch_scale = 0.7
 autoplay = true
 bus = &"SFX"
 
-[node name="Combat" type="Node" parent="."]
+[node name="Archery" type="Node" parent="."]
 
-[node name="Puntukas" parent="Combat" instance=ExtResource("42_e20bc")]
+[node name="Puntukas" parent="Archery" instance=ExtResource("42_e20bc")]
 transform = Transform3D(-0.964617, 0, -0.263654, 0, 1, 0, 0.263654, 0, -0.964617, -3.62221, 0.811652, 16.0418)
 
-[node name="Quiver" parent="Combat" instance=ExtResource("44_nghe1")]
+[node name="Quiver" parent="Archery" instance=ExtResource("44_nghe1")]
 transform = Transform3D(0.472375, -0.129003, 0.871906, 0.354164, 0.933638, -0.0537402, -0.807112, 0.334183, 0.486716, -5.03572, 0.532322, 4.57228)
 
-[node name="Bow" parent="Combat" instance=ExtResource("22_6ivd3")]
+[node name="Bow" parent="Archery" instance=ExtResource("22_6ivd3")]
 transform = Transform3D(-0.55667, 0.321394, 0.766044, -0.499999, -0.866026, 0, 0.663413, -0.383022, 0.642787, -4.14214, 1.24065, 5.48689)
 
-[node name="Creatures" type="Node" parent="Combat"]
+[node name="Creatures" type="Node" parent="Archery"]
 script = ExtResource("33_f4c4m")
 creature_scene = ExtResource("43_2bcqx")
 bezdukas_scene = ExtResource("39_bk6hs")
@@ -1640,7 +1640,7 @@ kipsas_scene = ExtResource("40_wa0sj")
 movement_path_curves = Array[Curve3D]([SubResource("Curve3D_d5pxh"), SubResource("Curve3D_d1bjj"), SubResource("Curve3D_oq0cm"), SubResource("Curve3D_obhfm"), SubResource("Curve3D_lv1rs"), SubResource("Curve3D_3e827")])
 object_scenes = Array[PackedScene]([ExtResource("34_jwjut"), ExtResource("42_aju2i"), ExtResource("44_es8te")])
 
-[node name="Bezdukas1" parent="Combat/Creatures" instance=ExtResource("43_2bcqx")]
+[node name="Bezdukas1" parent="Archery/Creatures" instance=ExtResource("43_2bcqx")]
 visible = false
 creature_scene = ExtResource("39_bk6hs")
 creature_scale = Vector3(0.8, 0.8, 0.8)
@@ -1649,7 +1649,7 @@ movement_path_curve = SubResource("Curve3D_d5pxh")
 object_scene = ExtResource("41_j1t3h")
 object_scale = Vector3(1.2, 1.2, 1.2)
 
-[node name="Bezdukas2" parent="Combat/Creatures" instance=ExtResource("43_2bcqx")]
+[node name="Bezdukas2" parent="Archery/Creatures" instance=ExtResource("43_2bcqx")]
 visible = false
 creature_scene = ExtResource("39_bk6hs")
 creature_scale = Vector3(0.8, 0.8, 0.8)
@@ -1658,7 +1658,7 @@ movement_path_curve = SubResource("Curve3D_d1bjj")
 object_scene = ExtResource("42_aju2i")
 object_scale = Vector3(0.3, 0.3, 0.3)
 
-[node name="Kipsas1" parent="Combat/Creatures" instance=ExtResource("43_2bcqx")]
+[node name="Kipsas1" parent="Archery/Creatures" instance=ExtResource("43_2bcqx")]
 visible = false
 creature_scene = ExtResource("40_wa0sj")
 creature_scale = Vector3(0.8, 0.8, 0.8)
@@ -1666,7 +1666,7 @@ animation_playback_speed = 2.0
 movement_path_curve = SubResource("Curve3D_oq0cm")
 object_scene = ExtResource("41_j1t3h")
 
-[node name="Kipsas2" parent="Combat/Creatures" instance=ExtResource("43_2bcqx")]
+[node name="Kipsas2" parent="Archery/Creatures" instance=ExtResource("43_2bcqx")]
 visible = false
 creature_scene = ExtResource("40_wa0sj")
 creature_scale = Vector3(0.8, 0.8, 0.8)
@@ -1675,7 +1675,7 @@ movement_path_curve = SubResource("Curve3D_obhfm")
 object_scene = ExtResource("42_aju2i")
 object_scale = Vector3(0.4, 0.4, 0.4)
 
-[node name="Kipsas3" parent="Combat/Creatures" instance=ExtResource("43_2bcqx")]
+[node name="Kipsas3" parent="Archery/Creatures" instance=ExtResource("43_2bcqx")]
 visible = false
 creature_scene = ExtResource("40_wa0sj")
 creature_scale = Vector3(0.8, 0.8, 0.8)
@@ -1683,7 +1683,7 @@ animation_playback_speed = 2.0
 movement_path_curve = SubResource("Curve3D_lv1rs")
 object_scene = ExtResource("41_j1t3h")
 
-[node name="Kipsas4" parent="Combat/Creatures" instance=ExtResource("43_2bcqx")]
+[node name="Kipsas4" parent="Archery/Creatures" instance=ExtResource("43_2bcqx")]
 visible = false
 creature_scene = ExtResource("40_wa0sj")
 creature_scale = Vector3(0.8, 0.8, 0.8)
@@ -1812,6 +1812,7 @@ visible = false
 
 [node name="CinematicView" parent="." node_paths=PackedStringArray("xr_camera") instance=ExtResource("49_y4lgh")]
 process_mode = 3
+enabled = false
 xr_camera = NodePath("../XROrigin3D/XRCamera3D")
 
 [editable path="XROrigin3D"]

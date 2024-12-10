@@ -13,8 +13,19 @@ func _on_player_height_slider_value_changed(value: float) -> void:
 "
 
 [node name="SettingsUI" type="VBoxContainer"]
+custom_minimum_size = Vector2(580, 660)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -290.0
+offset_top = -330.0
+offset_right = 290.0
+offset_bottom = 330.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("1_22ktl")
-theme_override_constants/separation = 8
 script = ExtResource("1_dx2j5")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -33,7 +44,7 @@ text = "Back"
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 2
-size_flags_vertical = 4
+size_flags_vertical = 3
 current_tab = 0
 
 [node name="Movement" type="VBoxContainer" parent="TabContainer"]
@@ -199,6 +210,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Reset"
 
+[connection signal="pressed" from="HBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="TabContainer/Movement/SnapTurning/SnapTurningCB" to="." method="_on_snap_turning_cb_pressed"]
 [connection signal="pressed" from="TabContainer/Movement/DirectMovement/DirectMovementCB" to="." method="_on_direct_movement_cb_pressed"]
 [connection signal="drag_ended" from="TabContainer/Movement/PlayerHeight/PlayerHeightSlider" to="." method="_on_player_height_slider_drag_ended"]

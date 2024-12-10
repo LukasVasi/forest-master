@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://vq7t843uek2d" path="res://ui/ui_theme.tres" id="1_5fn35"]
 [ext_resource type="Script" path="res://scripts/ui/pause_menu.gd" id="1_xagxo"]
-[ext_resource type="Script" path="res://scripts/ui/statistics_ui.gd" id="2_aeqc0"]
+[ext_resource type="PackedScene" uid="uid://cpfonc3ph07al" path="res://scenes/ui/statistics_ui.tscn" id="3_wf013"]
 [ext_resource type="PackedScene" uid="uid://dpjmvdqo37mnt" path="res://scenes/ui/settings_ui.tscn" id="4_t6e4h"]
 
 [node name="PauseMenuUI" type="Control"]
@@ -17,173 +17,80 @@ theme = ExtResource("1_5fn35")
 script = ExtResource("1_xagxo")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-layout_mode = 2
-offset_right = 48.0
-offset_bottom = 48.0
+custom_minimum_size = Vector2(640, 720)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -320.0
+offset_right = 320.0
+offset_bottom = 720.0
+grow_horizontal = 2
 
 [node name="PauseMenuUI" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+theme_override_constants/separation = 16
 alignment = 1
 
 [node name="ResumeButton" type="Button" parent="PanelContainer/PauseMenuUI"]
-custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
 focus_mode = 0
+theme_override_font_sizes/font_size = 48
 text = "Resume"
 
 [node name="StatisticsButton" type="Button" parent="PanelContainer/PauseMenuUI"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
+size_flags_vertical = 3
 focus_mode = 0
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 48
 text = "Statistics"
 
 [node name="SettingsButton" type="Button" parent="PanelContainer/PauseMenuUI"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
+size_flags_vertical = 3
 focus_mode = 0
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 48
 text = "Settings
 "
 
 [node name="TutorialButton" type="Button" parent="PanelContainer/PauseMenuUI"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
+size_flags_vertical = 3
 focus_mode = 0
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 48
 text = "Tutorial
 "
 
 [node name="ExitToMenuButton" type="Button" parent="PanelContainer/PauseMenuUI"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
+size_flags_vertical = 3
 focus_mode = 0
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 48
 text = "Exit To Main Menu"
 
 [node name="ExitGameButton" type="Button" parent="PanelContainer/PauseMenuUI"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
+size_flags_vertical = 3
 focus_mode = 0
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 48
 text = "Exit Game"
 
-[node name="StatisticsUI" type="VBoxContainer" parent="PanelContainer"]
+[node name="StatisticsUI" parent="PanelContainer" instance=ExtResource("3_wf013")]
+visible = false
 layout_mode = 2
-script = ExtResource("2_aeqc0")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/StatisticsUI"]
-layout_mode = 2
-
-[node name="StatisticsLabel" type="Label" parent="PanelContainer/StatisticsUI/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Statistics"
-
-[node name="BackButton" type="Button" parent="PanelContainer/StatisticsUI/HBoxContainer"]
-layout_mode = 2
-text = "Back"
-
-[node name="TotalPlayTimeHBox" type="HBoxContainer" parent="PanelContainer/StatisticsUI"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="PanelContainer/StatisticsUI/TotalPlayTimeHBox"]
-layout_mode = 2
-text = "Total session play time: "
-
-[node name="TimeLabel" type="Label" parent="PanelContainer/StatisticsUI/TotalPlayTimeHBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-horizontal_alignment = 2
-
-[node name="CurrentPlayTimeHBox" type="HBoxContainer" parent="PanelContainer/StatisticsUI"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="PanelContainer/StatisticsUI/CurrentPlayTimeHBox"]
-layout_mode = 2
-text = "Current session play time: "
-
-[node name="TimeLabel" type="Label" parent="PanelContainer/StatisticsUI/CurrentPlayTimeHBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-horizontal_alignment = 2
-
-[node name="HSeparator" type="HSeparator" parent="PanelContainer/StatisticsUI"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="PanelContainer/StatisticsUI"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 36
-text = "Fishing"
-
-[node name="TotalFishingSessionsHBox" type="HBoxContainer" parent="PanelContainer/StatisticsUI"]
-layout_mode = 2
-
-[node name="TitleLabel" type="Label" parent="PanelContainer/StatisticsUI/TotalFishingSessionsHBox"]
-layout_mode = 2
-text = "Total fishing sessions: "
-
-[node name="ValueLabel" type="Label" parent="PanelContainer/StatisticsUI/TotalFishingSessionsHBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-horizontal_alignment = 2
-
-[node name="FishCaughtHBox" type="HBoxContainer" parent="PanelContainer/StatisticsUI"]
-layout_mode = 2
-
-[node name="TitleLabel" type="Label" parent="PanelContainer/StatisticsUI/FishCaughtHBox"]
-layout_mode = 2
-text = "Fish caught: "
-
-[node name="ValueLabel" type="Label" parent="PanelContainer/StatisticsUI/FishCaughtHBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-horizontal_alignment = 2
-
-[node name="TimesRodSnappedHBox" type="HBoxContainer" parent="PanelContainer/StatisticsUI"]
-layout_mode = 2
-
-[node name="TitleLabel" type="Label" parent="PanelContainer/StatisticsUI/TimesRodSnappedHBox"]
-layout_mode = 2
-text = "Times rod snapped:"
-
-[node name="ValueLabel" type="Label" parent="PanelContainer/StatisticsUI/TimesRodSnappedHBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-horizontal_alignment = 2
-
-[node name="TotalTrialsHBox" type="HBoxContainer" parent="PanelContainer/StatisticsUI"]
-layout_mode = 2
-
-[node name="TitleLabel" type="Label" parent="PanelContainer/StatisticsUI/TotalTrialsHBox"]
-layout_mode = 2
-text = "Total trials:"
-
-[node name="ValueLabel" type="Label" parent="PanelContainer/StatisticsUI/TotalTrialsHBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-horizontal_alignment = 2
-
-[node name="CompletedTrialsHBox" type="HBoxContainer" parent="PanelContainer/StatisticsUI"]
-layout_mode = 2
-
-[node name="TitleLabel" type="Label" parent="PanelContainer/StatisticsUI/CompletedTrialsHBox"]
-layout_mode = 2
-text = "Completed trials:"
-
-[node name="ValueLabel" type="Label" parent="PanelContainer/StatisticsUI/CompletedTrialsHBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-horizontal_alignment = 2
 
 [node name="SettingsUI" parent="PanelContainer" instance=ExtResource("4_t6e4h")]
+visible = false
 layout_mode = 2
 
 [node name="TutorialUI" type="VBoxContainer" parent="PanelContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 6
 
@@ -203,9 +110,11 @@ text = "Back"
 
 [node name="TabContainer" type="TabContainer" parent="PanelContainer/TutorialUI"]
 layout_mode = 2
-current_tab = 0
+size_flags_vertical = 3
+current_tab = 1
 
 [node name="Movement" type="VBoxContainer" parent="PanelContainer/TutorialUI/TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -218,7 +127,6 @@ You grab items using the grip buttons on your controllers. Once you've grabbed a
 fit_content = true
 
 [node name="Fishing" type="VBoxContainer" parent="PanelContainer/TutorialUI/TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -238,6 +146,6 @@ fit_content = true
 [connection signal="pressed" from="PanelContainer/PauseMenuUI/TutorialButton" to="." method="_on_tutorial_button_pressed"]
 [connection signal="pressed" from="PanelContainer/PauseMenuUI/ExitToMenuButton" to="." method="_on_exit_to_main_menu_button_pressed"]
 [connection signal="pressed" from="PanelContainer/PauseMenuUI/ExitGameButton" to="." method="_on_exit_game_button_pressed"]
-[connection signal="visibility_changed" from="PanelContainer/StatisticsUI" to="PanelContainer/StatisticsUI" method="_on_visibility_changed"]
-[connection signal="pressed" from="PanelContainer/StatisticsUI/HBoxContainer/BackButton" to="." method="_on_back_to_menu_button_pressed"]
+[connection signal="back_button_pressed" from="PanelContainer/StatisticsUI" to="." method="_on_back_to_menu_button_pressed"]
+[connection signal="back_button_pressed" from="PanelContainer/SettingsUI" to="." method="_on_back_to_menu_button_pressed"]
 [connection signal="pressed" from="PanelContainer/TutorialUI/HBoxContainer/BackButton" to="." method="_on_back_to_menu_button_pressed"]

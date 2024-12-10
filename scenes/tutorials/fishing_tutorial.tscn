@@ -395,7 +395,7 @@ interest_loss_on_miss = 0.0
 transform = Transform3D(-0.906307, 0, -0.422618, 0, 1, 0, 0.422618, 0, -0.906307, 16.6591, 0.240074, 7.4561)
 
 [node name="Bucket" parent="Fishing" instance=ExtResource("6_7ix67")]
-transform = Transform3D(0.906684, 0, 0.421811, 0, 1, 0, -0.421811, 0, 0.906684, 17.067, 0.483129, 5.41931)
+transform = Transform3D(0.906684, 0, 0.421811, 0, 1, 0, -0.421811, 0, 0.906684, 16.8996, 0.483129, 5.8982)
 
 [node name="Dragonfly" parent="Fishing" instance=ExtResource("7_78w7y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6287, 4.42691, 11.112)
@@ -1717,8 +1717,8 @@ visible = false
 
 [node name="CinematicView" parent="." node_paths=PackedStringArray("xr_camera") instance=ExtResource("28_avgix")]
 process_mode = 3
-enabled = false
 xr_camera = NodePath("../XROrigin3D/XRCamera3D")
+rotation_smoothing = 0.2
 
 [node name="Rock_table" parent="." instance=ExtResource("3_pn80g")]
 transform = Transform3D(-1.21918, 0, -0.443855, 0, 1, 0, 0.490106, 0, -1.10413, -2.435, 0.492, -5.525)

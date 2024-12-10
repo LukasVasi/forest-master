@@ -2,7 +2,7 @@
 class_name Bow
 extends PhysicalPickable
 
-const FIRE_FACTOR = 85
+const FIRE_FACTOR = 100
 
 @onready var _bow_skeleton : Skeleton3D = get_node("Bow/Armature/Skeleton3D")
 
@@ -43,12 +43,14 @@ func _process(_delta: float) -> void:
 
 
 func _on_bow_picked_up(_pickable: Variant) -> void:
+	StatisticsManager.start_archery_session()
 	# Enable our pull pick and arrow snap zone
 	_pull_pick.enabled=true
 	_arrow_snap_zone.enabled = true
 
 
 func _on_bow_dropped(_pickable: Variant) -> void:
+	StatisticsManager.end_archery_session()
 	if _pull_pick.is_picked_up():
 		_pull_pick.drop()
 	_pull_pick.enabled=false
@@ -76,6 +78,8 @@ func _on_pull_pick_dropped(_pickable: Variant) -> void:
 		
 		# Give it a linear velocity
 		arrow.linear_velocity = transform.basis * Vector3(0.0, 0.0, -1 * pulled_back) * FIRE_FACTOR
+		
+		StatisticsManager.report_archery_shot()
 		
 	# Move our pivot back
 	_pull_pivot.position = _pull_pivot_org_position

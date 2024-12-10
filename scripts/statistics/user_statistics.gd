@@ -55,6 +55,9 @@ func get_total_play_time() -> int:
 #region Fishing
 ## Adds the details of a fishing session to the statistics.
 func add_fishing_session(fish_caught: bool, rod_snapped: bool, total_trials: int, completed_trials: int) -> void:
+	if not is_instance_valid(_current_session):
+		return
+	
 	_current_session.fishing.total_fishing_sessions += 1
 	
 	if fish_caught:
@@ -65,7 +68,58 @@ func add_fishing_session(fish_caught: bool, rod_snapped: bool, total_trials: int
 	_current_session.fishing.total_trials += total_trials
 	_current_session.fishing.completed_trials += completed_trials
 
+
 ## Returns a copy of the current fishing statistics.
 func get_current_fishing_statistics() -> FishingStatistics:
 	return _current_session.fishing.duplicate(true)
+
+
+func get_total_fishing_sessions() -> int:
+	var total: int = 0
+	for session: SessionStatistics in _session_statistics_history:
+		total += session.fishing.total_fishing_sessions
+	return total
+
+#endregion
+
+#region Cooking
+## Adds the details of a cooking session to the statistics.
+func add_cooking_session() -> void:
+	_current_session.cooking.total_cooking_sessions += 1
+
+
+## Returns a copy of the current fishing statistics.
+func get_current_cooking_statistics() -> CookingStatistics:
+	return _current_session.cooking.duplicate(true)
+
+
+func get_total_cooking_sessions() -> int:
+	var total: int = 0
+	for session: SessionStatistics in _session_statistics_history:
+		total += session.cooking.total_cooking_sessions
+	return total
+
+#endregion
+
+#region Archery
+## Adds the details of an archery session to the statistics.
+func add_archery_session(shots: int, hits : int, friendly_fire : int) -> void:
+	_current_session.archery.total_archery_sessions += 1
+	_current_session.archery.shots += shots
+	_current_session.archery.hits += hits
+	_current_session.archery.misses += (shots - hits - friendly_fire)
+	_current_session.archery.friendly_fire += friendly_fire
+
+
+## Returns a copy of the current fishing statistics.
+func get_current_archery_statistics() -> ArcheryStatistics:
+	return _current_session.archery.duplicate(true)
+
+
+func get_total_archery_sessions() -> int:
+	var total: int = 0
+	for session: SessionStatistics in _session_statistics_history:
+		total += session.archery.total_archery_sessions
+	return total
+
 #endregion

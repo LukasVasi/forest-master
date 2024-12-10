@@ -1,4 +1,6 @@
-[gd_scene load_steps=11 format=4 uid="uid://bg5ho2o5jcc5d"]
+[gd_scene load_steps=12 format=4 uid="uid://bg5ho2o5jcc5d"]
+
+[ext_resource type="Script" path="res://scripts/combat/creature_hitbox.gd" id="1_2e6bn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jeuri"]
 resource_name = "M_Body_Green.008"
@@ -221,10 +223,11 @@ libraries = {
 "": SubResource("AnimationLibrary_jmf54")
 }
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["CreatureHitbox"]]
 transform = Transform3D(0.993416, 0, 0, 0, 0.976131, -0.184512, 0, 0.184512, 0.976131, 0, 0.0247302, -0.223217)
 collision_layer = 2
 collision_mask = 70
+script = ExtResource("1_2e6bn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 0.991067, 0.133364, 0, -0.133364, 0.991067, 0, 0.0173906, 0.226943)
