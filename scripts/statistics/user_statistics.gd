@@ -7,6 +7,9 @@ extends Resource
 var _current_session : SessionStatistics
 
 #region Session management
+func has_previous_session() -> bool:
+	return _session_statistics_history.size() > 0
+
 func start_session() -> void:
 	# New session if no history
 	if _session_statistics_history.is_empty():

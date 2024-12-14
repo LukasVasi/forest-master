@@ -32,6 +32,10 @@ func save() -> void:
 	ResourceSaver.save(user_statistics, STATISTICS_FILE_NAME)
 
 
+func first_time_playing() -> bool:
+	return not user_statistics.has_previous_session()
+
+
 #region Archery
 
 func start_archery_session() -> void:

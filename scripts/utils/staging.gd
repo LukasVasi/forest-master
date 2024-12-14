@@ -64,6 +64,8 @@ signal xr_ended
 ## Main scene file
 @export_file('*.tscn') var main_menu_scene : String
 
+@export_file('*.tscn') var basics_tutorial_scene : String
+
 ## If true, the player is prompted to continue
 @export var prompt_for_continue : bool = true
 
@@ -95,8 +97,11 @@ func _ready() -> void:
 	if xr_camera:
 		$LoadingScreen.set_camera(xr_camera)
 	
-	# Start loading the main menu scene
-	load_scene(main_menu_scene)
+	if StatisticsManager.first_time_playing():
+		load_scene(basics_tutorial_scene)
+	else:
+		# Start loading the main menu scene
+		load_scene(main_menu_scene)
 
 
 # Verifies our staging has a valid configuration.

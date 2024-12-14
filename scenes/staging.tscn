@@ -12,6 +12,7 @@
 process_mode = 3
 script = ExtResource("1_mfp3y")
 main_menu_scene = "res://scenes/main_menu.tscn"
+basics_tutorial_scene = "res://scenes/tutorials/basics_tutorial.tscn"
 
 [node name="Fade" parent="." instance=ExtResource("2_qxpur")]
 
