@@ -53,12 +53,3 @@ pivot_offset = Vector2(400, 400)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("4_78ksv")
-
-[node name="Label" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = 207.0
-offset_top = 127.0
-offset_right = 547.0
-offset_bottom = 215.0
-theme_override_font_sizes/font_size = 64
-text = "DIRECTION"

@@ -26,15 +26,12 @@ func _update_direction() -> void:
 		FishingManager.FishDirection.Right:
 			_fish_direction_texture.rotation = deg_to_rad(90)
 			_fish_direction_texture.flip_v = false
-			$Control/Label.text = "RIGHT"
 		FishingManager.FishDirection.Left:
 			_fish_direction_texture.flip_v = true
 			_fish_direction_texture.rotation = deg_to_rad(90)
-			$Control/Label.text = "LEFT"
 		FishingManager.FishDirection.Forward:
 			_fish_direction_texture.flip_v = false
 			_fish_direction_texture.rotation = 0
-			$Control/Label.text = "FORWARD"
 
 
 func _set_tension_ratio(new_tension_ratio: float) -> void:

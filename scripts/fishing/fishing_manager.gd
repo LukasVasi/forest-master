@@ -79,6 +79,10 @@ var can_catch: bool = false
 
 var trial_number: int = 0
 
+@export_group("Tutorial")
+
+@export var ghost_fishing_rod : GhostFishingRod
+
 #region Timers
 
 @onready var _trial_timer: Timer = get_node("TrialTimer")
@@ -133,6 +137,13 @@ func _process(_delta: float) -> void:
 	if state != State.Sleeping:
 		var tension_ration: float = _fishing_rod.get_tension_ratio() if state == State.Reeling else -1.0
 		_float_ui_viewport.update(_fish_direction, tension_ration, _fishing_rod.fishing_float.global_position, _player.global_position)
+	
+	if (
+			state == State.Reeling and 
+			is_instance_valid(ghost_fishing_rod) 
+			and _fishing_rod.fishing_float.distance_to_target < _fishing_rod.float_reset_distance + 0.2
+	):
+		ghost_fishing_rod.visualize(FishDirection.Forward)
 
 
 # TODO: refactor
@@ -308,6 +319,10 @@ func _on_trial_timer_timeout() -> void:
 	
 	_float_ui_viewport.visible = true
 	_fishing_rod.fishing_float.plunge()
+	
+	if is_instance_valid(ghost_fishing_rod):
+		ghost_fishing_rod.visualize(_fish_direction)
+	
 	can_catch = true
 	_catch_timer.start()
 
