@@ -1,0 +1,14 @@
+[gd_resource type="CylinderMesh" load_steps=2 format=3 uid="uid://cg631twgeb1tx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hwd5t"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(0, 0.737255, 0.521569, 0.392157)
+point_size = 4.0
+
+[resource]
+material = SubResource("StandardMaterial3D_hwd5t")
+height = 0.5
+cap_top = false
+cap_bottom = false

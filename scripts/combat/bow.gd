@@ -15,6 +15,8 @@ const FIRE_FACTOR = 100
 
 @onready var _arrow_snap_zone : PhysicalSnapZone = _pull_pivot.get_node("ArrowSnapZone")
 
+@onready var _audio : AudioStreamPlayer3D = get_node("AudioStreamPlayer3D")
+
 func _ready() -> void:
 	super()
 	
@@ -33,7 +35,7 @@ func _process(_delta: float) -> void:
 		var pull_position: Vector3 = _pull_pick.global_position * global_transform
 		
 		# Move our pull pivot (the snap zone and handle origin) along the z axis
-		_pull_pivot.position.z = clamp(pull_position.z, _pull_pivot_org_position.z, 0.5)
+		_pull_pivot.position.z = clampf(pull_position.z, _pull_pivot_org_position.z, 0.5)
 		
 		# Adjust our bone poses
 		var pulled_back: float = _pull_pivot.position.z - _pull_pivot_org_position.z
@@ -78,6 +80,8 @@ func _on_pull_pick_dropped(_pickable: Variant) -> void:
 		
 		# Give it a linear velocity
 		arrow.linear_velocity = transform.basis * Vector3(0.0, 0.0, -1 * pulled_back) * FIRE_FACTOR
+		
+		_audio.play()
 		
 		StatisticsManager.report_archery_shot()
 		

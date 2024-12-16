@@ -1,10 +1,10 @@
-[gd_scene load_steps=64 format=4 uid="uid://dpsib5iueaosj"]
+[gd_scene load_steps=67 format=4 uid="uid://dpsib5iueaosj"]
 
 [ext_resource type="Script" path="res://scripts/utils/scene_base.gd" id="1_hxedj"]
 [ext_resource type="PackedScene" uid="uid://bsotifvyxaf5u" path="res://scenes/player/player.tscn" id="2_w8p1u"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="3_rptlx"]
 [ext_resource type="PackedScene" uid="uid://dqmibi4ahont0" path="res://scenes/ui/tutorials/basics_tutorial_ui.tscn" id="4_ulnd5"]
-[ext_resource type="Material" uid="uid://nuogvh1u6wye" path="res://resources/highlight_material.tres" id="5_1w76w"]
+[ext_resource type="CylinderMesh" uid="uid://cg631twgeb1tx" path="res://resources/tutorial_location_mesh.tres" id="5_elxhj"]
 [ext_resource type="PackedScene" uid="uid://ces1enrushk7a" path="res://scenes/utils/pause_menu_container.tscn" id="5_fl1eh"]
 [ext_resource type="PackedScene" uid="uid://cfdglxxc6feb" path="res://scenes/testing/heavy_test_cube.tscn" id="6_5hxd1"]
 [ext_resource type="PackedScene" uid="uid://d1df0epcleg23" path="res://scenes/fishing/dock.tscn" id="6_d6x8y"]
@@ -33,12 +33,23 @@ transparency = 1
 shading_mode = 0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_gaexo"]
-height = 0.1
+height = 0.5
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_keyip"]
-material = ExtResource("5_1w76w")
-flip_faces = true
-height = 0.1
+[sub_resource type="QuadMesh" id="QuadMesh_7w7cv"]
+resource_local_to_scene = true
+size = Vector2(0.64, 0.72)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_gknrw"]
+viewport_path = NodePath("Viewport2Din3D/Viewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o0krr"]
+transparency = 1
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_gknrw")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dgraq"]
+resource_local_to_scene = true
+size = Vector3(0.64, 0.72, 0.02)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vewt5"]
 size = Vector3(40, 8, 40)
@@ -523,7 +534,7 @@ material = SubResource("StandardMaterial3D_7a3av")
 scene_properties_keys = PackedStringArray("basics_tutorial_ui.gd")
 
 [node name="MovementTest1" type="Area3D" parent="Tutorial"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.29867, 0.876307, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.29867, 1.0173, 0)
 visible = false
 collision_mask = 524288
 
@@ -531,10 +542,10 @@ collision_mask = 524288
 shape = SubResource("CylinderShape3D_gaexo")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Tutorial/MovementTest1"]
-mesh = SubResource("CylinderMesh_keyip")
+mesh = ExtResource("5_elxhj")
 
 [node name="MovementTest2" type="Area3D" parent="Tutorial"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.86186, 0.705401, -1.48528)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.48223, 0.854628, -1.87409)
 visible = false
 collision_mask = 524288
 
@@ -542,10 +553,10 @@ collision_mask = 524288
 shape = SubResource("CylinderShape3D_gaexo")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Tutorial/MovementTest2"]
-mesh = SubResource("CylinderMesh_keyip")
+mesh = ExtResource("5_elxhj")
 
 [node name="MovementTest3" type="Area3D" parent="Tutorial"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.67058, 0.698221, -4.24454)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.61385, 0.847923, -3.40063)
 visible = false
 collision_mask = 524288
 
@@ -553,14 +564,14 @@ collision_mask = 524288
 shape = SubResource("CylinderShape3D_gaexo")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Tutorial/MovementTest3"]
-mesh = SubResource("CylinderMesh_keyip")
+mesh = ExtResource("5_elxhj")
 
 [node name="TestCube" parent="Tutorial" instance=ExtResource("6_5hxd1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3139, 1.51249, -5.04344)
+transform = Transform3D(0.893418, 0, 0.449225, 0, 1, 0, -0.449225, 0, 0.893418, -2.75564, 1.51249, -5.0368)
 mass = 1.0
 
 [node name="DropTest" type="Area3D" parent="Tutorial"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.65102, 1.44297, -5.65544)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.8927, 1.4863, -5.50709)
 visible = false
 collision_mask = 4
 
@@ -568,11 +579,22 @@ collision_mask = 4
 shape = SubResource("CylinderShape3D_gaexo")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Tutorial/DropTest"]
-mesh = SubResource("CylinderMesh_keyip")
+mesh = ExtResource("5_elxhj")
 
 [node name="Utils" type="Node" parent="."]
 
 [node name="PickablePauseMenuViewport" parent="Utils" instance=ExtResource("5_fl1eh")]
+
+[node name="Viewport2Din3D" parent="Utils/PickablePauseMenuViewport" index="0"]
+scene_properties_keys = PackedStringArray("pause_menu.gd", "statistics_enabled")
+statistics_enabled = false
+
+[node name="Screen" parent="Utils/PickablePauseMenuViewport/Viewport2Din3D" index="1"]
+mesh = SubResource("QuadMesh_7w7cv")
+surface_material_override/0 = SubResource("StandardMaterial3D_o0krr")
+
+[node name="CollisionShape3D" parent="Utils/PickablePauseMenuViewport/Viewport2Din3D/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_dgraq")
 
 [node name="Fishing" type="Node" parent="." groups=["fishing"]]
 
@@ -1881,6 +1903,9 @@ transform = Transform3D(0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, -5.68596, 0.487846, 
 [node name="Log" parent="Clutter" instance=ExtResource("31_8pwi2")]
 transform = Transform3D(0.00955997, -0.484197, -0.354206, 0.599924, 0.00758442, 0.00582402, -0.000222549, -0.354254, 0.484256, -3.22135, 0.990693, 6.78666)
 
+[node name="Log2" parent="Clutter" instance=ExtResource("31_8pwi2")]
+transform = Transform3D(0.00744708, -0.141324, -0.583071, 0.598105, -0.043993, 0.0183021, -0.0470627, -0.581457, 0.140332, 4.94263, 1.2806, -0.885331)
+
 [node name="LightmapGI" type="LightmapGI" parent="."]
 bounces = 4
 use_denoiser = false
@@ -1899,9 +1924,13 @@ shadow_opacity = 0.8
 shadow_blur = 0.6
 directional_shadow_mode = 0
 
-[node name="CinematicView" parent="." instance=ExtResource("34_q0v04")]
+[node name="CinematicView" parent="." node_paths=PackedStringArray("xr_camera") instance=ExtResource("34_q0v04")]
 process_mode = 3
 enabled = false
+xr_camera = NodePath("../XROrigin3D/XRCamera3D")
 
 [node name="Rock_table" parent="." instance=ExtResource("35_hjl3e")]
 transform = Transform3D(-1.21918, 0, -0.443855, 0, 1, 0, 0.490106, 0, -1.10413, -2.435, 0.492, -5.525)
+
+[editable path="XROrigin3D"]
+[editable path="Utils/PickablePauseMenuViewport"]

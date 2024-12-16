@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dvh5j2oqb2fj8"]
+[gd_scene load_steps=4 format=3 uid="uid://dvh5j2oqb2fj8"]
 
 [ext_resource type="Theme" uid="uid://vq7t843uek2d" path="res://ui/ui_theme.tres" id="1_gx88u"]
 [ext_resource type="Script" path="res://scripts/ui/tutorial/archery_tutorial_ui.gd" id="2_mhkxj"]
+[ext_resource type="AudioStream" uid="uid://yd4p56lq8lw2" path="res://sounds/complete_sound.mp3" id="3_rh87k"]
 
 [node name="ArcheryTutorialUI" type="Control"]
 layout_mode = 3
@@ -62,6 +63,10 @@ offset_right = 64.0
 grow_vertical = 0
 theme_override_font_sizes/font_size = 24
 text = "Show"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_rh87k")
+bus = &"SFX"
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/HideButton" to="." method="_on_hide_button_pressed"]
 [connection signal="pressed" from="ShowButton" to="." method="_on_show_button_pressed"]

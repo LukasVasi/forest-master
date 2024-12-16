@@ -1,6 +1,12 @@
 class_name PauseMenu
 extends Control
 
+
+## Flag for enabling the statistics ui - disabled in tutorials.
+@export var statistics_enabled : bool = true
+
+@export var statistics_button : Button
+
 @onready var _pause_menu_ui : VBoxContainer = get_node("PanelContainer/PauseMenuUI")
 @onready var _statistics_ui : VBoxContainer = get_node("PanelContainer/StatisticsUI")
 @onready var _settings_ui : SettingsUI = get_node("PanelContainer/SettingsUI")
@@ -20,6 +26,8 @@ extends Control
 func _ready() -> void:
 	# Hide all the UIs
 	_hide_all()
+	
+	statistics_button.disabled = not statistics_enabled
 	
 	# Connect to pause manager
 	PauseManager.pause_state_changed.connect(_on_pause_state_changed)

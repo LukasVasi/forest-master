@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=4 uid="uid://dmxpqd1x0hh6v"]
+[gd_scene load_steps=67 format=4 uid="uid://dmxpqd1x0hh6v"]
 
 [ext_resource type="Script" path="res://scripts/utils/scene_base.gd" id="1_atsyi"]
 [ext_resource type="PackedScene" uid="uid://bsotifvyxaf5u" path="res://scenes/player/player.tscn" id="2_idnqr"]
@@ -35,6 +35,22 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5e85n"]
 transparency = 1
 shading_mode = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_0q4oj"]
+resource_local_to_scene = true
+size = Vector2(0.64, 0.72)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_p7wp6"]
+viewport_path = NodePath("Viewport2Din3D/Viewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5thct"]
+transparency = 1
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_p7wp6")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_thtpp"]
+resource_local_to_scene = true
+size = Vector3(0.64, 0.72, 0.02)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vewt5"]
 size = Vector3(40, 8, 40)
@@ -411,6 +427,17 @@ scene_properties_keys = PackedStringArray("cooking_tutorial_ui.gd")
 [node name="Utils" type="Node" parent="."]
 
 [node name="PickablePauseMenuViewport" parent="Utils" instance=ExtResource("5_gcg58")]
+
+[node name="Viewport2Din3D" parent="Utils/PickablePauseMenuViewport" index="0"]
+scene_properties_keys = PackedStringArray("pause_menu.gd", "statistics_enabled")
+statistics_enabled = false
+
+[node name="Screen" parent="Utils/PickablePauseMenuViewport/Viewport2Din3D" index="1"]
+mesh = SubResource("QuadMesh_0q4oj")
+surface_material_override/0 = SubResource("StandardMaterial3D_5thct")
+
+[node name="CollisionShape3D" parent="Utils/PickablePauseMenuViewport/Viewport2Din3D/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_thtpp")
 
 [node name="Cooking" type="Node" parent="."]
 
@@ -1780,4 +1807,5 @@ xr_camera = NodePath("../XROrigin3D/XRCamera3D")
 transform = Transform3D(-1.21918, 0, -0.443855, 0, 1, 0, 0.490106, 0, -1.10413, -2.435, 0.492, -5.525)
 
 [editable path="XROrigin3D"]
+[editable path="Utils/PickablePauseMenuViewport"]
 [editable path="Fishing/Bucket"]

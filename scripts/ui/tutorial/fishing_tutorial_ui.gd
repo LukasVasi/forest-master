@@ -5,6 +5,7 @@ extends Control
 @onready var _tutorial_content_label : RichTextLabel = get_node("PanelContainer/VBoxContainer/TutorialContentLabel")
 @onready var _fishing_rod : FishingRod = get_tree().get_first_node_in_group("fishing_rod")
 @onready var _fishing : FishingManager = get_tree().get_first_node_in_group("fishing")
+@onready var _audio : AudioStreamPlayer = get_node("AudioStreamPlayer")
 
 ## The text contents of the tutorial. Key is stage name. Value is the text content.
 var _contents : TutorialContent = ResourceLoader.load("res://scripts/tutorial_content/fishing_tutorial_content.tres")
@@ -25,6 +26,7 @@ func _ready() -> void:
 func _on_fishing_rod_picked_up(_pickable: PhysicalPickable) -> void:
 	# Check if picked up by hand and not snap zone
 	if is_instance_valid(_fishing_rod.get_picked_up_by_hand()):
+		_audio.play()
 		_tutorial_content_label.text = _contents.contents["cast_fishing_rod"]
 
 
@@ -33,15 +35,18 @@ func _on_fishing_rod_dropped(_pickable: PhysicalPickable) -> void:
 
 
 func _on_float_entered_water() -> void:
+	_audio.play()
 	_tutorial_content_label.text = _contents.contents["pass_trials"]
 
 
 func _on_fishing_state_changed(new_state : FishingManager.State) -> void:
 	if new_state == FishingManager.State.Reeling:
+		_audio.play()
 		_tutorial_content_label.text = _contents.contents["reeling"]
 
 
 func _on_fish_caught(fish : Fish) -> void:
+	_audio.play()
 	_tutorial_content_label.text = _contents.contents["catch_fish"]
 	if is_instance_valid(_fish):
 		_fish.stored.disconnect(_on_fish_stored)
@@ -50,6 +55,7 @@ func _on_fish_caught(fish : Fish) -> void:
 
 
 func _on_fish_stored() -> void:
+	_audio.play()
 	_tutorial_content_label.text = _contents.contents["finished"]
 	
 	# Disconnect all used signals

@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=4 uid="uid://dk6ie5mrqdj40"]
+[gd_scene load_steps=70 format=4 uid="uid://dk6ie5mrqdj40"]
 
 [ext_resource type="Script" path="res://scripts/utils/scene_base.gd" id="1_1jvhe"]
 [ext_resource type="PackedScene" uid="uid://bat7rftfj22pg" path="res://scenes/player/main_menu_player.tscn" id="2_7muxf"]
@@ -37,6 +37,22 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e05rm"]
 transparency = 1
 shading_mode = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_tcy78"]
+resource_local_to_scene = true
+size = Vector2(0.64, 0.72)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_41xqt"]
+viewport_path = NodePath("Viewport2Din3D/Viewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_706a2"]
+transparency = 1
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_41xqt")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ob8w7"]
+resource_local_to_scene = true
+size = Vector3(0.64, 0.72, 0.02)
 
 [sub_resource type="Curve3D" id="Curve3D_k0is2"]
 _data = {
@@ -441,8 +457,8 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0)
 }
 
-[sub_resource type="Animation" id="Animation_uvmpp"]
-resource_name = "yank_right"
+[sub_resource type="Animation" id="Animation_irodl"]
+resource_name = "yank_forward"
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -451,7 +467,7 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.4, -0.47, 0, 0.25, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, 0, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 0.5)
 }
 tracks/1/type = "bezier"
@@ -462,7 +478,7 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.2, -0.47, 0, 0.25, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.3, -0.47, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 0.5)
 }
 tracks/2/type = "bezier"
@@ -484,7 +500,7 @@ tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.174533, -0.48, 0, 0.25, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.4, -0.47, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 0.5)
 }
 tracks/4/type = "bezier"
@@ -495,7 +511,7 @@ tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -0.523599, -0.48, 0, 0.25, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, 0, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 0.5)
 }
 tracks/5/type = "bezier"
@@ -506,7 +522,7 @@ tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.48, 0, 0.25, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 0.5)
 }
 
@@ -579,8 +595,8 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.5)
 }
 
-[sub_resource type="Animation" id="Animation_irodl"]
-resource_name = "yank_forward"
+[sub_resource type="Animation" id="Animation_uvmpp"]
+resource_name = "yank_right"
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -589,7 +605,7 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, 0, 0, 0.25, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.4, -0.47, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 0.5)
 }
 tracks/1/type = "bezier"
@@ -600,7 +616,7 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.3, -0.47, 0, 0.25, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.2, -0.47, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 0.5)
 }
 tracks/2/type = "bezier"
@@ -622,7 +638,7 @@ tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.4, -0.47, 0, 0.25, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.174533, -0.48, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 0.5)
 }
 tracks/4/type = "bezier"
@@ -633,7 +649,7 @@ tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, 0, 0, 0.25, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -0.523599, -0.48, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 0.5)
 }
 tracks/5/type = "bezier"
@@ -644,7 +660,7 @@ tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.48, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 0.5)
 }
 
@@ -677,6 +693,17 @@ scene_properties_keys = PackedStringArray("fishing_tutorial_ui.gd")
 [node name="Utils" type="Node" parent="."]
 
 [node name="PickablePauseMenuViewport" parent="Utils" instance=ExtResource("2_pa8eg")]
+
+[node name="Viewport2Din3D" parent="Utils/PickablePauseMenuViewport" index="0"]
+scene_properties_keys = PackedStringArray("pause_menu.gd", "statistics_enabled")
+statistics_enabled = false
+
+[node name="Screen" parent="Utils/PickablePauseMenuViewport/Viewport2Din3D" index="1"]
+mesh = SubResource("QuadMesh_tcy78")
+surface_material_override/0 = SubResource("StandardMaterial3D_706a2")
+
+[node name="CollisionShape3D" parent="Utils/PickablePauseMenuViewport/Viewport2Din3D/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_ob8w7")
 
 [node name="Fishing" parent="." node_paths=PackedStringArray("ghost_fishing_rod") instance=ExtResource("4_5e7tp")]
 interest_loss_on_fail = 0.0
@@ -713,7 +740,7 @@ transform = Transform3D(-0.113004, 0, 0.0403744, 0, 0.12, 0, -0.0403744, 0, -0.1
 curve = SubResource("Curve3D_k0is2")
 
 [node name="MockFish1" parent="Fishing/MockFishes/MockFishPath1" instance=ExtResource("9_5fxlu")]
-transform = Transform3D(-0.961927, -0.00266089, 0.273209, 0, 0.999873, 0.00973934, -0.273221, 0.00936818, -0.961885, 17.8061, -1.12253, 13.4726)
+transform = Transform3D(-0.961927, -0.00266089, 0.273209, 0, 0.999873, 0.00973934, -0.273221, 0.00936819, -0.961885, 17.8061, -1.12253, 13.4726)
 progress = 39.4198
 rotation_mode = 2
 use_model_front = true
@@ -2019,7 +2046,6 @@ transform = Transform3D(-1.21918, 0, -0.443855, 0, 1, 0, 0.490106, 0, -1.10413, 
 [node name="Node3D" type="Node3D" parent="."]
 
 [node name="GhostFishingRod" type="MeshInstance3D" parent="Node3D" node_paths=PackedStringArray("fishing_rod") groups=["ghost_fishing_rod"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = ExtResource("13_05wp4")
 skeleton = NodePath("../../Fishing/FishingRod")
 surface_material_override/0 = SubResource("StandardMaterial3D_5v6qj")
@@ -2032,3 +2058,4 @@ libraries = {
 }
 
 [editable path="XROrigin3D"]
+[editable path="Utils/PickablePauseMenuViewport"]

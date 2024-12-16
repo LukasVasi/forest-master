@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://482xli6khdjt"]
+[gd_scene load_steps=31 format=4 uid="uid://482xli6khdjt"]
 
 [ext_resource type="Script" path="res://scripts/object_interaction/physical_pickable.gd" id="1_6crs3"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="2_tawm8"]
@@ -170,13 +170,8 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ndb5k")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rmj4k"]
-transparency = 1
-shading_mode = 0
-albedo_color = Color(0.898039, 0.772549, 0, 0.588235)
-
 [sub_resource type="CylinderMesh" id="CylinderMesh_hyuiw"]
-material = SubResource("StandardMaterial3D_rmj4k")
+material = ExtResource("7_8kx1u")
 flip_faces = true
 top_radius = 0.26
 bottom_radius = 0.22
@@ -244,6 +239,7 @@ transform = Transform3D(-3.66595e-08, 2.38069e-08, -1, 0.544639, 0.838671, 0, 0.
 script = ExtResource("3_juv6h")
 
 [node name="XRToolsHighlightVisible" type="Node3D" parent="Handle"]
+visible = false
 script = ExtResource("7_jphvn")
 
 [node name="HandleHighlightMesh" type="MeshInstance3D" parent="Handle/XRToolsHighlightVisible"]
@@ -319,6 +315,7 @@ angular_limit/upper = 1.91986
 angular_limit/lower = -1.91986
 
 [node name="XRToolsHighlightVisible" type="Node3D" parent="Bucket"]
+visible = false
 script = ExtResource("7_jphvn")
 
 [node name="HighlightMesh" type="MeshInstance3D" parent="Bucket/XRToolsHighlightVisible"]

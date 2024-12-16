@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://0a3edbceqgym" path="res://scenes/object_interaction/physical_grab_point_right.tscn" id="12_qtto4"]
 [ext_resource type="Animation" uid="uid://daqddcrbpam0c" path="res://addons/godot-xr-tools/hands/animations/right/Grip 1.res" id="13_7mts3"]
 [ext_resource type="Material" uid="uid://nuogvh1u6wye" path="res://resources/highlight_material.tres" id="14_ryihr"]
+[ext_resource type="AudioStream" uid="uid://dfr8nc17mheet" path="res://sounds/bow_shot.mp3" id="15_fbvin"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cxhhj"]
 margin = 0.005
@@ -100,13 +101,6 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0urnp"]
-shading_mode = 0
-albedo_color = Color(0.831373, 0.831373, 0, 1)
-disable_receive_shadows = true
-grow = true
-grow_amount = 0.002
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_gy7p7"]
 radius = 0.08
 
@@ -183,7 +177,7 @@ script = ExtResource("7_m761g")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="XRToolsHighlightVisible"]
 transform = Transform3D(0.088, 0, 0, 0, 0.088, 0, 0, 0, 0.088, 0, 0, 0)
 mesh = SubResource("ArrayMesh_3h55a")
-surface_material_override/0 = SubResource("StandardMaterial3D_0urnp")
+surface_material_override/0 = ExtResource("14_ryihr")
 
 [node name="PullPivot" type="Node3D" parent="."]
 
@@ -227,6 +221,10 @@ script = ExtResource("7_m761g")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="PullPivot/HandleOrigin/PullPick/XRToolsHighlightVisible"]
 mesh = SubResource("BoxMesh_d86p8")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("15_fbvin")
+volume_db = 10.0
 
 [connection signal="dropped" from="." to="." method="_on_bow_dropped"]
 [connection signal="picked_up" from="." to="." method="_on_bow_picked_up"]

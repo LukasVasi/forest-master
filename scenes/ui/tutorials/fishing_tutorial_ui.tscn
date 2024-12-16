@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b3fehxu0naanp"]
+[gd_scene load_steps=4 format=3 uid="uid://b3fehxu0naanp"]
 
 [ext_resource type="Theme" uid="uid://vq7t843uek2d" path="res://ui/ui_theme.tres" id="1_iraoh"]
 [ext_resource type="Script" path="res://scripts/ui/tutorial/fishing_tutorial_ui.gd" id="2_f6m44"]
+[ext_resource type="AudioStream" uid="uid://yd4p56lq8lw2" path="res://sounds/complete_sound.mp3" id="3_dfo1y"]
 
 [node name="FishingTutorialUI" type="Control"]
 layout_mode = 3
@@ -42,3 +43,7 @@ theme_override_font_sizes/normal_font_size = 24
 text = "Welcome to the fishing tutorial!
 To start fishing, you need to first pick cast the fishing float. You can cast it by clicking the TRIGGER button on the controller that corresponds to the hand that has picked up the fishing rod."
 fit_content = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_dfo1y")
+bus = &"SFX"
