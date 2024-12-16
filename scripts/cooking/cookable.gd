@@ -17,14 +17,9 @@ var is_cooking : bool = false :
 			_cooking_steam.emitting = true
 		else:
 			_cooking_steam.emitting = false
-
-var is_burning : bool = false : 
-	set(value):
-		is_burning = value
-		if is_burning:
-			_cooking_smoke.emitting = true
-		else:
 			_cooking_smoke.emitting = false
+
+var is_burning : bool = false
 
 var is_raw: bool = true
 var is_cooked : bool = false
@@ -61,12 +56,20 @@ func add_cooking_level(value: float) -> void:
 	
 	if rotation.z > 0: # right side
 		cooking_levels[0] = min(cooking_levels[0] + value, max_cooking_level)
+		if cooking_levels[0] >= max_cooking_level / 2:
+			_cooking_smoke.emitting = true
+		else:
+			_cooking_smoke.emitting = false
 		set_shader_cooking_level(0)
 		if is_burning:
 			cooking_levels[1] = min(cooking_levels[1] + value / 2, max_cooking_level)
 			set_shader_cooking_level(1)
 	else: # left side
 		cooking_levels[1] = min(cooking_levels[1] + value, max_cooking_level)
+		if cooking_levels[1] >= max_cooking_level / 2:
+			_cooking_smoke.emitting = true
+		else:
+			_cooking_smoke.emitting = false
 		set_shader_cooking_level(1)
 		if is_burning:
 			cooking_levels[0] = min(cooking_levels[0] + value / 2, max_cooking_level)
@@ -74,8 +77,8 @@ func add_cooking_level(value: float) -> void:
 	
 	if (
 			not is_cooked and 
-			(cooking_levels[0] > max_cooking_level / 2 and 
-			cooking_levels[1] > max_cooking_level / 2)
+			(cooking_levels[0] >= max_cooking_level / 2 and 
+			cooking_levels[1] >= max_cooking_level / 2)
 	):
 		is_cooked = true
 		StatisticsManager.report_cooking_fully_cooked()

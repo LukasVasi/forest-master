@@ -53,8 +53,12 @@ func _process(delta: float) -> void:
 	_update_skillet_heat(delta)
 	# Check if we are cooking
 	if _current_heat > 0.0:
-		if not _sound.playing and not _cookables_in_skillet.is_empty():
-			_sound.play()
+		if not _cookables_in_skillet.is_empty():
+			if not _sound.playing: 
+				_sound.play()
+		else:
+			if _sound.playing:
+				_sound.stop()
 		
 		# Determine if we are burning
 		if not _is_burning and _current_heat > 0.9:

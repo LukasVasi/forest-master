@@ -148,6 +148,8 @@ draw_pass_1 = SubResource("QuadMesh_4ml4n")
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Skillet"]
 transform = Transform3D(1.41498, 0, 0, 0, 1.41498, 0, 0, 0, 1.41498, -0.00606956, 1.11948, -0.00725168)
 stream = ExtResource("7_8277s")
+volume_db = -21.0
+max_distance = 5.0
 bus = &"SFX"
 parameters/looping = true
 

@@ -57,10 +57,9 @@ metadata/_tab_index = 0
 [node name="TabContainer" type="TabContainer" parent="TabContainer/Current session"]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 2
+current_tab = 0
 
 [node name="General" type="VBoxContainer" parent="TabContainer/Current session/TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -191,6 +190,7 @@ text = "0"
 horizontal_alignment = 2
 
 [node name="Cooking" type="VBoxContainer" parent="TabContainer/Current session/TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 

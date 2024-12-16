@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://ct2g57qsopix7"]
+[gd_scene load_steps=22 format=3 uid="uid://ct2g57qsopix7"]
 
 [ext_resource type="Script" path="res://scripts/fishing/fish.gd" id="2_5ko1w"]
 [ext_resource type="ArrayMesh" uid="uid://bkyrlc4d33862" path="res://models/fishing/fishes/fishes_Kuoja.res" id="2_naito"]
@@ -10,11 +10,12 @@
 [ext_resource type="Material" uid="uid://nuogvh1u6wye" path="res://resources/highlight_material.tres" id="8_01i1b"]
 [ext_resource type="Script" path="res://scripts/object_interaction/physical_grab_point_hand.gd" id="8_5rqtd"]
 [ext_resource type="PackedScene" uid="uid://7adcm63eh1yv" path="res://scenes/object_interaction/physical_grab_point_snap.tscn" id="9_r3nfb"]
+[ext_resource type="Script" path="res://scripts/utils/particle_positionator.gd" id="11_vayam"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_c3ga8"]
 points = PackedVector3Array(-0.00625783, -0.0560525, -0.0249126, 0, -0.0241467, -0.169021, 0.00625196, -0.0560525, -0.0249126, 0, -0.0243152, 0.06314, -0.007032, -0.0233885, 0.0594997, -0.0109615, -0.0222211, 0.0549287, -0.0181166, -0.0220887, 0.0359606, -0.0278465, -0.0132908, 0.0245742, -0.0299578, -0.0112448, 0.0183063, -0.00509072, -0.0125326, -0.155773, 0, 0.038389, -0.167132, 0.00508485, -0.0125326, -0.155773, 0.0299578, -0.0112448, 0.0183063, 0.0278406, -0.0132908, 0.0245742, 0.0181108, -0.0220887, 0.0359606, 0.0109556, -0.0222211, 0.0549287, 0.00702613, -0.0233885, 0.0594997, 0, -0.0132186, 0.0916606, -0.00616399, -0.0168172, 0.0756212, -0.00519042, -0.0119188, 0.0873086, -0.00618745, -0.00235067, 0.102992, -0.0115714, -0.00811561, 0.0796721, -0.00630475, 8.25524e-06, 0.103676, -0.0104805, 0.00456966, 0.0875002, -0.00916681, 0.00614629, 0.0917975, -0.0110201, 0.0134758, 0.0770719, -0.0129321, 0.0166532, 0.0648644, -0.0161226, 0.0264018, 0.0257238, -0.0174422, 0.027136, -0.00312524, -0.00466845, 0.0273406, -0.153474, 0.00466258, 0.0273406, -0.153474, 0, 0.0669008, -0.0369284, 0.0174363, 0.027136, -0.00312524, 0.0161167, 0.0264018, 0.0257238, 0.0129262, 0.0166532, 0.0648644, 0.0110084, 0.0134758, 0.0770719, 0.00916095, 0.00614629, 0.0917975, 0.0104747, 0.00456966, 0.0875002, 0.00629888, 8.25524e-06, 0.103676, 0.00618159, -0.00235067, 0.102992, 0.0115656, -0.00811561, 0.0796721, 0.00518456, -0.0119188, 0.0873086, 0.00615813, -0.0168172, 0.0756212, 0.00361863, -0.00255527, 0.106112, 0, -0.00279598, 0.107289, -0.0036245, -0.00255527, 0.106112, -0.00381804, 0.0020302, 0.108521, -0.00577691, 0.00578523, 0.102746, -0.00792346, 0.00808399, 0.0935218, -0.00669183, 0.0290135, 0.0583227, -0.00705546, 0.010804, 0.0926733, -0.00617572, 0.0142942, 0.0893341, -0.00881492, 0.0372818, 0.027585, 0, 0.0299643, 0.0597186, 0.00668597, 0.0290135, 0.0583227, 0.00880906, 0.0372818, 0.027585, 0.00616986, 0.0142942, 0.0893341, 0.00704959, 0.010804, 0.0926733, 0.00791759, 0.00808399, 0.0935218, 0.00577104, 0.00578523, 0.102746, 0.00381218, 0.0020302, 0.108521, 0, 0.00265604, 0.110601, 0, 0.0075785, 0.107125, -0.00227557, 0.00831265, 0.104634, -0.00490891, 0.0126815, 0.0946988, -0.00351307, 0.0161597, 0.0902099, 0, 0.0175438, 0.0902373, 0.0035072, 0.0161597, 0.0902099, 0.00490304, 0.0126815, 0.0946988, 0.00226971, 0.00831265, 0.104634, 0, 0.0142461, 0.0969159, -0.00451596, 0.0128018, 0.0949178, 0.00451009, 0.0128018, 0.0949178)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lwb1l"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wf41y"]
 render_priority = 0
 shader = ExtResource("3_pdpaq")
 shader_parameter/cooking_level = 0.0
@@ -26,7 +27,7 @@ shader_parameter/cooked_roughness = 0.8
 shader_parameter/base_albedo_texture = ExtResource("4_0x6tt")
 shader_parameter/base_roughness_texture = ExtResource("5_u0pti")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0qf3s"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y65qt"]
 render_priority = 0
 shader = ExtResource("3_pdpaq")
 shader_parameter/cooking_level = 0.0
@@ -42,23 +43,24 @@ shader_parameter/base_roughness_texture = ExtResource("5_u0pti")
 _data = [Vector2(0.00724638, 0), 0.0, 0.0, 0, 0, Vector2(0.26087, 0.868132), 0.0, 0.0, 0, 0, Vector2(1, 0.10989), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_pcnxt"]
+[sub_resource type="CurveTexture" id="CurveTexture_mgju6"]
 curve = SubResource("Curve_4nf6b")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bard3"]
 emission_shape = 1
 emission_sphere_radius = 0.2
-angle_max = 364.3
+angle_min = 1.07288e-05
+angle_max = 180.0
 direction = Vector3(0, 1, 0)
-spread = 6.506
-initial_velocity_min = 0.05
+spread = 6.5
+initial_velocity_min = 0.1
 initial_velocity_max = 1.0
 gravity = Vector3(0, 0, 0)
 scale_min = 0.0
-scale_curve = SubResource("CurveTexture_pcnxt")
+scale_curve = SubResource("CurveTexture_mgju6")
 collision_mode = 2
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w7exv"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0b5ku"]
 transparency = 1
 blend_mode = 1
 shading_mode = 0
@@ -71,10 +73,10 @@ particles_anim_v_frames = 5
 particles_anim_loop = true
 
 [sub_resource type="QuadMesh" id="QuadMesh_fcmt2"]
-material = SubResource("StandardMaterial3D_w7exv")
+material = SubResource("StandardMaterial3D_0b5ku")
 size = Vector2(0.1, 0.1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fsqae"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5s45p"]
 shading_mode = 0
 albedo_color = Color(0.114897, 0.114897, 0.114897, 1)
 billboard_mode = 3
@@ -84,7 +86,7 @@ particles_anim_v_frames = 5
 particles_anim_loop = true
 
 [sub_resource type="QuadMesh" id="QuadMesh_sr05m"]
-material = SubResource("StandardMaterial3D_fsqae")
+material = SubResource("StandardMaterial3D_5s45p")
 size = Vector2(0.1, 0.1)
 
 [node name="Kuoja" type="RigidBody3D" groups=["Cookable", "Fish"]]
@@ -102,8 +104,8 @@ shape = SubResource("ConvexPolygonShape3D_c3ga8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_naito")
-surface_material_override/0 = SubResource("ShaderMaterial_lwb1l")
-surface_material_override/1 = SubResource("ShaderMaterial_0qf3s")
+surface_material_override/0 = SubResource("ShaderMaterial_wf41y")
+surface_material_override/1 = SubResource("ShaderMaterial_y65qt")
 
 [node name="XRToolsHighlightVisible" type="Node3D" parent="."]
 script = ExtResource("3_pin84")
@@ -139,25 +141,30 @@ hand = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0367621, 0)
 
 [node name="CookingSteam" type="GPUParticles3D" parent="."]
-transform = Transform3D(1.26068, 0, 0, 0, 1.26068, -0.000352011, 0, 0.000352011, 1.26068, -0.0201379, 0.052687, -0.00422283)
+transform = Transform3D(1, 0, 0, 0, 1, -0.000279223, 0, 0.000279223, 1, 0, 0, 0)
+top_level = true
 layers = 256
 emitting = false
 amount = 10
-lifetime = 0.89
+lifetime = 0.9
 fixed_fps = 10
-visibility_aabb = AABB(-0.31305, 0.295432, -0.303142, 0.638795, 0.0429248, 0.606284)
+visibility_aabb = AABB(-0.5, -0.5, -0.5, 1, 2, 1)
 draw_order = 3
 process_material = SubResource("ParticleProcessMaterial_bard3")
 draw_pass_1 = SubResource("QuadMesh_fcmt2")
+script = ExtResource("11_vayam")
 
 [node name="CookingSmoke" type="GPUParticles3D" parent="."]
-transform = Transform3D(1.26068, 0, 0, 0, 1.26068, -0.000352011, 0, 0.000352011, 1.26068, -0.0201379, 0.052687, -0.00422283)
+transform = Transform3D(1, 0, 0, 0, 1, -0.000279223, 0, 0.000279223, 1, 0, 0, 0)
+top_level = true
 layers = 256
 emitting = false
-amount = 10
-lifetime = 0.89
+amount = 12
+lifetime = 0.9
 fixed_fps = 10
-visibility_aabb = AABB(-0.31305, 0.295432, -0.303142, 0.638795, 0.0429248, 0.606284)
+collision_base_size = 0.04
+visibility_aabb = AABB(-0.5, -0.5, -0.5, 1, 2, 1)
 draw_order = 3
 process_material = SubResource("ParticleProcessMaterial_bard3")
 draw_pass_1 = SubResource("QuadMesh_sr05m")
+script = ExtResource("11_vayam")
