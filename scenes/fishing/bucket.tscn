@@ -96,7 +96,7 @@ shadow_mesh = SubResource("ArrayMesh_cslsm")
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ueiya"]
 margin = 0.02
 height = 0.246655
-radius = 0.18
+radius = 0.16
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_jk1tv"]
 _surfaces = [{
@@ -173,9 +173,9 @@ shadow_mesh = SubResource("ArrayMesh_ndb5k")
 [sub_resource type="CylinderMesh" id="CylinderMesh_hyuiw"]
 material = ExtResource("7_8kx1u")
 flip_faces = true
-top_radius = 0.26
-bottom_radius = 0.22
-height = 0.5
+top_radius = 0.19
+bottom_radius = 0.18
+height = 0.3
 radial_segments = 16
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ub3g0"]
@@ -274,7 +274,7 @@ script = ExtResource("11_m0lc8")
 dispensed_scenes = Array[PackedScene]([ExtResource("8_26j02"), ExtResource("9_ehjeh"), ExtResource("10_ykq3w")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bucket/FishDispenser"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0288326, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0423746, 0)
 shape = SubResource("CylinderShape3D_ueiya")
 
 [node name="XRToolsHighlightVisible" type="Node3D" parent="Bucket/FishDispenser"]
@@ -282,7 +282,7 @@ visible = false
 script = ExtResource("7_jphvn")
 
 [node name="HighlightMesh" type="MeshInstance3D" parent="Bucket/FishDispenser/XRToolsHighlightVisible"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0848524, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0543671, 0)
 mesh = SubResource("CylinderMesh_hyuiw")
 
 [node name="WaterPourParticles" type="GPUParticles3D" parent="Bucket"]

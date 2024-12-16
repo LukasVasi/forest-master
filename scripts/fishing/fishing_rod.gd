@@ -114,10 +114,10 @@ func _process_rumbling() -> void:
 
 func pick_up(by: Node3D) -> PhysicalGrab:
 	_moved = true
-	_handle.enabled = true
 	var grab := super.pick_up(by) # Run the parent pick up function
 	if grab.hand: # enable velocity estimation if picked up by player
 		fishing_float.target.enabled = true
+		_handle.enabled = true
 	return grab
 
 
