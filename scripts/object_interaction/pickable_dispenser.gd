@@ -19,6 +19,10 @@ signal dispensed(pickable : Variant)
 ## The pickable object scenes that are used for instantiation
 @export var dispensed_scenes: Array[PackedScene] = []
 
+## Collision objects that are a part of the dispenser 
+## and should have a collision exception with dispensables.
+@export var collision_exceptions : Array[CollisionObject3D]
+
 # Dictionary of nodes requesting highlight
 var _highlight_requests : Dictionary = {}
 
@@ -87,6 +91,7 @@ func request_highlight(from: PhysicalHand, on: bool = true) -> void:
 func get_dispensable(by: Node3D) -> PhysicalPickable:
 	var dispensed_object: PhysicalPickable = _get_dispensable_instance()
 	if is_instance_valid(dispensed_object):
+		collision_exceptions.all(func(collision_object : CollisionObject3D) -> void: dispensed_object.add_collision_exception_with(collision_object))
 		add_child(dispensed_object)
 		dispensed_object.global_position = by.global_position
 		dispensed.emit(dispensed_object)

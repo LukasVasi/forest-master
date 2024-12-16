@@ -1790,7 +1790,6 @@ visible = false
 
 [node name="CinematicView" parent="." node_paths=PackedStringArray("xr_camera") instance=ExtResource("49_y4lgh")]
 process_mode = 3
-enabled = false
 xr_camera = NodePath("../XROrigin3D/XRCamera3D")
 
 [editable path="XROrigin3D"]

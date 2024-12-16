@@ -139,8 +139,9 @@ surface_material_override/1 = SubResource("StandardMaterial3D_r152g")
 surface_material_override/2 = SubResource("StandardMaterial3D_if5bf")
 surface_material_override/3 = SubResource("StandardMaterial3D_0msr4")
 
-[node name="ArrowDispenser" parent="." instance=ExtResource("2_x5fqr")]
+[node name="ArrowDispenser" parent="." node_paths=PackedStringArray("collision_exceptions") instance=ExtResource("2_x5fqr")]
 dispensed_scenes = Array[PackedScene]([ExtResource("1_03pyv")])
+collision_exceptions = [NodePath("..")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ArrowDispenser"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
