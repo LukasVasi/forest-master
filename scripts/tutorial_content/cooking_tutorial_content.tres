@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TutorialContent" load_steps=2 format=3 uid="uid://b3yotj5wdxeg0"]
+
+[ext_resource type="Script" path="res://scripts/tutorial_content/tutorial_content.gd" id="1_jmxwv"]
+
+[resource]
+script = ExtResource("1_jmxwv")
+contents = {
+"cooking": "Good job! Keep in mind that you will have to add more fuel to the fire as time goes by to stop it from going out. But now you can pick up some fish, pick up the skillet, position it above the fire, throw the fish in and cook. As you keep the skillet above the fire, its heat will increase. If the heat increses too much the fish will start burning. You goal is to cook the fish as fast as possible without burning it.",
+"finish": "Great job! You have cooked a fish and completed the fishing tutorial. You can keep practicing or go back to the main menu using the pause menu.",
+"fire": "Cool, next you'll need to start the fire. You can do this by picking up a piece of fire wood from the pile next to the tent and putting it into the campfire.",
+"fish": "Welcome to the cooking tutorial. To start cooking you will first need to catch some fish and bring them to the cooking area (I recommend using the bucket for this). For the sake of this tutorial the bucket is here and filled with an infinite amount of fish. Start by taking a fish out of the bucket."
+}

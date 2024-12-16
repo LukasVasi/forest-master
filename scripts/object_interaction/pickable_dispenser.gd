@@ -10,6 +10,8 @@ extends Area3D
 # Signal emitted when the highlight state changes
 signal highlight_updated(pickable: Variant, enable: Variant)
 
+signal dispensed(pickable : Variant)
+
 
 ## If true, the dispenser supports being picked up
 @export var enabled : bool = true
@@ -87,6 +89,7 @@ func get_dispensable(by: Node3D) -> PhysicalPickable:
 	if is_instance_valid(dispensed_object):
 		add_child(dispensed_object)
 		dispensed_object.global_position = by.global_position
+		dispensed.emit(dispensed_object)
 		return dispensed_object
 	else:
 		return null

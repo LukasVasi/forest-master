@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/ui/statistics_ui.gd" id="1_pfh15"]
 [ext_resource type="Theme" uid="uid://vq7t843uek2d" path="res://ui/ui_theme.tres" id="1_ylxyt"]
 
-[node name="StatisticsUI" type="VBoxContainer" node_paths=PackedStringArray("_current_fishing_goal", "_current_cooking_goal", "_current_archery_goal", "_current_archery_sessions", "_current_archery_shots", "_current_archery_misses", "_current_archery_hits", "_current_archery_friendly_fire")]
+[node name="StatisticsUI" type="VBoxContainer" node_paths=PackedStringArray("_current_fishing_goal", "_current_cooking_goal", "_current_archery_goal", "_current_archery_sessions", "_current_archery_shots", "_current_archery_misses", "_current_archery_hits", "_current_archery_friendly_fire", "_current_cooking_sessions", "_current_cooking_cooked_well", "_current_cooking_burned")]
 custom_minimum_size = Vector2(580, 660)
 anchors_preset = 8
 anchor_left = 0.5
@@ -28,6 +28,9 @@ _current_archery_shots = NodePath("TabContainer/Current session/TabContainer/Arc
 _current_archery_misses = NodePath("TabContainer/Current session/TabContainer/Archery/ShotsMissedHBox/ValueLabel")
 _current_archery_hits = NodePath("TabContainer/Current session/TabContainer/Archery/ShotsHitHBox/ValueLabel")
 _current_archery_friendly_fire = NodePath("TabContainer/Current session/TabContainer/Archery/FriendlyFireHBox/ValueLabel")
+_current_cooking_sessions = NodePath("TabContainer/Current session/TabContainer/Cooking/TotalCookingSessionsHBox/ValueLabel")
+_current_cooking_cooked_well = NodePath("TabContainer/Current session/TabContainer/Cooking/FishCookedWellHBox/ValueLabel")
+_current_cooking_burned = NodePath("TabContainer/Current session/TabContainer/Cooking/FishBurnedHBox/ValueLabel")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -54,9 +57,10 @@ metadata/_tab_index = 0
 [node name="TabContainer" type="TabContainer" parent="TabContainer/Current session"]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 0
+current_tab = 2
 
 [node name="General" type="VBoxContainer" parent="TabContainer/Current session/TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -187,7 +191,6 @@ text = "0"
 horizontal_alignment = 2
 
 [node name="Cooking" type="VBoxContainer" parent="TabContainer/Current session/TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
@@ -199,6 +202,32 @@ layout_mode = 2
 text = "Total cooking sessions: "
 
 [node name="ValueLabel" type="Label" parent="TabContainer/Current session/TabContainer/Cooking/TotalCookingSessionsHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="FishCookedWellHBox" type="HBoxContainer" parent="TabContainer/Current session/TabContainer/Cooking"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="TabContainer/Current session/TabContainer/Cooking/FishCookedWellHBox"]
+layout_mode = 2
+text = "Fish cooked to perfection: "
+
+[node name="ValueLabel" type="Label" parent="TabContainer/Current session/TabContainer/Cooking/FishCookedWellHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="FishBurnedHBox" type="HBoxContainer" parent="TabContainer/Current session/TabContainer/Cooking"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="TabContainer/Current session/TabContainer/Cooking/FishBurnedHBox"]
+layout_mode = 2
+text = "Fish burned: "
+
+[node name="ValueLabel" type="Label" parent="TabContainer/Current session/TabContainer/Cooking/FishBurnedHBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "0"

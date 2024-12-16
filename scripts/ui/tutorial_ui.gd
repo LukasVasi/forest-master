@@ -18,4 +18,4 @@ func _on_archery_tutorial_button_pressed() -> void:
 
 
 func _on_cooking_tutorial_button_pressed() -> void:
-	pass # Replace with function body.
+	_main_menu_ui.scene_base.load_scene("res://scenes/ui/tutorials/cooking_tutorial.tscn")

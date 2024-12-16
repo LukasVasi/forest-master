@@ -87,8 +87,13 @@ func get_total_fishing_sessions() -> int:
 
 #region Cooking
 ## Adds the details of a cooking session to the statistics.
-func add_cooking_session() -> void:
+func add_cooking_session(fully_cooked : int, burned : int) -> void:
+	if not is_instance_valid(_current_session):
+		return
+	
 	_current_session.cooking.total_cooking_sessions += 1
+	_current_session.cooking.fully_cooked += fully_cooked
+	_current_session.cooking.burned += burned
 
 
 ## Returns a copy of the current fishing statistics.
@@ -107,6 +112,9 @@ func get_total_cooking_sessions() -> int:
 #region Archery
 ## Adds the details of an archery session to the statistics.
 func add_archery_session(shots: int, hits : int, friendly_fire : int) -> void:
+	if not is_instance_valid(_current_session):
+		return
+	
 	_current_session.archery.total_archery_sessions += 1
 	_current_session.archery.shots += shots
 	_current_session.archery.hits += hits

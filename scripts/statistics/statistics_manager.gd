@@ -8,6 +8,8 @@ var user_statistics : UserStatistics = UserStatistics.new()
 
 var _archery_session : ArcherySession
 
+var _cooking_session : CookingSession
+
 #endregion
 
 func _ready() -> void:
@@ -70,5 +72,35 @@ class ArcherySession:
 	var shots : int = 0
 	var hits : int = 0
 	var friendly_fire : int = 0
+
+#endregion
+
+#region Cooking
+
+func start_cooking_session() -> void:
+	if not is_instance_valid(_cooking_session):
+		_cooking_session = CookingSession.new()
+
+
+func end_cooking_session() -> void:
+	if is_instance_valid(_cooking_session):
+		user_statistics.add_cooking_session(
+			_cooking_session.fully_cooked,
+			_cooking_session.burned
+			)
+		_cooking_session = null
+
+
+func report_cooking_fully_cooked() -> void:
+	_cooking_session.fully_cooked += 1
+
+
+func report_cooking_burned() -> void:
+	_cooking_session.burned += 1
+
+
+class CookingSession:
+	var fully_cooked : int = 0
+	var burned : int = 0
 
 #endregion

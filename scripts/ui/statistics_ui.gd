@@ -31,6 +31,14 @@ signal back_button_pressed
 
 #endregion
 
+#region Cooking
+
+@export var _current_cooking_sessions : Label
+@export var _current_cooking_cooked_well : Label
+@export var _current_cooking_burned : Label
+
+#endregion
+
 #endregion
 
 #region All time statistics
@@ -68,6 +76,12 @@ func _on_visibility_changed() -> void:
 		_current_archery_misses.text = str(archery_statistics.misses)
 		_current_archery_hits.text = str(archery_statistics.hits)
 		_current_archery_friendly_fire.text = str(archery_statistics.friendly_fire)
+		
+		var cooking_statistics : CookingStatistics = StatisticsManager.user_statistics.get_current_cooking_statistics()
+		_current_cooking_goal.button_pressed = cooking_statistics.total_cooking_sessions > 0
+		_current_cooking_sessions.text = str(cooking_statistics.total_cooking_sessions)
+		_current_cooking_cooked_well.text = str(cooking_statistics.fully_cooked - cooking_statistics.burned)
+		_current_cooking_burned.text = str(cooking_statistics.burned)
 		
 		_total_fishing_sessions.text = str(StatisticsManager.user_statistics.get_total_fishing_sessions())
 		_total_cooking_sessions.text = str(StatisticsManager.user_statistics.get_total_cooking_sessions())

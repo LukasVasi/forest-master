@@ -1,6 +1,8 @@
 class_name BucketDispenser
 extends PickableDispenser
 
+@export var infinite : bool = false
+
 @onready var mesh_material : StandardMaterial3D = get_node("../Bucket").get_active_material(0)
 @onready var pour_particles : GPUParticles3D = get_node("../WaterPourParticles")
 @onready var splash_particles : GPUParticles3D = get_node("../WaterSplashParticles")
@@ -28,14 +30,18 @@ func _process(_delta: float) -> void:
 
 ## Test if this object can dispense a pickup
 func can_pick_up(_by: Node3D) -> bool:
-	return _fish_queue.size() > 0
+	return infinite or _fish_queue.size() > 0
 
 
 ## Instantiate the scene with the last fish type
 func _get_dispensable_instance() -> Fish:
 	_enable_glow()
 	splash_particles.emitting = true
-	var fish_type: Fish.FishType = _fish_queue.pop_back()
+	var fish_type: Fish.FishType
+	if infinite:
+		fish_type = Fish.FishType.Raude
+	else:
+		fish_type = _fish_queue.pop_back()
 	# NOTE: very manual matching of type to index in the array of dispensed scenes
 	match fish_type:
 		Fish.FishType.Kuoja:

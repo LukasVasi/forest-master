@@ -7,8 +7,28 @@ extends PhysicalPickable
 @export var cooking_levels: Array[float] = [0.0, 0.0]
 
 @onready var _cookable_mesh: MeshInstance3D = get_node("MeshInstance3D")
+@onready var _cooking_steam : GPUParticles3D = get_node("CookingSteam")
+@onready var _cooking_smoke : GPUParticles3D = get_node("CookingSmoke")
+
+var is_cooking : bool = false : 
+	set(value):
+		is_cooking = value
+		if is_cooking:
+			_cooking_steam.emitting = true
+		else:
+			_cooking_steam.emitting = false
+
+var is_burning : bool = false : 
+	set(value):
+		is_burning = value
+		if is_burning:
+			_cooking_smoke.emitting = true
+		else:
+			_cooking_smoke.emitting = false
 
 var is_raw: bool = true
+var is_cooked : bool = false
+var is_burned : bool = false
 var _cooking_shader: Shader = preload("res://shaders/CookingShader.gdshader")
 
 
@@ -36,16 +56,37 @@ func _prepare_cooking_shader() -> void:
 			_cookable_mesh.set_surface_override_material(i, cookable_mat)
 
 
-# TODO: support for more than two sides?
 func add_cooking_level(value: float) -> void:
 	if is_raw: is_raw = false
 	
 	if rotation.z > 0: # right side
 		cooking_levels[0] = min(cooking_levels[0] + value, max_cooking_level)
 		set_shader_cooking_level(0)
+		if is_burning:
+			cooking_levels[1] = min(cooking_levels[1] + value / 2, max_cooking_level)
+			set_shader_cooking_level(1)
 	else: # left side
 		cooking_levels[1] = min(cooking_levels[1] + value, max_cooking_level)
 		set_shader_cooking_level(1)
+		if is_burning:
+			cooking_levels[0] = min(cooking_levels[0] + value / 2, max_cooking_level)
+			set_shader_cooking_level(0)
+	
+	if (
+			not is_cooked and 
+			(cooking_levels[0] > max_cooking_level / 2 and 
+			cooking_levels[1] > max_cooking_level / 2)
+	):
+		is_cooked = true
+		StatisticsManager.report_cooking_fully_cooked()
+	
+	if (
+			not is_burned and 
+			(cooking_levels[0] >= max_cooking_level or 
+			cooking_levels[1] >= max_cooking_level)
+	):
+		is_burned = true
+		StatisticsManager.report_cooking_burned()
 
 
 func set_shader_cooking_level(index: int) -> void:

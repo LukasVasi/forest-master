@@ -129,7 +129,6 @@ text = "Archery"
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 36
-disabled = true
 text = "Cooking"
 
 [node name="SettingsUI" parent="PanelContainer" instance=ExtResource("5_567dd")]

@@ -39,6 +39,7 @@ scale_curve = SubResource("CurveTexture_0dl2l")
 color_ramp = SubResource("GradientTexture1D_i4yod")
 emission_curve = SubResource("CurveTexture_cknpd")
 collision_mode = 2
+collision_use_scale = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qkmjo"]
 shading_mode = 0
@@ -60,6 +61,8 @@ script = ExtResource("1_06p7d")
 transform = Transform3D(1, 0, 0, 0, 1, -0.000279223, 0, 0.000279223, 1, 0, 0, 0)
 amount = 40
 lifetime = 0.7
+collision_base_size = 0.4
+visibility_aabb = AABB(-2, -1, -2, 4, 5, 4)
 trail_lifetime = 0.8
 process_material = SubResource("ParticleProcessMaterial_2hi8s")
 draw_pass_1 = SubResource("QuadMesh_al4w5")

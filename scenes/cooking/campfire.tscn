@@ -4,8 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://c1fnaq8oijhrw" path="res://scenes/cooking/fire.tscn" id="2_mefqy"]
 
 [sub_resource type="Curve" id="Curve_lc2eo"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.554585, 0.802869), -1.08452, -1.08452, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
+bake_resolution = 200
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.195122, 0.655422), 0.0, 0.0, 0, 0, Vector2(0.442073, 0.804217), 0.0, 0.0, 0, 0, Vector2(0.746951, 0.537952), -1.74303, -1.74303, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e8prx"]
 resource_name = "Material_Campfire_Rock"
@@ -131,13 +132,13 @@ points = PackedVector3Array(0.0067175, -0.0608167, -0.4973, 0.327199, 0.0529202,
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ktsd4"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_i3kyc"]
-size = Vector3(0.8, 1.2, 0.8)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_o6rbh"]
+height = 1.2
 
 [node name="Campfire" type="StaticBody3D"]
 script = ExtResource("1_fboka")
-fire_duration = 10.0
-fire_curve = SubResource("Curve_lc2eo")
+fire_duration = 60.0
+fire_ratio_curve = SubResource("Curve_lc2eo")
 
 [node name="CampfireMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0, 0, 0)
@@ -160,14 +161,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 shape = SubResource("SphereShape3D_ktsd4")
 
 [node name="HeatArea" type="Area3D" parent="."]
-transform = Transform3D(1, 0, -5.96046e-08, 0, 0.999999, 0, 5.96046e-08, 0, 1, 0, 0.6, 0)
+transform = Transform3D(1, 0, -5.96046e-08, 0, 0.999999, 0, 5.96046e-08, 0, 1, 0, 0.8, 0)
 collision_layer = 7
 collision_mask = 196615
 monitorable = false
 
 [node name="HeatAreaCollisionShape" type="CollisionShape3D" parent="HeatArea"]
-transform = Transform3D(1, 0, 3.55271e-15, 0, 1, 0, -3.55271e-15, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_i3kyc")
+transform = Transform3D(1, 0, 2.4869e-14, 0, 1, 0, -2.4869e-14, 0, 1, 0, 0.133387, 0)
+shape = SubResource("CylinderShape3D_o6rbh")
 
 [connection signal="body_entered" from="FuelArea" to="." method="_on_fuel_area_entered"]
 [connection signal="body_entered" from="HeatArea" to="." method="_on_heat_area_entered"]
