@@ -108,6 +108,7 @@ transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_jaue3")
 
 [node name="XRToolsHighlightVisible" type="Node3D" parent="FireWoodDispenser"]
+visible = false
 script = ExtResource("3_j4yw3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="FireWoodDispenser/XRToolsHighlightVisible"]

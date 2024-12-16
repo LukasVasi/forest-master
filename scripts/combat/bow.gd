@@ -81,6 +81,8 @@ func _on_pull_pick_dropped(_pickable: Variant) -> void:
 		# Give it a linear velocity
 		arrow.linear_velocity = transform.basis * Vector3(0.0, 0.0, -1 * pulled_back) * FIRE_FACTOR
 		
+		arrow.is_fired = true
+		
 		_audio.play()
 		
 		StatisticsManager.report_archery_shot()

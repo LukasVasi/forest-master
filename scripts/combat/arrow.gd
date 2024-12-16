@@ -2,10 +2,13 @@
 class_name Arrow
 extends PhysicalPickable
 
+
 @export var drag_force: float = 0.2
 @export var speed_threshold: float = 0.8
 
 @onready var fins: Node3D = get_node("Fins")
+
+var is_fired : bool = false
 
 
 func _physics_process(_delta: float) -> void:
@@ -22,8 +25,8 @@ func _physics_process(_delta: float) -> void:
 			apply_force(force, fins.global_position - global_position)
 
 
-func _on_arrow_body_entered(body: Node) -> void:
-	# Check if fired and travelling fast enough
-	if linear_velocity.length() > speed_threshold and body.has_method("on_hit_by_arrow"):
-		body.on_hit_by_arrow()
-		queue_free()
+func _on_hitbox_body_entered(body: Node3D) -> void:
+	if is_fired:
+		if body.has_method("on_hit_by_arrow"):
+			body.on_hit_by_arrow()
+			queue_free()
