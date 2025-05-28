@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=4 uid="uid://bc04w1qogmn4t"]
 
-[ext_resource type="Script" path="res://scripts/creatures/dragonfly.gd" id="1_sgv86"]
+[ext_resource type="Script" uid="uid://g8jkia7mgrra" path="res://scripts/creatures/dragonfly.gd" id="1_sgv86"]
 [ext_resource type="ArrayMesh" uid="uid://c122d03civn6h" path="res://models/fishing/dragonfly.mesh" id="2_t1rak"]
 
 [sub_resource type="AudioStreamMP3" id="AudioStreamMP3_vo8ch"]

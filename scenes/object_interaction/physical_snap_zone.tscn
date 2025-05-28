@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b0xwpbwu8s3iy"]
 
-[ext_resource type="Script" path="res://scripts/object_interaction/physical_snap_zone.gd" id="1_qpi11"]
+[ext_resource type="Script" uid="uid://c62kinm6y4g5n" path="res://scripts/object_interaction/physical_snap_zone.gd" id="1_qpi11"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_mufq3"]
 resource_local_to_scene = true

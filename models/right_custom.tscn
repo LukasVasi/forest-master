@@ -1,10 +1,12 @@
 [gd_scene load_steps=13 format=3 uid="uid://ce2ifntxsuc88"]
 
-[ext_resource type="Script" path="res://addons/godot-xr-tools/hands/hand.gd" id="1_huetj"]
+[ext_resource type="Script" uid="uid://beb62ehvjeatp" path="res://addons/godot-xr-tools/hands/hand.gd" id="1_huetj"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://m85b1gogdums" path="res://addons/godot-xr-tools/hands/animations/right/hand_blend_tree.tres" id="2_ecdbj"]
 [ext_resource type="Resource" uid="uid://dmpjtk0l8vh6v" path="res://addons/godot-xr-tools/hands/poses/pose_default_right.tres" id="3_rdpo1"]
-[ext_resource type="ArrayMesh" uid="uid://bnt82103vu60d" path="res://models/player/hands_MasterHandR.res" id="4_665ju"]
 [ext_resource type="PackedScene" uid="uid://bxipj7hyjwy6f" path="res://addons/godot-xr-tools/hands/animations/right/AnimationPlayer.tscn" id="6_p20s8"]
+
+[sub_resource type="Resource" id="Resource_o10me"]
+metadata/__load_path__ = "res://models/player/hands_MasterHandR.res"
 
 [sub_resource type="Skin" id="Skin_g4of8"]
 resource_name = "Skin"
@@ -314,7 +316,7 @@ bones/25/rotation = Quaternion(0.706524, 6.47993e-06, 8.68672e-06, 0.707689)
 bones/25/scale = Vector3(1, 1, 1)
 
 [node name="mesh_Hand_Custom_R" type="MeshInstance3D" parent="Hand_low_R/Armature/Skeleton3D"]
-mesh = ExtResource("4_665ju")
+mesh = SubResource("Resource_o10me")
 skin = SubResource("Skin_g4of8")
 
 [node name="AnimationPlayer" parent="Hand_low_R" instance=ExtResource("6_p20s8")]

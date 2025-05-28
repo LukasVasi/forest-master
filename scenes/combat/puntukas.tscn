@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://gcllbgl1kvjo"]
 
 [ext_resource type="PackedScene" uid="uid://c54r3sab53qp8" path="res://models/combat/Puntukass.glb" id="1_r0t4b"]
-[ext_resource type="Script" path="res://scripts/combat/puntukas.gd" id="2_2ri5k"]
+[ext_resource type="Script" uid="uid://baj66m4c6lfx" path="res://scripts/combat/puntukas.gd" id="2_2ri5k"]
 [ext_resource type="AudioStream" uid="uid://b8s52coajdbj5" path="res://Audio/gong-92707.mp3" id="3_21p2b"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0psd1"]

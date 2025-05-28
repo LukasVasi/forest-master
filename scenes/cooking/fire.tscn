@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://c1fnaq8oijhrw"]
 
-[ext_resource type="Script" path="res://scripts/cooking/fire.gd" id="1_06p7d"]
+[ext_resource type="Script" uid="uid://dp33rlt0x4dst" path="res://scripts/cooking/fire.gd" id="1_06p7d"]
 [ext_resource type="AudioStream" uid="uid://dmgmim828cyrk" path="res://Audio/testFire.mp3" id="2_sahwu"]
 
 [sub_resource type="Gradient" id="Gradient_feqqt"]

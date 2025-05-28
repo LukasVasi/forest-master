@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b2wwpdu2ao0np"]
 
-[ext_resource type="ArrayMesh" path="res://resources/bush2.mesh" id="1_efbqk"]
+[ext_resource type="ArrayMesh" uid="uid://cdorub1fx0ndu" path="res://resources/bush2.mesh" id="1_efbqk"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cxali"]
 albedo_color = Color(0.623529, 0.588235, 0.266667, 1)

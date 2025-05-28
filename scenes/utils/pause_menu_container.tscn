@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://ces1enrushk7a"]
 
-[ext_resource type="Script" path="res://scripts/utils/pause_menu_container.gd" id="1_8ntur"]
-[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.gd" id="2_bt2os"]
+[ext_resource type="Script" uid="uid://b2dll3caartf5" path="res://scripts/utils/pause_menu_container.gd" id="1_8ntur"]
+[ext_resource type="Script" uid="uid://bwxisd2ih56uw" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.gd" id="2_bt2os"]
 [ext_resource type="PackedScene" uid="uid://b5gug5ecibfou" path="res://scenes/ui/pause_menu.tscn" id="3_0tqcl"]
-[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d_body.gd" id="4_frv6f"]
+[ext_resource type="Script" uid="uid://bqip6yiqd0nmy" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d_body.gd" id="4_frv6f"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7l7ql"]
 transparency = 1

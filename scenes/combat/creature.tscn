@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bsmyjjetapi4p"]
 
-[ext_resource type="Script" path="res://scripts/combat/creature.gd" id="1_xxa1m"]
+[ext_resource type="Script" uid="uid://baat2fau7btgm" path="res://scripts/combat/creature.gd" id="1_xxa1m"]
 
 [sub_resource type="Curve3D" id="Curve3D_2omr6"]
 

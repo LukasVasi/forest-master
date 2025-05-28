@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://bs23kspg6yeoj"]
 
-[ext_resource type="Script" path="res://scripts/ui/main_menu_ui.gd" id="1_7ltjx"]
+[ext_resource type="Script" uid="uid://dq53snx0qwc60" path="res://scripts/ui/main_menu_ui.gd" id="1_7ltjx"]
 [ext_resource type="Theme" uid="uid://vq7t843uek2d" path="res://ui/ui_theme.tres" id="1_33823"]
 [ext_resource type="Texture2D" uid="uid://bu2wuubsrmtwl" path="res://ui/main-menu-panel-container.png" id="2_y1n8a"]
-[ext_resource type="Script" path="res://scripts/ui/tutorial_ui.gd" id="4_ue21y"]
+[ext_resource type="Script" uid="uid://cwa6t4erxdhtp" path="res://scripts/ui/tutorial_ui.gd" id="4_ue21y"]
 [ext_resource type="PackedScene" uid="uid://dpjmvdqo37mnt" path="res://scenes/ui/settings_ui.tscn" id="5_567dd"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g0vee"]

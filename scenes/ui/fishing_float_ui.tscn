@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cjb2f6jx81grv"]
 
-[ext_resource type="Script" path="res://scripts/ui/fishing_float_ui.gd" id="1_wbioe"]
+[ext_resource type="Script" uid="uid://csdddor808j8d" path="res://scripts/ui/fishing_float_ui.gd" id="1_wbioe"]
 [ext_resource type="Texture2D" uid="uid://c2diaperxmt34" path="res://ui/tension_bar_under.png" id="2_ohd21"]
 [ext_resource type="Texture2D" uid="uid://c5b713jli01tn" path="res://ui/tension_bar_progress.png" id="3_bn88w"]
 [ext_resource type="Texture2D" uid="uid://c20fyqqx27f7u" path="res://ui/fish_direction.png" id="4_78ksv"]

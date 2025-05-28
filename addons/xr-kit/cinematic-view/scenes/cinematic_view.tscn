@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b2jji68mjbl3h"]
 
-[ext_resource type="Script" path="res://addons/xr-kit/cinematic-view/scripts/cinematic_view.gd" id="1_bda45"]
+[ext_resource type="Script" uid="uid://crx8i3w3jhx18" path="res://addons/xr-kit/cinematic-view/scripts/cinematic_view.gd" id="1_bda45"]
 
 [node name="CinematicView" type="Node"]
 script = ExtResource("1_bda45")

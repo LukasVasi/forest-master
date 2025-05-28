@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dqmibi4ahont0"]
 
 [ext_resource type="Theme" uid="uid://vq7t843uek2d" path="res://ui/ui_theme.tres" id="1_wdvdm"]
-[ext_resource type="Script" path="res://scripts/ui/tutorial/basics_tutorial_ui.gd" id="2_tc4eo"]
+[ext_resource type="Script" uid="uid://bxmpo8ovb6bjr" path="res://scripts/ui/tutorial/basics_tutorial_ui.gd" id="2_tc4eo"]
 [ext_resource type="AudioStream" uid="uid://yd4p56lq8lw2" path="res://sounds/complete_sound.mp3" id="3_bjpu6"]
 
 [node name="BasicsTutorialUI" type="Control"]

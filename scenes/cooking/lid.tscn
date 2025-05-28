@@ -1,10 +1,10 @@
 [gd_scene load_steps=12 format=4 uid="uid://h4roksm87ytx"]
 
-[ext_resource type="Script" path="res://scripts/object_interaction/physical_pickable.gd" id="1_7topb"]
-[ext_resource type="Script" path="res://scripts/object_interaction/physical_grab_point_hand.gd" id="2_d5sak"]
+[ext_resource type="Script" uid="uid://hau8ih3seh60" path="res://scripts/object_interaction/physical_pickable.gd" id="1_7topb"]
+[ext_resource type="Script" uid="uid://c7bgnelqboooq" path="res://scripts/object_interaction/physical_grab_point_hand.gd" id="2_d5sak"]
 [ext_resource type="Material" uid="uid://nuogvh1u6wye" path="res://resources/highlight_material.tres" id="2_ofjcw"]
-[ext_resource type="Script" path="res://scripts/object_interaction/physical_grab_point_snap.gd" id="3_l2pq0"]
-[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="4_12vjq"]
+[ext_resource type="Script" uid="uid://coyvhxb1oriph" path="res://scripts/object_interaction/physical_grab_point_snap.gd" id="3_l2pq0"]
+[ext_resource type="Script" uid="uid://d257ki6hayqmw" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="4_12vjq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s1hfu"]
 resource_name = "Material.001"

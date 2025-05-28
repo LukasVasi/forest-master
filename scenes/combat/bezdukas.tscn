@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=4 uid="uid://bg5ho2o5jcc5d"]
 
-[ext_resource type="Script" path="res://scripts/combat/creature_hitbox.gd" id="1_2e6bn"]
+[ext_resource type="Script" uid="uid://ctqag3gfa47vt" path="res://scripts/combat/creature_hitbox.gd" id="1_2e6bn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jeuri"]
 resource_name = "M_Body_Green.008"
@@ -166,7 +166,7 @@ tracks/3/keys = PackedFloat32Array(0, 1, -0.107957, -0.00291547, -0.0224158, 0.9
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jmf54"]
 _data = {
-"Walking": SubResource("Animation_h2n7x")
+&"Walking": SubResource("Animation_h2n7x")
 }
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ewqhe"]

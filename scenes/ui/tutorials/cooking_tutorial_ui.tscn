@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://qj0u0n3r1nbp"]
 
 [ext_resource type="Theme" uid="uid://vq7t843uek2d" path="res://ui/ui_theme.tres" id="1_1g387"]
-[ext_resource type="Script" path="res://scripts/ui/tutorial/cooking_tutorial_ui.gd" id="2_v17jj"]
+[ext_resource type="Script" uid="uid://dqm7coqjsx48m" path="res://scripts/ui/tutorial/cooking_tutorial_ui.gd" id="2_v17jj"]
 [ext_resource type="AudioStream" uid="uid://yd4p56lq8lw2" path="res://sounds/complete_sound.mp3" id="3_01lc5"]
 
 [node name="CookingTutorialUI" type="Control"]

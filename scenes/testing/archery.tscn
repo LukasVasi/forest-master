@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://didc5iiuhck5g"]
 
-[ext_resource type="Script" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_c8gpk"]
+[ext_resource type="Script" uid="uid://dlxuxdfr5p8nk" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_c8gpk"]
 [ext_resource type="PackedScene" uid="uid://baqn44ngm0jv1" path="res://scenes/combat/bow.tscn" id="2_ha87q"]
 [ext_resource type="PackedScene" uid="uid://bsotifvyxaf5u" path="res://scenes/player/player.tscn" id="3_roto8"]
 [ext_resource type="PackedScene" uid="uid://bkj6ty5kdth1w" path="res://scenes/combat/quiver.tscn" id="3_v1abr"]

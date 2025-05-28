@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=4 uid="uid://bp5tb8du3d72d"]
 
-[ext_resource type="Script" path="res://scripts/cooking/campfire.gd" id="1_fboka"]
+[ext_resource type="Script" uid="uid://b3m3s27uacocj" path="res://scripts/cooking/campfire.gd" id="1_fboka"]
 [ext_resource type="PackedScene" uid="uid://c1fnaq8oijhrw" path="res://scenes/cooking/fire.tscn" id="2_mefqy"]
 
 [sub_resource type="Curve" id="Curve_lc2eo"]

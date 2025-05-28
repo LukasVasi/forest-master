@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://c1y8dfahi1fuc"]
 
-[ext_resource type="Script" path="res://scripts/fishing/distractions/distraction_fish.gd" id="1_3h2c7"]
+[ext_resource type="Script" uid="uid://bacv0b5cwamnm" path="res://scripts/fishing/distractions/distraction_fish.gd" id="1_3h2c7"]
 [ext_resource type="ArrayMesh" uid="uid://bod2dkjjdge40" path="res://models/fishing/fishes/fishes_Raude.res" id="2_i2k8k"]
 [ext_resource type="Material" uid="uid://dplpxikf4jsfd" path="res://resources/water_splash.tres" id="3_p5mhv"]
 
@@ -69,7 +69,7 @@ tracks/5/keys = PackedFloat32Array(0.4, 1, 0, 0, 0.0625922, 1.7, 1, 0, 0, 0.3169
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rf76k"]
 _data = {
-"jump": SubResource("Animation_x8m85")
+&"jump": SubResource("Animation_x8m85")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ncgt"]

@@ -1,12 +1,12 @@
 [gd_scene load_steps=10 format=3 uid="uid://xgtyhnl6lct2"]
 
-[ext_resource type="Script" path="res://scripts/fishing/fishing_manager.gd" id="1_ujxnu"]
+[ext_resource type="Script" uid="uid://cxv53akm5o3r7" path="res://scripts/fishing/fishing_manager.gd" id="1_ujxnu"]
 [ext_resource type="PackedScene" uid="uid://wus354uwp5a2" path="res://scenes/fishing/distractions/distraction_kuoja.tscn" id="2_1muwk"]
 [ext_resource type="PackedScene" uid="uid://c1y8dfahi1fuc" path="res://scenes/fishing/distractions/distraction_raude.tscn" id="3_7nvx7"]
 [ext_resource type="PackedScene" uid="uid://bbla6hg7d0ct1" path="res://scenes/fishing/distractions/distraction_lynas.tscn" id="4_opj7l"]
 [ext_resource type="PackedScene" uid="uid://b4grfvgpri7y5" path="res://scenes/fishing/distractions/distraction_wind.tscn" id="5_4kbod"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="6_sqfoc"]
-[ext_resource type="Script" path="res://scripts/utils/fishing_float_ui_viewport.gd" id="7_mri7h"]
+[ext_resource type="Script" uid="uid://deo22bnyg1y1i" path="res://scripts/utils/fishing_float_ui_viewport.gd" id="7_mri7h"]
 [ext_resource type="PackedScene" uid="uid://cjb2f6jx81grv" path="res://scenes/ui/fishing_float_ui.tscn" id="8_q4fkn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qq1v6"]

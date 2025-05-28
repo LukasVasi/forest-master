@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://dil16xqh8spna"]
 
-[ext_resource type="Script" path="res://scripts/fishing/fishing_float.gd" id="1_5cgpm"]
+[ext_resource type="Script" uid="uid://cl1bpaudw0718" path="res://scripts/fishing/fishing_float.gd" id="1_5cgpm"]
 [ext_resource type="ArrayMesh" uid="uid://b5ptwvx7ticus" path="res://resources/fishing_float_mesh.tres" id="2_e3h5b"]
 [ext_resource type="ArrayMesh" uid="uid://vo2gkmory8yb" path="res://resources/star_mesh.tres" id="3_q7fu4"]
 [ext_resource type="Material" uid="uid://cbrnqu12cdpor" path="res://resources/water_particles.tres" id="4_unhn5"]

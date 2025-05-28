@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://ch54hnpbw88c8" path="res://scenes/combat/arrow.tscn" id="1_03pyv"]
 [ext_resource type="PackedScene" uid="uid://ph85krivvsm0" path="res://scenes/object_interaction/pickable_dispenser.tscn" id="2_x5fqr"]
-[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="3_ciuo5"]
+[ext_resource type="Script" uid="uid://d257ki6hayqmw" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="3_ciuo5"]
 [ext_resource type="ArrayMesh" uid="uid://dk34hw7u8cupp" path="res://models/combat/Arrow.obj" id="3_xah7i"]
 [ext_resource type="Material" uid="uid://nuogvh1u6wye" path="res://resources/highlight_material.tres" id="4_srnta"]
 

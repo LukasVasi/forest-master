@@ -1,9 +1,9 @@
 [gd_scene load_steps=21 format=3 uid="uid://bsotifvyxaf5u"]
 
-[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_j3yl7"]
+[ext_resource type="Script" uid="uid://ds6cxonowxstx" path="res://scripts/player/player.gd" id="1_j3yl7"]
 [ext_resource type="PackedScene" uid="uid://btknduttnmoxf" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="2_n3ej6"]
 [ext_resource type="PackedScene" uid="uid://cywxx6drva3wo" path="res://scenes/player/hands/right_ghost_hand.tscn" id="3_4m8a8"]
-[ext_resource type="Shader" path="res://shaders/ghost_hand_shader.gdshader" id="4_em0wq"]
+[ext_resource type="Shader" uid="uid://dkfnsjgelhywr" path="res://shaders/ghost_hand_shader.gdshader" id="4_em0wq"]
 [ext_resource type="PackedScene" uid="uid://difr003pluy10" path="res://scenes/player/hands/right_physical_hand.tscn" id="5_7pet1"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="7_ujmcf"]
 [ext_resource type="Material" uid="uid://bimaj4q2n44vt" path="res://resources/pointer_material.tres" id="8_3gkwq"]
@@ -17,7 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="16_dc5v3"]
 [ext_resource type="PackedScene" uid="uid://dphcujw0jaqld" path="res://scenes/utils/fps_counter.tscn" id="17_8lcfs"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="18_ohvkj"]
-[ext_resource type="Script" path="res://scripts/player/player_body.gd" id="19_ikctw"]
+[ext_resource type="Script" uid="uid://ckpcypk6n5du5" path="res://scripts/player/player_body.gd" id="19_ikctw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1lec5"]
 render_priority = 0

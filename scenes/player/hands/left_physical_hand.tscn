@@ -1,11 +1,11 @@
 [gd_scene load_steps=53 format=3 uid="uid://dl1miotgluu08"]
 
-[ext_resource type="Script" path="res://scripts/player/hands/physical_hand.gd" id="1_dcgmw"]
-[ext_resource type="Script" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="2_4ia2d"]
+[ext_resource type="Script" uid="uid://dkn4dx6wrdbu" path="res://scripts/player/hands/physical_hand.gd" id="1_dcgmw"]
+[ext_resource type="Script" uid="uid://cep6lstrwifkc" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="2_4ia2d"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://dl8yf7ipqotd1" path="res://addons/godot-xr-tools/hands/animations/left/hand_blend_tree.tres" id="3_y0666"]
 [ext_resource type="Resource" uid="uid://dertgu7k8alls" path="res://addons/godot-xr-tools/hands/poses/pose_default_left.tres" id="4_rbkdq"]
 [ext_resource type="ArrayMesh" uid="uid://cp4eo8kb8ui5i" path="res://models/player/hands_Forest_Master_Hand_L.res" id="5_6nc62"]
-[ext_resource type="Script" path="res://scenes/player/hands/collision_area.gd" id="5_xlani"]
+[ext_resource type="Script" uid="uid://ce33dvgjsa45v" path="res://scenes/player/hands/collision_area.gd" id="5_xlani"]
 [ext_resource type="Animation" uid="uid://dgfeikrugfewi" path="res://addons/godot-xr-tools/hands/animations/left/Cup.res" id="6_7cd2i"]
 [ext_resource type="Animation" uid="uid://dlxa6f6hwurka" path="res://addons/godot-xr-tools/hands/animations/left/Default pose.res" id="7_5py5q"]
 [ext_resource type="Animation" uid="uid://plad1r85f7ws" path="res://addons/godot-xr-tools/hands/animations/left/Grip.res" id="8_g8u0r"]
@@ -139,41 +139,41 @@ bind/25/pose = Transform3D(1, -3.12371e-06, 3.13855e-06, 3.12364e-06, 1, 1.98203
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kw48d"]
 _data = {
-"Cup": ExtResource("6_7cd2i"),
-"Default pose": ExtResource("7_5py5q"),
-"Grip": ExtResource("8_g8u0r"),
-"Grip 1": ExtResource("9_cy6ji"),
-"Grip 2": ExtResource("10_yru4q"),
-"Grip 3": ExtResource("11_rnkpx"),
-"Grip 4": ExtResource("12_2gv77"),
-"Grip 5": ExtResource("13_7bwpy"),
-"Grip Shaft": ExtResource("14_htvnx"),
-"Hold": ExtResource("15_t6x68"),
-"Horns": ExtResource("16_x4nd4"),
-"Metal": ExtResource("17_awmx1"),
-"Middle": ExtResource("18_5j4uh"),
-"OK": ExtResource("19_m5cfp"),
-"Peace": ExtResource("20_je0pu"),
-"Pinch Flat": ExtResource("21_pu6se"),
-"Pinch Large": ExtResource("22_xw0ll"),
-"Pinch Middle": ExtResource("23_xm2oj"),
-"Pinch Ring": ExtResource("24_n7qoj"),
-"Pinch Tight": ExtResource("25_mh1vi"),
-"Pinch Up": ExtResource("26_mr77w"),
-"PingPong": ExtResource("27_p3prf"),
-"Pinky": ExtResource("28_43cv5"),
-"Pistol": ExtResource("29_2ipht"),
-"Ring": ExtResource("30_8ofr2"),
-"Rounded": ExtResource("31_5wyjt"),
-"Sign 1": ExtResource("32_jc2ur"),
-"Sign 2": ExtResource("33_mt4gd"),
-"Sign 3": ExtResource("34_rrn8g"),
-"Sign 4": ExtResource("35_mlqjj"),
-"Sign 5": ExtResource("36_4x7tj"),
-"Sign_Point": ExtResource("37_neur4"),
-"Straight": ExtResource("38_7ar6c"),
-"Surfer": ExtResource("39_yajvg"),
-"Thumb": ExtResource("40_d060h")
+&"Cup": ExtResource("6_7cd2i"),
+&"Default pose": ExtResource("7_5py5q"),
+&"Grip": ExtResource("8_g8u0r"),
+&"Grip 1": ExtResource("9_cy6ji"),
+&"Grip 2": ExtResource("10_yru4q"),
+&"Grip 3": ExtResource("11_rnkpx"),
+&"Grip 4": ExtResource("12_2gv77"),
+&"Grip 5": ExtResource("13_7bwpy"),
+&"Grip Shaft": ExtResource("14_htvnx"),
+&"Hold": ExtResource("15_t6x68"),
+&"Horns": ExtResource("16_x4nd4"),
+&"Metal": ExtResource("17_awmx1"),
+&"Middle": ExtResource("18_5j4uh"),
+&"OK": ExtResource("19_m5cfp"),
+&"Peace": ExtResource("20_je0pu"),
+&"Pinch Flat": ExtResource("21_pu6se"),
+&"Pinch Large": ExtResource("22_xw0ll"),
+&"Pinch Middle": ExtResource("23_xm2oj"),
+&"Pinch Ring": ExtResource("24_n7qoj"),
+&"Pinch Tight": ExtResource("25_mh1vi"),
+&"Pinch Up": ExtResource("26_mr77w"),
+&"PingPong": ExtResource("27_p3prf"),
+&"Pinky": ExtResource("28_43cv5"),
+&"Pistol": ExtResource("29_2ipht"),
+&"Ring": ExtResource("30_8ofr2"),
+&"Rounded": ExtResource("31_5wyjt"),
+&"Sign 1": ExtResource("32_jc2ur"),
+&"Sign 2": ExtResource("33_mt4gd"),
+&"Sign 3": ExtResource("34_rrn8g"),
+&"Sign 4": ExtResource("35_mlqjj"),
+&"Sign 5": ExtResource("36_4x7tj"),
+&"Sign_Point": ExtResource("37_neur4"),
+&"Straight": ExtResource("38_7ar6c"),
+&"Surfer": ExtResource("39_yajvg"),
+&"Thumb": ExtResource("40_d060h")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qqli0"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dpjmvdqo37mnt"]
 
 [ext_resource type="Theme" uid="uid://vq7t843uek2d" path="res://ui/ui_theme.tres" id="1_22ktl"]
-[ext_resource type="Script" path="res://scripts/ui/settings_ui.gd" id="1_dx2j5"]
+[ext_resource type="Script" uid="uid://c02rf6qhfyb0p" path="res://scripts/ui/settings_ui.gd" id="1_dx2j5"]
 
 [sub_resource type="GDScript" id="GDScript_7pa04"]
 resource_name = "height_value"

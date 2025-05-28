@@ -1,11 +1,11 @@
 [gd_scene load_steps=52 format=3 uid="uid://mx6owhjjvnc8"]
 
-[ext_resource type="Script" path="res://scripts/player/hands/ghost_hand.gd" id="1_07omv"]
+[ext_resource type="Script" uid="uid://d024bp3uxpwqf" path="res://scripts/player/hands/ghost_hand.gd" id="1_07omv"]
 [ext_resource type="Animation" uid="uid://dgfeikrugfewi" path="res://addons/godot-xr-tools/hands/animations/left/Cup.res" id="1_acgc3"]
 [ext_resource type="Animation" uid="uid://dlxa6f6hwurka" path="res://addons/godot-xr-tools/hands/animations/left/Default pose.res" id="2_badg7"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://dl8yf7ipqotd1" path="res://addons/godot-xr-tools/hands/animations/left/hand_blend_tree.tres" id="2_jjr31"]
 [ext_resource type="Animation" uid="uid://plad1r85f7ws" path="res://addons/godot-xr-tools/hands/animations/left/Grip.res" id="3_7tdaw"]
-[ext_resource type="Shader" path="res://shaders/ghost_hand_shader.gdshader" id="3_qi15m"]
+[ext_resource type="Shader" uid="uid://dkfnsjgelhywr" path="res://shaders/ghost_hand_shader.gdshader" id="3_qi15m"]
 [ext_resource type="Animation" uid="uid://dqa0h82y3qn1t" path="res://addons/godot-xr-tools/hands/animations/left/Grip 1.res" id="4_13qm7"]
 [ext_resource type="Resource" uid="uid://dertgu7k8alls" path="res://addons/godot-xr-tools/hands/poses/pose_default_left.tres" id="4_h2i3w"]
 [ext_resource type="Material" uid="uid://bbkepd3wprg37" path="res://resources/ghost_hand_material.tres" id="4_mn56u"]
@@ -138,41 +138,41 @@ bind/25/pose = Transform3D(1, -3.12371e-06, 3.13855e-06, 3.12364e-06, 1, 1.98203
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kw48d"]
 _data = {
-"Cup": ExtResource("1_acgc3"),
-"Default pose": ExtResource("2_badg7"),
-"Grip": ExtResource("3_7tdaw"),
-"Grip 1": ExtResource("4_13qm7"),
-"Grip 2": ExtResource("5_6tesn"),
-"Grip 3": ExtResource("6_dnx38"),
-"Grip 4": ExtResource("7_uhrt8"),
-"Grip 5": ExtResource("8_mjobo"),
-"Grip Shaft": ExtResource("9_q7tvx"),
-"Hold": ExtResource("10_6krjs"),
-"Horns": ExtResource("11_uesxq"),
-"Metal": ExtResource("12_ldrmr"),
-"Middle": ExtResource("13_lfvs7"),
-"OK": ExtResource("14_ccwl1"),
-"Peace": ExtResource("15_xdgao"),
-"Pinch Flat": ExtResource("16_emnj5"),
-"Pinch Large": ExtResource("17_t527g"),
-"Pinch Middle": ExtResource("18_7l52i"),
-"Pinch Ring": ExtResource("19_tbkyl"),
-"Pinch Tight": ExtResource("20_2xggb"),
-"Pinch Up": ExtResource("21_c5oh6"),
-"PingPong": ExtResource("22_muw2b"),
-"Pinky": ExtResource("23_m35ek"),
-"Pistol": ExtResource("24_8lsw3"),
-"Ring": ExtResource("25_uacpu"),
-"Rounded": ExtResource("26_h03au"),
-"Sign 1": ExtResource("27_twgnj"),
-"Sign 2": ExtResource("28_6bv23"),
-"Sign 3": ExtResource("29_0ixqw"),
-"Sign 4": ExtResource("30_5asiu"),
-"Sign 5": ExtResource("31_sml1m"),
-"Sign_Point": ExtResource("32_hdjs6"),
-"Straight": ExtResource("33_aodtf"),
-"Surfer": ExtResource("34_edely"),
-"Thumb": ExtResource("35_t4son")
+&"Cup": ExtResource("1_acgc3"),
+&"Default pose": ExtResource("2_badg7"),
+&"Grip": ExtResource("3_7tdaw"),
+&"Grip 1": ExtResource("4_13qm7"),
+&"Grip 2": ExtResource("5_6tesn"),
+&"Grip 3": ExtResource("6_dnx38"),
+&"Grip 4": ExtResource("7_uhrt8"),
+&"Grip 5": ExtResource("8_mjobo"),
+&"Grip Shaft": ExtResource("9_q7tvx"),
+&"Hold": ExtResource("10_6krjs"),
+&"Horns": ExtResource("11_uesxq"),
+&"Metal": ExtResource("12_ldrmr"),
+&"Middle": ExtResource("13_lfvs7"),
+&"OK": ExtResource("14_ccwl1"),
+&"Peace": ExtResource("15_xdgao"),
+&"Pinch Flat": ExtResource("16_emnj5"),
+&"Pinch Large": ExtResource("17_t527g"),
+&"Pinch Middle": ExtResource("18_7l52i"),
+&"Pinch Ring": ExtResource("19_tbkyl"),
+&"Pinch Tight": ExtResource("20_2xggb"),
+&"Pinch Up": ExtResource("21_c5oh6"),
+&"PingPong": ExtResource("22_muw2b"),
+&"Pinky": ExtResource("23_m35ek"),
+&"Pistol": ExtResource("24_8lsw3"),
+&"Ring": ExtResource("25_uacpu"),
+&"Rounded": ExtResource("26_h03au"),
+&"Sign 1": ExtResource("27_twgnj"),
+&"Sign 2": ExtResource("28_6bv23"),
+&"Sign 3": ExtResource("29_0ixqw"),
+&"Sign 4": ExtResource("30_5asiu"),
+&"Sign 5": ExtResource("31_sml1m"),
+&"Sign_Point": ExtResource("32_hdjs6"),
+&"Straight": ExtResource("33_aodtf"),
+&"Surfer": ExtResource("34_edely"),
+&"Thumb": ExtResource("35_t4son")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e6dc3"]

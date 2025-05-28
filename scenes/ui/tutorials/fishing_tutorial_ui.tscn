@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b3fehxu0naanp"]
 
 [ext_resource type="Theme" uid="uid://vq7t843uek2d" path="res://ui/ui_theme.tres" id="1_iraoh"]
-[ext_resource type="Script" path="res://scripts/ui/tutorial/fishing_tutorial_ui.gd" id="2_f6m44"]
+[ext_resource type="Script" uid="uid://sg1kfbqdjtyp" path="res://scripts/ui/tutorial/fishing_tutorial_ui.gd" id="2_f6m44"]
 [ext_resource type="AudioStream" uid="uid://yd4p56lq8lw2" path="res://sounds/complete_sound.mp3" id="3_dfo1y"]
 
 [node name="FishingTutorialUI" type="Control"]

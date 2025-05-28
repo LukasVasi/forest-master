@@ -1,11 +1,11 @@
 [gd_scene load_steps=16 format=4 uid="uid://ch54hnpbw88c8"]
 
 [ext_resource type="ArrayMesh" uid="uid://dk34hw7u8cupp" path="res://models/combat/Arrow.obj" id="2_cbrjt"]
-[ext_resource type="Script" path="res://scripts/combat/arrow.gd" id="2_wvahv"]
+[ext_resource type="Script" uid="uid://ch2xt3i6jtv1p" path="res://scripts/combat/arrow.gd" id="2_wvahv"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="4_1vg0j"]
-[ext_resource type="Script" path="res://scripts/object_interaction/physical_grab_point_hand.gd" id="4_ktfon"]
+[ext_resource type="Script" uid="uid://c7bgnelqboooq" path="res://scripts/object_interaction/physical_grab_point_hand.gd" id="4_ktfon"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="5_mkmj4"]
-[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="6_g620s"]
+[ext_resource type="Script" uid="uid://d257ki6hayqmw" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="6_g620s"]
 [ext_resource type="PackedScene" uid="uid://7adcm63eh1yv" path="res://scenes/object_interaction/physical_grab_point_snap.tscn" id="6_o578a"]
 [ext_resource type="Material" uid="uid://nuogvh1u6wye" path="res://resources/highlight_material.tres" id="8_2uk4d"]
 

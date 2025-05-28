@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://coi25buc88g6d"]
 
-[ext_resource type="Script" path="res://scripts/creatures/creature_movement.gd" id="1_3pluy"]
+[ext_resource type="Script" uid="uid://2o2jcqqa4hnb" path="res://scripts/creatures/creature_movement.gd" id="1_3pluy"]
 [ext_resource type="ArrayMesh" uid="uid://wi03gtuipdw0" path="res://resources/mock_fish.tres" id="2_b5fcu"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6gsnr"]

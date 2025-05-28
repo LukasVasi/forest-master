@@ -1,6 +1,6 @@
 [gd_scene load_steps=67 format=4 uid="uid://dpsib5iueaosj"]
 
-[ext_resource type="Script" path="res://scripts/utils/scene_base.gd" id="1_hxedj"]
+[ext_resource type="Script" uid="uid://dht2byvq4ggd2" path="res://scripts/utils/scene_base.gd" id="1_hxedj"]
 [ext_resource type="PackedScene" uid="uid://bsotifvyxaf5u" path="res://scenes/player/player.tscn" id="2_w8p1u"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="3_rptlx"]
 [ext_resource type="PackedScene" uid="uid://dqmibi4ahont0" path="res://scenes/ui/tutorials/basics_tutorial_ui.tscn" id="4_ulnd5"]
@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ces1enrushk7a" path="res://scenes/utils/pause_menu_container.tscn" id="5_fl1eh"]
 [ext_resource type="PackedScene" uid="uid://cfdglxxc6feb" path="res://scenes/testing/heavy_test_cube.tscn" id="6_5hxd1"]
 [ext_resource type="PackedScene" uid="uid://d1df0epcleg23" path="res://scenes/fishing/dock.tscn" id="6_d6x8y"]
-[ext_resource type="Shader" path="res://shaders/Low_poly_water.gdshader" id="7_2r6rt"]
+[ext_resource type="Shader" uid="uid://mxad8pmd80y1" path="res://shaders/Low_poly_water.gdshader" id="7_2r6rt"]
 [ext_resource type="PackedScene" uid="uid://qat0jalvcswc" path="res://scenes/environment/tent.tscn" id="8_mpptu"]
 [ext_resource type="ArrayMesh" uid="uid://b6yqjvidi8vai" path="res://resources/fir_3_LOD0.mesh" id="9_utcgu"]
 [ext_resource type="ArrayMesh" uid="uid://bffw5ionewh8" path="res://resources/lily_pad.mesh" id="10_um88t"]

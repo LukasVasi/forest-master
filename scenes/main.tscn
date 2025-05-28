@@ -1,6 +1,6 @@
 [gd_scene load_steps=75 format=4 uid="uid://dqmlp2hfmrh7m"]
 
-[ext_resource type="Script" path="res://scripts/main.gd" id="1_f856c"]
+[ext_resource type="Script" uid="uid://dvf7bdtog0ku5" path="res://scripts/main.gd" id="1_f856c"]
 [ext_resource type="PackedScene" uid="uid://ces1enrushk7a" path="res://scenes/utils/pause_menu_container.tscn" id="2_iwn03"]
 [ext_resource type="Environment" uid="uid://edotw462mqao" path="res://resources/environment.tres" id="3_uue1d"]
 [ext_resource type="PackedScene" uid="uid://xgtyhnl6lct2" path="res://scenes/fishing/fishing.tscn" id="8_emfhn"]
@@ -18,7 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://cirviy7nnojqm" path="res://models/nature/bushes/bush_small.glb" id="32_1c0df"]
 [ext_resource type="ArrayMesh" uid="uid://bffw5ionewh8" path="res://resources/lily_pad.mesh" id="32_p55uf"]
 [ext_resource type="ArrayMesh" uid="uid://ba21yn7gcpbro" path="res://resources/reed.mesh" id="33_cbqye"]
-[ext_resource type="Script" path="res://scripts/combat/creature_manager.gd" id="33_f4c4m"]
+[ext_resource type="Script" uid="uid://r5so04estogr" path="res://scripts/combat/creature_manager.gd" id="33_f4c4m"]
 [ext_resource type="PackedScene" uid="uid://cj0af44eyc5lh" path="res://models/nature/bushes/stump.glb" id="33_qiqs6"]
 [ext_resource type="ArrayMesh" uid="uid://nll4edetaqqw" path="res://resources/watergrass.mesh" id="34_4gx3r"]
 [ext_resource type="PackedScene" uid="uid://cafexsdximroi" path="res://models/nature/rocks/small/Rock_small_v1.glb" id="34_jwjut"]

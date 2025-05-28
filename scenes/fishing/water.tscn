@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://ca0ohfqspp2pg"]
 
-[ext_resource type="Script" path="res://scripts/fishing/water.gd" id="1_cx5po"]
-[ext_resource type="Shader" path="res://shaders/Low_poly_water.gdshader" id="2_631yg"]
+[ext_resource type="Script" uid="uid://bsme426bpu0s1" path="res://scripts/fishing/water.gd" id="1_cx5po"]
+[ext_resource type="Shader" uid="uid://mxad8pmd80y1" path="res://shaders/Low_poly_water.gdshader" id="2_631yg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vewt5"]
 size = Vector3(40, 8, 40)
