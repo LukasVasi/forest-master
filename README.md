@@ -10,5 +10,6 @@ This project is a personal continuation of a project called **"Forestmėjster"**
  - Laura Pacevičiūtė
  - Tomas Sakalauskas
 
-The team was mentored by lecturer Eligijus Kiudys. 
-The final playable version of the original project can be found on [Itch.io](https://forestmejster.itch.io/forestmejster).
+The team was mentored by lecturer Eligijus Kiudys.
+
+The initial project repository can be found [here](https://github.com/sidis123/ForestMejster). The final playable version of the original project can be found on [Itch.io](https://forestmejster.itch.io/forestmejster).
